@@ -46,7 +46,7 @@ public class ParseMatch {
 
             }
             this.numRows = match.size();
-            this.numCols = match.size();
+            this.numCols = 16;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,11 +55,11 @@ public class ParseMatch {
         return true;
     }
 
-    private long getNumRows(){
+    public long getNumRows(){
         return this.numRows;
     }
 
-    private int getNumCols(){
+    public int getNumCols(){
         return this.numCols;
     }
 

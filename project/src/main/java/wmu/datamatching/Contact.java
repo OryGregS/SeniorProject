@@ -171,6 +171,8 @@ public class Contact {
         return ContactID;
     }
 
+
+
     public void printAll() {
         System.out.printf("%-40s %-40s %-40s %-40s %-40s %-40s %-40s " +
                 "%-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s",
