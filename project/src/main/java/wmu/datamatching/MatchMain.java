@@ -4,8 +4,8 @@ public class MatchMain {
 
     public static void main(String[] args) {
 
-        String masterpath = "./data/clean/master.csv";
-        String matchpath = "./data/clean/match.csv";
+        String masterpath = "./data/contact_master.csv";
+        String matchpath = "./data/contact_match.csv";
 
         ParseMaster master = new ParseMaster();
         master.readCSV(masterpath);

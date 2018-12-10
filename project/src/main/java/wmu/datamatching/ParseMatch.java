@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 public class ParseMatch implements iParseData {
 
-    private final String filePath = "./data/clean/match.csv";
-
     ArrayList<ArrayList> match = new ArrayList<>();
 
     ArrayList<String> LAST_NAME = new ArrayList<>();
@@ -50,7 +48,7 @@ public class ParseMatch implements iParseData {
 
         try {
 
-            Reader reader = Files.newBufferedReader(Paths.get(this.filePath));
+            Reader reader = Files.newBufferedReader(Paths.get(filePath));
             CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT);
 
             for (CSVRecord obs : csv) {

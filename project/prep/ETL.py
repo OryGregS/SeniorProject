@@ -103,14 +103,24 @@ class ETL():
         self.datasets[0].to_csv("../data/clean/master.csv", index=False)
         self.datasets[1].to_csv("../data/clean/match.csv", index=False)
 
-#%%
-#etl = ETL()
-#etl.load_data("../data/dirty/master.csv", "../data/dirty/match.csv")
-#etl.chtype()
-#etl.drop_cols()
-#etl.clean_data()
-#etl.toCSV()
-#master, match = etl.getData()
 
 #%%
-#master.head()
+dirty_master = pd.read_csv('../data/dirty/master.csv', 
+            error_bad_lines=False, engine='python', warn_bad_lines=False)
+dirty_match = pd.read_csv('../data/dirty/match.csv', 
+            error_bad_lines=False, engine='python', warn_bad_lines=False)
+#%%
+etl = ETL()
+etl.load_data("../data/dirty/master.csv", "../data/dirty/match.csv")
+etl.chtype()
+etl.drop_cols()
+etl.clean_data()
+etl.toCSV()
+master, match = etl.getData()
+
+#%%
+dirty_master.head()
+
+#%%
+master.head()
+
