@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class ParseMatch {
 
-    ArrayList<Contact> match = new ArrayList<>();
-
+    private ArrayList<Contact> match = new ArrayList<>();
+    private long numRows;
     public boolean readCSV(String filePath) {
 
         try {
@@ -42,13 +42,19 @@ public class ParseMatch {
                 contact.setContactID(checkNULL(obs.get(15)));
 
                 match.add(contact);
+
             }
+            numRows = match.size();
 
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    private long getNumRows(){
+        return this.numRows;
     }
 
     private String checkNULL(String data) {

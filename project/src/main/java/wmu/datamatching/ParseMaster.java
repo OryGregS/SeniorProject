@@ -51,6 +51,11 @@ public class ParseMaster {
         return true;
     }
 
+    /***
+     *
+     * @param data
+     * @return
+     */
     private String checkNULL(String data) {
 
         if (data.equals("NULL")) {
@@ -61,10 +66,15 @@ public class ParseMaster {
 
     }
 
+    /***
+     *
+     * @return
+     */
     public boolean head() {
 
         System.out.println("\n-----MASTER-----\n");
-        for (int i = 0; i < 6; i++) {
+        int i;
+        for (i = 0; i < 6; i++) {
             master.get(i).printAll();
             System.out.println();
         }
