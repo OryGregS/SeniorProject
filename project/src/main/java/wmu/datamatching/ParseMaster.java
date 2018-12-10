@@ -68,6 +68,10 @@ public class ParseMaster {
 
     }
 
+    public ArrayList<Contact> getMasterList() {
+        return master;
+    }
+
     /***
      *
      * @return

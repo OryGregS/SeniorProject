@@ -73,6 +73,10 @@ public class ParseMatch {
 
     }
 
+    public ArrayList<Contact> getMatchList() {
+        return match;
+    }
+
     public boolean head() {
 
         System.out.println("\n-----MATCH-----\n");
