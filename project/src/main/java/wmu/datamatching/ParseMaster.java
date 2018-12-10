@@ -1,6 +1,6 @@
 package wmu.datamatching;
 
-import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -10,39 +10,9 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ParseMaster implements iParseData  {
+public class ParseMaster {
 
-    ArrayList<ArrayList> master = new ArrayList<>();
-
-    ArrayList<String> LAST_NAME = new ArrayList<>();
-    ArrayList<String> MIDDLE_NAME = new ArrayList<>();
-    ArrayList<String> FIRST_NAME = new ArrayList<>();
-    ArrayList<String> EMAIL_ADDRESS = new ArrayList<>();
-    ArrayList<String> BUSINESS_PHONE = new ArrayList<>();
-    ArrayList<String> ADDRESS = new ArrayList<>();
-    ArrayList<String> CITY = new ArrayList<>();
-    ArrayList<String> STATE_PROVINCE = new ArrayList<>();
-    ArrayList<String> ZIP_1 = new ArrayList<>();
-    ArrayList<String> ZIP_2 = new ArrayList<>();
-    ArrayList<String> COUNTRY_ID = new ArrayList<>();
-    ArrayList<String> CRD_NUMBER = new ArrayList<>();
-    ArrayList<String> CONTACT_ID = new ArrayList<>();
-
-    public ParseMaster() {
-        this.master.add(LAST_NAME);
-        this.master.add(MIDDLE_NAME);
-        this.master.add(FIRST_NAME);
-        this.master.add(EMAIL_ADDRESS);
-        this.master.add(BUSINESS_PHONE);
-        this.master.add(ADDRESS);
-        this.master.add(CITY);
-        this.master.add(STATE_PROVINCE);
-        this.master.add(ZIP_1);
-        this.master.add(ZIP_2);
-        this.master.add(COUNTRY_ID);
-        this.master.add(CRD_NUMBER);
-        this.master.add(CONTACT_ID);
-    }
+    ArrayList<Contact> master = new ArrayList<>();
 
     public boolean readCSV(String filePath) {
 
@@ -52,36 +22,50 @@ public class ParseMaster implements iParseData  {
             CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT);
 
             for (CSVRecord obs : csv) {
-                LAST_NAME.add(obs.get(0));
-                MIDDLE_NAME.add(obs.get(1));
-                FIRST_NAME.add(obs.get(2));
-                EMAIL_ADDRESS.add(obs.get(3));
-                BUSINESS_PHONE.add(obs.get(4));
-                ADDRESS.add(obs.get(5));
-                CITY.add(obs.get(6));
-                STATE_PROVINCE.add(obs.get(7));
-                ZIP_1.add(obs.get(8));
-                ZIP_2.add(obs.get(9));
-                COUNTRY_ID.add(obs.get(10));
-                CRD_NUMBER.add(obs.get(11));
-                CONTACT_ID.add(obs.get(12));
+                Contact contact = new Contact();
+
+                contact.setLastName(checkNULL(obs.get(0)));
+                contact.setMiddleName(checkNULL(obs.get(1)));
+                contact.setFirstName(checkNULL(obs.get(2)));
+                contact.setFirmName(checkNULL(obs.get(3)));
+                contact.setOfficeName(checkNULL(obs.get(4)));
+                contact.setEmail(checkNULL(obs.get(5)));
+                contact.setBusinessPhone(checkNULL(obs.get(6)));
+                contact.setAddress1(checkNULL(obs.get(7)));
+                contact.setAddress2(checkNULL(obs.get(8)));
+                contact.setCity(checkNULL(obs.get(9)));
+                contact.setStateProvince(checkNULL(obs.get(10)));
+                contact.setZip1(checkNULL(obs.get(11)));
+                contact.setZip2(checkNULL(obs.get(12)));
+                contact.setCountryID(checkNULL(obs.get(13)));
+                contact.setCRDNumber(checkNULL(obs.get(14)));
+                contact.setContactID(checkNULL(obs.get(15)));
+
+                master.add(contact);
             }
 
         } catch (IOException e) {
-                e.printStackTrace();
-                return false;
+            e.printStackTrace();
+            return false;
         }
         return true;
+    }
+
+    private String checkNULL(String data) {
+
+        if (data.equals("NULL")) {
+            return "";
+        } else {
+            return data;
+        }
+
     }
 
     public boolean head() {
 
         System.out.println("\n-----MASTER-----\n");
         for (int i = 0; i < 6; i++) {
-
-            for (int obs = 0; obs < master.size(); obs++){
-                System.out.printf("%-40s ", master.get(obs).get(i));
-            }
+            master.get(i).printAll();
             System.out.println();
         }
         System.out.println();

@@ -4,15 +4,15 @@ public class MatchMain {
 
     public static void main(String[] args) {
 
-        String masterpath = "./data/contact_master.csv";
-        String matchpath = "./data/contact_match.csv";
+        String masterPath = "./data/contact_master.csv";
+        String matchPath = "./data/contact_match.csv";
 
         ParseMaster master = new ParseMaster();
-        master.readCSV(masterpath);
+        master.readCSV(masterPath);
         master.head();
 
         ParseMatch match = new ParseMatch();
-        match.readCSV(matchpath);
+        match.readCSV(matchPath);
         match.head();
 
     }
