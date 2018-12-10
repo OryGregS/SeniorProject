@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 public class ParseMaster {
 
     ArrayList<Contact> master = new ArrayList<>();
+    //test
     private long numRows;
 
     public boolean readCSV(String filePath) {
