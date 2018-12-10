@@ -1,5 +1,9 @@
 package wmu.datamatching;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+
 public class Fuzzy {
-    // Test
+    public void testFuzzy() {
+        FuzzySearch.ratio("asdf", "asdf");
+    }
 }
