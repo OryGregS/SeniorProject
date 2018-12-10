@@ -14,6 +14,7 @@ public class ParseMatch {
 
     private ArrayList<Contact> match = new ArrayList<>();
     private long numRows;
+    private int numCols;
     public boolean readCSV(String filePath) {
 
         try {
@@ -44,7 +45,8 @@ public class ParseMatch {
                 match.add(contact);
 
             }
-            numRows = match.size();
+            this.numRows = match.size();
+            this.numCols = match.size();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,6 +57,10 @@ public class ParseMatch {
 
     private long getNumRows(){
         return this.numRows;
+    }
+
+    private int getNumCols(){
+        return this.numCols;
     }
 
     private String checkNULL(String data) {
