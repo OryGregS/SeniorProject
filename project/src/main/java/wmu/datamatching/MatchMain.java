@@ -195,8 +195,8 @@ public class MatchMain {
             //FuzzySearch.ratio(match.get(matchIndex).getCountryID(), master.get(masterIndex).getCountryID());
             //FuzzySearch.ratio(match.get(matchIndex).getStateProvince(), master.get(masterIndex).getStateProvince());
             //FuzzySearch.ratio(match.get(matchIndex).getZip2(), master.get(masterIndex).getZip2());
-
-
+            //
+            786.951677656 seconds
         }
 //        System.out.println(matchMap);
         return matchMap;
