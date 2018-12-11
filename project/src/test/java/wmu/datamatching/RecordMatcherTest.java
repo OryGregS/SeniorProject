@@ -60,12 +60,12 @@ public class RecordMatcherTest {
         master.readCSV("./data/contact_master.csv");
         match.readCSV("./data/contact_match.csv");
 
-        Contact c1 = master.getMasterList().get(1);
-        Contact c2 = match.getMatchList().get(1);
+        Contact c1 = master.getMasterList().get(0);
+        Contact c2 = match.getMatchList().get(0);
 
         matcher.compareFields(c1.getFieldList(), c2.getFieldList(), "ratio");
         int sum = matcher.getSum();
-        System.out.println("SUM = " + sum);
+        assertEquals(sum, 502);
     }
 
 

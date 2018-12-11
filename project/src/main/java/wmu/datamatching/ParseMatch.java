@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class ParseMatch {
 
     private ArrayList<Contact> match = new ArrayList<>();
+    private Contact header;
     private long numRows;
     private int numCols;
     public boolean readCSV(String filePath) {
@@ -20,7 +21,7 @@ public class ParseMatch {
         try {
 
             Reader reader = Files.newBufferedReader(Paths.get(filePath));
-            CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT);
+            CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withIgnoreSurroundingSpaces());
 
             for (CSVRecord obs : csv) {
                 Contact contact = new Contact();
@@ -52,6 +53,7 @@ public class ParseMatch {
             e.printStackTrace();
             return false;
         }
+        handleHeader();
         return true;
     }
 
@@ -72,6 +74,10 @@ public class ParseMatch {
         }
 
     }
+    private void handleHeader() {
+        header = match.get(0);
+        match.remove(0);
+    }
 
     public ArrayList<Contact> getMatchList() {
         return match;
@@ -80,6 +86,8 @@ public class ParseMatch {
     public boolean head() {
 
         System.out.println("\n-----MATCH-----\n");
+        //header.printAll();
+        //System.out.println();
         for (int i = 0; i < 6; i++) {
             match.get(i).printAll();
             System.out.println();

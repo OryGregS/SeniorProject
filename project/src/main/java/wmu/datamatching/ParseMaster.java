@@ -15,12 +15,13 @@ public class ParseMaster {
     private ArrayList<Contact> master = new ArrayList<>();
     //test
     private long numRows;
+    private Contact header;
 
     public boolean readCSV(String filePath) {
 
         try {
             Reader reader = Files.newBufferedReader(Paths.get(filePath));
-            CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT);
+            CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withIgnoreSurroundingSpaces());
 
             for (CSVRecord obs : csv) {
                 Contact contact = new Contact();
@@ -49,6 +50,7 @@ public class ParseMaster {
             e.printStackTrace();
             return false;
         }
+        handleHeader();
         return true;
     }
 
@@ -67,6 +69,11 @@ public class ParseMaster {
 
     }
 
+    private void handleHeader() {
+        header = master.get(0);
+        master.remove(0);
+    }
+
     public ArrayList<Contact> getMasterList() {
         return master;
     }
@@ -78,6 +85,8 @@ public class ParseMaster {
     public boolean head() {
 
         System.out.println("\n-----MASTER-----\n");
+        //header.printAll();
+        //System.out.println();
         int i;
         for (i = 0; i < 6; i++) {
             master.get(i).printAll();
