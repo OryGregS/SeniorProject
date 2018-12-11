@@ -1,13 +1,12 @@
 package wmu.datamatching;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.HashMap;
 
 public class MasterContact extends Contact {
 
     public int MAX_MATCH_SIZE = 10;
-    private ArrayList<Integer> topMatches = new ArrayList<>();
+    private ArrayList<HashMap> topMatches = new ArrayList<>();
 
     private boolean checkMatch(int levSum) {
 

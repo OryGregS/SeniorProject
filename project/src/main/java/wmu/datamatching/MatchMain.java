@@ -13,11 +13,11 @@ public class MatchMain {
         String masterPath = "./data/contact_master.csv";
         String matchPath = "./data/contact_match.csv";
 
-        ParseMaster master = new ParseMaster();
+        MasterRecord master = new MasterRecord();
         master.readCSV(masterPath);
         master.head();
         
-        ParseMatch match = new ParseMatch();
+        MatchRecord match = new MatchRecord();
         match.readCSV(matchPath);
         match.head();
 
@@ -42,11 +42,11 @@ public class MatchMain {
         System.out.printf("-> r = %d\n", r);
 
         System.out.println();
-        checkEqualCountryID(match.getMatchList());
+        checkEqualCountryID(match.getContactList());
         System.out.println();
-        checkEqualFirmName(match.getMatchList());
+        checkEqualFirmName(match.getContactList());
         System.out.println();
-        checkEqualOfficeName(match.getMatchList());
+        checkEqualOfficeName(match.getContactList());
         System.out.println();
 
         System.out.printf("Match -> Number of columns: %d\n", match.getNumCols());
@@ -55,43 +55,43 @@ public class MatchMain {
 
         System.out.println();
         System.out.println();
-        checkEqualCRD(match.getMatchList());
+        checkEqualCRD(match.getContactList());
         System.out.println();
         System.out.println();
-        checkEqualCRD(master.getMasterList());
+        checkEqualCRD(master.getContactList());
         System.out.println();
         System.out.println();
 
-        checkEqualCRDNotEmpty(match.getMatchList(), countEmptyCRDsReturnWithCRDs(match.getMatchList(), "Match"));
+        checkEqualCRDNotEmpty(match.getContactList(), countEmptyCRDsReturnWithCRDs(match.getContactList(), "Match"));
 
-        checkEqualCRDNotEmpty(master.getMasterList(), countEmptyCRDsReturnWithCRDs(master.getMasterList(), "Master") );
-
-        System.out.println();
-        System.out.println();
-        countEmptyCRDsReturnWithNoCRDs(match.getMatchList(), "Match");
-        countEmptyCRDsReturnWithNoCRDs(master.getMasterList(), "Master");
+        checkEqualCRDNotEmpty(master.getContactList(), countEmptyCRDsReturnWithCRDs(master.getContactList(), "Master") );
 
         System.out.println();
         System.out.println();
-        ListEmptyCRDs(master.getMasterList(), "Master");
+        countEmptyCRDsReturnWithNoCRDs(match.getContactList(), "Match");
+        countEmptyCRDsReturnWithNoCRDs(master.getContactList(), "Master");
 
         System.out.println();
         System.out.println();
-        ListEmptyCRDs(match.getMatchList(), "Match");
+        ListEmptyCRDs(master.getContactList(), "Master");
+
+        System.out.println();
+        System.out.println();
+        ListEmptyCRDs(match.getContactList(), "Match");
         System.out.println();
         System.out.println();
         long startTime = System.nanoTime();
-        //checkOnlyByCRD(master.getMasterList(), ListEmptyCRDs(match.getMatchList(), "Match"));
-        //checkOnlyByCRDv2(master.getMasterList(), ListEmptyCRDs(match.getMatchList(), "Match"));
+        //checkOnlyByCRD(master.getContactList(), ListEmptyCRDs(match.getContactList()(), "Match"));
+        //checkOnlyByCRDv2(master.getContactList(), ListEmptyCRDs(match.getContactList()(), "Match"));
         long estimatedTime = System.nanoTime() - startTime;
         final double seconds = ((double)estimatedTime / 1000000000.0);
         System.out.println(seconds + " seconds");
         System.out.println("DONE");
 
 
-        checkEqualContactID(master.getMasterList());
+        checkEqualContactID(master.getContactList());
 
-        checkEqualContactID(match.getMatchList());
+        checkEqualContactID(match.getContactList());
 
 
 

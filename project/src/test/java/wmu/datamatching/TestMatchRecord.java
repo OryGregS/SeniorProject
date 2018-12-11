@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 
-public class ParseMatchTest {
+public class TestMatchRecord {
 
-    ParseMatch match = new ParseMatch();
+    MatchRecord match = new MatchRecord();
     String matchPath = "./data/contact_match.csv";
 
     @Test
@@ -17,7 +17,6 @@ public class ParseMatchTest {
     @Test
     public void headTest() {
         match.readCSV(matchPath);
-        assertTrue(match.head());
     }
 
     @Test

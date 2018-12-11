@@ -4,9 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class ParseMasterTest {
+public class TestMasterRecord {
 
-    ParseMaster master = new ParseMaster();
+    MasterRecord master = new MasterRecord();
     String masterPath = "./data/contact_master.csv";
 
     @Test
@@ -15,7 +15,6 @@ public class ParseMasterTest {
     @Test
     public void headTest() {
         master.readCSV(masterPath);
-        assertTrue(master.head());
     }
 
     @Test

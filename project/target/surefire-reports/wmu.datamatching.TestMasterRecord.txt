@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: wmu.datamatching.ParseMasterTest
+Test set: wmu.datamatching.TestMasterRecord
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.304 s - in wmu.datamatching.ParseMasterTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.289 s - in wmu.datamatching.TestMasterRecord

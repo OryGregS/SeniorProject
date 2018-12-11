@@ -1,22 +1,34 @@
 package wmu.datamatching;
 
-
-import java.util.ArrayList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
-public class ParseMaster {
+public class MatchRecord {
 
-    private ArrayList<Contact> master = new ArrayList<>();
-    //test
     private long numRows;
+    private int numCols;
     private Contact header;
+    private ArrayList<Contact> ContactList;
 
+    public MatchRecord() {
+        numRows = 0;
+        numCols = 0;
+        ContactList = new ArrayList<>();
+    }
+
+
+    /**
+     * Reads the master
+     * @param filePath
+     * @return
+     */
     public boolean readCSV(String filePath) {
 
         try {
@@ -43,21 +55,22 @@ public class ParseMaster {
                 contact.setCRDNumber(checkNULL(obs.get(14)));
                 contact.setContactID(checkNULL(obs.get(15)));
 
-                master.add(contact);
+                ContactList.add(contact);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+
         handleHeader();
         return true;
     }
 
     /***
      *
-     * @param data
-     * @return
+     * @param data - The string at the row,col of the dataset
+     * @return - Empty string if "NULL", otherwise the original string
      */
     public String checkNULL(String data) {
 
@@ -70,30 +83,40 @@ public class ParseMaster {
     }
 
     private void handleHeader() {
-        header = master.get(0);
-        master.remove(0);
+        header = ContactList.get(0);
+        ContactList.remove(0);
     }
 
-    public ArrayList<Contact> getMasterList() {
-        return master;
+    public long getNumRows(){
+        return this.numRows;
+    }
+
+    public int getNumCols(){
+        return this.numCols;
+    }
+
+    /**
+     * Method to pass the ArrayList of contacts to other classes
+     * @return - The ArrayList of contacts for the master dataset
+     */
+    public ArrayList<Contact> getContactList() {
+        return ContactList;
     }
 
     /***
      *
      * @return
      */
-    public boolean head() {
+    public void head() {
 
-        System.out.println("\n-----MASTER-----\n");
-        //header.printAll();
-        //System.out.println();
-        int i;
-        for (i = 0; i < 6; i++) {
-            master.get(i).printAll();
+        System.out.println("\n-----MATCH-----\n");
+        header.printAll();
+        System.out.println();
+        for (int i = 0; i < 6; i++) {
+            ContactList.get(i).printAll();
             System.out.println();
         }
         System.out.println();
-
-        return true;
     }
+
 }
