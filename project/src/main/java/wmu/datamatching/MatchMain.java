@@ -74,13 +74,24 @@ public class MatchMain {
         System.out.println();
         System.out.println();
         ListEmptyCRDs(master.getMasterList(), "Master");
+
         System.out.println();
         System.out.println();
         ListEmptyCRDs(match.getMatchList(), "Match");
+        System.out.println();
+        System.out.println();
+        long startTime = System.nanoTime();
+        //checkOnlyByCRD(master.getMasterList(), ListEmptyCRDs(match.getMatchList(), "Match"));
+        checkOnlyByCRDv2(master.getMasterList(), ListEmptyCRDs(match.getMatchList(), "Match"));
+        long estimatedTime = System.nanoTime() - startTime;
+        final double seconds = ((double)estimatedTime / 1000000000.0);
+        System.out.println(seconds + " seconds");
+        System.out.println("DONE");
 
-//        checkOnlyByCRD();
 
+        checkEqualContactID(master.getMasterList());
 
+        checkEqualContactID(match.getMatchList());
 
 
 
@@ -109,9 +120,96 @@ public class MatchMain {
         return listNew;
     }
 
+    public static void checkEqualContactID(ArrayList<Contact> list ){
+        int i;
+        int len = list.size();
+        String key;
+        HashMap<String, Integer> countries = new HashMap<>();
+        for (i=1; i<len; i++){
+            key = list.get(i).getContactID();
+            if (countries.containsKey(key)){
+                countries.replace(key, countries.get(key)+1);
+            }else {
+                countries.put(key, 1);
+            }
+        }
+        len = len -1;
+//        for (HashMap.Entry<String,Integer> entry : countries.entrySet())
+//            System.out.printf("Key =  | %s | , Value = %d / %d, %f \n",entry.getKey(), entry.getValue(),len , ((double) entry.getValue()/ (double) len) * 100.0 );
+
+        System.out.printf("The count is : %d %d %f\n", countries.size(), len, ((double) countries.size()/ (double) len) * 100.0);
+//        System.out.println(countries);
+
+    }
+
+    public static HashMap<String,Integer> checkOnlyByCRDv2(ArrayList<Contact> master, ArrayList<Contact> match){
+        ArrayList<Integer> sumOfRatios = new ArrayList<Integer>();
+        int i;
+        int j;
+        int lenOfMatch = match.size();
+        int lenOfMaster = master.size();
+        String key = "";
+        int max = 0;
+        Contact tempMatch;
+        Contact tempMaster;
+        HashMap<String, Integer> matchMap = new HashMap<>();
+        String maxKey = "";
+        //ArrayList<Integer> ratios;// = new ArrayList<Integer>();
+        int ratios = 0;
+        ArrayList<Integer> ratios_temp = new ArrayList<Integer>();
+        for(i=0; i<lenOfMatch; i++){
+            for(j=0; j<lenOfMaster; j++){
+                tempMatch = match.get(i);
+
+                tempMaster = master.get(j);
+                // iter of match : iter of master ID masterContactID
+                key = "matchIndex:"+String.valueOf(i) + " || " + "masterIndex:" +String.valueOf(j)+" || ContactID: "+tempMaster.getContactID();
+                ratios = 0;
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getLastName(), tempMaster.getLastName());
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getMiddleName(), tempMaster.getMiddleName());
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getFirstName(), tempMaster.getFirstName());
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getEmail(), tempMaster.getEmail());
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getBusinessPhone(), tempMaster.getBusinessPhone());
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity());
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2());
+                ratios = ratios + FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID());
+                ratios = ratios/10;
+
+
+                if (max < ratios){
+                    max = ratios;
+                    matchMap.put(key, ratios);
+                    maxKey = key;
+//                    System.out.println(key + " => "+matchMap.get(key));
+
+                }
+            }
+            System.out.println(maxKey + " => "+matchMap.get(maxKey));
+            max = 0;
+
+            // print or save to have visual presentation
+            // ratio for each field again
+            // split the key
+            //FuzzySearch.ratio(match.get(matchIndex).getCountryID(), master.get(masterIndex).getCountryID());
+            //FuzzySearch.ratio(match.get(matchIndex).getStateProvince(), master.get(masterIndex).getStateProvince());
+            //FuzzySearch.ratio(match.get(matchIndex).getZip2(), master.get(masterIndex).getZip2());
+
+
+        }
+//        System.out.println(matchMap);
+        return matchMap;
+    }
 
 
 
+    /***
+     *
+     * @param master is the complete master
+     * @param match it can be full match, but right now for testing is a list with no empty CRDs
+     * @return
+     */
     public static HashMap<String,ArrayList<Integer>> checkOnlyByCRD(ArrayList<Contact> master, ArrayList<Contact> match){
         ArrayList<Integer> sumOfRatios = new ArrayList<Integer>();
         int i;
@@ -126,19 +224,24 @@ public class MatchMain {
 //        ArrayList<Integer> MiddleName = new ArrayList<Integer>();
 //        ArrayList<Integer> FirstName = new ArrayList<Integer>();
 //        ArrayList<Integer> emailAddres = new ArrayList<Integer>();
-        ArrayList<Integer> ratios = new ArrayList<Integer>();
+        ArrayList<Integer> ratios;// = new ArrayList<Integer>();
         ArrayList<Integer> ratios_temp = new ArrayList<Integer>();
-        for(i=0; i<lenOfMatch; i++){
-            for(j=0; j<lenOfMaster; j++){
+        for(i=0; i<lenOfMatch*0.05; i++){
+            for(j=0; j<lenOfMaster*0.05; j++){
                 tempMatch = match.get(i);
-                key = String.valueOf(i) + "crd" + String.valueOf(j);
+
 //                This is for part 2 because there is repetion of keys
 //                and we need to check with ratios_temp which ratio is best, but we need criteria
 //                if (matchMap.containsKey(key)){
 //
 //                    matchMap.replace(key, ratios);
 //                }else {
+
                     tempMaster = master.get(j);
+
+                key = String.valueOf(i) + ":" + String.valueOf(j)+"ID"+tempMaster.getContactID();
+
+                    ratios = new ArrayList<Integer>();
                     ratios.add(FuzzySearch.ratio(tempMatch.getLastName(), tempMaster.getLastName()));
                     ratios.add(FuzzySearch.ratio(tempMatch.getMiddleName(), tempMaster.getMiddleName()));
                     ratios.add(FuzzySearch.ratio(tempMatch.getFirstName(), tempMaster.getFirstName()));
@@ -149,12 +252,22 @@ public class MatchMain {
                     ratios.add(FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1()));
                     ratios.add(FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2()));
                     ratios.add(FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID()));
+
+                    // max = sum of current ratios
+                // compare it
+                // max final
+                    // 21450
+                // we remove the match so we have 21449
+
+
                     matchMap.put(key, ratios);
+                    System.out.println(key + " => "+matchMap.get(key));
 //                }
 
             }
 
         }
+//        System.out.println(matchMap);
         return matchMap;
     }
 
