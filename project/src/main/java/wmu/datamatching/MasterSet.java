@@ -10,14 +10,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class MasterRecord {
+public class MasterSet {
 
     private long numRows;
     private int numCols;
     private Contact header;
     private ArrayList<Contact> ContactList;
 
-    public MasterRecord() {
+    public MasterSet() {
         numRows = 0;
         numCols = 0;
         ContactList = new ArrayList<>();

@@ -55,8 +55,8 @@ public class RecordMatcherTest {
 
         RecordMatcher matcher = new RecordMatcher();
 
-        MasterRecord master = new MasterRecord();
-        MatchRecord match = new MatchRecord();
+        MasterSet master = new MasterSet();
+        MatchSet match = new MatchSet();
         master.readCSV("./data/contact_master.csv");
         match.readCSV("./data/contact_match.csv");
 

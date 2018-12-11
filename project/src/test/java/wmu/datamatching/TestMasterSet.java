@@ -4,9 +4,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class TestMasterRecord {
+public class TestMasterSet {
 
-    MasterRecord master = new MasterRecord();
+    MasterSet master = new MasterSet();
     String masterPath = "./data/contact_master.csv";
 
     @Test

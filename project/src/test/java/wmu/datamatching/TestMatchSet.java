@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 
-public class TestMatchRecord {
+public class TestMatchSet {
 
-    MatchRecord match = new MatchRecord();
+    MatchSet match = new MatchSet();
     String matchPath = "./data/contact_match.csv";
 
     @Test

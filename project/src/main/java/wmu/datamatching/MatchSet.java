@@ -10,14 +10,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class MatchRecord {
+public class MatchSet {
 
     private long numRows;
     private int numCols;
     private Contact header;
     private ArrayList<Contact> ContactList;
 
-    public MatchRecord() {
+    public MatchSet() {
         numRows = 0;
         numCols = 0;
         ContactList = new ArrayList<>();

@@ -13,11 +13,11 @@ public class MatchMain {
         String masterPath = "./data/contact_master.csv";
         String matchPath = "./data/contact_match.csv";
 
-        MasterRecord master = new MasterRecord();
+        MasterSet master = new MasterSet();
         master.readCSV(masterPath);
         master.head();
         
-        MatchRecord match = new MatchRecord();
+        MatchSet match = new MatchSet();
         match.readCSV(matchPath);
         match.head();
 
