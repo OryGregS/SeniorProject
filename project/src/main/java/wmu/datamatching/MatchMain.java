@@ -82,7 +82,7 @@ public class MatchMain {
         System.out.println();
         long startTime = System.nanoTime();
         //checkOnlyByCRD(master.getMasterList(), ListEmptyCRDs(match.getMatchList(), "Match"));
-        checkOnlyByCRDv2(master.getMasterList(), ListEmptyCRDs(match.getMatchList(), "Match"));
+        //checkOnlyByCRDv2(master.getMasterList(), ListEmptyCRDs(match.getMatchList(), "Match"));
         long estimatedTime = System.nanoTime() - startTime;
         final double seconds = ((double)estimatedTime / 1000000000.0);
         System.out.println(seconds + " seconds");
@@ -157,37 +157,48 @@ public class MatchMain {
         //ArrayList<Integer> ratios;// = new ArrayList<Integer>();
         int ratios = 0;
         ArrayList<Integer> ratios_temp = new ArrayList<Integer>();
-        for(i=0; i<lenOfMatch; i++){
-            for(j=0; j<lenOfMaster; j++){
+        for(i=0; i<lenOfMatch*0.01; i++){
+            for(j=0; j<lenOfMaster*0.01; j++){
                 tempMatch = match.get(i);
 
                 tempMaster = master.get(j);
                 // iter of match : iter of master ID masterContactID
                 key = "matchIndex:"+String.valueOf(i) + " || " + "masterIndex:" +String.valueOf(j)+" || ContactID: "+tempMaster.getContactID();
                 ratios = 0;
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getLastName(), tempMaster.getLastName());
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getMiddleName(), tempMaster.getMiddleName());
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getFirstName(), tempMaster.getFirstName());
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getEmail(), tempMaster.getEmail());
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getBusinessPhone(), tempMaster.getBusinessPhone());
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity());
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2());
-                ratios = ratios + FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID());
-                ratios = ratios/10;
+                ratios = FuzzySearch.ratio(tempMatch.getLastName(), tempMaster.getLastName());
+                System.out.printf("Last Name: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getMiddleName(), tempMaster.getMiddleName());
+                System.out.printf("Middle Name: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getFirstName(), tempMaster.getFirstName());
+                System.out.printf("First Name: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getEmail(), tempMaster.getEmail());
+                System.out.printf("Email: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getBusinessPhone(), tempMaster.getBusinessPhone());
+                System.out.printf("Phone: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity());
+                System.out.printf("City: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
+                System.out.printf("State: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
+                System.out.printf("Zip 1: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2());
+                System.out.printf("Zip 2: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID());
+                System.out.printf("Phone: %5d | ", ratios);
+                System.out.println();
+                //ratios = ratios/10;
 
 
-                if (max < ratios){
-                    max = ratios;
-                    matchMap.put(key, ratios);
-                    maxKey = key;
-//                    System.out.println(key + " => "+matchMap.get(key));
-
-                }
+//                if (max < ratios){
+//                    max = ratios;
+//                    matchMap.put(key, ratios);
+//                    maxKey = key;
+////                    System.out.println(key + " => "+matchMap.get(key));
+//
+//                }
             }
-            System.out.println(maxKey + " => "+matchMap.get(maxKey));
-            max = 0;
+            //System.out.println(maxKey + " => "+matchMap.get(maxKey));
+            //max = 0;
 
             // print or save to have visual presentation
             // ratio for each field again
@@ -196,7 +207,7 @@ public class MatchMain {
             //FuzzySearch.ratio(match.get(matchIndex).getStateProvince(), master.get(masterIndex).getStateProvince());
             //FuzzySearch.ratio(match.get(matchIndex).getZip2(), master.get(masterIndex).getZip2());
             //
-            786.951677656 seconds
+            //786.951677656 seconds
         }
 //        System.out.println(matchMap);
         return matchMap;

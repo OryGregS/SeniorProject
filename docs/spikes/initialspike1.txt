@@ -1,0 +1,172 @@
+-----MASTER-----
+
+LAST_NAME                                MIDDLE_NAME                              FIRST_NAME                               FIRM_NAME                                OFFICE_NAME                              EMAIL_ADDRESS                            BUSINESS_PHONE                           ADDRESS_LINE_2                           null                                     CITY                                     STATE_PROVINCE                           POSTAL_CODE_1                            POSTAL_CODE_2                            COUNTRY_ID                               CRD_NUMBER                               CONTACT_ID                              
+Chamberlain/Lehnhardt/Ruboyianes                                                  Scott/Robert/Andrew                      UBS Financial Services Inc               UBS Financial Services Inc                                                                                                                                          null                                     Las Vegas                                NV                                       89135                                    1205                                     US                                                                                00064171614243086813                    
+Moorehead                                Irene                                    Janetta                                  UBS Financial Services Inc               UBS Financial Services Inc               janetta.moorehead@ubs.com                (800) 754-5670                                                                    null                                     Tacoma                                   WA                                       98402                                    3587                                     US                                       2484990                                  00063161073787150128                    
+Brucato                                  Cathlyn                                  Regina                                   UBS Financial Services Inc               UBS Financial Services Inc               nikki.brucato@ubs.com                    (310) 772-8062                                                                    null                                     Los Angeles                              CA                                       90067                                    4649                                     US                                       2271551                                  00063161064072992120                    
+McGuirk                                  Francsi                                  James                                    UBS Financial Services Inc               UBS Financial Services Inc               james.mcguirk@ubs.com                    (310) 281-4651                                                                    null                                     Beverly Hills                            CA                                       90212                                    2416                                     US                                       2213402                                  00063161064296361995                    
+Peluso                                   Marie                                    Elaine                                   UBS Financial Services Inc               UBS Financial Services Inc               elaine.peluso@ubs.com                    (925) 746-0218                                                                    null                                     Walnut Creek                             CA                                       94597                                    7981                                     US                                       2051831                                  00063161064385280397                    
+
+
+-----MATCH-----
+
+LAST_NAME                                MIDDLE_NAME                              FIRST_NAME                               FIRM_NAME                                OFFICE_NAME                              EMAIL_ADDRESS                            BUSINESS_PHONE                           ADDRESS_LINE_3                           null                                     CITY                                     STATE_PROVINCE                           POSTAL_CODE_1                            POSTAL_CODE_2                            COUNTRY_ID                               CRD_NUMBER                               CONTACT_ID                              
+Bradley                                  Patricia                                 Susan                                    UBS Financial Services Inc               UBS Financial Services Inc               patricia.bradley@ubs.com                 (561) 659-9592                                                                    null                                     Palm Beach                               FL                                       33480                                    4142                                     US                                       1349149                                  1                                       
+Bissett                                  Ann                                      Kristen                                  UBS Financial Services Inc               UBS Financial Services Inc               kristen.bissett@ubs.com                  (561) 625-2613                                                                    null                                     Palm Beach                               FL                                       33480                                    4142                                     US                                       5104953                                  2                                       
+Buckley                                                                           Leticia                                  UBS Financial Services Inc               UBS Financial Services Inc               leticia.pagan@ubs.com                    (561) 659-9557                                                                    null                                     Palm Beach                               FL                                       33480                                    4142                                     US                                       3197387                                  3                                       
+Zarro                                                                             Amato                                    UBS Financial Services Inc               UBS Financial Services Inc               amato.zarro@ubs.com                      (561) 659-9526                                                                    null                                     Palm Beach                               FL                                       33480                                    4142                                     US                                       6080645                                  4                                       
+Lictro                                   T                                        Dina                                     UBS Financial Services Inc               UBS Financial Services Inc               d.lictro@ubs.com                         (561) 659-9617                                                                    null                                     Palm Beach                               FL                                       33480                                    4142                                     US                                       2707100                                  5                                       
+
+-> r = 0
+-> r = 0
+-> r = 100
+-> r = 89
+-> r = 75
+-> r = 25
+
+Key =  |  | , Value = 91 / 29585, 0.307588 
+Key =  | UY | , Value = 39 / 29585, 0.131824 
+Key =  | GB | , Value = 6 / 29585, 0.020281 
+Key =  | US | , Value = 29449 / 29585, 99.540308 
+
+Key =  | UBS Financial Services Inc | , Value = 21594 / 29585, 72.989691 
+Key =  | UBS Financial Services Inc. | , Value = 7991 / 29585, 27.010309 
+
+Key =  | UBS Financial Services Inc | , Value = 21594 / 29585, 72.989691 
+Key =  | UBS Financial Services Inc. | , Value = 7991 / 29585, 27.010309 
+
+Match -> Number of columns: 16
+Match -> Number of rows: 29586
+
+
+
+
+
+
+The count is : 10500 / 29586, 35.489759 for Match
+The count is : 9732 / 21451, 45.368514 for Master
+
+
+The count is : 10500 / 29586, 35.489759 for Match
+The count is : 9732 / 21451, 45.368514 for Master
+
+
+Master => The count is : 9732 / 21450, 45.370629
+Master => The count is : 9732 / 21450, 45.370629
+
+
+Match => The count is : 10500 / 29585, 35.490958
+Match => The count is : 10500 / 29585, 35.490958
+
+
+Match => The count is : 10500 / 29585, 35.490958
+Match => The count is : 10500 / 29585, 35.490958
+matchIndex:0 || masterIndex:83 || ContactID: 00033162045385097873 => 52
+matchIndex:1 || masterIndex:26 || ContactID: 98765121432379345364 => 42
+matchIndex:2 || masterIndex:180 || ContactID: 00021100263264227591 => 42
+matchIndex:3 || masterIndex:180 || ContactID: 00021100263264227591 => 47
+matchIndex:4 || masterIndex:176 || ContactID: 00013161764853427467 => 61
+matchIndex:5 || masterIndex:176 || ContactID: 00013161764853427467 => 63
+matchIndex:6 || masterIndex:176 || ContactID: 00013161764853427467 => 63
+matchIndex:7 || masterIndex:176 || ContactID: 00013161764853427467 => 61
+matchIndex:8 || masterIndex:176 || ContactID: 00013161764853427467 => 63
+matchIndex:9 || masterIndex:176 || ContactID: 00013161764853427467 => 60
+matchIndex:10 || masterIndex:176 || ContactID: 00013161764853427467 => 59
+matchIndex:11 || masterIndex:176 || ContactID: 00013161764853427467 => 60
+matchIndex:12 || masterIndex:26 || ContactID: 98765121432379345364 => 43
+matchIndex:13 || masterIndex:60 || ContactID: 00011111755003388698 => 47
+matchIndex:14 || masterIndex:146 || ContactID: 99999082812828718729 => 46
+matchIndex:15 || masterIndex:194 || ContactID: 88880000000000056419 => 43
+matchIndex:16 || masterIndex:26 || ContactID: 98765121432379345364 => 47
+matchIndex:17 || masterIndex:3 || ContactID: 00063161064072992120 => 43
+matchIndex:18 || masterIndex:43 || ContactID: 99999091233149796911 => 45
+matchIndex:19 || masterIndex:3 || ContactID: 00063161064072992120 => 43
+matchIndex:20 || masterIndex:53 || ContactID: 00011081252826624772 => 48
+matchIndex:21 || masterIndex:10 || ContactID: 00064171805074946390 => 46
+matchIndex:22 || masterIndex:10 || ContactID: 00064171805074946390 => 44
+matchIndex:23 || masterIndex:3 || ContactID: 00063161064072992120 => 46
+matchIndex:24 || masterIndex:3 || ContactID: 00063161064072992120 => 44
+matchIndex:25 || masterIndex:10 || ContactID: 00064171805074946390 => 46
+matchIndex:26 || masterIndex:194 || ContactID: 88880000000000056419 => 43
+matchIndex:27 || masterIndex:3 || ContactID: 00063161064072992120 => 43
+matchIndex:28 || masterIndex:176 || ContactID: 00013161764853427467 => 59
+matchIndex:29 || masterIndex:176 || ContactID: 00013161764853427467 => 59
+matchIndex:30 || masterIndex:176 || ContactID: 00013161764853427467 => 61
+matchIndex:31 || masterIndex:176 || ContactID: 00013161764853427467 => 61
+matchIndex:32 || masterIndex:176 || ContactID: 00013161764853427467 => 59
+matchIndex:33 || masterIndex:176 || ContactID: 00013161764853427467 => 59
+matchIndex:34 || masterIndex:92 || ContactID: 00044171583410981890 => 61
+matchIndex:35 || masterIndex:92 || ContactID: 00044171583410981890 => 60
+matchIndex:36 || masterIndex:92 || ContactID: 00044171583410981890 => 59
+matchIndex:37 || masterIndex:92 || ContactID: 00044171583410981890 => 60
+matchIndex:38 || masterIndex:92 || ContactID: 00044171583410981890 => 60
+matchIndex:39 || masterIndex:175 || ContactID: 00013161764806612663 => 39
+matchIndex:40 || masterIndex:209 || ContactID: 1-4S8VZJ => 50
+matchIndex:41 || masterIndex:133 || ContactID: 99999070275087772157 => 70
+matchIndex:42 || masterIndex:133 || ContactID: 99999070275087772157 => 71
+matchIndex:43 || masterIndex:133 || ContactID: 99999070275087772157 => 65
+matchIndex:44 || masterIndex:133 || ContactID: 99999070275087772157 => 65
+matchIndex:45 || masterIndex:134 || ContactID: 99999070275088072206 => 65
+matchIndex:46 || masterIndex:133 || ContactID: 99999070275087772157 => 63
+matchIndex:47 || masterIndex:133 || ContactID: 99999070275087772157 => 64
+matchIndex:48 || masterIndex:133 || ContactID: 99999070275087772157 => 66
+matchIndex:49 || masterIndex:134 || ContactID: 99999070275088072206 => 67
+matchIndex:50 || masterIndex:10 || ContactID: 00064171805074946390 => 50
+matchIndex:51 || masterIndex:10 || ContactID: 00064171805074946390 => 49
+matchIndex:52 || masterIndex:10 || ContactID: 00064171805074946390 => 51
+matchIndex:53 || masterIndex:10 || ContactID: 00064171805074946390 => 49
+matchIndex:54 || masterIndex:10 || ContactID: 00064171805074946390 => 49
+matchIndex:55 || masterIndex:10 || ContactID: 00064171805074946390 => 48
+matchIndex:56 || masterIndex:10 || ContactID: 00064171805074946390 => 50
+matchIndex:57 || masterIndex:10 || ContactID: 00064171805074946390 => 49
+matchIndex:58 || masterIndex:3 || ContactID: 00063161064072992120 => 49
+matchIndex:59 || masterIndex:10 || ContactID: 00064171805074946390 => 49
+matchIndex:60 || masterIndex:10 || ContactID: 00064171805074946390 => 50
+matchIndex:61 || masterIndex:10 || ContactID: 00064171805074946390 => 50
+matchIndex:62 || masterIndex:10 || ContactID: 00064171805074946390 => 49
+matchIndex:63 || masterIndex:173 || ContactID: 00014151774550255965 => 58
+matchIndex:64 || masterIndex:173 || ContactID: 00014151774550255965 => 57
+matchIndex:65 || masterIndex:173 || ContactID: 00014151774550255965 => 69
+matchIndex:66 || masterIndex:173 || ContactID: 00014151774550255965 => 64
+matchIndex:67 || masterIndex:173 || ContactID: 00014151774550255965 => 58
+matchIndex:68 || masterIndex:173 || ContactID: 00014151774550255965 => 58
+matchIndex:69 || masterIndex:173 || ContactID: 00014151774550255965 => 59
+matchIndex:70 || masterIndex:173 || ContactID: 00014151774550255965 => 58
+matchIndex:71 || masterIndex:92 || ContactID: 00044171583410981890 => 60
+matchIndex:72 || masterIndex:92 || ContactID: 00044171583410981890 => 60
+matchIndex:73 || masterIndex:92 || ContactID: 00044171583410981890 => 60
+matchIndex:74 || masterIndex:92 || ContactID: 00044171583410981890 => 61
+matchIndex:75 || masterIndex:92 || ContactID: 00044171583410981890 => 60
+matchIndex:76 || masterIndex:92 || ContactID: 00044171583410981890 => 63
+matchIndex:77 || masterIndex:92 || ContactID: 00044171583410981890 => 63
+matchIndex:78 || masterIndex:92 || ContactID: 00044171583410981890 => 61
+matchIndex:79 || masterIndex:92 || ContactID: 00044171583410981890 => 64
+matchIndex:80 || masterIndex:92 || ContactID: 00044171583410981890 => 61
+matchIndex:81 || masterIndex:92 || ContactID: 00044171583410981890 => 61
+matchIndex:82 || masterIndex:92 || ContactID: 00044171583410981890 => 60
+matchIndex:83 || masterIndex:92 || ContactID: 00044171583410981890 => 60
+matchIndex:84 || masterIndex:169 || ContactID: 00011133644442972639 => 40
+matchIndex:85 || masterIndex:169 || ContactID: 00011133644442972639 => 45
+matchIndex:86 || masterIndex:36 || ContactID: 1-4R74A => 44
+matchIndex:87 || masterIndex:36 || ContactID: 1-4R74A => 44
+matchIndex:88 || masterIndex:207 || ContactID: 1-4S8VY7 => 60
+matchIndex:89 || masterIndex:207 || ContactID: 1-4S8VY7 => 62
+matchIndex:90 || masterIndex:207 || ContactID: 1-4S8VY7 => 62
+matchIndex:91 || masterIndex:207 || ContactID: 1-4S8VY7 => 62
+matchIndex:92 || masterIndex:133 || ContactID: 99999070275087772157 => 67
+matchIndex:93 || masterIndex:133 || ContactID: 99999070275087772157 => 69
+matchIndex:94 || masterIndex:133 || ContactID: 99999070275087772157 => 69
+matchIndex:95 || masterIndex:133 || ContactID: 99999070275087772157 => 65
+matchIndex:96 || masterIndex:133 || ContactID: 99999070275087772157 => 65
+matchIndex:97 || masterIndex:133 || ContactID: 99999070275087772157 => 68
+matchIndex:98 || masterIndex:133 || ContactID: 99999070275087772157 => 64
+matchIndex:99 || masterIndex:133 || ContactID: 99999070275087772157 => 65
+matchIndex:100 || masterIndex:133 || ContactID: 99999070275087772157 => 65
+matchIndex:101 || masterIndex:133 || ContactID: 99999070275087772157 => 67
+matchIndex:102 || masterIndex:133 || ContactID: 99999070275087772157 => 64
+matchIndex:103 || masterIndex:133 || ContactID: 99999070275087772157 => 64
+matchIndex:104 || masterIndex:10 || ContactID: 00064171805074946390 => 49
+0.094964974 seconds
+DONE
+The count is : 21450 21450 100.000000
+The count is : 29585 29585 100.000000

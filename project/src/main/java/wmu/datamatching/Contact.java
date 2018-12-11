@@ -1,5 +1,7 @@
 package wmu.datamatching;
 
+import java.util.ArrayList;
+
 public class Contact {
 
     private String LastName;
@@ -76,7 +78,7 @@ public class Contact {
     }
 
     public void setAddress2(String address2) {
-        Address1 = address2;
+        Address2 = address2;
     }
 
     public void setCity(String city) {
@@ -171,6 +173,28 @@ public class Contact {
         return ContactID;
     }
 
+    public ArrayList<String> getFieldList() {
+        ArrayList<String> contactFields = new ArrayList<>();
+
+        contactFields.add(this.LastName);
+        contactFields.add(this.MiddleName);
+        contactFields.add(this.FirstName);
+        contactFields.add(this.FirmName);
+        contactFields.add(this.OfficeName);
+        contactFields.add(this.Email);
+        contactFields.add(this.BusinessPhone);
+        contactFields.add(this.Address1);
+        contactFields.add(this.Address2);
+        contactFields.add(this.City);
+        contactFields.add(this.StateProvince);
+        contactFields.add(this.Zip1);
+        contactFields.add(this.Zip2);
+        contactFields.add(this.CountryID);
+        contactFields.add(this.CRDNumber);
+        contactFields.add(this.ContactID);
+
+        return contactFields;
+    }
 
 
     public void printAll() {

@@ -19,7 +19,6 @@ public class ParseMaster {
     public boolean readCSV(String filePath) {
 
         try {
-
             Reader reader = Files.newBufferedReader(Paths.get(filePath));
             CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT);
 
@@ -58,7 +57,7 @@ public class ParseMaster {
      * @param data
      * @return
      */
-    private String checkNULL(String data) {
+    public String checkNULL(String data) {
 
         if (data.equals("NULL")) {
             return "";

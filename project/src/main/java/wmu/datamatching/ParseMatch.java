@@ -63,7 +63,7 @@ public class ParseMatch {
         return this.numCols;
     }
 
-    private String checkNULL(String data) {
+    public String checkNULL(String data) {
 
         if (data.equals("NULL")) {
             return "";

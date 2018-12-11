@@ -1,4 +1,7 @@
-wmu/datamatching/ParseMatch.class
 wmu/datamatching/ParseMaster.class
 wmu/datamatching/Contact.class
+wmu/datamatching/RecordMatcher.class
+wmu/datamatching/MasterContact.class
+wmu/datamatching/ParseMatch.class
+wmu/datamatching/Fuzzy.class
 wmu/datamatching/MatchMain.class
