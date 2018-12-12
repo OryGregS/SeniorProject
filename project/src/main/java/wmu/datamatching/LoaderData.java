@@ -51,9 +51,10 @@ public class LoaderData {
     }
 
 
-    // This can be improved with other testing tools
+
     /***
      * Method to test the time to load the data
+     * tested part
      */
     public void testTimeRead(){
         long startTime = System.nanoTime();
