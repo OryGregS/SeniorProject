@@ -54,7 +54,7 @@ public class LoaderData {
 
     /***
      * Method to test the time to load the data
-     * tested 1
+     * tested part TEST FROM GREG
      */
     public void testTimeRead(){
         long startTime = System.nanoTime();
@@ -65,7 +65,7 @@ public class LoaderData {
         long estimatedTime = System.nanoTime() - startTime;
         double seconds = ((double)estimatedTime / 1000000000.0);
         System.out.println("Time testTimeRead(): " + seconds + " seconds");
-            // tested 2
+
     }
 
 
