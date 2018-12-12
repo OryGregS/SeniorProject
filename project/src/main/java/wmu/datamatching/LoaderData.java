@@ -50,6 +50,8 @@ public class LoaderData {
         System.out.println("\nTime for reading contact_master.csv and contact_match.csv: " + seconds + " seconds");
     }
 
+
+    // This can be improved with other testing tools
     /***
      * Method to test the time to load the data
      */
