@@ -24,7 +24,7 @@ public class RecordMatcher {
      *                      "ratio", "partialRatio", "tokenSortRatio",
      *                      "tokenSortPartialRatio", "tokenSetRatio",
      *                      "tokenSetPartialRatio", "weightedRatio".
-     * @return
+     * @return -1 if is invalid request of method, -2 if an error occurs, otherwise return the result of FuzzySearch methods
      */
     protected int fuzzyStrCmp(String record1, String record2, String compareMethod) {
 
@@ -69,13 +69,8 @@ public class RecordMatcher {
                               String compareMethod) {
 
         int field;
-
         for (field = 0; field < contact1.size() && contact1.size() == contact2.size(); field++) {
-
-
             this.confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
-
-
         }
 
     }
@@ -86,22 +81,49 @@ public class RecordMatcher {
      * @param contact2 - ArrayList of all contact's data for another set
      * @param fieldsToCheck - List of fields to use for comparison
      * @param compareMethod - Method of comparison to use
+     * @return 0 if the fields checking is wrong, otherwise 1 as ok.
      */
-    public void compareFields(ArrayList<String> contact1,
+    public int compareFields(ArrayList<String> contact1,
                               ArrayList<String> contact2,
                               String compareMethod,
                               ArrayList<Integer> fieldsToCheck) {
 
         int field;
-
-        for (field = 0; field < contact1.size() && contact1.size() == contact2.size(); field++) {
-
-            if (fieldsToCheck.contains(field)) {
+        int len = contact1.size();
+        int checkIsOk = 1;
+        if (fieldsChecked(contact1,contact2,fieldsToCheck) == checkIsOk) {
+            for (field = 0; field < len ; field++) {
                 this.confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
             }
+        }else{
+            checkIsOk = 0;
+        }
+        return checkIsOk;
 
+    }
+
+    /***
+     * Function to use internally to check the specified fiels for each row
+     * @param contact1 ArrayList of all contact's data for a set
+     * @param contact2 ArrayList of all contact's data for another set
+     * @param fieldsToCheck List of fields to use for comparison
+     * @return -1 if contact1 has different length from contact2, 0 if the fields does not exists, otherwise 1 as ok.
+     */
+    private int fieldsChecked(ArrayList<String> contact1, ArrayList<String> contact2, ArrayList<Integer> fieldsToCheck){
+        if (contact1.size() != contact2.size()){
+            return -1;
+        }
+        int field;
+        int len = contact1.size();
+        int isOk = 1;
+        for (field = 0; field < len ; field++) {
+            if (fieldsToCheck.contains(field)==false) {
+                isOk = 0;
+                break;
+            }
         }
 
+        return isOk;
     }
 
     /**
