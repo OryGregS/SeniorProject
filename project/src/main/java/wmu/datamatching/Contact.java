@@ -199,7 +199,7 @@ public class Contact {
 
     public void printAll() {
         System.out.printf("%-40s %-40s %-40s %-40s %-40s %-40s %-40s " +
-                "%-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s",
+                "%-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s\n",
                 LastName, MiddleName, FirstName, FirmName, OfficeName,
                 Email, BusinessPhone, Address1, Address2, City,
                 StateProvince, Zip1, Zip2, CountryID, CRDNumber, ContactID);
