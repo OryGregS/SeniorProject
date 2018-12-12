@@ -21,6 +21,10 @@ public class RecordMatcherTest {
                 "ratio")), String.valueOf(0));
         assertEquals(String.valueOf(matcher.fuzzyStrCmp("Greg", "Greg",
                 "ratio")), String.valueOf(100));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("Axel", "AXel",
+                "ratio")), String.valueOf(75));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("Axel", "Axel",
+                "ratio")), String.valueOf(100));
         assertEquals(String.valueOf(matcher.fuzzyStrCmp("Axel", "AxelJ",
                 "ratio")), String.valueOf(89));
         assertEquals(String.valueOf(matcher.fuzzyStrCmp("noah", "naoh",
@@ -28,6 +32,8 @@ public class RecordMatcherTest {
 
         assertEquals(String.valueOf(matcher.fuzzyStrCmp("noah", "naoh",
                 "ratioo")), String.valueOf(-1));
+
+        System.out.println("testFuzzyStrCmp() pass");
 
     }
 

@@ -26,7 +26,7 @@ public class MatchMain {
         System.out.printf("-> r = %d\n", r);
 
 
-        r = FuzzySearch.ratio("greg", "greg");
+        r = FuzzySearch.ratio("greg", "Greg");
         System.out.printf("-> r = %d\n", r);
 
         r = FuzzySearch.ratio("axel", "axel7");

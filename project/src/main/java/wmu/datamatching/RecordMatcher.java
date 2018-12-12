@@ -9,10 +9,54 @@ import java.util.ArrayList;
  */
 public class RecordMatcher {
 
+
     /**
      * Private field that gets populated in compareFields()
      */
     private int confidenceSum = 0;
+
+
+    /**
+     * Ensures a method is valid
+     * @param compareMethod - Method used for comparison.
+     *
+     *                      Legal values (not case-sensitive):
+     *                      "ratio", "partialRatio", "tokenSortRatio",
+     *                      "tokenSortPartialRatio", "tokenSetRatio",
+     *                      "tokenSetPartialRatio", "weightedRatio".
+     * @return True if valid; False if not
+     */
+    protected boolean checkMethod(String compareMethod) {
+
+        compareMethod = compareMethod.toLowerCase();
+
+        switch (compareMethod) {
+            case "ratio":
+                return true;
+            case "partialratio":
+                return true;
+            case "tokensortratio":
+                return true;
+            case "tokensortpartialratio":
+                return true;
+            case "tokensetratio":
+                return true;
+            case "tokensetpartialratio":
+                return true;
+            case "weightedratio":
+                return true;
+
+        }
+        return false;
+    }
+
+    /**
+     * Returns the class field confidenceSum
+     * @return
+     */
+    public int getSum() {
+        return this.confidenceSum;
+    }
 
     /**
      * Generic class to allow flexibility with FuzzySearch
@@ -83,10 +127,8 @@ public class RecordMatcher {
      * @param compareMethod - Method of comparison to use
      * @return 0 if the fields checking is wrong, otherwise 1 as ok.
      */
-    public int compareFields(ArrayList<String> contact1,
-                              ArrayList<String> contact2,
-                              String compareMethod,
-                              ArrayList<Integer> fieldsToCheck) {
+    public int compareFields(ArrayList<String> contact1, ArrayList<String> contact2,
+                              String compareMethod, ArrayList<Integer> fieldsToCheck) {
 
         int field;
         int len = contact1.size();
@@ -126,47 +168,7 @@ public class RecordMatcher {
         return isOk;
     }
 
-    /**
-     * Ensures a method is valid
-     * @param compareMethod - Method used for comparison.
-     *
-     *                      Legal values (not case-sensitive):
-     *                      "ratio", "partialRatio", "tokenSortRatio",
-     *                      "tokenSortPartialRatio", "tokenSetRatio",
-     *                      "tokenSetPartialRatio", "weightedRatio".
-     * @return True if valid; False if not
-     */
-    protected boolean checkMethod(String compareMethod) {
 
-        compareMethod = compareMethod.toLowerCase();
-
-        switch (compareMethod) {
-            case "ratio":
-                return true;
-            case "partialratio":
-                return true;
-            case "tokensortratio":
-                return true;
-            case "tokensortpartialratio":
-                return true;
-            case "tokensetratio":
-                return true;
-            case "tokensetpartialratio":
-                return true;
-            case "weightedratio":
-                return true;
-
-        }
-        return false;
-    }
-
-    /**
-     * Returns the class field confidenceSum
-     * @return
-     */
-    public int getSum() {
-        return this.confidenceSum;
-    }
 
 
 

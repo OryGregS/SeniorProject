@@ -110,7 +110,7 @@ public class MasterSet {
         System.out.println();
         for (int i = 0; i < 6; i++) {
             ContactList.get(i).printAll();
-            System.out.println();
+
         }
         System.out.println();
     }
