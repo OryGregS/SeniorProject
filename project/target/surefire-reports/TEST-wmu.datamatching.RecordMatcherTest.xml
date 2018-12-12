@@ -1,64 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="wmu.datamatching.RecordMatcherTest" time="0.218" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="wmu.datamatching.RecordMatcherTest" time="0.565" tests="3" errors="0" skipped="0" failures="0">
   <properties>
-    <property name="sun.desktop" value="gnome"/>
-    <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
+    <property name="gopherProxySet" value="false"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.specification.version" value="10"/>
     <property name="file.encoding.pkg" value="sun.io"/>
-    <property name="java.specification.version" value="1.8"/>
     <property name="sun.cpu.isalist" value=""/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/home/greg/gDrive/WMU/Fall18/SeniorProject/project/target/test-classes:/home/greg/gDrive/WMU/Fall18/SeniorProject/project/target/classes:/home/greg/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/greg/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/greg/.m2/repository/org/apache/commons/commons-csv/1.5/commons-csv-1.5.jar:/home/greg/.m2/repository/me/xdrop/fuzzywuzzy/1.2.0/fuzzywuzzy-1.2.0.jar:/home/greg/.m2/repository/org/jetbrains/annotations/16.0.3/annotations-16.0.3.jar:"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.class.path" value="/Users/axeljeremy/Drive/CS-4900/cs4900/Java Workspace/AxelWorkspace/project/target/test-classes:/Users/axeljeremy/Drive/CS-4900/cs4900/Java Workspace/AxelWorkspace/project/target/classes:/Users/axeljeremy/.m2/repository/junit/junit/4.11/junit-4.11.jar:/Users/axeljeremy/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/axeljeremy/.m2/repository/org/apache/commons/commons-csv/1.5/commons-csv-1.5.jar:/Users/axeljeremy/.m2/repository/me/xdrop/fuzzywuzzy/1.2.0/fuzzywuzzy-1.2.0.jar:/Users/axeljeremy/.m2/repository/org/jetbrains/annotations/16.0.3/annotations-16.0.3.jar:"/>
+    <property name="java.vm.vendor" value="&quot;Oracle Corporation&quot;"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="user.timezone" value=""/>
-    <property name="java.vm.specification.version" value="1.8"/>
-    <property name="os.name" value="Linux"/>
-    <property name="user.country" value="CA"/>
+    <property name="java.vm.specification.version" value="10"/>
+    <property name="os.name" value="Mac OS X"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
-    <property name="sun.java.command" value="/home/greg/gDrive/WMU/Fall18/SeniorProject/project/target/surefire/surefirebooter8669065461242310619.jar /home/greg/gDrive/WMU/Fall18/SeniorProject/project/target/surefire 2018-12-11T15-09-24_876-jvmRun1 surefire2986401625422751097tmp surefire_01369671575073889630tmp"/>
-    <property name="surefire.test.class.path" value="/home/greg/gDrive/WMU/Fall18/SeniorProject/project/target/test-classes:/home/greg/gDrive/WMU/Fall18/SeniorProject/project/target/classes:/home/greg/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/greg/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/greg/.m2/repository/org/apache/commons/commons-csv/1.5/commons-csv-1.5.jar:/home/greg/.m2/repository/me/xdrop/fuzzywuzzy/1.2.0/fuzzywuzzy-1.2.0.jar:/home/greg/.m2/repository/org/jetbrains/annotations/16.0.3/annotations-16.0.3.jar:"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/axeljeremy/Drive/CS-4900/cs4900/Java Workspace/AxelWorkspace/project/target/surefire/surefirebooter11996180147525689196.jar /Users/axeljeremy/Drive/CS-4900/cs4900/Java Workspace/AxelWorkspace/project/target/surefire 2018-12-12T17-09-33_666-jvmRun1 surefire16969435834578421016tmp surefire_09704270331979679446tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/axeljeremy/Drive/CS-4900/cs4900/Java Workspace/AxelWorkspace/project/target/test-classes:/Users/axeljeremy/Drive/CS-4900/cs4900/Java Workspace/AxelWorkspace/project/target/classes:/Users/axeljeremy/.m2/repository/junit/junit/4.11/junit-4.11.jar:/Users/axeljeremy/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/axeljeremy/.m2/repository/org/apache/commons/commons-csv/1.5/commons-csv-1.5.jar:/Users/axeljeremy/.m2/repository/me/xdrop/fuzzywuzzy/1.2.0/fuzzywuzzy-1.2.0.jar:/Users/axeljeremy/.m2/repository/org/jetbrains/annotations/16.0.3/annotations-16.0.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="/home/greg"/>
+    <property name="user.home" value="/Users/axeljeremy"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.home" value="/usr/lib/jvm/java-8-oracle/jre"/>
-    <property name="basedir" value="/home/greg/gDrive/WMU/Fall18/SeniorProject/project"/>
+    <property name="java.version.date" value="2018-07-17"/>
+    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home"/>
     <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/axeljeremy/Drive/CS-4900/cs4900/Java Workspace/AxelWorkspace/project"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
-    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/greg/gDrive/WMU/Fall18/SeniorProject/project/target/surefire/surefirebooter8669065461242310619.jar"/>
-    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/Users/axeljeremy/Drive/CS-4900/cs4900/Java Workspace/AxelWorkspace/project/target/surefire/surefirebooter11996180147525689196.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="1.8.0_191-b12"/>
-    <property name="user.name" value="greg"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="10.0.2+13"/>
+    <property name="user.name" value="axeljeremy"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="4.15.0-42-generic"/>
-    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/endorsed"/>
+    <property name="os.version" value="10.14.2"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
-    <property name="localRepository" value="/home/greg/.m2/repository"/>
-    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="/tmp"/>
-    <property name="java.version" value="1.8.0_191"/>
-    <property name="user.dir" value="/home/greg/gDrive/WMU/Fall18/SeniorProject/project"/>
-    <property name="os.arch" value="amd64"/>
+    <property name="java.vendor.version" value="18.3"/>
+    <property name="localRepository" value="/Users/axeljeremy/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/var/folders/ry/v7vpjpyx4tl22937yv0qvdqm0000gp/T/"/>
+    <property name="idea.version" value="2018.3.1"/>
+    <property name="java.version" value="10.0.2"/>
+    <property name="user.dir" value="/Users/axeljeremy/Drive/CS-4900/cs4900/Java Workspace/AxelWorkspace/project"/>
+    <property name="os.arch" value="x86_64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
     <property name="sun.os.patch.level" value="unknown"/>
-    <property name="java.library.path" value="/usr/local/cuda/lib64::/usr/local/cuda/lib64::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
-    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.library.path" value="/Users/axeljeremy/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="25.191-b12"/>
-    <property name="java.ext.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/ext:/usr/java/packages/lib/ext"/>
-    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="52.0"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vm.version" value="10.0.2+13"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="java.class.version" value="54.0"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase name="testFuzzyStrCmp" classname="wmu.datamatching.RecordMatcherTest" time="0"/>
+  <testcase name="testFuzzyStrCmp" classname="wmu.datamatching.RecordMatcherTest" time="0.008"/>
   <testcase name="testCheckMethod" classname="wmu.datamatching.RecordMatcherTest" time="0"/>
-  <testcase name="testCompareFields" classname="wmu.datamatching.RecordMatcherTest" time="0.218"/>
+  <testcase name="testCompareFields" classname="wmu.datamatching.RecordMatcherTest" time="0.525"/>
 </testsuite>

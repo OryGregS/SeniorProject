@@ -33,7 +33,7 @@ public class RecordMatcherTest {
         assertEquals(String.valueOf(matcher.fuzzyStrCmp("noah", "naoh",
                 "ratioo")), String.valueOf(-1));
 
-        System.out.println("testFuzzyStrCmp() pass");
+//        System.out.println("testFuzzyStrCmp() pass");
 
     }
 
