@@ -11,6 +11,9 @@ public class MatchMain {
     public static void main(String[] args) {
 
         LoaderData loaderData = new LoaderData();
+        loaderData.loadMasterSet();
+        loaderData.loadMatchSet();
+
         MasterSet master = loaderData.getMasterSet();
         MatchSet match = loaderData.getMatchSet();
 

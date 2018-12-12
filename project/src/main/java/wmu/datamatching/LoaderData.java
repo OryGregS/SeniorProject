@@ -2,19 +2,32 @@ package wmu.datamatching;
 
 public class LoaderData {
 
-    private final String masterPath = "./data/contact_master.csv";
-    private final String matchPath = "./data/contact_match.csv";
-    private long startTime, estimatedTime;
-    private double seconds;
+    private String masterPath = "./data/contact_master.csv";
+    private String matchPath = "./data/contact_match.csv";
+
+//    private long startTime, estimatedTime;
+//    private double seconds;
 
     private MasterSet masterSet;
     private MatchSet matchSet;
 
-    /***
-     * Public method to load the data outside the class
-     */
-    public LoaderData(){
-        loadData();
+
+    protected void setMasterPath(String newMasterPath){
+        masterPath = newMasterPath;
+    }
+
+    protected void setMatchPath(String newMatchPath){
+        matchPath = newMatchPath;
+    }
+
+    public void loadMasterSet(){
+        masterSet = new MasterSet();
+        masterSet.readCSV(masterPath);
+    }
+
+    public void loadMatchSet(){
+        matchSet = new MatchSet();
+        matchSet.readCSV(matchPath);
     }
 
     /**
@@ -31,41 +44,6 @@ public class LoaderData {
      */
     public MatchSet getMatchSet() {
         return matchSet;
-    }
-
-    /***
-     * Private method to load the data and show timing to load
-     */
-    private void loadData(){
-        startTime = System.nanoTime();
-
-        masterSet = new MasterSet();
-        masterSet.readCSV(masterPath);
-
-        matchSet = new MatchSet();
-        matchSet.readCSV(matchPath);
-
-        estimatedTime = System.nanoTime() - startTime;
-        seconds = ((double)estimatedTime / 1000000000.0);
-        System.out.println("\nTime for reading contact_master.csv and contact_match.csv: " + seconds + " seconds");
-    }
-
-
-
-    /***
-     * Method to test the time to load the data
-     * tested part TEST FROM GREG
-     */
-    public void testTimeRead(){
-        long startTime = System.nanoTime();
-        MasterSet masterSet = new MasterSet();
-        masterSet.readCSV(masterPath);
-        MatchSet matchSet = new MatchSet();
-        matchSet.readCSV(matchPath);
-        long estimatedTime = System.nanoTime() - startTime;
-        double seconds = ((double)estimatedTime / 1000000000.0);
-        System.out.println("Time testTimeRead(): " + seconds + " seconds");
-
     }
 
 
