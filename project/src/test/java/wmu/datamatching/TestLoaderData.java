@@ -47,7 +47,7 @@ public class TestLoaderData {
         MasterSet masterSet = loaderData.getMasterSet();
         estimatedTime = System.nanoTime() - startTime;
         seconds = ((double)estimatedTime / 1000000000.0);
-        System.out.println("\nTime getMasterSetTimeTest(): " + seconds + " seconds");
+        System.out.println("\nTime for getMasterSetTimeTest(): " + seconds + " seconds");
     }
 
     @Test
@@ -58,7 +58,12 @@ public class TestLoaderData {
         MatchSet matchSet = loaderData.getMatchSet();
         estimatedTime = System.nanoTime() - startTime;
         seconds = ((double)estimatedTime / 1000000000.0);
-        System.out.println("\nTime getMatchSetTimeTest(): " + seconds + " seconds");
+        System.out.println("\nTime for getMatchSetTimeTest(): " + seconds + " seconds");
     }
 
 }
+
+
+//    Time getMasterSetTimeTest(): 0.60691053 seconds
+//
+//    Time getMatchSetTimeTest(): 0.355667105 seconds
