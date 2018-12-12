@@ -10,15 +10,12 @@ public class MatchMain {
 
     public static void main(String[] args) {
 
-        String masterPath = "./data/contact_master.csv";
-        String matchPath = "./data/contact_match.csv";
+        LoaderData loaderData = new LoaderData();
+        MasterSet master = loaderData.getMasterSet();
+        MatchSet match = loaderData.getMatchSet();
 
-        MasterSet master = new MasterSet();
-        master.readCSV(masterPath);
         master.head();
-        
-        MatchSet match = new MatchSet();
-        match.readCSV(matchPath);
+
         match.head();
 
 
@@ -80,18 +77,17 @@ public class MatchMain {
         ListEmptyCRDs(match.getContactList(), "Match");
         System.out.println();
         System.out.println();
-        long startTime = System.nanoTime();
+
         //checkOnlyByCRD(master.getContactList(), ListEmptyCRDs(match.getContactList()(), "Match"));
         //checkOnlyByCRDv2(master.getContactList(), ListEmptyCRDs(match.getContactList()(), "Match"));
-        long estimatedTime = System.nanoTime() - startTime;
-        final double seconds = ((double)estimatedTime / 1000000000.0);
-        System.out.println(seconds + " seconds");
+
+
         System.out.println("DONE");
 
 
-        checkEqualContactID(master.getContactList());
+//        checkEqualContactID(master.getContactList());
 
-        checkEqualContactID(match.getContactList());
+//        checkEqualContactID(match.getContactList());
 
 
 
