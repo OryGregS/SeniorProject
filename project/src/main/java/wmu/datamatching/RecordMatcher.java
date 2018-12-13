@@ -133,9 +133,21 @@ public class RecordMatcher {
         int field;
         int len = contact1.size();
         int checkIsOk = 1;
+
+
+        for (field = 0; field < len && contact1.size() != contact2.size(); field++) {
+            if (fieldsToCheck.contains(field)){
+                this.confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
+            }
+
+        }
+
         if (fieldsChecked(contact1,contact2,fieldsToCheck) == checkIsOk) {
             for (field = 0; field < len ; field++) {
-                this.confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
+                if (fieldsToCheck.contains(field)){
+                    this.confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
+                }
+
             }
         }else{
             checkIsOk = 0;

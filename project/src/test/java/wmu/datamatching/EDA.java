@@ -3,6 +3,7 @@ package wmu.datamatching;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import org.junit.Test;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,6 +40,15 @@ public class EDA {
         checkEqualCRD(masterList);
         System.out.printf("Master -> Number of columns: %d\n", master.getNumCols());
         System.out.printf("Master -> Number of rows: %d\n", master.getNumRows());
+
+        System.out.println();
+        System.out.println();
+
+//        HashMap<KeyMatch,Integer> matchMap = findMatch(masterList,matchList);
+////        showMatch(masterList,matchList,matchMap);
+
+        ArrayList<KeyMatch> matchMapList = findMatchV2(masterList,matchList);
+        showMatchV2(masterList,matchList,matchMapList);
 
 
 //        System.out.println();
@@ -200,6 +210,192 @@ public class EDA {
         System.out.printf("The empty count is : %d / %d -> %f%%\n", countEmptyCrds, len, ((double) countEmptyCrds/ (double) len) * 100.0);
         System.out.println();
     }
+
+
+    public  HashMap<KeyMatch,Integer> findMatch(ArrayList<Contact> master, ArrayList<Contact> match){
+        int i;
+        int j;
+        int lenOfMatch = match.size();
+        int lenOfMaster = master.size();
+        KeyMatch key = new KeyMatch(0,0,0,"");
+        KeyMatch finalKey = new KeyMatch(key);
+        String maxKey = "";
+        int max = 0;
+        Contact tempMatch;
+        Contact tempMaster;
+        HashMap<KeyMatch, Integer> matchMap = new HashMap<>();
+        String keyTemp;
+        int ratios;
+        for(i=0; i<lenOfMatch*0.01; i++){
+            for(j=0; j<lenOfMaster*0.01; j++){
+                tempMatch = match.get(i);
+
+                tempMaster = master.get(j);
+
+                keyTemp = "matchIndex:"+String.valueOf(i) + " || " + "masterIndex:" +String.valueOf(j)+" || ContactID: "+tempMaster.getContactID();
+
+                ratios = 0;
+                ratios += FuzzySearch.ratio(tempMatch.getLastName(), tempMaster.getLastName());
+                ratios += FuzzySearch.ratio(tempMatch.getMiddleName(), tempMaster.getMiddleName());
+                ratios += FuzzySearch.ratio(tempMatch.getFirstName(), tempMaster.getFirstName());
+                ratios += FuzzySearch.ratio(tempMatch.getFirmName(), tempMaster.getFirmName());
+                ratios += FuzzySearch.ratio(tempMatch.getOfficeName(), tempMaster.getOfficeName());
+                ratios += FuzzySearch.ratio(tempMatch.getEmail(), tempMaster.getEmail());
+                ratios += FuzzySearch.ratio(tempMatch.getBusinessPhone(), tempMaster.getBusinessPhone());
+                ratios += FuzzySearch.ratio(tempMatch.getAddress1(), tempMaster.getAddress1());
+                ratios += FuzzySearch.ratio(tempMatch.getAddress2(), tempMaster.getAddress2());
+                ratios += FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity());
+                ratios += FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
+                ratios += FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
+                ratios += FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2());
+                ratios += FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID());
+                ratios += FuzzySearch.ratio(tempMatch.getCRDNumber(), tempMaster.getCRDNumber());
+
+
+                ratios/=15.0;
+                if (max < ratios){
+                    max = ratios;
+                    key = new KeyMatch(j,i,max,tempMaster.getContactID());
+                    matchMap.put(key, ratios);
+                    maxKey = keyTemp;
+                    finalKey = key;
+//                    System.out.println(keyTemp + " => "+matchMap.get(key));
+                }
+            }
+//            System.out.println(maxKey + " => "+matchMap.get(finalKey));
+            max = 0;
+        }
+        return matchMap;
+    }
+
+    public void showMatch(ArrayList<Contact> master, ArrayList<Contact> match, HashMap<KeyMatch,Integer> matchMap){
+        System.out.println();
+        KeyMatch temp;
+        for (HashMap.Entry<KeyMatch,Integer> entry : matchMap.entrySet()){
+            temp = entry.getKey();
+            System.out.printf("Match Index ->  %d ", temp.matchIndex);
+            match.get(temp.matchIndex).printAll();
+            System.out.printf("Master Index -> %d ", temp.masterIndex);
+            master.get(temp.masterIndex).printAll();
+            System.out.println("Max -> " + temp.maxValue);
+            System.out.println();
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public  ArrayList<KeyMatch> findMatchV2(ArrayList<Contact> master, ArrayList<Contact> match){
+        int i;
+        int j;
+        int lenOfMatch = match.size();
+        int lenOfMaster = master.size();
+        KeyMatch key;
+//        KeyMatch finalKey;
+        String maxKey = "";
+        int max = 0;
+        Contact tempMatch;
+        Contact tempMaster = null;
+        ArrayList<KeyMatch> matchMap = new ArrayList<>();
+        ArrayList<Integer> top5Matches = null;
+        ArrayList<Integer> top5MatchesMax = null;
+        String keyTemp;
+        int ratios;
+        for(i=0; i<lenOfMaster*0.01; i++){
+            max = 0;
+            top5Matches = new ArrayList<>();
+            top5MatchesMax = new ArrayList<>();
+            tempMaster = master.get(i);
+//            System.out.println("i->"+i);
+            for(j=0; j<lenOfMatch*0.01; j++){
+                tempMatch = match.get(j);
+
+                ratios = 0;
+                ratios += FuzzySearch.ratio(tempMatch.getLastName(), tempMaster.getLastName());
+                ratios += FuzzySearch.ratio(tempMatch.getMiddleName(), tempMaster.getMiddleName());
+                ratios += FuzzySearch.ratio(tempMatch.getFirstName(), tempMaster.getFirstName());
+                ratios += FuzzySearch.ratio(tempMatch.getFirmName(), tempMaster.getFirmName());
+                ratios += FuzzySearch.ratio(tempMatch.getOfficeName(), tempMaster.getOfficeName());
+                ratios += FuzzySearch.ratio(tempMatch.getEmail(), tempMaster.getEmail());
+                ratios += FuzzySearch.ratio(tempMatch.getBusinessPhone(), tempMaster.getBusinessPhone());
+                ratios += FuzzySearch.ratio(tempMatch.getAddress1(), tempMaster.getAddress1());
+                ratios += FuzzySearch.ratio(tempMatch.getAddress2(), tempMaster.getAddress2());
+                ratios += FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity());
+                ratios += FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
+                ratios += FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
+                ratios += FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2());
+                ratios += FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID());
+                ratios += FuzzySearch.ratio(tempMatch.getCRDNumber(), tempMaster.getCRDNumber());
+
+                ratios/=15.0;
+                if (max < ratios){
+                    max = ratios;
+//                    System.out.println("    j->"+j + " max->" + max);
+                    checkCapacity(top5Matches,top5MatchesMax, j, max);
+                }
+            }
+            key = new KeyMatch(i,j, max, tempMaster.getContactID(),top5Matches,top5MatchesMax);
+            for (int k = 0; k < top5Matches.size(); k++) {
+//                System.out.print(" i=" + top5Matches.get(k) + " max=" + top5MatchesMax.get(k));
+            }
+
+            matchMap.add(key);
+//            System.out.println("\n--------");
+        }
+        return matchMap;
+    }
+
+    public void checkCapacity(ArrayList <Integer> list, ArrayList <Integer> list2, int j, int max){
+        int i =0;
+        if (list.size() == 5){
+            for (i = 0; i < 4; i++) {
+                list.set(i,list.get(i+1));
+                list2.set(i,list2.get(i+1));
+            }
+            list.set(4,j);
+            list2.set(4,max);
+        }else{
+            list.add(j);
+            list2.add(max);
+//            System.out.println("to add index value: " + j);
+//            System.out.println("to add max value: " + max);
+        }
+    }
+
+    public void showMatchV2(ArrayList<Contact> master, ArrayList<Contact> match, ArrayList<KeyMatch> matchMapList){
+        System.out.println();
+        ArrayList<Integer> top5;
+        int i;
+        int j;
+        int top5Index;
+        int top5Max;
+        int len = matchMapList.size();
+        int sizeUpTo5;
+        KeyMatch temp = null;
+        for (i = 0; i < len; i++) {
+            temp = matchMapList.get(i);
+            sizeUpTo5 = temp.top5matchesIndexes.size();
+            for (j = 0; j < sizeUpTo5; j++) {
+                top5Index = temp.top5matchesIndexes.get(j);
+                top5Max = temp.top5matchesMax.get(j);
+                System.out.printf("Match Index ->  %d | Max -> %d | ", top5Index, top5Max);
+                match.get(top5Index).printAll();
+            }
+//            System.out.printf("Match Index ->  %d ", temp.matchIndex);
+//            match.get(temp.matchIndex).printAll();
+            System.out.printf("Master Index -> %d | Max -> %d | ", temp.masterIndex, temp.maxValue);
+            master.get(temp.masterIndex).printAll();
+            System.out.println();
+
+        }
+        System.out.println();
+    }
+
+
+
+
+
+
+
 
 
 
