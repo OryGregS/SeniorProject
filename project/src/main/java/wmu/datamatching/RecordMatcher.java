@@ -75,10 +75,8 @@ public class RecordMatcher {
 
                 tempMatch = matchSet.get(matchContact);
 
-                int confidence = calcSim.compareFields(tempMatch.getFieldList(), tempMaster.getFieldList(),
+                int confidence = calcSim.compareFields(tempMaster, tempMatch,
                         "ratio", fieldsToCompare);
-
-                confidence /= this.fieldsToCompare.size();
 
 
                 tempMaster.setMatch(tempMatch.getContactID(), confidence);

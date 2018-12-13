@@ -91,12 +91,11 @@ public class TestCalcSim {
         master.readCSV("./data/contact_master.csv");
         match.readCSV("./data/contact_match.csv");
 
-        Contact c1 = master.getContactList().get(0);
+        MasterContact c1 = master.getContactList().get(0);
         Contact c2 = match.getContactList().get(0);
 
-        int sum = calc.compareFields(c1.getFieldList(), c2.getFieldList(), "ratio");
-        //int sum = calc.getSum();
-        assertEquals(sum, 502);
+        int confidence = calc.compareFields(c1, c2, "ratio");
+        assertEquals(confidence, 31);
     }
 
 

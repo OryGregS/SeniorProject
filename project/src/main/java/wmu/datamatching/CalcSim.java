@@ -91,48 +91,95 @@ public class CalcSim {
     }
 
     /**
-     * Method to compare all fields for contacts with the same method
+     * Method to compare all fields for contacts with the same method.
+     * Checks CRD number first to avoid unnecessary computation.
      *
-     * @param contact1      - ArrayList of all contact's data for a set
-     * @param contact2      - ArrayList of all contact's data for another set
+     * @param contact1      - MasterContact object
+     * @param contact2      - Contact object
      * @param compareMethod - Method of comparison to use
      */
-    public int compareFields(ArrayList<String> contact1,
-                             ArrayList<String> contact2,
+    public int compareFields(MasterContact contact1,
+                             Contact contact2,
                              String compareMethod) {
 
         int field;
         int confidenceSum = 0;
-        for (field = 0; field < contact1.size() && contact1.size() == contact2.size(); field++) {
-            confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
+        ArrayList<String> contact1Data = contact1.getFieldList();
+        int numFieldsCompared = contact1Data.size();
+        String c1CRD = contact1.getCRDNumber();
+        String c2CRD = contact2.getCRDNumber();
+
+        if (checkCRDNotEmpty(c1CRD) && checkCRDNotEmpty(c2CRD) &&
+                c1CRD.equalsIgnoreCase(c2CRD)) {
+
+            confidenceSum = contact1.getFieldList().size() * 100;
+
+        } else {
+
+            ArrayList<String> contact2Data = contact2.getFieldList();
+
+            for (field = 0; field < contact1Data.size() &&
+                    contact1Data.size() == contact2Data.size(); field++) {
+                confidenceSum += fuzzyStrCmp(contact1Data.get(field),
+                        contact2Data.get(field), compareMethod);
+            }
+
         }
 
-        return confidenceSum;
+        return calcConfidence(confidenceSum, numFieldsCompared);
     }
 
     /**
-     * Overloaded method to compare specific fields for contacts with the same method
+     * Overloaded method to compare specific fields for contacts with the same method.
+     * Checks CRD number first to avoid unnecessary computation.
      *
-     * @param contact1      - ArrayList of all contact's data for a set
-     * @param contact2      - ArrayList of all contact's data for another set
+     * @param contact1      - MasterContact object
+     * @param contact2      - Contact object
      * @param fieldsToCheck - List of fields to use for comparison
      * @param compareMethod - Method of comparison to use
      * @return 0 if the fields checking is wrong, otherwise 1 as ok.
      */
-    public int compareFields(ArrayList<String> contact1, ArrayList<String> contact2,
+    public int compareFields(MasterContact contact1, Contact contact2,
                              String compareMethod, ArrayList<Integer> fieldsToCheck) {
 
         int field;
-        int len = contact1.size();
         int confidenceSum = 0;
+        int numFieldsCompared = fieldsToCheck.size();
+        String c1CRD = contact1.getCRDNumber();
+        String c2CRD = contact2.getCRDNumber();
 
-        for (field = 0; field < len; field++) {
-            if (fieldsToCheck.contains(field))
-                confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
+        if (checkCRDNotEmpty(c1CRD) && checkCRDNotEmpty(c2CRD) &&
+                c1CRD.equalsIgnoreCase(c2CRD)) {
+
+            confidenceSum = numFieldsCompared * 100;
+
+        } else {
+
+            ArrayList<String> contact1Data = contact1.getFieldList();
+            ArrayList<String> contact2Data = contact2.getFieldList();
+            int len = contact1Data.size();
+
+            for (field = 0; field < len; field++) {
+                if (fieldsToCheck.contains(field))
+                    confidenceSum += fuzzyStrCmp(contact1Data.get(field),
+                            contact2Data.get(field), compareMethod);
+            }
+
         }
 
-        return confidenceSum;
+        return calcConfidence(confidenceSum, numFieldsCompared);
 
+    }
+
+    private boolean checkCRDNotEmpty(String CRDNum) {
+        if (!CRDNum.equals("")) {
+            return true;
+        }
+        return false;
+    }
+
+    private int calcConfidence(int confidenceSum, int numFieldsCompared) {
+        return confidenceSum / numFieldsCompared;
     }
 
 //    /***

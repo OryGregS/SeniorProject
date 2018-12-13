@@ -27,7 +27,7 @@ public class MatchMain {
         fieldsToCompare.add(11); // zip1
         fieldsToCompare.add(12); // zip2
 
-        RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare);
+        RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare, 0.1);
         matcher.printRun(true);
         matcher.run();
 
