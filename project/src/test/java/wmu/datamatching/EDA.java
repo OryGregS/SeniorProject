@@ -300,13 +300,13 @@ public class EDA {
         ArrayList<Integer> top5MatchesMax = null;
         String keyTemp;
         int ratios;
-        for(i=0; i<lenOfMaster*0.01; i++){
+        for(i=0; i<lenOfMaster*0.1; i++){
             max = 0;
             top5Matches = new ArrayList<>();
             top5MatchesMax = new ArrayList<>();
             tempMaster = master.get(i);
 //            System.out.println("i->"+i);
-            for(j=0; j<lenOfMatch*0.01; j++){
+            for(j=0; j<lenOfMatch*0.1; j++){
                 tempMatch = match.get(j);
 
                 ratios = 0;
