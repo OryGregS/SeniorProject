@@ -127,7 +127,7 @@ public class MasterContact extends Contact {
     public void printTop() {
         System.out.println(this.FirstName + " - TOP " + MAX_MATCH_SIZE + " MATCHES");
         for (int i = 0; i < topConfidence.size(); i++) {
-            System.out.println("\t" + i + ": " + this.topContactID.get(i) + " | Confidence: " + topConfidence.get(i));
+            System.out.println("\t" + (i + 1) + ": " + this.topContactID.get(i) + " | Confidence: " + topConfidence.get(i));
         }
         System.out.println();
     }

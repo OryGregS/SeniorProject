@@ -1,15 +1,12 @@
 package wmu.datamatching;
 
-
-import me.xdrop.fuzzywuzzy.FuzzySearch;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MatchMain {
 
     public static void main(String[] args) {
+
+        long start = System.nanoTime();
 
         LoaderData loader = new LoaderData();
         loader.loadMasterSet();
@@ -31,7 +28,20 @@ public class MatchMain {
         fieldsToCompare.add(12); // zip2
 
         CompareContacts cc = new CompareContacts(master, match, fieldsToCompare);
+        cc.print = false;
         cc.compareSets();
+
+        long end = System.nanoTime();
+        double time =  ( (end-start) / 1000000000 );
+
+        if (time > 120) {
+            time = time / 60;
+            System.out.println("\nTime taken: " + time + " minutes\n");
+        } else {
+            System.out.println("\nTime taken: " + time + " seconds\n");
+        }
+
+
 
 //        for (int i = 0; i < master.getContactList().size(); i++) {
 //            master.getContactList().get(i).printTop();

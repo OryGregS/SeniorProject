@@ -30,7 +30,7 @@ public class TestCompareContacts {
         fieldsToCompare.add(11); // zip1
         fieldsToCompare.add(12); // zip2
 
-        CompareContacts cc = new CompareContacts(master, match, fieldsToCompare, 0.05);
+        CompareContacts cc = new CompareContacts(master, match, fieldsToCompare, 0.01);
         cc.print = false;
         cc.compareSets();
 

@@ -2,26 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2227734e-fdae-4a97-95b1-79aec4c07fac" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestCompareContacts.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/version_runtimes.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/.~lock.contact_master.csv#" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wmu/datamatching/CompareContacts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wmu/datamatching/CompareContacts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wmu/datamatching/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wmu/datamatching/Contact.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wmu/datamatching/MasterContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wmu/datamatching/MasterContact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wmu/datamatching/MasterSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wmu/datamatching/MasterSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/wmu/datamatching/MatchMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wmu/datamatching/MatchMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wmu/datamatching/RecordMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wmu/datamatching/RecordMatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/wmu/datamatching/EDA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/wmu/datamatching/EDA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestLoaderData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestLoaderData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestRecordMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestRecordMatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/DataMatching-1.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/wmu/datamatching/RecordMatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wmu/datamatching/RecordMatcher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-wmu.datamatching.RecordMatcherTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/wmu.datamatching.RecordMatcherTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestCompareContacts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestCompareContacts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wmu/datamatching/CompareContacts.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wmu/datamatching/CompareContacts.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/wmu/datamatching/MatchMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/wmu/datamatching/MatchMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/wmu/datamatching/TestCompareContacts.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/wmu/datamatching/TestCompareContacts.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -42,19 +31,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/Contact.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-435">
-              <caret line="16" column="35" lean-forward="true" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
-              <folding>
-                <element signature="e#3475#3476#0" expanded="true" />
-                <element signature="e#3507#3508#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/CompareContacts.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="945">
@@ -69,10 +45,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/wmu/datamatching/EDA.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/KeyMatch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="13" column="10" lean-forward="true" selection-start-line="13" selection-start-column="10" selection-end-line="50" selection-end-column="57" />
+            <state relative-caret-position="-74">
+              <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -86,20 +62,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/MatchMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="32" column="79" selection-start-line="32" selection-start-column="79" selection-end-line="32" selection-end-column="79" />
+            <state relative-caret-position="316">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/wmu/datamatching/TestCompareContacts.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+            <state relative-caret-position="262">
+              <caret line="32" column="85" selection-start-line="32" selection-start-column="85" selection-end-line="32" selection-end-column="85" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -110,7 +86,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/wmu/datamatching/TestLoaderData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-246">
+            <state relative-caret-position="-338">
               <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
@@ -119,8 +95,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/MasterContact.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1479">
-              <caret line="113" column="34" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="34" />
+            <state relative-caret-position="457">
+              <caret line="129" column="45" selection-start-line="129" selection-start-column="45" selection-end-line="129" selection-end-column="45" />
               <folding>
                 <element signature="e#3072#3073#0" expanded="true" />
                 <element signature="e#3093#3094#0" expanded="true" />
@@ -174,13 +150,13 @@
         <option value="$PROJECT_DIR$/src/main/java/wmu/datamatching/RecordMatcher.java" />
         <option value="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestRecordMatcher.java" />
         <option value="$PROJECT_DIR$/src/main/java/wmu/datamatching/Contact.java" />
-        <option value="$PROJECT_DIR$/src/main/java/wmu/datamatching/MasterContact.java" />
         <option value="$PROJECT_DIR$/src/test/java/TestCompareContacts.java" />
         <option value="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestLoaderData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/wmu/datamatching/MatchMain.java" />
         <option value="$PROJECT_DIR$/src/test/java/wmu/datamatching/EDA.java" />
         <option value="$PROJECT_DIR$/src/main/java/wmu/datamatching/CompareContacts.java" />
         <option value="$PROJECT_DIR$/src/test/java/wmu/datamatching/TestCompareContacts.java" />
+        <option value="$PROJECT_DIR$/src/main/java/wmu/datamatching/MasterContact.java" />
+        <option value="$PROJECT_DIR$/src/main/java/wmu/datamatching/MatchMain.java" />
       </list>
     </option>
   </component>
@@ -432,7 +408,7 @@
     <frame x="2560" y="25" width="1920" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.21207266" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21207266" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Learn" order="3" />
@@ -442,13 +418,13 @@
       <window_info id="Image Layers" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
-      <window_info anchor="bottom" x="2560" y="168" width="1872" height="155" id="Run" order="2" sideWeight="0.5988248" weight="0.4054054" />
+      <window_info active="true" anchor="bottom" x="2560" y="168" width="1872" height="155" id="Run" order="2" sideWeight="0.5988248" visible="true" weight="0.23675676" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32972974" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49946582" weight="0.32864866" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.45513514" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.45513514" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.4011752" side_tool="true" weight="0.5448649" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49946582" weight="0.23783784" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
@@ -456,7 +432,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.32959402" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.32959402" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="Coverage" order="5" side_tool="true" weight="0.32959402" />
       <window_info anchor="right" id="Palette" order="6" />
@@ -649,6 +625,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/RecordMatcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2145">
+          <caret line="145" selection-start-line="145" selection-end-line="145" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/Contact.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-435">
@@ -657,48 +640,6 @@
             <element signature="e#3475#3476#0" expanded="true" />
             <element signature="e#3507#3508#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/RecordMatcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2145">
-          <caret line="145" selection-start-line="145" selection-end-line="145" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/wmu/datamatching/TestLoaderData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-246">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/MasterContact.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1479">
-          <caret line="113" column="34" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="34" />
-          <folding>
-            <element signature="e#3072#3073#0" expanded="true" />
-            <element signature="e#3093#3094#0" expanded="true" />
-            <element signature="e#3181#3182#0" expanded="true" />
-            <element signature="e#3221#3222#0" expanded="true" />
-            <element signature="e#3478#3479#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/MatchMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="32" column="79" selection-start-line="32" selection-start-column="79" selection-end-line="32" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/wmu/datamatching/EDA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="13" column="10" lean-forward="true" selection-start-line="13" selection-start-column="10" selection-end-line="50" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -714,13 +655,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/KeyMatch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-74">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/wmu/datamatching/EDA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="73" column="59" lean-forward="true" selection-start-line="73" selection-start-column="59" selection-end-line="73" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/wmu/datamatching/TestLoaderData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-338">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/wmu/datamatching/TestCompareContacts.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+        <state relative-caret-position="262">
+          <caret line="32" column="85" selection-start-line="32" selection-start-column="85" selection-end-line="32" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/MasterContact.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="129" column="45" selection-start-line="129" selection-start-column="45" selection-end-line="129" selection-end-column="45" />
+          <folding>
+            <element signature="e#3072#3073#0" expanded="true" />
+            <element signature="e#3093#3094#0" expanded="true" />
+            <element signature="e#3181#3182#0" expanded="true" />
+            <element signature="e#3221#3222#0" expanded="true" />
+            <element signature="e#3478#3479#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/wmu/datamatching/MatchMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
