@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 public class Contact {
 
-    private String LastName;
-    private String MiddleName;
-    private String FirstName;
-    private String FirmName;
-    private String OfficeName;
-    private String Email;
-    private String BusinessPhone;
-    private String Address1;
-    private String Address2;
-    private String City;
-    private String StateProvince;
-    private String Zip1;
-    private String Zip2;
-    private String CountryID;
-    private String CRDNumber;
-    private String ContactID;
+    protected String LastName;
+    protected String MiddleName;
+    protected String FirstName;
+    protected String FirmName;
+    protected String OfficeName;
+    protected String Email;
+    protected String BusinessPhone;
+    protected String Address1;
+    protected String Address2;
+    protected String City;
+    protected String StateProvince;
+    protected String Zip1;
+    protected String Zip2;
+    protected String CountryID;
+    protected String CRDNumber;
+    protected String ContactID;
 
     /**
      * Default constructor to initialize fields

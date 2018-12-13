@@ -13,12 +13,13 @@ import java.util.ArrayList;
 public class MasterSet {
 
     private long numRows;
-    private final int numCols = 15;
-    private Contact header;
-    private ArrayList<Contact> ContactList;
+    private int numCols;
+    private MasterContact header;
+    private ArrayList<MasterContact> ContactList;
 
     public MasterSet() {
         numRows = 0;
+        numCols = 0;
         ContactList = new ArrayList<>();
     }
 
@@ -35,7 +36,7 @@ public class MasterSet {
             CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withIgnoreSurroundingSpaces());
 
             for (CSVRecord obs : csv) {
-                Contact contact = new Contact();
+                MasterContact contact = new MasterContact();
 
                 contact.setLastName( checkNULL(obs.get(0)) );
                 contact.setMiddleName( checkNULL(obs.get(1)) );
@@ -55,7 +56,6 @@ public class MasterSet {
                 contact.setContactID( checkNULL(obs.get(15)) );
 
                 ContactList.add(contact);
-                numRows++;
             }
 
         } catch (IOException e) {
@@ -99,7 +99,7 @@ public class MasterSet {
      * Method to pass the ArrayList of contacts to other classes
      * @return - The ArrayList of contacts for the master dataset
      */
-    public ArrayList<Contact> getContactList() {
+    public ArrayList<MasterContact> getContactList() {
         return ContactList;
     }
 
@@ -109,18 +109,6 @@ public class MasterSet {
         header.printAll();
         System.out.println();
         for (int i = 0; i < 6; i++) {
-            ContactList.get(i).printAll();
-
-        }
-        System.out.println();
-    }
-
-    public void head(int capacity) {
-
-        System.out.println("\n-----MASTER-----\n");
-        header.printAll();
-        System.out.println();
-        for (int i = 0; i < capacity; i++) {
             ContactList.get(i).printAll();
 
         }

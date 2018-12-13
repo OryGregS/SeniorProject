@@ -11,44 +11,44 @@ public class EDA {
 
     @Test
     public void main(){
-        LoaderData loaderData = new LoaderData();
-        loaderData.loadMasterSet();
-        loaderData.loadMatchSet();
-
-        MasterSet master = loaderData.getMasterSet();
-        MatchSet match = loaderData.getMatchSet();
-
-//        master.head(7);
-//        match.head(7);
-
-        ArrayList <Contact> matchList = match.getContactList();
-        ArrayList <Contact> masterList = master.getContactList();
-        System.out.println("\nMatch\nMatch List Details: ");
-        checkEqualCountryID(matchList);
-        checkEqualFirmName(matchList);
-        checkEqualOfficeName(matchList);
-        checkEqualContactID(matchList);
-        checkEqualCRD(matchList);
-        System.out.printf("Match -> Number of columns: %d\n", match.getNumCols());
-        System.out.printf("Match -> Number of rows: %d\n", match.getNumRows());
-
-        System.out.println("\nMaster\nMaster List Details: ");
-        checkEqualCountryID(masterList);
-        checkEqualFirmName(masterList);
-        checkEqualOfficeName(masterList);
-        checkEqualContactID(masterList);
-        checkEqualCRD(masterList);
-        System.out.printf("Master -> Number of columns: %d\n", master.getNumCols());
-        System.out.printf("Master -> Number of rows: %d\n", master.getNumRows());
-
-        System.out.println();
-        System.out.println();
-
-//        HashMap<KeyMatch,Integer> matchMap = findMatch(masterList,matchList);
-////        showMatch(masterList,matchList,matchMap);
-
-        ArrayList<KeyMatch> matchMapList = findMatchV2(masterList,matchList);
-        showMatchV2(masterList,matchList,matchMapList);
+//        LoaderData loaderData = new LoaderData();
+//        loaderData.loadMasterSet();
+//        loaderData.loadMatchSet();
+//
+//        MasterSet master = loaderData.getMasterSet();
+//        MatchSet match = loaderData.getMatchSet();
+//
+////        master.head(7);
+////        match.head(7);
+//
+//        ArrayList <Contact> matchList = match.getContactList();
+//        ArrayList <Contact> masterList = master.getContactList();
+//        System.out.println("\nMatch\nMatch List Details: ");
+//        checkEqualCountryID(matchList);
+//        checkEqualFirmName(matchList);
+//        checkEqualOfficeName(matchList);
+//        checkEqualContactID(matchList);
+//        checkEqualCRD(matchList);
+//        System.out.printf("Match -> Number of columns: %d\n", match.getNumCols());
+//        System.out.printf("Match -> Number of rows: %d\n", match.getNumRows());
+//
+//        System.out.println("\nMaster\nMaster List Details: ");
+//        checkEqualCountryID(masterList);
+//        checkEqualFirmName(masterList);
+//        checkEqualOfficeName(masterList);
+//        checkEqualContactID(masterList);
+//        checkEqualCRD(masterList);
+//        System.out.printf("Master -> Number of columns: %d\n", master.getNumCols());
+//        System.out.printf("Master -> Number of rows: %d\n", master.getNumRows());
+//
+//        System.out.println();
+//        System.out.println();
+//
+////        HashMap<KeyMatch,Integer> matchMap = findMatch(masterList,matchList);
+//////        showMatch(masterList,matchList,matchMap);
+//
+//        ArrayList<KeyMatch> matchMapList = findMatchV2(masterList,matchList);
+//        showMatchV2(masterList,matchList,matchMapList);
 
 
 //        System.out.println();

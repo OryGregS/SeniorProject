@@ -4,5 +4,6 @@ wmu/datamatching/Contact.class
 wmu/datamatching/RecordMatcher.class
 wmu/datamatching/MasterContact.class
 wmu/datamatching/MasterSet.class
+wmu/datamatching/KeyMatch.class
 wmu/datamatching/CompareContacts.class
 wmu/datamatching/MatchMain.class

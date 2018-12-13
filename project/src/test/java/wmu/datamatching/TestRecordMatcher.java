@@ -94,8 +94,8 @@ public class TestRecordMatcher {
         Contact c1 = master.getContactList().get(0);
         Contact c2 = match.getContactList().get(0);
 
-        matcher.compareFields(c1.getFieldList(), c2.getFieldList(), "ratio");
-        int sum = matcher.getSum();
+        int sum = matcher.compareFields(c1.getFieldList(), c2.getFieldList(), "ratio");
+        //int sum = matcher.getSum();
         assertEquals(sum, 502);
     }
 

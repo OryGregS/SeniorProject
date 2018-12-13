@@ -1,15 +1,15 @@
 package wmu.datamatching;
 
-
-import me.xdrop.fuzzywuzzy.FuzzySearch;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class MatchMain {
+import org.junit.Test;
 
-    public static void main(String[] args) {
+import static org.junit.Assert.assertTrue;
+
+public class TestCompareContacts {
+
+    @Test
+    public void TestOrder() {
 
         LoaderData loader = new LoaderData();
         loader.loadMasterSet();
@@ -30,14 +30,22 @@ public class MatchMain {
         fieldsToCompare.add(11); // zip1
         fieldsToCompare.add(12); // zip2
 
-        CompareContacts cc = new CompareContacts(master, match, fieldsToCompare);
+        CompareContacts cc = new CompareContacts(master, match, fieldsToCompare, 0.05);
+        cc.print = false;
         cc.compareSets();
 
-//        for (int i = 0; i < master.getContactList().size(); i++) {
-//            master.getContactList().get(i).printTop();
-//        }
-
-
+        int temp1, temp2;
+        for (int i = 0; i < master.getContactList().size(); i++) {
+            if (i == 0) {
+                ArrayList<Integer> testMatch = master.getContactList().get(i).getTopConfidence();
+                temp1 = testMatch.get(0);
+                for (int j = 1; j < testMatch.size(); j++) {
+                    temp2 = testMatch.get(j);
+                    assertTrue(temp1 >= temp2);
+                    temp1 = temp2;
+                }
+            }
+        }
 
     }
 

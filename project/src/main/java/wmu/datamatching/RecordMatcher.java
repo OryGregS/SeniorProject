@@ -13,7 +13,7 @@ public class RecordMatcher {
     /**
      * Private field that gets populated in compareFields()
      */
-    private int confidenceSum = 0;
+    //private int confidenceSum = 0;
 
 
     /**
@@ -50,13 +50,13 @@ public class RecordMatcher {
         return false;
     }
 
-    /**
-     * Returns the class field confidenceSum
-     * @return
-     */
-    public int getSum() {
-        return this.confidenceSum;
-    }
+//    /**
+//     * Returns the class field confidenceSum
+//     * @return
+//     */
+//    public int getSum() {
+//        return this.confidenceSum;
+//    }
 
     /**
      * Generic class to allow flexibility with FuzzySearch
@@ -108,15 +108,17 @@ public class RecordMatcher {
      * @param contact2 - ArrayList of all contact's data for another set
      * @param compareMethod - Method of comparison to use
      */
-    public void compareFields(ArrayList<String> contact1,
+    public int compareFields(ArrayList<String> contact1,
                               ArrayList<String> contact2,
                               String compareMethod) {
 
         int field;
+        int confidenceSum = 0;
         for (field = 0; field < contact1.size() && contact1.size() == contact2.size(); field++) {
-            this.confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
+            confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
         }
 
+        return confidenceSum;
     }
 
     /**
@@ -132,27 +134,16 @@ public class RecordMatcher {
 
         int field;
         int len = contact1.size();
-        int checkIsOk = 1;
-
-
-        for (field = 0; field < len && contact1.size() != contact2.size(); field++) {
-            if (fieldsToCheck.contains(field)){
-                this.confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
-            }
-
-        }
-
-        if (fieldsChecked(contact1,contact2,fieldsToCheck) == checkIsOk) {
+        int confidenceSum = 0;
+        //if (fieldsChecked(contact1,contact2,fieldsToCheck) == checkIsOk) {
             for (field = 0; field < len ; field++) {
-                if (fieldsToCheck.contains(field)){
-                    this.confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
-                }
-
+                if (fieldsToCheck.contains(field))
+                    confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
             }
-        }else{
-            checkIsOk = 0;
-        }
-        return checkIsOk;
+        //}else{
+          //  checkIsOk = 0;
+        //}
+        return confidenceSum;
 
     }
 

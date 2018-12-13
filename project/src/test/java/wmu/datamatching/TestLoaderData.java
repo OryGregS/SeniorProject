@@ -2,7 +2,6 @@ package wmu.datamatching;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 public class TestLoaderData {
@@ -10,10 +9,6 @@ public class TestLoaderData {
     private final String masterPath = "./data/contact_master.csv";
     private final String matchPath = "./data/contact_match.csv";
 
-//    private LoaderData loaderData;
-
-//    private MasterSet masterSet;
-//    private MatchSet matchSet;
 
     private long startTime, estimatedTime;
     private double seconds;
