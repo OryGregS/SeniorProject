@@ -30,8 +30,33 @@ public class TestRecordMatcher {
         assertEquals(String.valueOf(matcher.fuzzyStrCmp("noah", "naoh",
                 "ratio")), String.valueOf(75));
 
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("UBS Financial Services Inc", "UBS Financial Services Inc.",
+                "ratio")), String.valueOf(98));
+
         assertEquals(String.valueOf(matcher.fuzzyStrCmp("noah", "naoh",
                 "ratioo")), String.valueOf(-1));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("", "UY",
+                "ratio")), String.valueOf(0));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("", "GB",
+                "ratio")), String.valueOf(0));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("", "US",
+                "ratio")), String.valueOf(0));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("UY", "US",
+                "ratio")), String.valueOf(50));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("UY", "GB",
+                "ratio")), String.valueOf(0));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("GB", "US",
+                "ratio")), String.valueOf(0));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("UBS Global Asset Management", "UBS Financial Services Inc",
+                "ratio")), String.valueOf(38));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("Women Of Substance LLC", "UBS Financial Services Inc",
+                "ratio")), String.valueOf(25));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("UBS Financial Services Inc Puerto Ric", "UBS Financial Services Inc",
+                "ratio")), String.valueOf(83));
+        assertEquals(String.valueOf(matcher.fuzzyStrCmp("UBS Securities LLC", "UBS Financial Services Inc",
+                "ratio")), String.valueOf(50));
+
+
 
 //        System.out.println("testFuzzyStrCmp() pass");
 

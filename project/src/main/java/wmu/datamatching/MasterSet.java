@@ -13,13 +13,12 @@ import java.util.ArrayList;
 public class MasterSet {
 
     private long numRows;
-    private int numCols;
+    private final int numCols = 15;
     private Contact header;
     private ArrayList<Contact> ContactList;
 
     public MasterSet() {
         numRows = 0;
-        numCols = 0;
         ContactList = new ArrayList<>();
     }
 
@@ -56,6 +55,7 @@ public class MasterSet {
                 contact.setContactID( checkNULL(obs.get(15)) );
 
                 ContactList.add(contact);
+                numRows++;
             }
 
         } catch (IOException e) {
@@ -109,6 +109,18 @@ public class MasterSet {
         header.printAll();
         System.out.println();
         for (int i = 0; i < 6; i++) {
+            ContactList.get(i).printAll();
+
+        }
+        System.out.println();
+    }
+
+    public void head(int capacity) {
+
+        System.out.println("\n-----MASTER-----\n");
+        header.printAll();
+        System.out.println();
+        for (int i = 0; i < capacity; i++) {
             ContactList.get(i).printAll();
 
         }

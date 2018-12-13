@@ -6,7 +6,11 @@ import java.util.HashMap;
 public class MasterContact extends Contact {
 
     public int MAX_MATCH_SIZE = 10;
-    private ArrayList<HashMap> topMatches = new ArrayList<>();
+    private ArrayList<HashMap> topMatchesRatios = new ArrayList<>();
+
+    public void findBestMatch(){
+
+    }
 
     private boolean checkMatch(int levSum) {
 
