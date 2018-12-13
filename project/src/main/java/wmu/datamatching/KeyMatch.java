@@ -1,4 +1,5 @@
 package wmu.datamatching;
+
 import java.util.ArrayList;
 
 public class KeyMatch {
@@ -9,7 +10,7 @@ public class KeyMatch {
     public ArrayList<Integer> top5matchesIndexes;
     public ArrayList<Integer> top5matchesMax;
 
-    public KeyMatch(int masterIndex, int matchIndex, int maxValue, String contactID, ArrayList<Integer> top5matchesIndexes, ArrayList<Integer> top5matchesMax){
+    public KeyMatch(int masterIndex, int matchIndex, int maxValue, String contactID, ArrayList<Integer> top5matchesIndexes, ArrayList<Integer> top5matchesMax) {
         this.masterIndex = masterIndex;
         this.contactID = contactID;
         this.matchIndex = matchIndex;
@@ -18,7 +19,7 @@ public class KeyMatch {
         this.top5matchesMax = top5matchesMax;
     }
 
-    public KeyMatch(int masterIndex, int matchIndex, int maxValue, String contactID){
+    public KeyMatch(int masterIndex, int matchIndex, int maxValue, String contactID) {
         this.masterIndex = masterIndex;
         this.contactID = contactID;
         this.matchIndex = matchIndex;
@@ -26,7 +27,7 @@ public class KeyMatch {
 
     }
 
-    public KeyMatch(KeyMatch o){
+    public KeyMatch(KeyMatch o) {
         this.masterIndex = o.masterIndex;
         this.contactID = o.contactID;
         this.matchIndex = o.matchIndex;

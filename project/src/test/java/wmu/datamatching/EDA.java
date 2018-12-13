@@ -11,7 +11,7 @@ public class EDA {
 
     @Test
     public void main(){
-//        LoaderData loaderData = new LoaderData();
+//        DataLoader loaderData = new DataLoader();
 //        loaderData.loadMasterSet();
 //        loaderData.loadMatchSet();
 //

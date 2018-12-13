@@ -1,178 +1,94 @@
 package wmu.datamatching;
 
-import me.xdrop.fuzzywuzzy.FuzzySearch;
-
 import java.util.ArrayList;
 
-/**
- * Class to compute similarity between strings
- */
 public class RecordMatcher {
 
 
-    /**
-     * Private field that gets populated in compareFields()
-     */
-    //private int confidenceSum = 0;
-
-
-    /**
-     * Ensures a method is valid
-     * @param compareMethod - Method used for comparison.
-     *
-     *                      Legal values (not case-sensitive):
-     *                      "ratio", "partialRatio", "tokenSortRatio",
-     *                      "tokenSortPartialRatio", "tokenSetRatio",
-     *                      "tokenSetPartialRatio", "weightedRatio".
-     * @return True if valid; False if not
-     */
-    protected boolean checkMethod(String compareMethod) {
-
-        compareMethod = compareMethod.toLowerCase();
-
-        switch (compareMethod) {
-            case "ratio":
-                return true;
-            case "partialratio":
-                return true;
-            case "tokensortratio":
-                return true;
-            case "tokensortpartialratio":
-                return true;
-            case "tokensetratio":
-                return true;
-            case "tokensetpartialratio":
-                return true;
-            case "weightedratio":
-                return true;
-
-        }
-        return false;
-    }
-
-//    /**
-//     * Returns the class field confidenceSum
-//     * @return
-//     */
-//    public int getSum() {
-//        return this.confidenceSum;
-//    }
+    private ArrayList<MasterContact> masterSet;
+    private ArrayList<Contact> matchSet;
+    private ArrayList<Integer> fieldsToCompare;
+    private double subset;
+    private boolean print;
 
     /**
-     * Generic class to allow flexibility with FuzzySearch
-     * @param record1 - String from first record to be compared
-     * @param record2 - String from second record to be compared
-     * @param compareMethod - Method used for comparison.
-     *
-     *                      Legal values (not case-sensitive):
-     *                      "ratio", "partialRatio", "tokenSortRatio",
-     *                      "tokenSortPartialRatio", "tokenSetRatio",
-     *                      "tokenSetPartialRatio", "weightedRatio".
-     * @return -1 if is invalid request of method, -2 if an error occurs, otherwise return the result of FuzzySearch methods
+     * Initializes the RecordMatcher object with a master set,
+     * a match set, and the fields to compare between records.
+     * @param master - Master dataset
+     * @param match - dataset to match to master
+     * @param fieldsToCompare - list of fields to compare between records
      */
-    protected int fuzzyStrCmp(String record1, String record2, String compareMethod) {
+    public RecordMatcher(MasterSet master, MatchSet match, ArrayList<Integer> fieldsToCompare) {
 
-        compareMethod = compareMethod.toLowerCase();
-
-        if (!checkMethod(compareMethod)) {
-            return -1;
-        }
-
-        // return the requested
-        switch (compareMethod) {
-            case "ratio":
-                return FuzzySearch.ratio(record1, record2);
-            case "partialratio":
-                return FuzzySearch.partialRatio(record1, record2);
-            case "tokensortratio":
-                return FuzzySearch.tokenSortRatio(record1, record2);
-            case "tokensortpartialratio":
-                return FuzzySearch.tokenSortPartialRatio(record1, record2);
-            case "tokensetratio":
-                return FuzzySearch.tokenSetRatio(record1, record2);
-            case "tokensetpartialratio":
-                return FuzzySearch.tokenSetPartialRatio(record1, record2);
-            case "weightedratio":
-                return FuzzySearch.weightedRatio(record1, record2);
-
-        }
-
-        // should never reach here
-        return -2;
+        this.masterSet = master.getContactList();
+        this.matchSet = match.getContactList();
+        this.fieldsToCompare = fieldsToCompare;
+        this.subset = 1.0;
+        this.print = true;
 
     }
 
     /**
-     * Method to compare all fields for contacts with the same method
-     * @param contact1 - ArrayList of all contact's data for a set
-     * @param contact2 - ArrayList of all contact's data for another set
-     * @param compareMethod - Method of comparison to use
+     * Initializes the RecordMatcher object with a master set,
+     * a match set, the fields to compare between records, and
+     * allows a subset of the datasets to be used.
+     * @param master - Master dataset
+     * @param match - dataset to match to master
+     * @param fieldsToCompare - list of fields to compare between records
+     * @param subset - value to specify what percentage of the data should be used
      */
-    public int compareFields(ArrayList<String> contact1,
-                              ArrayList<String> contact2,
-                              String compareMethod) {
+    public RecordMatcher(MasterSet master, MatchSet match, ArrayList<Integer> fieldsToCompare, double subset) {
 
-        int field;
-        int confidenceSum = 0;
-        for (field = 0; field < contact1.size() && contact1.size() == contact2.size(); field++) {
-            confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
-        }
+        this.masterSet = master.getContactList();
+        this.matchSet = match.getContactList();
+        this.fieldsToCompare = fieldsToCompare;
+        this.subset = subset;
+        this.print = true;
 
-        return confidenceSum;
     }
 
     /**
-     * Overloaded method to compare specific fields for contacts with the same method
-     * @param contact1 - ArrayList of all contact's data for a set
-     * @param contact2 - ArrayList of all contact's data for another set
-     * @param fieldsToCheck - List of fields to use for comparison
-     * @param compareMethod - Method of comparison to use
-     * @return 0 if the fields checking is wrong, otherwise 1 as ok.
+     * Prints the top matches for each
+     * master contact after all comparisons
+     * @param print
      */
-    public int compareFields(ArrayList<String> contact1, ArrayList<String> contact2,
-                              String compareMethod, ArrayList<Integer> fieldsToCheck) {
+    public void printRun(boolean print) {
+        this.print = print;
+    }
 
-        int field;
-        int len = contact1.size();
-        int confidenceSum = 0;
-        //if (fieldsChecked(contact1,contact2,fieldsToCheck) == checkIsOk) {
-            for (field = 0; field < len ; field++) {
-                if (fieldsToCheck.contains(field))
-                    confidenceSum += fuzzyStrCmp(contact1.get(field), contact2.get(field), compareMethod);
+    /**
+     * Loops through the datasets to calculate
+     * the similarity between the contacts in Master
+     * and the contacts in the dataset to match
+     */
+    public void run() {
+
+        CalcSim calcSim = new CalcSim();
+        Contact tempMatch;
+        MasterContact tempMaster;
+
+        for (int masterContact = 0; masterContact < masterSet.size() * this.subset; masterContact++) {
+
+            tempMaster = masterSet.get(masterContact);
+
+            for (int matchContact = 0; matchContact < matchSet.size() * this.subset; matchContact++) {
+
+                tempMatch = matchSet.get(matchContact);
+
+                int confidence = calcSim.compareFields(tempMatch.getFieldList(), tempMaster.getFieldList(),
+                        "ratio", fieldsToCompare);
+
+                confidence /= this.fieldsToCompare.size();
+
+
+                tempMaster.setMatch(tempMatch.getContactID(), confidence);
+
             }
-        //}else{
-          //  checkIsOk = 0;
-        //}
-        return confidenceSum;
 
-    }
-
-    /***
-     * Function to use internally to check the specified fiels for each row
-     * @param contact1 ArrayList of all contact's data for a set
-     * @param contact2 ArrayList of all contact's data for another set
-     * @param fieldsToCheck List of fields to use for comparison
-     * @return -1 if contact1 has different length from contact2, 0 if the fields does not exists, otherwise 1 as ok.
-     */
-    private int fieldsChecked(ArrayList<String> contact1, ArrayList<String> contact2, ArrayList<Integer> fieldsToCheck){
-        if (contact1.size() != contact2.size()){
-            return -1;
-        }
-        int field;
-        int len = contact1.size();
-        int isOk = 1;
-        for (field = 0; field < len ; field++) {
-            if (fieldsToCheck.contains(field)==false) {
-                isOk = 0;
-                break;
-            }
+            if (print)
+                tempMaster.printTop();
         }
 
-        return isOk;
     }
-
-
-
-
-
 }
+

@@ -8,9 +8,9 @@ public class MatchMain {
 
         long start = System.nanoTime();
 
-        LoaderData loader = new LoaderData();
-        loader.loadMasterSet();
-        loader.loadMatchSet();
+        DataLoader loader = new DataLoader();
+        loader.loadDataFromCSV("./data/contact_master.csv",
+                "./data/contact_match.csv");
         MasterSet master = loader.getMasterSet();
         MatchSet match = loader.getMatchSet();
 
@@ -27,12 +27,12 @@ public class MatchMain {
         fieldsToCompare.add(11); // zip1
         fieldsToCompare.add(12); // zip2
 
-        CompareContacts cc = new CompareContacts(master, match, fieldsToCompare);
-        cc.print = false;
-        cc.compareSets();
+        RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare);
+        matcher.printRun(true);
+        matcher.run();
 
         long end = System.nanoTime();
-        double time =  ( (end-start) / 1000000000 );
+        double time =  ( (end-start) / 1000000000.0 );
 
         if (time > 120) {
             time = time / 60;
