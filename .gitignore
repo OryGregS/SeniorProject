@@ -1,2 +1,6 @@
 /.metadata/
 /.recommenders/
+Icon
+.idea/workspace.xml
+.DS_Store
+.attach_pid*
