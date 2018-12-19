@@ -90,15 +90,40 @@ public class MasterContact extends Contact {
         return this.MAX_MATCH_SIZE;
     }
 
+    private void printDiv() {
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------\n");
+    }
+
     /**
      * Prints the contactID and level of
      * confidence for a MasterContact.
      */
     public void printTop() {
-        System.out.println(this.FirstName + " - TOP " + MAX_MATCH_SIZE + " MATCHES");
+        
+        printDiv();
+        System.out.print("MasterContact: \t");
+        this.printAll();
+        printDiv();
         for (int i = 0; i < topConfidence.size(); i++) {
-            System.out.println("\t" + (i + 1) + ": " + this.topContact.get(i).getContactID() +
-                    " | Confidence: " + topConfidence.get(i));
+            System.out.print("\nConfidence: " + topConfidence.get(i) + " | ");
+            this.topContact.get(i).printAll();
         }
         System.out.println();
     }
@@ -141,7 +166,7 @@ public class MasterContact extends Contact {
     /**
      * Adds a match to the lists at the specified location.
      * @param index - Location to add match
-     * @param contactID - new match's contactID
+     * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
     private void addMatch(int index, Contact contact, int confidence) {
@@ -182,7 +207,7 @@ public class MasterContact extends Contact {
      * Removes the last (least likely) match in the lists, then adds
      * the new match to the lists at the specified index.
      * @param index - location to add new match to
-     * @param contactID - new match's contactID
+     * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
     private void replaceMatch(int index, Contact contact, int confidence) {
@@ -193,7 +218,7 @@ public class MasterContact extends Contact {
     /**
      * Logic to add a potential match to the lists when they're
      * at capacity.
-     * @param contactID - new match's contactID
+     * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
     private void addMatchToFull(Contact contact, int confidence) {
@@ -245,7 +270,7 @@ public class MasterContact extends Contact {
 
     /**
      * Adds a match when the top matches list is not full.
-     * @param contactID - new match's contactID
+     * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
     private void addMatchToNotFull(Contact contact, int confidence) {

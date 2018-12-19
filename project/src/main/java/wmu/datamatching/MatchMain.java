@@ -13,6 +13,7 @@ public class MatchMain {
                 "./data/contact_match.csv");
         MasterSet master = loader.getMasterSet();
         MatchSet match = loader.getMatchSet();
+        Contact header = match.getHeader();
 
         ArrayList<Integer> fieldsToCompare = new ArrayList<>();
         fieldsToCompare.add(0); // last name
@@ -27,7 +28,7 @@ public class MatchMain {
         fieldsToCompare.add(11); // zip1
         fieldsToCompare.add(12); // zip2
 
-        RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare, 0.1);
+        RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare, 0.01);
         matcher.printRun(true);
         matcher.run();
 

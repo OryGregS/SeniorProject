@@ -87,6 +87,10 @@ public class MatchSet {
         ContactList.remove(0);
     }
 
+    public Contact getHeader() {
+        return this.header;
+    }
+
     public long getNumRows(){
         return this.numRows;
     }
