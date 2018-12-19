@@ -8,7 +8,7 @@ public class MasterContact extends Contact {
     private int MAX_MATCH_SIZE;
     private int MAX_LOC;
     private ArrayList<Integer> topConfidence;
-    private ArrayList<String> topContactID;
+    private ArrayList<Contact> topContact;
 
     /**
      * Default constructor to initialize fields
@@ -18,7 +18,7 @@ public class MasterContact extends Contact {
         this.MAX_MATCH_SIZE = 5;
         this.MAX_LOC = this.MAX_MATCH_SIZE - 1;
         this.topConfidence = new ArrayList<>(MAX_MATCH_SIZE);
-        this.topContactID = new ArrayList<>(MAX_MATCH_SIZE);
+        this.topContact = new ArrayList<>(MAX_MATCH_SIZE);
     }
 
     /**
@@ -30,7 +30,7 @@ public class MasterContact extends Contact {
         this.MAX_MATCH_SIZE = size;
         this.MAX_LOC = this.MAX_MATCH_SIZE - 1;
         this.topConfidence = new ArrayList<>(MAX_MATCH_SIZE);
-        this.topContactID = new ArrayList<>(MAX_MATCH_SIZE);
+        this.topContact = new ArrayList<>(MAX_MATCH_SIZE);
     }
 
     /**
@@ -39,7 +39,7 @@ public class MasterContact extends Contact {
      * @param contactID - new match's contactID
      * @param confidence - new match's level of confidence of similarity
      */
-    public void setMatch(String contactID, int confidence) {
+    public void setMatch(Contact contactID, int confidence) {
 
         boolean full = atCapacity();
 
@@ -52,12 +52,12 @@ public class MasterContact extends Contact {
     }
 
     /**
-     * Gets the contactID list for
+     * Gets the contact list for
      * a master contact
      * @return - list of most likely match's contactID's
      */
-    public ArrayList<String> getTopContactID() {
-        return this.topContactID;
+    public ArrayList<Contact> getTopContacts() {
+        return this.topContact;
     }
 
     /**
@@ -78,7 +78,7 @@ public class MasterContact extends Contact {
         this.MAX_MATCH_SIZE = size;
         this.MAX_LOC = size - 1;
         this.topConfidence = new ArrayList<>(size);
-        this.topContactID = new ArrayList<>(size);
+        this.topContact = new ArrayList<>(size);
 
     }
 
@@ -97,7 +97,7 @@ public class MasterContact extends Contact {
     public void printTop() {
         System.out.println(this.FirstName + " - TOP " + MAX_MATCH_SIZE + " MATCHES");
         for (int i = 0; i < topConfidence.size(); i++) {
-            System.out.println("\t" + (i + 1) + ": " + this.topContactID.get(i) +
+            System.out.println("\t" + (i + 1) + ": " + this.topContact.get(i).getContactID() +
                     " | Confidence: " + topConfidence.get(i));
         }
         System.out.println();
@@ -124,17 +124,17 @@ public class MasterContact extends Contact {
      * @param index - location in lists to remove
      */
     private void removeMatch(int index) {
-        this.topContactID.remove(index);
+        this.topContact.remove(index);
         this.topConfidence.remove(index);
     }
 
     /**
      * Adds a match to the end of the lists.
-     * @param contactID - new match's contactID
+     * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatch(String contactID, int confidence) {
-        this.topContactID.add(contactID);
+    private void addMatch(Contact contact, int confidence) {
+        this.topContact.add(contact);
         this.topConfidence.add(confidence);
     }
 
@@ -144,8 +144,8 @@ public class MasterContact extends Contact {
      * @param contactID - new match's contactID
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatch(int index, String contactID, int confidence) {
-        this.topContactID.add(index, contactID);
+    private void addMatch(int index, Contact contact, int confidence) {
+        this.topContact.add(index, contact);
         this.topConfidence.add(index, confidence);
     }
 
@@ -155,7 +155,7 @@ public class MasterContact extends Contact {
      */
     private boolean isEmpty() {
         boolean empty = false;
-        if (topConfidence.isEmpty() && topContactID.isEmpty())
+        if (topConfidence.isEmpty() && topContact.isEmpty())
             empty =  true;
 
         return empty;
@@ -185,9 +185,9 @@ public class MasterContact extends Contact {
      * @param contactID - new match's contactID
      * @param confidence - new match's level of confidence of similarity
      */
-    private void replaceMatch(int index, String contactID, int confidence) {
+    private void replaceMatch(int index, Contact contact, int confidence) {
         removeMatch(this.MAX_LOC);
-        addMatch(index, contactID, confidence);
+        addMatch(index, contact, confidence);
     }
 
     /**
@@ -196,7 +196,7 @@ public class MasterContact extends Contact {
      * @param contactID - new match's contactID
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatchToFull(String contactID, int confidence) {
+    private void addMatchToFull(Contact contact, int confidence) {
 
         // loop through the matches with lowest confidence first
         for (int i = this.MAX_LOC; i >= 0 ; i--) {
@@ -210,7 +210,7 @@ public class MasterContact extends Contact {
                 if (i == 0) {
                     // remove least likely match and add
                     // new match to location 0
-                    replaceMatch(i, contactID, confidence);
+                    replaceMatch(i, contact, confidence);
                     break;
                 }
             }
@@ -221,14 +221,14 @@ public class MasterContact extends Contact {
                 // if last observation
                 if (i == this.MAX_LOC) {
                     // replace last match
-                    replaceMatch(i, contactID, confidence);
+                    replaceMatch(i, contact, confidence);
                     break;
                 // if NOT last observation
                 } else {
                     // remove last observation and
                     // add new match to location behind
                     // top match with equal confidence
-                    replaceMatch(i + 1, contactID, confidence);
+                    replaceMatch(i + 1, contact, confidence);
                     break;
                 }
             }
@@ -237,7 +237,7 @@ public class MasterContact extends Contact {
             else if (confidence < topConfidence.get(i)) {
                 // remove least likely top match and add
                 // new match behind current match
-                replaceMatch(i + 1, contactID, confidence);
+                replaceMatch(i + 1, contact, confidence);
                 break;
             }
         }
@@ -248,11 +248,11 @@ public class MasterContact extends Contact {
      * @param contactID - new match's contactID
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatchToNotFull(String contactID, int confidence) {
+    private void addMatchToNotFull(Contact contact, int confidence) {
 
         // if list is empty add match to the lists
         if (isEmpty()) {
-            addMatch(contactID, confidence);
+            addMatch(contact, confidence);
         }
         // if list is not empty
         else {
@@ -264,7 +264,7 @@ public class MasterContact extends Contact {
                 if (confidence > topConfidence.get(i)) {
 
                     // add match at that location
-                    addMatch(i, contactID, confidence);
+                    addMatch(i, contact, confidence);
                     lesserThan = false;
                     break;
                 }
@@ -273,7 +273,7 @@ public class MasterContact extends Contact {
             // already in the list
             if (lesserThan) {
                 // add match to the end of the list
-                addMatch(contactID, confidence);
+                addMatch(contact, confidence);
             }
         }
     }

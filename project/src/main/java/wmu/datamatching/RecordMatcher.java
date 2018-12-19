@@ -64,29 +64,23 @@ public class RecordMatcher {
     public void run() {
 
         CalcSim calcSim = new CalcSim();
-        Contact tempMatch;
-        MasterContact tempMaster;
 
-        for (int masterContact = 0; masterContact < masterSet.size() * this.subset; masterContact++) {
+        for (MasterContact masterContact: masterSet) {
 
-            tempMaster = masterSet.get(masterContact);
+            for (Contact matchContact: matchSet) {
 
-            for (int matchContact = 0; matchContact < matchSet.size() * this.subset; matchContact++) {
 
-                tempMatch = matchSet.get(matchContact);
-
-                int confidence = calcSim.compareFields(tempMaster, tempMatch,
+                int confidence = calcSim.compareFields(masterContact, matchContact,
                         "ratio", fieldsToCompare);
 
 
-                tempMaster.setMatch(tempMatch.getContactID(), confidence);
+                masterContact.setMatch(matchContact, confidence);
 
             }
 
             if (print)
-                tempMaster.printTop();
+                masterContact.printTop();
         }
-
     }
 }
 
