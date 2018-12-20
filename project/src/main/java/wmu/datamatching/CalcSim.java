@@ -14,7 +14,7 @@ public class CalcSim {
      * Ensures a method is valid
      *
      * @param compareMethod - Method used for comparison.
-     *                      <p>
+     *
      *                      Legal values (not case-sensitive):
      *                      "ratio", "partialRatio", "tokenSortRatio",
      *                      "tokenSortPartialRatio", "tokenSetRatio",
@@ -51,7 +51,7 @@ public class CalcSim {
      * @param record1       - String from first record to be compared
      * @param record2       - String from second record to be compared
      * @param compareMethod - Method used for comparison.
-     *                      <p>
+     *
      *                      Legal values (not case-sensitive):
      *                      "ratio", "partialRatio", "tokenSortRatio",
      *                      "tokenSortPartialRatio", "tokenSetRatio",
@@ -106,11 +106,8 @@ public class CalcSim {
         int confidenceSum = 0;
         ArrayList<String> contact1Data = contact1.getFieldList();
         int numFieldsCompared = contact1Data.size();
-        String c1CRD = contact1.getCRDNumber();
-        String c2CRD = contact2.getCRDNumber();
 
-        if (checkCRDNotEmpty(c1CRD) && checkCRDNotEmpty(c2CRD) &&
-                c1CRD.equalsIgnoreCase(c2CRD)) {
+        if (contact1.getCRDNumber().equalsIgnoreCase(contact2.getCRDNumber())) {
 
             confidenceSum = contact1.getFieldList().size() * 100;
 

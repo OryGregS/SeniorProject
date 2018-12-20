@@ -4,3 +4,7 @@ Icon
 .idea/workspace.xml
 .DS_Store
 .attach_pid*
+target/
+project/\.idea/workspace\.xml
+
+project/\.idea/misc\.xml
