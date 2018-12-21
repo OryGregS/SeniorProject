@@ -4,16 +4,12 @@ import java.util.ArrayList;
 
 public class MatchMain {
 
+    // MASTERPATH - "./data/contact_master.csv"
+    // MATCHPATH - "./data/contact_match.csv"
+
     public static void main(String[] args) {
 
         long start = System.nanoTime();
-
-        DataLoader loader = new DataLoader();
-        loader.loadDataFromCSV("./data/contact_master.csv",
-                "./data/contact_match.csv");
-        MasterSet master = loader.getMasterSet();
-        MatchSet match = loader.getMatchSet();
-        Contact header = match.getHeader();
 
         ArrayList<Integer> fieldsToCompare = new ArrayList<>();
         fieldsToCompare.add(0); // last name
@@ -28,9 +24,10 @@ public class MatchMain {
         fieldsToCompare.add(11); // zip1
         fieldsToCompare.add(12); // zip2
 
-        RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare, 1.0);
-        matcher.printRun(true);
-        matcher.run();
+        MatchMaker mm = new MatchMaker();
+        //mm.compareMasterToMaster("./data/contact_master.csv", fieldsToCompare);
+        mm.compareMasterToOther("./data/contact_master.csv",
+                "./data/contact_match.csv", fieldsToCompare);
 
         long end = System.nanoTime();
         double time =  ( (end-start) / 1000000000.0 );

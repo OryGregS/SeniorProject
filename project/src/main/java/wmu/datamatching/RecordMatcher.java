@@ -9,6 +9,7 @@ public class RecordMatcher {
     private ArrayList<Contact> matchSet;
     private ArrayList<Integer> fieldsToCompare;
     private double subset;
+    private boolean matchMasterToMaster;
     private boolean print;
 
     /**
@@ -18,12 +19,14 @@ public class RecordMatcher {
      * @param match - dataset to match to master
      * @param fieldsToCompare - list of fields to compare between records
      */
-    public RecordMatcher(MasterSet master, MatchSet match, ArrayList<Integer> fieldsToCompare) {
+    public RecordMatcher(MasterSet master, MatchSet match, ArrayList<Integer> fieldsToCompare,
+                         boolean masterToMaster) {
 
         this.masterSet = master.getContactList();
         this.matchSet = match.getContactList();
         this.fieldsToCompare = fieldsToCompare;
         this.subset = 1.0;
+        this.matchMasterToMaster = masterToMaster;
         this.print = true;
 
     }
@@ -37,12 +40,14 @@ public class RecordMatcher {
      * @param fieldsToCompare - list of fields to compare between records
      * @param subset - value to specify what percentage of the data should be used
      */
-    public RecordMatcher(MasterSet master, MatchSet match, ArrayList<Integer> fieldsToCompare, double subset) {
+    public RecordMatcher(MasterSet master, MatchSet match, ArrayList<Integer> fieldsToCompare,
+                         boolean masterToMaster, double subset) {
 
         this.masterSet = master.getContactList();
         this.matchSet = match.getContactList();
         this.fieldsToCompare = fieldsToCompare;
         this.subset = subset;
+        this.matchMasterToMaster = masterToMaster;
         this.print = true;
 
     }
@@ -65,17 +70,30 @@ public class RecordMatcher {
 
         CalcSim calcSim = new CalcSim();
 
-        for (MasterContact masterContact: masterSet) {
+        // for each contact in the master dataset
+        for (int i = 0; i < masterSet.size(); i++) {
+            // get contact from master dataset
+            MasterContact masterContact = masterSet.get(i);
 
-            for (Contact matchContact: matchSet) {
+            // for each contact in the dataset to match
+            for (int j = 0; j < matchSet.size(); j++) {
 
+                // if comparing the master record against
+                // the master record - skip the same contact
+                if (this.matchMasterToMaster && i == j)
+                    continue;
 
+                // get contact from matching dataset
+                Contact matchContact = matchSet.get(j);
+
+                // compare contacts and get confidence of a match
                 int confidence = calcSim.compareFields(masterContact, matchContact,
                         "ratio", fieldsToCompare);
 
                 // cutoff - we don't want to try to store anything
                 // less than or equal to 60
                 if (confidence >= 60)
+
                     masterContact.setMatch(matchContact, confidence);
 
             }
@@ -84,6 +102,7 @@ public class RecordMatcher {
                 printTop(masterContact);
         }
     }
+
 
     private void printDiv() {
         System.out.print("-----------------------------------" +

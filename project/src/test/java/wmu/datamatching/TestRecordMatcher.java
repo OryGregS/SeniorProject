@@ -30,7 +30,7 @@ public class TestRecordMatcher {
         fieldsToCompare.add(11); // zip1
         fieldsToCompare.add(12); // zip2
 
-        RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare, 0.01);
+        RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare, false, 0.01);
         matcher.printRun(false);
         matcher.run();
 
