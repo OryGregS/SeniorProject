@@ -117,8 +117,8 @@ public class CalcSim {
 
             for (field = 0; field < contact1Data.size() &&
                     contact1Data.size() == contact2Data.size(); field++) {
-                confidenceSum += fuzzyStrCmp(contact1Data.get(field),
-                        contact2Data.get(field), compareMethod);
+                confidenceSum += fuzzyStrCmp(contact1Data.get(field).toLowerCase(),
+                        contact2Data.get(field).toLowerCase(), compareMethod);
             }
 
         }
@@ -158,8 +158,8 @@ public class CalcSim {
 
             for (field = 0; field < len; field++) {
                 if (fieldsToCheck.contains(field))
-                    confidenceSum += fuzzyStrCmp(contact1Data.get(field),
-                            contact2Data.get(field), compareMethod);
+                    confidenceSum += fuzzyStrCmp(contact1Data.get(field).toLowerCase(),
+                            contact2Data.get(field).toLowerCase(), compareMethod);
             }
 
         }

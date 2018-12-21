@@ -73,14 +73,56 @@ public class RecordMatcher {
                 int confidence = calcSim.compareFields(masterContact, matchContact,
                         "ratio", fieldsToCompare);
 
-
-                masterContact.setMatch(matchContact, confidence);
+                // cutoff - we don't want to try to store anything
+                // less than or equal to 60
+                if (confidence >= 60)
+                    masterContact.setMatch(matchContact, confidence);
 
             }
 
             if (print)
-                masterContact.printTop();
+                printTop(masterContact);
         }
     }
+
+    private void printDiv() {
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------");
+        System.out.print("-----------------------------------" +
+                "----------------------------------------------" +
+                "----------------------------------------------\n");
+    }
+
+    /**
+     * Prints the contactID and level of
+     * confidence for a MasterContact.
+     */
+    public void printTop(MasterContact master) {
+        ArrayList<Integer> confidence = master.getTopConfidence();
+        ArrayList<Contact> contacts = master.getTopContacts();
+        printDiv();
+        System.out.print("MasterContact: \t");
+        master.printAll();
+        printDiv();
+        for (int i = 0; i < confidence.size(); i++) {
+            System.out.print("\nConfidence: " + confidence.get(i) + " | ");
+            contacts.get(i).printAll();
+        }
+        System.out.println();
+    }
+
 }
 

@@ -90,44 +90,6 @@ public class MasterContact extends Contact {
         return this.MAX_MATCH_SIZE;
     }
 
-    private void printDiv() {
-        System.out.print("-----------------------------------" +
-                "----------------------------------------------" +
-                "----------------------------------------------");
-        System.out.print("-----------------------------------" +
-                "----------------------------------------------" +
-                "----------------------------------------------");
-        System.out.print("-----------------------------------" +
-                "----------------------------------------------" +
-                "----------------------------------------------");
-        System.out.print("-----------------------------------" +
-                "----------------------------------------------" +
-                "----------------------------------------------");
-        System.out.print("-----------------------------------" +
-                "----------------------------------------------" +
-                "----------------------------------------------");
-        System.out.print("-----------------------------------" +
-                "----------------------------------------------" +
-                "----------------------------------------------\n");
-    }
-
-    /**
-     * Prints the contactID and level of
-     * confidence for a MasterContact.
-     */
-    public void printTop() {
-        
-        printDiv();
-        System.out.print("MasterContact: \t");
-        this.printAll();
-        printDiv();
-        for (int i = 0; i < topConfidence.size(); i++) {
-            System.out.print("\nConfidence: " + topConfidence.get(i) + " | ");
-            this.topContact.get(i).printAll();
-        }
-        System.out.println();
-    }
-
     /**
      * Checks if a match is greater than or equal to
      * the last (least likely) match in the lists.
