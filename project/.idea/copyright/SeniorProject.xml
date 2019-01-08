@@ -1,0 +1,6 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="notice" value="~~~ Version Control Standard ~~~&#10;&#10;Create a separate branch for implementing new features. &#10;&#10;**** BEFORE COMMITTING **** &#10;&#10;---&gt; Run all unit tests to ensure functionality &#10;---&gt; Run maven's clean command (mvn clean or use the tool in IDE)  to remove unnecessary files&#10;---&gt; Merge the branch into master once the feature is complete with unit tests.&#10;&#10;~~~ Copyright ~~~&#10;&#10;Developed by Gregory Smith &amp;amp; Axel Solano. Last modified &amp;#36;file.lastModified.&#10;Copyright (c) &amp;#36;today.year. All rights reserved." />
+    <option name="myName" value="SeniorProject" />
+  </copyright>
+</component>
