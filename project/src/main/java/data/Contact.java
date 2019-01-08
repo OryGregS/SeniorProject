@@ -11,32 +11,31 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 5:35 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 5:59 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package data;
 
 import java.util.ArrayList;
 
 public class Contact {
 
-    protected String LastName;
-    protected String MiddleName;
-    protected String FirstName;
-    protected String FirmName;
-    protected String OfficeName;
-    protected String Email;
-    protected String BusinessPhone;
-    protected String Address1;
-    protected String Address2;
-    protected String City;
-    protected String StateProvince;
-    protected String Zip1;
-    protected String Zip2;
-    protected String CountryID;
-    protected String CRDNumber;
-    protected String ContactID;
+    private String LastName;
+    private String MiddleName;
+    private String FirstName;
+    private String FirmName;
+    private String OfficeName;
+    private String Email;
+    private String BusinessPhone;
+    private String Address;
+    private String City;
+    private String StateProvince;
+    private String Zip1;
+    private String Zip2;
+    private String CountryID;
+    private String CRDNumber;
+    private String ContactID;
 
     /**
      * Default constructor to initialize fields
@@ -49,8 +48,7 @@ public class Contact {
         this.OfficeName = null;
         this.Email = null;
         this.BusinessPhone = null;
-        this.Address1 = null;
-        this.Address2 = null;
+        this.Address = null;
         this.City = null;
         this.StateProvince = null;
         this.Zip1 = null;
@@ -62,16 +60,16 @@ public class Contact {
 
 
 
-    public void setLastName(String LAST) {
-        LastName = LAST;
+    public void setLastName(String last) {
+        LastName = last;
     }
 
-    public void setMiddleName(String MIDDLE) {
-        MiddleName = MIDDLE;
+    public void setMiddleName(String middle) {
+        MiddleName = middle;
     }
 
-    public void setFirstName(String FIRST) {
-        FirstName = FIRST;
+    public void setFirstName(String first) {
+        FirstName = first;
     }
 
     public void setFirmName(String firmName) {
@@ -90,12 +88,8 @@ public class Contact {
         BusinessPhone = businessPhone;
     }
 
-    public void setAddress1(String address1) {
-        Address1 = address1;
-    }
-
-    public void setAddress2(String address2) {
-        Address2 = address2;
+    public void setAddress(String address) {
+        Address = address;
     }
 
     public void setCity(String city) {
@@ -154,12 +148,8 @@ public class Contact {
         return BusinessPhone;
     }
 
-    public String getAddress1() {
-        return Address1;
-    }
-
-    public String getAddress2() {
-        return Address2;
+    public String getAddress() {
+        return Address;
     }
 
     public String getCity() {
@@ -200,8 +190,7 @@ public class Contact {
         contactFields.add(this.OfficeName);
         contactFields.add(this.Email);
         contactFields.add(this.BusinessPhone);
-        contactFields.add(this.Address1);
-        contactFields.add(this.Address2);
+        contactFields.add(this.Address);
         contactFields.add(this.City);
         contactFields.add(this.StateProvince);
         contactFields.add(this.Zip1);
@@ -215,10 +204,10 @@ public class Contact {
 
 
     public void printAll() {
-        System.out.printf("%-40s %-40s %-40s %-40s %-40s %-40s %-40s " +
+        System.out.printf("%-40s %-40s %-40s %-40s %-40s %-40s " +
                 "%-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s\n",
                 LastName, MiddleName, FirstName, FirmName, OfficeName,
-                Email, BusinessPhone, Address1, Address2, City,
-                StateProvince, Zip1, Zip2, CountryID, CRDNumber, ContactID);
+                Email, BusinessPhone, Address, City, StateProvince,
+                Zip1, Zip2, CountryID, CRDNumber, ContactID);
     }
 }

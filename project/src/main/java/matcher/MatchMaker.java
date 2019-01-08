@@ -15,8 +15,12 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package matcher;
 
+
+import data.DataLoader;
+import data.MasterSet;
+import data.MatchSet;
 
 import java.util.ArrayList;
 
@@ -31,7 +35,7 @@ public class MatchMaker {
 
         RecordMatcher matcher = new RecordMatcher(master, match_master, fieldsToCompare, true);
         matcher.printRun(true);
-        matcher.run();
+        matcher.run("weightedratio");
 
     }
 
@@ -43,6 +47,6 @@ public class MatchMaker {
 
         RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare, false);
         matcher.printRun(true);
-        matcher.run();
+        matcher.run("weightedratio");
     }
 }

@@ -11,11 +11,11 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 5:35 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 5:59 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package data;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -27,14 +27,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class MatchSet {
+public class MasterSet {
 
     private long numRows;
     private final int numCols = 15;
-    private Contact header;
-    private ArrayList<Contact> ContactList;
+    private MasterContact header;
+    private ArrayList<MasterContact> ContactList;
 
-    public MatchSet() {
+    public MasterSet() {
         numRows = 0;
         ContactList = new ArrayList<>();
     }
@@ -47,32 +47,36 @@ public class MatchSet {
      */
     public boolean readCSV(String filePath) {
 
+        Preprocessor processor = new Preprocessor();
+
         try {
             Reader reader = Files.newBufferedReader(Paths.get(filePath));
             CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withIgnoreSurroundingSpaces());
 
             for (CSVRecord obs : csv) {
-                Contact contact = new Contact();
+                MasterContact contact = new MasterContact();
 
-                contact.setLastName(checkNULL(obs.get(0)));
-                contact.setMiddleName(checkNULL(obs.get(1)));
-                contact.setFirstName(checkNULL(obs.get(2)));
-                contact.setFirmName(checkNULL(obs.get(3)));
-                contact.setOfficeName(checkNULL(obs.get(4)));
-                contact.setEmail(checkNULL(obs.get(5)));
-                contact.setBusinessPhone(checkNULL(obs.get(6)));
-                contact.setAddress1(checkNULL(obs.get(7)));
-                contact.setAddress2(checkNULL(obs.get(8)));
-                contact.setCity(checkNULL(obs.get(9)));
-                contact.setStateProvince(checkNULL(obs.get(10)));
-                contact.setZip1(checkNULL(obs.get(11)));
-                contact.setZip2(checkNULL(obs.get(12)));
-                contact.setCountryID(checkNULL(obs.get(13)));
-                contact.setCRDNumber(checkNULL(obs.get(14)));
-                contact.setContactID(checkNULL(obs.get(15)));
+                contact.setLastName( processor.checkNULL(obs.get(0)) );
+                contact.setMiddleName( processor.checkNULL(obs.get(1)) );
+                contact.setFirstName( processor.checkNULL(obs.get(2)) );
+                contact.setFirmName( processor.checkNULL(obs.get(3)) );
+                contact.setOfficeName( processor.checkNULL(obs.get(4)) );
+                contact.setEmail( processor.checkNULL(obs.get(5)) );
+                contact.setBusinessPhone( processor.checkNULL(obs.get(6)) );
+
+                String address1 = processor.checkNULL(obs.get(7));
+                String address2 = processor.checkNULL(obs.get(8));
+
+                contact.setAddress( processor.combineAddress(address1, address2) );
+                contact.setCity( processor.checkNULL(obs.get(9)) );
+                contact.setStateProvince( processor.checkNULL(obs.get(10)) );
+                contact.setZip1( processor.checkNULL(obs.get(11)) );
+                contact.setZip2( processor.checkNULL(obs.get(12)) );
+                contact.setCountryID( processor.checkNULL(obs.get(13)) );
+                contact.setCRDNumber( processor.checkNULL(obs.get(14)) );
+                contact.setContactID( processor.checkNULL(obs.get(15)) );
 
                 ContactList.add(contact);
-                numRows++;
             }
 
         } catch (IOException e) {
@@ -82,21 +86,6 @@ public class MatchSet {
 
         handleHeader();
         return true;
-    }
-
-    /***
-     *
-     * @param data - The string at the row,col of the dataset
-     * @return - Empty string if "NULL", otherwise the original string
-     */
-    public String checkNULL(String data) {
-
-        if (data.equals("NULL")) {
-            return "";
-        } else {
-            return data;
-        }
-
     }
 
     private void handleHeader() {
@@ -120,7 +109,7 @@ public class MatchSet {
      * Method to pass the ArrayList of contacts to other classes
      * @return - The ArrayList of contacts for the master dataset
      */
-    public ArrayList<Contact> getContactList() {
+    public ArrayList<MasterContact> getContactList() {
         return ContactList;
     }
 

@@ -11,11 +11,11 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 5:35 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 5:59 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package data;
 
 public class DataLoader {
 

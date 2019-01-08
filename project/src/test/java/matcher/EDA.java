@@ -11,16 +11,16 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 5:34 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 6:04 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package matcher;
 
+import data.Contact;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import org.junit.Test;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -259,8 +259,7 @@ public class EDA {
                 ratios += FuzzySearch.ratio(tempMatch.getOfficeName(), tempMaster.getOfficeName());
                 ratios += FuzzySearch.ratio(tempMatch.getEmail(), tempMaster.getEmail());
                 ratios += FuzzySearch.ratio(tempMatch.getBusinessPhone(), tempMaster.getBusinessPhone());
-                ratios += FuzzySearch.ratio(tempMatch.getAddress1(), tempMaster.getAddress1());
-                ratios += FuzzySearch.ratio(tempMatch.getAddress2(), tempMaster.getAddress2());
+                ratios += FuzzySearch.ratio(tempMatch.getAddress(), tempMaster.getAddress());
                 ratios += FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity());
                 ratios += FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
                 ratios += FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
@@ -334,8 +333,7 @@ public class EDA {
                 ratios += FuzzySearch.ratio(tempMatch.getOfficeName(), tempMaster.getOfficeName());
                 ratios += FuzzySearch.ratio(tempMatch.getEmail(), tempMaster.getEmail());
                 ratios += FuzzySearch.ratio(tempMatch.getBusinessPhone(), tempMaster.getBusinessPhone());
-                ratios += FuzzySearch.ratio(tempMatch.getAddress1(), tempMaster.getAddress1());
-                ratios += FuzzySearch.ratio(tempMatch.getAddress2(), tempMaster.getAddress2());
+                ratios += FuzzySearch.ratio(tempMatch.getAddress(), tempMaster.getAddress());
                 ratios += FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity());
                 ratios += FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
                 ratios += FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
