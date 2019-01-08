@@ -116,7 +116,7 @@ public class TestCalcSim {
         Contact c2 = match.getContactList().get(0);
 
         int confidence = calc.compareFields(c1, c2, "ratio");
-        assertEquals(confidence, 31);
+        assertEquals(34, confidence);
     }
 
 
