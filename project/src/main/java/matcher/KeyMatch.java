@@ -15,7 +15,7 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package matcher;
 
 import java.util.ArrayList;
 

@@ -15,7 +15,12 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package matcher;
+
+import data.Contact;
+import data.MasterContact;
+import data.MasterSet;
+import data.MatchSet;
 
 import java.util.ArrayList;
 
@@ -83,7 +88,7 @@ public class RecordMatcher {
      * the similarity between the contacts in Master
      * and the contacts in the dataset to match
      */
-    public void run() {
+    public void run(String compareMethod) {
 
         CalcSim calcSim = new CalcSim();
 
@@ -105,7 +110,7 @@ public class RecordMatcher {
 
                 // compare contacts and get confidence of a match
                 int confidence = calcSim.compareFields(masterContact, matchContact,
-                        "ratio", fieldsToCompare);
+                        compareMethod, fieldsToCompare);
 
                 // cutoff - we don't want to try to store anything
                 // less than or equal to 60

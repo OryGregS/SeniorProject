@@ -11,12 +11,13 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 5:34 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 6:07 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package data;
 
+import data.DataLoader;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;

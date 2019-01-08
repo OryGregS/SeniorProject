@@ -15,7 +15,7 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package matcher;
 
 import java.util.ArrayList;
 
@@ -34,12 +34,11 @@ public class MatchMain {
         fieldsToCompare.add(2); // first name
         fieldsToCompare.add(5); // email
         fieldsToCompare.add(6); // phone
-        fieldsToCompare.add(7); // address 1
-        fieldsToCompare.add(8); // address 2
-        fieldsToCompare.add(9); // city
-        fieldsToCompare.add(10); // state
-        fieldsToCompare.add(11); // zip1
-        fieldsToCompare.add(12); // zip2
+        fieldsToCompare.add(7); // address
+        fieldsToCompare.add(8); // city
+        fieldsToCompare.add(9); // state
+        fieldsToCompare.add(10); // zip1
+        fieldsToCompare.add(11); // zip2
 
         MatchMaker mm = new MatchMaker();
         //mm.compareMasterToMaster("./data/contact_master.csv", fieldsToCompare);

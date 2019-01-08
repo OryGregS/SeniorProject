@@ -15,8 +15,10 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package matcher;
 
+import data.Contact;
+import data.MasterContact;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import java.util.ArrayList;

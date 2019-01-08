@@ -11,14 +11,15 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 5:34 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 6:07 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package wmu.datamatching;
+package data;
 
 import static org.junit.Assert.assertTrue;
 
+import data.MasterSet;
 import org.junit.Test;
 
 public class TestMasterSet {
@@ -32,11 +33,6 @@ public class TestMasterSet {
     @Test
     public void headTest() {
         master.readCSV(masterPath);
-    }
-
-    @Test
-    public void testCheckNull() {
-        assertTrue(master.checkNULL("NULL").equals(""));
     }
 
 }
