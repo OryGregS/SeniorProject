@@ -27,26 +27,26 @@ import java.util.ArrayList;
 public class MatchMaker {
 
 
-    public void compareMasterToMaster(String masterPath, ArrayList<Integer> fieldsToCompare) {
+    public void compareMasterToMaster(String masterPath) {
         DataLoader loader = new DataLoader();
         loader.loadDataFromCSV(masterPath, masterPath);
         MasterSet master = loader.getMasterSet();
         MatchSet match_master = loader.getMatchSet();
 
-        RecordMatcher matcher = new RecordMatcher(master, match_master, fieldsToCompare, true);
+        RecordMatcher matcher = new RecordMatcher(master, match_master, true);
         matcher.printRun(true);
-        matcher.run("weightedratio");
+        matcher.run("ratio");
 
     }
 
-    public void compareMasterToOther(String masterPath, String matchPath, ArrayList<Integer> fieldsToCompare) {
+    public void compareMasterToOther(String masterPath, String matchPath) {
         DataLoader loader = new DataLoader();
         loader.loadDataFromCSV(masterPath, matchPath);
         MasterSet master = loader.getMasterSet();
         MatchSet match = loader.getMatchSet();
 
-        RecordMatcher matcher = new RecordMatcher(master, match, fieldsToCompare, false);
+        RecordMatcher matcher = new RecordMatcher(master, match, false);
         matcher.printRun(true);
-        matcher.run("weightedratio");
+        matcher.run("ratio");
     }
 }

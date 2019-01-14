@@ -17,22 +17,18 @@
 
 package matcher;
 
-import data.Contact;
-import data.MasterContact;
-import data.MasterSet;
-import data.MatchSet;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-public class TestCalcSim {
+public class TestFuzzy {
 
 
     @Test
-    public void testFuzzyStrCmp() {
+    public void testRatio() {
 
-        CalcSim calc = new CalcSim();
+        Fuzzy calc = new Fuzzy();
 
         // Tests we expect to get accurate ratio results
 
@@ -86,7 +82,7 @@ public class TestCalcSim {
     @Test
     public void testCheckMethod() {
 
-        CalcSim calc = new CalcSim();
+        Fuzzy calc = new Fuzzy();
 
         assertTrue(calc.checkMethod("ratio"));
         assertTrue(calc.checkMethod("PaRtIaLratio"));
@@ -102,22 +98,6 @@ public class TestCalcSim {
 
     }
 
-    @Test
-    public void testCompareFields() {
-
-        CalcSim calc = new CalcSim();
-
-        MasterSet master = new MasterSet();
-        MatchSet match = new MatchSet();
-        master.readCSV("./data/contact_master.csv");
-        match.readCSV("./data/contact_match.csv");
-
-        MasterContact c1 = master.getContactList().get(0);
-        Contact c2 = match.getContactList().get(0);
-
-        int confidence = calc.compareFields(c1, c2, "ratio");
-        assertEquals(34, confidence);
-    }
 
 
 }

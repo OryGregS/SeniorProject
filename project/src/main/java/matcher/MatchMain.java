@@ -26,40 +26,11 @@ public class MatchMain {
 
     public static void main(String[] args) {
 
-        long start = System.nanoTime();
-
-        ArrayList<Integer> fieldsToCompare = new ArrayList<>();
-        fieldsToCompare.add(0); // last name
-        fieldsToCompare.add(1); // middle name
-        fieldsToCompare.add(2); // first name
-        fieldsToCompare.add(5); // email
-        fieldsToCompare.add(6); // phone
-        fieldsToCompare.add(7); // address
-        fieldsToCompare.add(8); // city
-        fieldsToCompare.add(9); // state
-        fieldsToCompare.add(10); // zip1
-        fieldsToCompare.add(11); // zip2
-
         MatchMaker mm = new MatchMaker();
         //mm.compareMasterToMaster("./data/contact_master.csv", fieldsToCompare);
         mm.compareMasterToOther("./data/contact_master.csv",
-                "./data/contact_match.csv", fieldsToCompare);
+                "./data/contact_match.csv");
 
-        long end = System.nanoTime();
-        double time =  ( (end-start) / 1000000000.0 );
-
-        if (time > 120) {
-            time = time / 60;
-            System.out.println("\nTime taken: " + time + " minutes\n");
-        } else {
-            System.out.println("\nTime taken: " + time + " seconds\n");
-        }
-
-
-
-//        for (int i = 0; i < master.getContactList().size(); i++) {
-//            master.getContactList().get(i).printTop();
-//        }
 
 
 

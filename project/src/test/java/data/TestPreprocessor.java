@@ -36,5 +36,9 @@ public class TestPreprocessor {
         String address2 = " Ste 123 ";
         String combined = "123 North St. Ste 123";
         assertTrue(processor.combineAddress(address1, address2).equals(combined));
+
+        address1 = "          123     NorthSt.";
+        address2 = "ste 123           ";
+        assertTrue(processor.combineAddress(address1, address2).equals(combined));
     }
 }

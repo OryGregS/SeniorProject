@@ -24,8 +24,9 @@ public class MasterContact extends Contact {
 
     private int MAX_MATCH_SIZE;
     private int MAX_LOC;
-    private ArrayList<Integer> topConfidence;
+    private ArrayList<Double> topConfidence;
     private ArrayList<Contact> topContact;
+    private ArrayList<Contact> exactMatches;
 
     /**
      * Default constructor to initialize fields
@@ -36,6 +37,7 @@ public class MasterContact extends Contact {
         this.MAX_LOC = this.MAX_MATCH_SIZE - 1;
         this.topConfidence = new ArrayList<>(MAX_MATCH_SIZE);
         this.topContact = new ArrayList<>(MAX_MATCH_SIZE);
+        this.exactMatches = new ArrayList<>();
     }
 
     /**
@@ -48,6 +50,15 @@ public class MasterContact extends Contact {
         this.MAX_LOC = this.MAX_MATCH_SIZE - 1;
         this.topConfidence = new ArrayList<>(MAX_MATCH_SIZE);
         this.topContact = new ArrayList<>(MAX_MATCH_SIZE);
+        this.exactMatches = new ArrayList<>();
+    }
+
+    public void addKnownMatch(Contact contact) {
+        this.exactMatches.add(contact);
+    }
+
+    public ArrayList<Contact> getExactMatchList() {
+        return this.exactMatches;
     }
 
     /**
@@ -56,7 +67,7 @@ public class MasterContact extends Contact {
      * @param contactID - new match's contactID
      * @param confidence - new match's level of confidence of similarity
      */
-    public void setMatch(Contact contactID, int confidence) {
+    public void setMatch(Contact contactID, double confidence) {
 
         boolean full = atCapacity();
 
@@ -82,7 +93,7 @@ public class MasterContact extends Contact {
      * a master contact
      * @return - list of most likely match's level of confidence
      */
-    public ArrayList<Integer> getTopConfidence() {
+    public ArrayList<Double> getTopConfidence() {
         return this.topConfidence;
     }
 
@@ -113,7 +124,7 @@ public class MasterContact extends Contact {
      * @param confidence - new match's level of confidence of similarity
      * @return
      */
-    private boolean checkMatch(int confidence) {
+    private boolean checkMatch(double confidence) {
 
         if (confidence >= this.topConfidence.get(this.MAX_LOC))
             return true;
@@ -137,7 +148,7 @@ public class MasterContact extends Contact {
      * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatch(Contact contact, int confidence) {
+    private void addMatch(Contact contact, double confidence) {
         this.topContact.add(contact);
         this.topConfidence.add(confidence);
     }
@@ -148,7 +159,7 @@ public class MasterContact extends Contact {
      * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatch(int index, Contact contact, int confidence) {
+    private void addMatch(int index, Contact contact, double confidence) {
         this.topContact.add(index, contact);
         this.topConfidence.add(index, confidence);
     }
@@ -189,7 +200,7 @@ public class MasterContact extends Contact {
      * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    private void replaceMatch(int index, Contact contact, int confidence) {
+    private void replaceMatch(int index, Contact contact, double confidence) {
         removeMatch(this.MAX_LOC);
         addMatch(index, contact, confidence);
     }
@@ -200,7 +211,7 @@ public class MasterContact extends Contact {
      * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatchToFull(Contact contact, int confidence) {
+    private void addMatchToFull(Contact contact, double confidence) {
 
         // loop through the matches with lowest confidence first
         for (int i = this.MAX_LOC; i >= 0 ; i--) {
@@ -252,7 +263,7 @@ public class MasterContact extends Contact {
      * @param contact - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatchToNotFull(Contact contact, int confidence) {
+    private void addMatchToNotFull(Contact contact, double confidence) {
 
         // if list is empty add match to the lists
         if (isEmpty()) {

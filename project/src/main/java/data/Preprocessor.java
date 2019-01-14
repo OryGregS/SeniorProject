@@ -35,7 +35,10 @@ public class Preprocessor {
     }
 
     public String combineAddress(String address1, String address2) {
-        String combinedAddress = address1.trim() + " " + address2.trim();
+        String combinedAddress = address1;
+        combinedAddress = combinedAddress.trim();
+        combinedAddress += " " + address2;
+        combinedAddress = combinedAddress.trim();
         combinedAddress = combinedAddress.trim();
         return combinedAddress;
     }
