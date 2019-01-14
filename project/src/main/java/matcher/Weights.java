@@ -17,6 +17,10 @@
 
 package matcher;
 
+import org.apache.commons.io.FileUtils;
+import org.json.JSONObject;
+
+import java.io.*;
 
 public class Weights {
 
@@ -38,7 +42,12 @@ public class Weights {
         }
     }
 
-    private double FullNameWeight;
+
+
+    private static final String PATH_NAME = "./config/";
+    private static final String FILE_NAME = "weights.json";
+
+
     private double LastNameWeight;
     private double MiddleNameWeight;
     private double FirstNameWeight;
@@ -52,19 +61,13 @@ public class Weights {
     private double Zip1Weight;
     private double Zip2Weight;
     private double CountryWeight;
+    private double FullNameWeight;
 
+    private double sum;
     public Weights() {
 
-        initializeDefaults();
+        initialize();
 
-    }
-
-    public double getFullNameWeight() {
-        return FullNameWeight;
-    }
-
-    public void setFullNameWeight(double fullNameWeight) {
-        FullNameWeight = fullNameWeight;
     }
 
     public double getLastNameWeight() {
@@ -171,23 +174,31 @@ public class Weights {
         CountryWeight = countryWeight;
     }
 
+    public double getFullNameWeight() {
+        return FullNameWeight;
+    }
+
+    public void setFullNameWeight(double fullNameWeight) {
+        FullNameWeight = fullNameWeight;
+    }
+
     private void checkWeightSum() {
         double sum = 0.0;
         try {
-            sum += LastNameWeight;
-            sum += MiddleNameWeight;
-            sum += FirstNameWeight;
-            sum += FirmNameWeight;
-            sum += OfficeNameWeight;
-            sum += EmailWeight;
-            sum += PhoneWeight;
-            sum += AddressWeight;
-            sum += CityWeight;
-            sum += StateWeight;
-            sum += Zip1Weight;
-            sum += Zip2Weight;
-            sum += CountryWeight;
 
+            sumWeights(LastNameWeight);
+            sumWeights(MiddleNameWeight);
+            sumWeights(FirstNameWeight);
+            sumWeights(FirmNameWeight);
+            sumWeights(OfficeNameWeight);
+            sumWeights(EmailWeight);
+            sumWeights(PhoneWeight);
+            sumWeights(AddressWeight);
+            sumWeights(CityWeight);
+            sumWeights(StateWeight);
+            sumWeights(Zip1Weight);
+            sumWeights(Zip2Weight);
+            sumWeights(CountryWeight);
 
             if (sum != 1.0) {
                 throw new IllegalValuesException(sum);
@@ -199,7 +210,24 @@ public class Weights {
 
     }
 
-    private void initializeDefaults() {
+    private void sumWeights(double value) {
+        sum = 0.0;
+        sum += value;
+    }
+
+    private void initialize() {
+
+        if (checkJSONExists()) {
+            readJSON();
+        } else {
+            setDefaults();
+            writeJSON();
+        }
+
+    }
+
+    private void setDefaults() {
+
         LastNameWeight = 0.209;
         MiddleNameWeight = 0.05;
         FirstNameWeight = 0.1;
@@ -216,5 +244,76 @@ public class Weights {
         FullNameWeight = LastNameWeight + MiddleNameWeight + FirstNameWeight;
 
         checkWeightSum();
+
     }
+
+    private boolean checkJSONExists() {
+        File file = new File(PATH_NAME + FILE_NAME);
+        return file.exists();
+    }
+
+    private void writeJSON() {
+        JSONObject jo = new JSONObject();
+        jo.put("LastNameWeight", LastNameWeight);
+        jo.put("MiddleNameWeight", MiddleNameWeight);
+        jo.put("FirstNameWeight", FirstNameWeight);
+        jo.put("FirmNameWeight", FirmNameWeight);
+        jo.put("OfficeNameWeight", OfficeNameWeight);
+        jo.put("EmailWeight", EmailWeight);
+        jo.put("PhoneWeight", PhoneWeight);
+        jo.put("AddressWeight", AddressWeight);
+        jo.put("CityWeight", CityWeight);
+        jo.put("StateWeight", StateWeight);
+        jo.put("Zip1Weight", Zip1Weight);
+        jo.put("Zip2Weight", Zip2Weight);
+        jo.put("CountryWeight", CountryWeight);
+
+        try {
+
+            PrintWriter pw = new PrintWriter(PATH_NAME + FILE_NAME);
+            pw.write(jo.toString(4));
+            pw.flush();
+            pw.close();
+
+        } catch (FileNotFoundException e) {
+
+            System.out.println("Failed to write " + PATH_NAME + FILE_NAME);
+
+        }
+    }
+
+    private void readJSON() {
+
+        File file = new File(PATH_NAME + FILE_NAME);
+
+        try {
+
+            String content = FileUtils.readFileToString(file, "utf-8");
+            JSONObject jo = new JSONObject(content);
+
+            LastNameWeight = jo.getDouble("LastNameWeight");
+            MiddleNameWeight = jo.getDouble("MiddleNameWeight");
+            FirstNameWeight = jo.getDouble("FirstNameWeight");
+            FirmNameWeight = jo.getDouble("FirmNameWeight");
+            OfficeNameWeight = jo.getDouble("OfficeNameWeight");
+            EmailWeight = jo.getDouble("EmailWeight");
+            PhoneWeight = jo.getDouble("PhoneWeight");
+            AddressWeight = jo.getDouble("AddressWeight");
+            CityWeight = jo.getDouble("CityWeight");
+            StateWeight = jo.getDouble("StateWeight");
+            Zip1Weight = jo.getDouble("Zip1Weight");
+            Zip2Weight = jo.getDouble("Zip2Weight");
+            CountryWeight = jo.getDouble("CountryWeight");
+
+        } catch (IOException e) {
+
+            setDefaults();
+            writeJSON();
+
+        }
+
+        //System.out.println("Read JSON file!");
+
+    }
+
 }

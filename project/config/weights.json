@@ -1,0 +1,15 @@
+{
+    "PhoneWeight": 0.05,
+    "StateWeight": 0.02,
+    "Zip1Weight": 0.01,
+    "FirstNameWeight": 0.1,
+    "OfficeNameWeight": 0,
+    "MiddleNameWeight": 0.05,
+    "AddressWeight": 0.06,
+    "CountryWeight": 0,
+    "FirmNameWeight": 0,
+    "CityWeight": 0.05,
+    "LastNameWeight": 0.209,
+    "EmailWeight": 0.45,
+    "Zip2Weight": 0.001
+}

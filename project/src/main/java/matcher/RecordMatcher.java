@@ -89,7 +89,7 @@ public class RecordMatcher {
     public void run(String compareMethod) {
 
         PerformanceMeasure measure = new PerformanceMeasure(masterSet);
-
+        Weights weights = new Weights();
         measure.startTimer();
 
         int i;
@@ -117,7 +117,7 @@ public class RecordMatcher {
                     Contact matchContact = matchSet.get(j);
 
                     double confidence = 0.0;
-                    Weights weights = new Weights();
+
                     CompareRecord cmp = new CompareRecord(weights, masterContact, matchContact);
 
                     boolean exactMatch = cmp.CRD();
