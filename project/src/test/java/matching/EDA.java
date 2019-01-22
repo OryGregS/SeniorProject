@@ -15,7 +15,7 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package matcher;
+package matching;
 
 import data.Contact;
 import me.xdrop.fuzzywuzzy.FuzzySearch;

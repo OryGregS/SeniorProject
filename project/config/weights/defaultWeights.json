@@ -1,7 +1,7 @@
 {
     "Phone": 0.05,
     "State": 0.02,
-    "Zip": 0.011,
+    "Zip": 0.01,
     "FirstName": 0.15,
     "OfficeName": 0.00,
     "MiddleName": 0.05,
@@ -9,6 +9,6 @@
     "Country": 0.00,
     "FirmName": 0.00,
     "City": 0.05,
-    "LastName": 0.259,
-    "Email": 0.35
+    "LastName": 0.20,
+    "Email": 0.41
 }

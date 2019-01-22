@@ -15,38 +15,46 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package matcher;
+package matching;
 
 
 import data.DataLoader;
 import data.MasterSet;
 import data.MatchSet;
-
-import java.util.ArrayList;
+import indexing.Indexer;
 
 public class MatchMaker {
 
+    private Indexer indexer;
+
+    public MatchMaker(Indexer indexer) {
+        this.indexer = indexer;
+    }
+
 
     public void compareMasterToMaster(String masterPath) {
-        DataLoader loader = new DataLoader();
+
+        DataLoader loader = new DataLoader(this.indexer);
         loader.loadDataFromCSV(masterPath, masterPath, false);
         MasterSet master = loader.getMasterSet();
         MatchSet match_master = loader.getMatchSet();
 
-        RecordMatcher matcher = new RecordMatcher(master, match_master, true);
+        RecordMatcher matcher = new RecordMatcher(this.indexer, true);
         matcher.printRun(true);
         matcher.run("ratio");
 
     }
 
     public void compareMasterToOther(String masterPath, String matchPath, boolean alternate) {
-        DataLoader loader = new DataLoader();
+
+        DataLoader loader = new DataLoader(this.indexer);
         loader.loadDataFromCSV(masterPath, matchPath, alternate);
         MasterSet master = loader.getMasterSet();
         MatchSet match = loader.getMatchSet();
 
-        RecordMatcher matcher = new RecordMatcher(master, match, false);
+        RecordMatcher matcher = new RecordMatcher(this.indexer, false);
         matcher.printRun(true);
         matcher.run("ratio");
+
     }
 }

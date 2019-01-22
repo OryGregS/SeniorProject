@@ -15,13 +15,14 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package matcher;
+package matching;
 
 import java.util.ArrayList;
 
 import data.DataLoader;
 import data.MasterSet;
 import data.MatchSet;
+import indexing.Indexer;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -31,7 +32,8 @@ public class TestRecordMatcher {
     @Test
     public void TestOrder() {
 
-        DataLoader loader = new DataLoader();
+        Indexer indexer = new Indexer();
+        DataLoader loader = new DataLoader(indexer);
         loader.loadDataFromCSV("./data/contact_master.csv",
                 "./data/contact_match.csv", false);
         MasterSet master = loader.getMasterSet();

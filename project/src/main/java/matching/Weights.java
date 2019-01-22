@@ -15,7 +15,7 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package matcher;
+package matching;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
@@ -90,6 +90,11 @@ public class Weights {
 
             }
 
+            double scale = Math.pow(10, 6);
+            sum = Math.round(sum * scale) / scale;
+
+
+
             if (sum != 1.0) {
 
                 String message = String.format("\nError reading weights from %s.\n" +
@@ -105,11 +110,15 @@ public class Weights {
 
     private void tryJSON() {
 
+        boolean readJSON = false;
+
         if (checkJSONExists()) {
 
-            readJSON();
+            readJSON = readJSON();
 
-        } else {
+        }
+
+        if (!readJSON) {
 
             loadWeights();
             writeJSON();
@@ -192,7 +201,7 @@ public class Weights {
 
     }
 
-    private void readJSON() {
+    private boolean readJSON() {
 
         File file = new File(this.FILENAME);
 
@@ -211,11 +220,13 @@ public class Weights {
             }
 
             checkWeightSum();
+            return true;
 
         } catch (IOException e) {
 
             loadWeights();
 
         }
+        return false;
     }
 }

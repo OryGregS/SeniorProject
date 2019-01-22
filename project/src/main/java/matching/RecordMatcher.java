@@ -15,56 +15,29 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package matcher;
+package matching;
 
 import data.*;
+import indexing.Group;
+import indexing.Indexer;
 
 import java.util.ArrayList;
 
 public class RecordMatcher {
 
 
-    private ArrayList<MasterContact> masterSet;
-    private ArrayList<Contact> matchSet;
+    private ArrayList<Group> contactGroups;
+    private ArrayList<Group> partnerships;
     private Weights defaultWeights;
     private Weights alternateWeights;
-    private double subset;
     private boolean matchMasterToMaster;
     private boolean print;
 
-    /**
-     * Initializes the RecordMatcher object with a master set,
-     * a match set, and the fields to compare between records.
-     * @param master - Master dataset
-     * @param match - dataset to match to master
-     */
-    public RecordMatcher(MasterSet master, MatchSet match,
-                         boolean masterToMaster) {
 
-        this.masterSet = master.getContactList();
-        this.matchSet = match.getContactList();
-        this.subset = 1.0;
-        this.matchMasterToMaster = masterToMaster;
-        this.defaultWeights = new Weights(false);
-        this.alternateWeights = new Weights(true);
-        this.print = true;
+    public RecordMatcher(Indexer indexer, boolean masterToMaster) {
 
-    }
-
-    /**
-     * Initializes the RecordMatcher object with a master set,
-     * a match set, the fields to compare between records, and
-     * allows a subset of the datasets to be used.
-     * @param master - Master dataset
-     * @param match - dataset to match to master
-     * @param subset - value to specify what percentage of the data should be used
-     */
-    public RecordMatcher(MasterSet master, MatchSet match,
-                         boolean masterToMaster, double subset) {
-
-        this.masterSet = master.getContactList();
-        this.matchSet = match.getContactList();
-        this.subset = subset;
+        this.contactGroups = indexer.getContactGroups();
+        this.partnerships = indexer.getPartnerships();
         this.matchMasterToMaster = masterToMaster;
         this.defaultWeights = new Weights(false);
         this.alternateWeights = new Weights(true);
@@ -85,98 +58,41 @@ public class RecordMatcher {
      * Loops through the datasets to calculate
      * the similarity between the contacts in Master
      * and the contacts in the dataset to match
+     *
+     * @param compareMethod - what string comparison metric to use
      */
-//    public void run(String compareMethod) {
-//
-////        System.out.println("Master: " + masterSet.size());
-////        System.out.println("Match: " + matchSet.size());
-//
-//        int i;
-//        double masterSetSize = masterSet.size() * subset;
-//
-//        // for each contact in the master dataset
-//        for (i = 0; i < masterSetSize; i++) {
-//            // get contact from master dataset
-//            MasterContact masterContact = masterSet.get(i);
-//
-//            int j;
-//            long matchSetSize = matchSet.size();
-//            // for each contact in the dataset to match
-//            for (j = 0; j < matchSetSize; j++) {
-//
-//
-//                // if comparing the master record against
-//                // the master record - skip the same contact
-//                if (this.matchMasterToMaster && i == j) {
-//                    // do nothing
-//                }
-//
-//                else {
-//
-//
-//                    // get contact from matching dataset
-//                    Contact matchContact = matchSet.get(j);
-//
-//                    double confidence = 0.0;
-//
-//                    CompareRecord cmp;
-//
-//                    if (masterContact.getEmail().equalsIgnoreCase("") ||
-//                            matchContact.getEmail().equalsIgnoreCase("")) {
-//
-//                        cmp = new CompareRecord(alternateWeights, masterContact, matchContact);
-//
-//                    } else {
-//
-//                        cmp = new CompareRecord(defaultWeights, masterContact, matchContact);
-//
-//                    }
-//
-//
-//                    boolean exactMatch = cmp.CRD();
-//
-//                    if (exactMatch) {
-//                        masterContact.addKnownMatch(matchContact);
-//                    }
-//
-//
-//
-//                    confidence += cmp.similarity("last", compareMethod);
-//                    confidence += cmp.similarity("middle", compareMethod);
-//                    confidence += cmp.similarity("first", compareMethod);
-//                    //confidence += cmp.FullName(compareMethod);
-//                    confidence += cmp.similarity("firm", compareMethod);
-//                    confidence += cmp.similarity("office", compareMethod);
-//                    confidence += cmp.similarity("email", compareMethod);
-//                    confidence += cmp.similarity("phone", compareMethod);
-//                    confidence += cmp.similarity("address", compareMethod);
-//                    confidence += cmp.similarity("city", compareMethod);
-//                    confidence += cmp.similarity("state", compareMethod);
-//                    confidence += cmp.similarity("zip", compareMethod);
-//                    confidence += cmp.similarity("country", compareMethod);
-//
-//                    if (confidence >= 70) {
-//                        masterContact.setMatch(matchContact, confidence);
-//                    }
-//                }
-//            }
-//
-//            if (print)
-//                printTop(masterContact, false);
-//
-//        }
-//
-//        printDiv();
-//
-//    }
-
     public void run(String compareMethod) {
 
-        masterSet.parallelStream().forEach(masterContact -> compare(masterContact, compareMethod));
+        runGroups(this.contactGroups, compareMethod);
+        runGroups(this.partnerships, compareMethod);
 
     }
 
-    private void compare(MasterContact masterContact, String compareMethod) {
+    private void runGroups(ArrayList<Group> groups, String compareMethod) {
+
+        int i;
+        int size;
+
+        size = groups.size();
+
+        // loop over groups
+        for (i = 0; i < size; i++) {
+
+            ArrayList<MasterContact> masterContacts = groups.get(i).getMasterContacts();
+            ArrayList<Contact> matchContacts = groups.get(i).getMatchContacts();
+
+            masterContacts.parallelStream().forEach(masterContact ->
+                    compare(masterContact, matchContacts, compareMethod));
+
+        }
+    }
+
+    /**
+     * Compares a mastercontact against each contant in the matching set
+     * @param masterContact - contact data from the master record
+     * @param compareMethod - string comparison metric to use
+     */
+    private void compare(MasterContact masterContact, ArrayList<Contact> matchSet, String compareMethod) {
 
         //String compareMethod = "ratio";
 
@@ -193,7 +109,7 @@ public class RecordMatcher {
 
                 if (matchMasterToMaster && masterContactID.equalsIgnoreCase(matchContactID)) {
 
-                    continue;
+                    // skip comparing the same contact
 
                 } else {
 
@@ -245,6 +161,8 @@ public class RecordMatcher {
             printTop(masterContact, false);
 
     }
+
+
 
 
     private void printDiv() {

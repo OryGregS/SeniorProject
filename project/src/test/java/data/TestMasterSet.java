@@ -20,19 +20,17 @@ package data;
 import static org.junit.Assert.assertTrue;
 
 import data.MasterSet;
+import indexing.Indexer;
 import org.junit.Test;
 
 public class TestMasterSet {
 
-    MasterSet master = new MasterSet();
+    Indexer indexer = new Indexer();
+    MasterSet master = new MasterSet(indexer);
     String masterPath = "./data/contact_master.csv";
 
     @Test
-    public void readCSVTest() { assertTrue(master.readCSV(masterPath)); }
+    public void readCSVTest() { assertTrue(master.readCSV(masterPath, true)); }
 
-    @Test
-    public void headTest() {
-        master.readCSV(masterPath);
-    }
 
 }

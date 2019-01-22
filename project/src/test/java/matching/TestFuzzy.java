@@ -15,7 +15,7 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package matcher;
+package matching;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

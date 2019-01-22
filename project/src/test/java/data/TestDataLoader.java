@@ -18,6 +18,7 @@
 package data;
 
 import data.DataLoader;
+import indexing.Indexer;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -32,15 +33,18 @@ public class TestDataLoader {
     private double seconds;
 
 
+
     @Test
     public void loaderDataTest(){
-        DataLoader dataLoader = new DataLoader();
+        Indexer indexer = new Indexer();
+        DataLoader dataLoader = new DataLoader(indexer);
         assertNotNull(dataLoader);
     }
 
     @Test
     public void loadDataFromCSVTest() {
-        DataLoader loader = new DataLoader();
+        Indexer indexer = new Indexer();
+        DataLoader loader = new DataLoader(indexer);
         loader.loadDataFromCSV(masterPath, matchPath, false);
         assertNotNull(loader.getMasterSet());
         assertNotNull(loader.getMatchSet());
@@ -48,8 +52,9 @@ public class TestDataLoader {
     }
 
     @Test
-    public void readMasterTime(){
-        DataLoader loader = new DataLoader();
+    public void readMasterTime() {
+        Indexer indexer = new Indexer();
+        DataLoader loader = new DataLoader(indexer);
         loader.loadDataFromCSV(masterPath, matchPath, false);
         startTime = System.nanoTime();
         loader.readMasterCSV(masterPath);
@@ -59,8 +64,9 @@ public class TestDataLoader {
     }
 
     @Test
-    public void readMatchTime(){
-        DataLoader loader = new DataLoader();
+    public void readMatchTime() {
+        Indexer indexer = new Indexer();
+        DataLoader loader = new DataLoader(indexer);
         startTime = System.nanoTime();
         loader.readMatchCSV(matchPath, false);
         estimatedTime = System.nanoTime() - startTime;

@@ -15,15 +15,13 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package matcher;
+package matching;
 
 import data.DataLoader;
-import data.MasterSet;
-import data.MatchSet;
 import data.PerformanceMeasure;
+import indexing.Indexer;
 
 import java.util.concurrent.TimeUnit;
-
 
 
 public class MatchMain {
@@ -33,32 +31,26 @@ public class MatchMain {
 
     public static void main(String[] args) {
 
-//        MatchMaker mm = new MatchMaker();
-//        //mm.compareMasterToMaster("./data/contact_master.csv");
-//        mm.compareMasterToOther("./data/contact_master.csv", "./data/contact_match.csv");
 
         DataLoader loader;
-        MasterSet master;
-        MatchSet match;
+        Indexer indexer;
         RecordMatcher matcher;
         long totalStart, parseDataEnd, matchTimeEnd = 0;
 
         //---------------------------RUN TRAIN SET-----------------------------------
         PerformanceMeasure trainMeasure = new PerformanceMeasure();
+        indexer = new Indexer();
 
         totalStart = System.nanoTime();
 
-        loader = new DataLoader();
+        loader = new DataLoader(indexer);
         loader.loadDataFromCSV("./data/contact_master.csv",
                 "./data/contact_match.csv", false);
 
-        master = loader.getMasterSet();
-        match = loader.getMatchSet();
-
         parseDataEnd = System.nanoTime();
 
-        matcher = new RecordMatcher(master, match, false, 1.0);
-        matcher.printRun(true);
+        matcher = new RecordMatcher(indexer, false);
+        matcher.printRun(false);
         matcher.run("ratio");
 
         matchTimeEnd = System.nanoTime();
@@ -66,7 +58,8 @@ public class MatchMain {
         trainMeasure.setParseDataTime(totalStart, parseDataEnd);
         trainMeasure.setMatcherTime(parseDataEnd, matchTimeEnd);
         trainMeasure.setTotalRunTime(totalStart, matchTimeEnd);
-        trainMeasure.measureAccuracy(master.getContactList());
+        trainMeasure.measureAccuracy(indexer);
+        trainMeasure.resultsToFile("contact_match");
 
         System.out.println();
         System.out.println("Done matching contact_match.csv.");
@@ -87,21 +80,19 @@ public class MatchMain {
 
 
         PerformanceMeasure valMeasure = new PerformanceMeasure();
+        indexer = new Indexer();
 
         totalStart = System.nanoTime();
 
-        loader = new DataLoader();
+        loader = new DataLoader(indexer);
 
         loader.loadDataFromCSV("./data/contact_master.csv",
                 "./data/contact_match_alt.csv", true);
 
-        master = loader.getMasterSet();
-        match = loader.getMatchSet();
-
         parseDataEnd = System.nanoTime();
 
-        matcher = new RecordMatcher(master, match, false, 1.0);
-        matcher.printRun(true);
+        matcher = new RecordMatcher(indexer, false);
+        matcher.printRun(false);
         matcher.run("ratio");
 
         matchTimeEnd = System.nanoTime();
@@ -112,7 +103,8 @@ public class MatchMain {
         valMeasure.setParseDataTime(totalStart, parseDataEnd);
         valMeasure.setMatcherTime(parseDataEnd, matchTimeEnd);
         valMeasure.setTotalRunTime(totalStart, matchTimeEnd);
-        valMeasure.measureAccuracy(master.getContactList());
+        valMeasure.measureAccuracy(indexer);
+        valMeasure.resultsToFile("contact_match_alt");
 
         //------------------------------PRINT RESULTS---------------------------------------
         System.out.println("\nMatch Data Results:");
@@ -122,8 +114,7 @@ public class MatchMain {
         System.out.println("\nAlternate Match Data Results:");
         valMeasure.printResults("\t");
 
-        trainMeasure.resultsToFile("contact_match");
-        valMeasure.resultsToFile("contact_match_alt");
+
 
     }
 

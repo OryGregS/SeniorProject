@@ -17,6 +17,8 @@
 
 package data;
 
+import indexing.Indexer;
+
 public class DataLoader {
 
     private MasterSet masterSet;
@@ -25,9 +27,9 @@ public class DataLoader {
     /**
      * Initializes the dataset objects
      */
-    public DataLoader() {
-        masterSet = new MasterSet();
-        matchSet = new MatchSet();
+    public DataLoader(Indexer indexer) {
+        masterSet = new MasterSet(indexer);
+        matchSet = new MatchSet(indexer);
     }
 
     /**
@@ -39,11 +41,11 @@ public class DataLoader {
     }
 
     public void readMasterCSV(String pathToMasterCSV) {
-        masterSet.readCSV(pathToMasterCSV);
+        masterSet.readCSV(pathToMasterCSV, true);
     }
 
     public void readMatchCSV(String pathToMatchCSV, boolean alternate) {
-        matchSet.readCSV(pathToMatchCSV, alternate);
+        matchSet.readCSV(pathToMatchCSV, alternate, true);
     }
 
     /**

@@ -17,6 +17,8 @@
 
 package data;
 
+import indexing.Indexer;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,16 +39,24 @@ public class PerformanceMeasure {
     private int identifiedMatchCount;
     private double identifiedMatchConfidenceSum;
     private long exactMatchCount;
+    private long masterSize;
+    private long matchSize;
 
     public PerformanceMeasure() {
         this.identifiedMatchConfidenceSum = 0.0;
         this.exactMatchCount = 0;
     }
 
-    public void measureAccuracy(ArrayList<MasterContact> masterContacts) {
+    public void measureAccuracy(Indexer indexer) {
+
+        ArrayList<MasterContact> masterContacts = indexer.getAllMasterContacts();
+        ArrayList<Contact> matchContacts = indexer.getAllMatchContacts();
+
+        this.masterSize = masterContacts.size();
+        this.matchSize = matchContacts.size();
+
         int i;
-        int stop = masterContacts.size();
-        for (i = 0; i < stop; i++) {
+        for (i = 0; i < masterSize; i++) {
             MasterContact masterContact = masterContacts.get(i);
 
             // list of contacts that had a matching CRD number to a contact in the master set.
@@ -109,6 +119,9 @@ public class PerformanceMeasure {
                 FileWriter fileWriter = new FileWriter(FILENAME);
                 PrintWriter writer = new PrintWriter(fileWriter);
 
+                writer.printf("Master Size: %d\n", this.masterSize);
+                writer.printf("Match Size: %d\n", this.matchSize);
+                writer.println();
                 writer.println("Identified Known Matches " + this.identifiedMatchCount);
                 writer.println("Total Known Matches: " + this.exactMatchCount);
                 writer.println();
@@ -148,6 +161,9 @@ public class PerformanceMeasure {
         double percentCorrect = percentCorrect();
         double confidenceScore = confidenceScore(knownMatchConfidenceSum);
 
+        System.out.println();
+        System.out.printf(formatter + "Master Size: %d\n", this.masterSize);
+        System.out.printf(formatter + "Match Size: %d\n", this.matchSize);
         System.out.println();
         System.out.println(formatter + "Identified Known Matches " + this.identifiedMatchCount);
         System.out.println(formatter + "Total Known Matches: " + this.exactMatchCount);

@@ -1,0 +1,16 @@
+Master Size: 21450
+Match Size: 20040
+
+Identified Known Matches 11421
+Total Known Matches: 11787
+
+Identified Known Match Confidence Sum: 1022023.35
+Total Known Match Confidence Sum: 1178700
+
+Correctly identified 96.89% of known matches.
+Confidence Score: 86.7 / 100
+
+Time taken to parse data: 0.24 seconds
+Time taken to match data: 0.54 seconds
+
+Total time taken: 0.77 seconds
