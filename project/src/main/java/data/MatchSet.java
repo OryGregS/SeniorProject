@@ -45,7 +45,7 @@ public class MatchSet {
      * @param filePath
      * @return
      */
-    public boolean readCSV(String filePath) {
+    public boolean readCSV(String filePath, boolean alternate) {
 
         Preprocessor processor = new Preprocessor();
 
@@ -56,25 +56,46 @@ public class MatchSet {
             for (CSVRecord obs : csv) {
                 Contact contact = new Contact();
 
-                contact.setLastName( processor.checkNULL(obs.get(0)) );
-                contact.setMiddleName( processor.checkNULL(obs.get(1)) );
-                contact.setFirstName( processor.checkNULL(obs.get(2)) );
-                contact.setFirmName( processor.checkNULL(obs.get(3)) );
-                contact.setOfficeName( processor.checkNULL(obs.get(4)) );
+                contact.setLastName( processor.prep(obs.get(0)) );
+                contact.setMiddleName( processor.prep(obs.get(1)) );
+                contact.setFirstName( processor.prep(obs.get(2)) );
+                contact.setFirmName( processor.prep(obs.get(3)) );
+                contact.setOfficeName( processor.prep(obs.get(4)) );
                 contact.setEmail( processor.checkNULL(obs.get(5)) );
-                contact.setBusinessPhone( processor.checkNULL(obs.get(6)) );
+                contact.setBusinessPhone( processor.prep(obs.get(6)) );
 
-                String address1 = processor.checkNULL(obs.get(7));
-                String address2 = processor.checkNULL(obs.get(8));
+                String address1 = processor.prep(obs.get(7));
+                String address2 = processor.prep(obs.get(8));
 
-                contact.setAddress( processor.combineAddress(address1, address2) );
-                contact.setCity( processor.checkNULL(obs.get(9)) );
-                contact.setStateProvince( processor.checkNULL(obs.get(10)) );
-                contact.setZip1( processor.checkNULL(obs.get(11)) );
-                contact.setZip2( processor.checkNULL(obs.get(12)) );
-                contact.setCountryID( processor.checkNULL(obs.get(13)) );
-                contact.setCRDNumber( processor.checkNULL(obs.get(14)) );
-                contact.setContactID( processor.checkNULL(obs.get(15)) );
+                String combinedAddress = processor.combineFields(address1, address2);
+                String address = processor.handleAddress(combinedAddress);
+                contact.setAddress( address );
+
+                contact.setCity( processor.prep(obs.get(9)) );
+                contact.setStateProvince( processor.prep(obs.get(10)) );
+
+                //String zip1 = processor.checkNULL(obs.get(11));
+                contact.setZip( processor.prep(obs.get(11)) );
+
+                if (alternate) {
+
+                    //contact.setZip(zip1);
+                    //contact.setZip( processor.checkNULL(obs.get(11)) );
+                    contact.setCountryID( processor.prep(obs.get(12)) );
+                    contact.setCRDNumber( processor.prep(obs.get(13)) );
+                    contact.setContactID( processor.prep(obs.get(14)) );
+
+                } else {
+
+                    //String zip2 = processor.checkNULL(obs.get(12));
+                    //contact.setZip(processor.combineFields(zip1, zip2));
+                    contact.setCountryID( processor.prep(obs.get(13)) );
+                    contact.setCRDNumber( processor.prep(obs.get(14)) );
+                    contact.setContactID( processor.prep(obs.get(15)) );
+
+                }
+
+
 
                 ContactList.add(contact);
                 numRows++;

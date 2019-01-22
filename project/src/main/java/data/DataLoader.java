@@ -38,12 +38,12 @@ public class DataLoader {
 
     }
 
-    protected void readMasterCSV(String pathToMasterCSV) {
+    public void readMasterCSV(String pathToMasterCSV) {
         masterSet.readCSV(pathToMasterCSV);
     }
 
-    protected void readMatchCSV(String pathToMatchCSV) {
-        matchSet.readCSV(pathToMatchCSV);
+    public void readMatchCSV(String pathToMatchCSV, boolean alternate) {
+        matchSet.readCSV(pathToMatchCSV, alternate);
     }
 
     /**
@@ -51,9 +51,9 @@ public class DataLoader {
      * @param pathToMasterCSV - path to the Master dataset
      * @param pathToMatchCSV - path to the dataset to match
      */
-    public void loadDataFromCSV(String pathToMasterCSV, String pathToMatchCSV) {
+    public void loadDataFromCSV(String pathToMasterCSV, String pathToMatchCSV, boolean alternate) {
         readMasterCSV(pathToMasterCSV);
-        readMatchCSV(pathToMatchCSV);
+        readMatchCSV(pathToMatchCSV, alternate);
     }
 
     /**

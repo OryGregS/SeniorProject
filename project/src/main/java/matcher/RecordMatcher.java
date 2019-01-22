@@ -17,10 +17,7 @@
 
 package matcher;
 
-import data.Contact;
-import data.MasterContact;
-import data.MasterSet;
-import data.MatchSet;
+import data.*;
 
 import java.util.ArrayList;
 
@@ -29,7 +26,8 @@ public class RecordMatcher {
 
     private ArrayList<MasterContact> masterSet;
     private ArrayList<Contact> matchSet;
-    private ArrayList<Integer> fieldsToCompare;
+    private Weights defaultWeights;
+    private Weights alternateWeights;
     private double subset;
     private boolean matchMasterToMaster;
     private boolean print;
@@ -45,9 +43,10 @@ public class RecordMatcher {
 
         this.masterSet = master.getContactList();
         this.matchSet = match.getContactList();
-        this.fieldsToCompare = fieldsToCompare;
         this.subset = 1.0;
         this.matchMasterToMaster = masterToMaster;
+        this.defaultWeights = new Weights(false);
+        this.alternateWeights = new Weights(true);
         this.print = true;
 
     }
@@ -65,9 +64,10 @@ public class RecordMatcher {
 
         this.masterSet = master.getContactList();
         this.matchSet = match.getContactList();
-        this.fieldsToCompare = fieldsToCompare;
         this.subset = subset;
         this.matchMasterToMaster = masterToMaster;
+        this.defaultWeights = new Weights(false);
+        this.alternateWeights = new Weights(true);
         this.print = true;
 
     }
@@ -86,45 +86,136 @@ public class RecordMatcher {
      * the similarity between the contacts in Master
      * and the contacts in the dataset to match
      */
+//    public void run(String compareMethod) {
+//
+////        System.out.println("Master: " + masterSet.size());
+////        System.out.println("Match: " + matchSet.size());
+//
+//        int i;
+//        double masterSetSize = masterSet.size() * subset;
+//
+//        // for each contact in the master dataset
+//        for (i = 0; i < masterSetSize; i++) {
+//            // get contact from master dataset
+//            MasterContact masterContact = masterSet.get(i);
+//
+//            int j;
+//            long matchSetSize = matchSet.size();
+//            // for each contact in the dataset to match
+//            for (j = 0; j < matchSetSize; j++) {
+//
+//
+//                // if comparing the master record against
+//                // the master record - skip the same contact
+//                if (this.matchMasterToMaster && i == j) {
+//                    // do nothing
+//                }
+//
+//                else {
+//
+//
+//                    // get contact from matching dataset
+//                    Contact matchContact = matchSet.get(j);
+//
+//                    double confidence = 0.0;
+//
+//                    CompareRecord cmp;
+//
+//                    if (masterContact.getEmail().equalsIgnoreCase("") ||
+//                            matchContact.getEmail().equalsIgnoreCase("")) {
+//
+//                        cmp = new CompareRecord(alternateWeights, masterContact, matchContact);
+//
+//                    } else {
+//
+//                        cmp = new CompareRecord(defaultWeights, masterContact, matchContact);
+//
+//                    }
+//
+//
+//                    boolean exactMatch = cmp.CRD();
+//
+//                    if (exactMatch) {
+//                        masterContact.addKnownMatch(matchContact);
+//                    }
+//
+//
+//
+//                    confidence += cmp.similarity("last", compareMethod);
+//                    confidence += cmp.similarity("middle", compareMethod);
+//                    confidence += cmp.similarity("first", compareMethod);
+//                    //confidence += cmp.FullName(compareMethod);
+//                    confidence += cmp.similarity("firm", compareMethod);
+//                    confidence += cmp.similarity("office", compareMethod);
+//                    confidence += cmp.similarity("email", compareMethod);
+//                    confidence += cmp.similarity("phone", compareMethod);
+//                    confidence += cmp.similarity("address", compareMethod);
+//                    confidence += cmp.similarity("city", compareMethod);
+//                    confidence += cmp.similarity("state", compareMethod);
+//                    confidence += cmp.similarity("zip", compareMethod);
+//                    confidence += cmp.similarity("country", compareMethod);
+//
+//                    if (confidence >= 70) {
+//                        masterContact.setMatch(matchContact, confidence);
+//                    }
+//                }
+//            }
+//
+//            if (print)
+//                printTop(masterContact, false);
+//
+//        }
+//
+//        printDiv();
+//
+//    }
+
     public void run(String compareMethod) {
 
-        PerformanceMeasure measure = new PerformanceMeasure(masterSet);
-        Weights weights = new Weights();
-        measure.startTimer();
+        masterSet.parallelStream().forEach(masterContact -> compare(masterContact, compareMethod));
 
-        int i;
-        long masterSetSize = masterSet.size();
-        // for each contact in the master dataset
-        for (i = 0; i < masterSetSize; i++) {
-            // get contact from master dataset
-            MasterContact masterContact = masterSet.get(i);
+    }
 
-            int j;
-            long matchSetSize = matchSet.size();
-            // for each contact in the dataset to match
-            for (j = 0; j < matchSetSize; j++) {
+    private void compare(MasterContact masterContact, String compareMethod) {
 
-                // if comparing the master record against
-                // the master record - skip the same contact
-                if (this.matchMasterToMaster && i == j) {
-                    // do nothing
-                }
+        //String compareMethod = "ratio";
 
-                else {
+        int j;
+        long matchSetSize = matchSet.size();
+        // for each contact in the dataset to match
+        for (j = 0; j < matchSetSize; j++) {
 
+                // get contact from matching dataset
+                Contact matchContact = matchSet.get(j);
 
-                    // get contact from matching dataset
-                    Contact matchContact = matchSet.get(j);
+                String masterContactID = masterContact.getContactID();
+                String matchContactID = matchContact.getContactID();
+
+                if (matchMasterToMaster && masterContactID.equalsIgnoreCase(matchContactID)) {
+
+                    continue;
+
+                } else {
 
                     double confidence = 0.0;
 
-                    CompareRecord cmp = new CompareRecord(weights, masterContact, matchContact);
+                    CompareRecord cmp;
+
+                    if (masterContact.getEmail().equalsIgnoreCase("") ||
+                            matchContact.getEmail().equalsIgnoreCase("")) {
+
+                        cmp = new CompareRecord(alternateWeights, masterContact, matchContact);
+
+                    } else {
+
+                        cmp = new CompareRecord(defaultWeights, masterContact, matchContact);
+
+                    }
+
 
                     boolean exactMatch = cmp.CRD();
 
                     if (exactMatch) {
-//                    confidence = 100.0;
-//                    masterContact.setMatch(matchContact, confidence);
                         masterContact.addKnownMatch(matchContact);
                     }
 
@@ -141,8 +232,7 @@ public class RecordMatcher {
                     confidence += cmp.similarity("address", compareMethod);
                     confidence += cmp.similarity("city", compareMethod);
                     confidence += cmp.similarity("state", compareMethod);
-                    confidence += cmp.similarity("zip1", compareMethod);
-                    confidence += cmp.similarity("zip2", compareMethod);
+                    confidence += cmp.similarity("zip", compareMethod);
                     confidence += cmp.similarity("country", compareMethod);
 
                     if (confidence >= 70) {
@@ -151,14 +241,9 @@ public class RecordMatcher {
                 }
             }
 
-            if (print)
-                printTop(masterContact);
+        if (print)
+            printTop(masterContact, false);
 
-        }
-        measure.endTimer();
-        printDiv();
-        measure.printPerformanceResults();
-        printDiv();
     }
 
 
@@ -187,20 +272,37 @@ public class RecordMatcher {
      * Prints the contactID and level of
      * confidence for a MasterContact.
      */
-    public void printTop(MasterContact master) {
+    public void printTop(MasterContact master, boolean onlyPrintMatches) {
         ArrayList<Double> confidence = master.getTopConfidence();
         ArrayList<Contact> contacts = master.getTopContacts();
+
+        if (onlyPrintMatches) {
+            if (!contacts.isEmpty()) {
+                printMatches(master, confidence, contacts);
+            }
+        } else {
+            printMatches(master, confidence, contacts);
+        }
+
+    }
+
+    private void printMatches(MasterContact master, ArrayList<Double> confidence, ArrayList<Contact> contacts) {
+
         printDiv();
         System.out.print("MasterContact: \t\t ");
-        master.printAll();
+        master.printRelevant();
         printDiv();
 
         int listSize = confidence.size();
         for (int i = 0; i < listSize; i++) {
+
             System.out.printf("\nConfidence: %6.2f | ", confidence.get(i));
-            contacts.get(i).printAll();
+            contacts.get(i).printRelevant();
+
         }
+
         System.out.println();
+
     }
 
 }

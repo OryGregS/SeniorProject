@@ -135,15 +135,10 @@ public class CompareRecord {
                 matchData = this.contact.getStateProvince();
                 weight = this.weights.getStateWeight();
                 break;
-            case "zip1":
-                masterData = this.masterContact.getZip1();
-                matchData = this.contact.getZip1();
-                weight = this.weights.getZip1Weight();
-                break;
-            case "zip2":
-                masterData = this.masterContact.getZip2();
-                matchData = this.contact.getZip2();
-                weight = this.weights.getZip2Weight();
+            case "zip":
+                masterData = this.masterContact.getZip();
+                matchData = this.contact.getZip();
+                weight = this.weights.getZipWeight();
                 break;
             case "country":
                 masterData = this.masterContact.getCountryID();

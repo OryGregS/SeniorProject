@@ -33,7 +33,7 @@ public class TestRecordMatcher {
 
         DataLoader loader = new DataLoader();
         loader.loadDataFromCSV("./data/contact_master.csv",
-                "./data/contact_match.csv");
+                "./data/contact_match.csv", false);
         MasterSet master = loader.getMasterSet();
         MatchSet match = loader.getMatchSet();
 

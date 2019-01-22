@@ -262,8 +262,7 @@ public class EDA {
                 ratios += FuzzySearch.ratio(tempMatch.getAddress(), tempMaster.getAddress());
                 ratios += FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity());
                 ratios += FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
-                ratios += FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
-                ratios += FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2());
+                ratios += FuzzySearch.ratio(tempMatch.getZip(), tempMaster.getZip());
                 ratios += FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID());
                 ratios += FuzzySearch.ratio(tempMatch.getCRDNumber(), tempMaster.getCRDNumber());
 
@@ -336,8 +335,7 @@ public class EDA {
                 ratios += FuzzySearch.ratio(tempMatch.getAddress(), tempMaster.getAddress());
                 ratios += FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity());
                 ratios += FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
-                ratios += FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
-                ratios += FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2());
+                ratios += FuzzySearch.ratio(tempMatch.getZip(), tempMaster.getZip());
                 ratios += FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID());
                 ratios += FuzzySearch.ratio(tempMatch.getCRDNumber(), tempMaster.getCRDNumber());
 
@@ -479,10 +477,8 @@ public class EDA {
                 System.out.printf("City: %5d | ", ratios);
                 ratios = FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince());
                 System.out.printf("State: %5d | ", ratios);
-                ratios = FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1());
-                System.out.printf("Zip 1: %5d | ", ratios);
-                ratios = FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2());
-                System.out.printf("Zip 2: %5d | ", ratios);
+                ratios = FuzzySearch.ratio(tempMatch.getZip(), tempMaster.getZip());
+                System.out.printf("Zip: %5d | ", ratios);
                 ratios = FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID());
                 System.out.printf("Phone: %5d | ", ratios);
                 System.out.println();
@@ -560,8 +556,7 @@ public class EDA {
                 ratios.add(FuzzySearch.ratio(tempMatch.getBusinessPhone(), tempMaster.getBusinessPhone()));
                 ratios.add(FuzzySearch.ratio(tempMatch.getCity(), tempMaster.getCity()));
                 ratios.add(FuzzySearch.ratio(tempMatch.getStateProvince(), tempMaster.getStateProvince()));
-                ratios.add(FuzzySearch.ratio(tempMatch.getZip1(), tempMaster.getZip1()));
-                ratios.add(FuzzySearch.ratio(tempMatch.getZip2(), tempMaster.getZip2()));
+                ratios.add(FuzzySearch.ratio(tempMatch.getZip(), tempMaster.getZip()));
                 ratios.add(FuzzySearch.ratio(tempMatch.getCountryID(), tempMaster.getCountryID()));
 
                 // max = sum of current ratios

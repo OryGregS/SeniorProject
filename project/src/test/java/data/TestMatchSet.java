@@ -30,11 +30,11 @@ public class TestMatchSet {
     String matchPath = "./data/contact_match.csv";
 
     @Test
-    public void readCSVTest() { assertTrue(match.readCSV(matchPath)); }
+    public void readCSVTest() { assertTrue(match.readCSV(matchPath, false)); }
 
     @Test
     public void headTest() {
-        match.readCSV(matchPath);
+        match.readCSV(matchPath, false);
     }
 
 }

@@ -1,0 +1,13 @@
+Identified Known Matches 16594
+Total Known Matches: 17751
+
+Identified Known Match Confidence Sum: 1529397.16
+Total Known Match Confidence Sum: 1775100
+
+Correctly identified 93.48% of exact matches.
+Confidence Score: 86.2
+
+Time taken to parse data: 0.41 seconds
+Time taken to match data: 24.53 minutes
+
+Total time taken: 24.54 minutes

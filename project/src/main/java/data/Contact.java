@@ -31,8 +31,7 @@ public class Contact {
     private String Address;
     private String City;
     private String StateProvince;
-    private String Zip1;
-    private String Zip2;
+    private String Zip;
     private String CountryID;
     private String CRDNumber;
     private String ContactID;
@@ -51,8 +50,7 @@ public class Contact {
         this.Address = null;
         this.City = null;
         this.StateProvince = null;
-        this.Zip1 = null;
-        this.Zip2 = null;
+        this.Zip = null;
         this.CountryID = null;
         this.CRDNumber = null;
         this.ContactID = null;
@@ -100,12 +98,8 @@ public class Contact {
         StateProvince = stateProvince;
     }
 
-    public void setZip1(String zip1) {
-        Zip1 = zip1;
-    }
-
-    public void setZip2(String zip2) {
-        Zip2 = zip2;
+    public void setZip(String zip) {
+        Zip = zip;
     }
 
     public void setCountryID(String countryID) {
@@ -160,12 +154,8 @@ public class Contact {
         return StateProvince;
     }
 
-    public String getZip1() {
-        return Zip1;
-    }
-
-    public String getZip2() {
-        return Zip2;
+    public String getZip() {
+        return Zip;
     }
 
     public String getCountryID() {
@@ -193,8 +183,7 @@ public class Contact {
         contactFields.add(this.Address);
         contactFields.add(this.City);
         contactFields.add(this.StateProvince);
-        contactFields.add(this.Zip1);
-        contactFields.add(this.Zip2);
+        contactFields.add(this.Zip);
         contactFields.add(this.CountryID);
         contactFields.add(this.CRDNumber);
         contactFields.add(this.ContactID);
@@ -205,9 +194,16 @@ public class Contact {
 
     public void printAll() {
         System.out.printf("%-40s %-40s %-40s %-40s %-40s %-40s " +
-                "%-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s %-40s\n",
+                "%-40s %-70s %-40s %-40s %-40s %-40s %-40s %-40s\n",
                 LastName, MiddleName, FirstName, FirmName, OfficeName,
                 Email, BusinessPhone, Address, City, StateProvince,
-                Zip1, Zip2, CountryID, CRDNumber, ContactID);
+                Zip, CountryID, CRDNumber, ContactID);
+
+    }
+
+    public void printRelevant() {
+        System.out.printf("%-40s %-40s %-40s %-40s %-40s %-70s %-40s %-40s %-40s %-40s\n",
+                LastName, MiddleName, FirstName, Email, BusinessPhone,
+                Address, City, StateProvince, Zip, CRDNumber);
     }
 }

@@ -82,22 +82,25 @@ public class Fuzzy {
             return -1;
         }
 
+        String data1 = record1.toUpperCase();
+        String data2 = record2.toUpperCase();
+
         // return the requested
         switch (compareMethod) {
             case "ratio":
-                return FuzzySearch.ratio(record1, record2);
+                return FuzzySearch.ratio(data1, data2);
             case "partialratio":
-                return FuzzySearch.partialRatio(record1, record2);
+                return FuzzySearch.partialRatio(data1, data2);
             case "tokensortratio":
-                return FuzzySearch.tokenSortRatio(record1, record2);
+                return FuzzySearch.tokenSortRatio(data1, data2);
             case "tokensortpartialratio":
-                return FuzzySearch.tokenSortPartialRatio(record1, record2);
+                return FuzzySearch.tokenSortPartialRatio(data1, data2);
             case "tokensetratio":
-                return FuzzySearch.tokenSetRatio(record1, record2);
+                return FuzzySearch.tokenSetRatio(data1, data2);
             case "tokensetpartialratio":
-                return FuzzySearch.tokenSetPartialRatio(record1, record2);
+                return FuzzySearch.tokenSetPartialRatio(data1, data2);
             case "weightedratio":
-                return FuzzySearch.weightedRatio(record1, record2);
+                return FuzzySearch.weightedRatio(data1, data2);
 
         }
 

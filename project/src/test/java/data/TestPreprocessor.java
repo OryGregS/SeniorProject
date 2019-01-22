@@ -31,14 +31,81 @@ public class TestPreprocessor {
     }
 
     @Test
-    public void testCombineAddress() {
+    public void testCombineFields() {
         String address1 = "123 North St. ";
         String address2 = " Ste 123 ";
         String combined = "123 North St. Ste 123";
-        assertTrue(processor.combineAddress(address1, address2).equals(combined));
+        assertTrue(processor.combineFields(address1, address2).equals(combined));
 
         address1 = "          123     NorthSt.";
         address2 = "ste 123           ";
-        assertTrue(processor.combineAddress(address1, address2).equals(combined));
+        assertTrue(processor.combineFields(address1, address2).equals(combined));
     }
+
+    @Test
+    public void testRemovePunctuation() {
+
+        String data1 = "Mr.";
+        String data2 = ".Mr......";
+        String data3 = ",Mr,";
+        String data4 = ",,,,,,,Mr,,,,,";
+        String data5 = "!!!Mr!!!";
+        String expected = "Mr";
+
+        String result1 = processor.removePunctuation(data1);
+        String result2 = processor.removePunctuation(data2);
+        String result3 = processor.removePunctuation(data3);
+        String result4 = processor.removePunctuation(data4);
+        String result5 = processor.removePunctuation(data5);
+
+        System.out.println(result1);
+        System.out.println(result2);
+        System.out.println(result3);
+        System.out.println(result4);
+        System.out.println(result5);
+
+        assertTrue(result1.equals(expected));
+        assertTrue(result2.equals(expected));
+        assertTrue(result3.equals(expected));
+        assertTrue(result4.equals(expected));
+        assertTrue(result5.equals(expected));
+
+    }
+
+    @Test
+    public void testPrep() {
+
+        String data1 = "Kevin.";
+        String data2 = "null";
+        String data3 = "nulll";
+        String data4 = "null.Kevin.";
+
+        String expected1 = "Kevin";
+        String expected2 = "";
+        String expected3 = "nulll";
+        String expected4 = "nullKevin";
+
+        String result1 = processor.prep(data1);
+        String result2 = processor.prep(data2);
+        String result3 = processor.prep(data3);
+        String result4 = processor.prep(data4);
+
+        assertTrue(result1.equals(expected1));
+        assertTrue(result2.equals(expected2));
+        assertTrue(result3.equals(expected3));
+        assertTrue(result4.equals(expected4));
+
+    }
+
+    @Test
+    public void testDict() {
+
+        String address1 = "123 S Walnut St";
+        String expected1 = "123 SOUTH WALNUT STREET";
+        String result1 = processor.handleAddress(address1);
+
+        System.out.println(result1);
+
+    }
+
 }

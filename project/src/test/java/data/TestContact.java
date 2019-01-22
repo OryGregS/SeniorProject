@@ -34,8 +34,7 @@ public class TestContact {
     private String address;
     private String city;
     private String state;
-    private String zip1;
-    private String zip2;
+    private String zip;
     private String country;
     private String CRDnum;
     private String contactID;
@@ -53,8 +52,7 @@ public class TestContact {
         address = "TestAddress";
         city = "TestCity";
         state = "MI";
-        zip1 = "TestZip1";
-        zip2 = "TestZip2";
+        zip = "TestZip";
         country = "US";
         CRDnum = "123456";
         contactID = "1111111";
@@ -69,8 +67,7 @@ public class TestContact {
         contact.setAddress(address);
         contact.setCity(city);
         contact.setStateProvince(state);
-        contact.setZip1(zip1);
-        contact.setZip2(zip2);
+        contact.setZip(zip);
         contact.setCountryID(country);
         contact.setCRDNumber(CRDnum);
         contact.setContactID(contactID);
@@ -89,8 +86,7 @@ public class TestContact {
         assertTrue(contact.getAddress().equals(this.address));
         assertTrue(contact.getCity().equals(this.city));
         assertTrue(contact.getStateProvince().equals(this.state));
-        assertTrue(contact.getZip1().equals(this.zip1));
-        assertTrue(contact.getZip2().equals(this.zip2));
+        assertTrue(contact.getZip().equals(this.zip));
         assertTrue(contact.getCountryID().equals(this.country));
         assertTrue(contact.getCRDNumber().equals(this.CRDnum));
         assertTrue(contact.getContactID().equals(this.contactID));

@@ -29,7 +29,7 @@ public class MatchMaker {
 
     public void compareMasterToMaster(String masterPath) {
         DataLoader loader = new DataLoader();
-        loader.loadDataFromCSV(masterPath, masterPath);
+        loader.loadDataFromCSV(masterPath, masterPath, false);
         MasterSet master = loader.getMasterSet();
         MatchSet match_master = loader.getMatchSet();
 
@@ -39,9 +39,9 @@ public class MatchMaker {
 
     }
 
-    public void compareMasterToOther(String masterPath, String matchPath) {
+    public void compareMasterToOther(String masterPath, String matchPath, boolean alternate) {
         DataLoader loader = new DataLoader();
-        loader.loadDataFromCSV(masterPath, matchPath);
+        loader.loadDataFromCSV(masterPath, matchPath, alternate);
         MasterSet master = loader.getMasterSet();
         MatchSet match = loader.getMatchSet();
 

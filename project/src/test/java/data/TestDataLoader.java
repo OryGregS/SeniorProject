@@ -41,7 +41,7 @@ public class TestDataLoader {
     @Test
     public void loadDataFromCSVTest() {
         DataLoader loader = new DataLoader();
-        loader.loadDataFromCSV(masterPath, matchPath);
+        loader.loadDataFromCSV(masterPath, matchPath, false);
         assertNotNull(loader.getMasterSet());
         assertNotNull(loader.getMatchSet());
 
@@ -50,7 +50,7 @@ public class TestDataLoader {
     @Test
     public void readMasterTime(){
         DataLoader loader = new DataLoader();
-        loader.loadDataFromCSV(masterPath, matchPath);
+        loader.loadDataFromCSV(masterPath, matchPath, false);
         startTime = System.nanoTime();
         loader.readMasterCSV(masterPath);
         estimatedTime = System.nanoTime() - startTime;
@@ -62,7 +62,7 @@ public class TestDataLoader {
     public void readMatchTime(){
         DataLoader loader = new DataLoader();
         startTime = System.nanoTime();
-        loader.readMatchCSV(matchPath);
+        loader.readMatchCSV(matchPath, false);
         estimatedTime = System.nanoTime() - startTime;
         seconds = ((double)estimatedTime / 1000000000.0);
         System.out.println("\nTime to read Matching data: " + seconds + " seconds");
