@@ -75,7 +75,7 @@ public class MatchMain {
 
             TimeUnit.SECONDS.sleep(2);
             System.out.println();
-            System.out.println("Matching AA_CONTACT_MATCH.csv...");
+            System.out.println("Matching contact_match_alt.csv...");
             TimeUnit.SECONDS.sleep(2);
 
         } catch (InterruptedException e) {
@@ -93,7 +93,7 @@ public class MatchMain {
         loader = new DataLoader();
 
         loader.loadDataFromCSV("./data/contact_master.csv",
-                "./data/AA_CONTACT_MATCH.csv", true);
+                "./data/contact_match_alt.csv", true);
 
         master = loader.getMasterSet();
         match = loader.getMatchSet();
@@ -107,7 +107,7 @@ public class MatchMain {
         matchTimeEnd = System.nanoTime();
 
         System.out.println();
-        System.out.println("Done matching AA_CONTACT_MATCH.csv.");
+        System.out.println("Done matching contact_match_alt.csv.");
 
         valMeasure.setParseDataTime(totalStart, parseDataEnd);
         valMeasure.setMatcherTime(parseDataEnd, matchTimeEnd);
@@ -118,9 +118,12 @@ public class MatchMain {
         System.out.println("\nMatch Data Results:");
         trainMeasure.printResults("\t");
 
+
         System.out.println("\nAlternate Match Data Results:");
         valMeasure.printResults("\t");
-        //trainMeasure.resultsToFile();
+
+        trainMeasure.resultsToFile("contact_match");
+        valMeasure.resultsToFile("contact_match_alt");
 
     }
 

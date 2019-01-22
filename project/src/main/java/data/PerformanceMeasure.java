@@ -17,9 +17,13 @@
 
 package data;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,60 +76,74 @@ public class PerformanceMeasure {
         }
     }
 
-    public void resultsToFile() {
+    public void resultsToFile(String fileName) {
 
-        String PATH = "./out/performance/";
-        String title = "results_";
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:");
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
+
+
         String currentDate = dateFormat.format(date);
+        String currentTime = timeFormat.format(date);
+
+        String PATH = "./out/performance/" + currentDate;
         String extension = ".txt";
 
-        String FILENAME = PATH + title + currentDate + extension;
+        File subDir = new File(PATH);
+        boolean createdDir = subDir.mkdir();
+        boolean dirExists = subDir.exists();
 
-        long knownMatchConfidenceSum = knownMatchConfidenceSum();
-        double percentCorrect = percentCorrect();
-        double confidenceScore = confidenceScore(knownMatchConfidenceSum);
+        if (createdDir || dirExists) {
 
-        try {
+            PATH += "/";
+            // ./out/performance/2019-01-01/fileName_10:00.txt
+            String FILENAME = PATH + fileName + "_" + currentTime + extension;
 
-            FileWriter fileWriter = new FileWriter(FILENAME);
-            PrintWriter writer = new PrintWriter(fileWriter);
+            long knownMatchConfidenceSum = knownMatchConfidenceSum();
+            double percentCorrect = percentCorrect();
+            double confidenceScore = confidenceScore(knownMatchConfidenceSum);
 
-            writer.println("Identified Known Matches " + this.identifiedMatchCount);
-            writer.println("Total Known Matches: " + this.exactMatchCount);
-            writer.println();
-            writer.printf("Identified Known Match Confidence Sum: %.2f%n", this.identifiedMatchConfidenceSum);
-            writer.println("Total Known Match Confidence Sum: " + knownMatchConfidenceSum);
-            writer.println();
-            writer.printf("Correctly identified %.2f%% of known matches.%n", percentCorrect);
-            writer.printf("Confidence Score: %.1f / 100%n", confidenceScore);
+            try {
 
-            writer.println();
-            writer.printf("Time taken to parse data: %s", timeToStr(this.parseDataTime));
-            writer.printf("Time taken to match data: %s", timeToStr(this.matcherTime));
-            writer.println();
-            writer.printf("Total time taken: %s", timeToStr(this.totalRunTime));
+                FileWriter fileWriter = new FileWriter(FILENAME);
+                PrintWriter writer = new PrintWriter(fileWriter);
 
-            writer.close();
+                writer.println("Identified Known Matches " + this.identifiedMatchCount);
+                writer.println("Total Known Matches: " + this.exactMatchCount);
+                writer.println();
+                writer.printf("Identified Known Match Confidence Sum: %.2f%n", this.identifiedMatchConfidenceSum);
+                writer.println("Total Known Match Confidence Sum: " + knownMatchConfidenceSum);
+                writer.println();
+                writer.printf("Correctly identified %.2f%% of known matches.%n", percentCorrect);
+                writer.printf("Confidence Score: %.1f / 100%n", confidenceScore);
 
-        } catch (IOException e) {
+                writer.println();
+                writer.printf("Time taken to parse data: %s", timeToStr(this.parseDataTime));
+                writer.printf("Time taken to match data: %s", timeToStr(this.matcherTime));
+                writer.println();
+                writer.printf("Total time taken: %s", timeToStr(this.totalRunTime));
 
-            e.printStackTrace();
+                writer.close();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+
+        } else {
+
+            System.out.println();
+            System.out.println("Failed to create subdirectory.");
+            System.out.println();
 
         }
-
     }
 
     public void printResults(String formatter) {
 
-        // Here we multiply the size of the list by 100.
-        // This is because our measure of confidence is on a scale
-        // of 0 to 100. (100 being a perfect match). If the CRD
-        // numbers match, we should expect a confidence of 100.
 
-        // This will leave us with a total confidence sum that
-        // our fuzzy matching should be close to.
         long knownMatchConfidenceSum = knownMatchConfidenceSum();
         double percentCorrect = percentCorrect();
         double confidenceScore = confidenceScore(knownMatchConfidenceSum);
@@ -154,6 +172,13 @@ public class PerformanceMeasure {
     }
 
     private long knownMatchConfidenceSum() {
+        // Here we multiply the size of the list by 100.
+        // This is because our measure of confidence is on a scale
+        // of 0 to 100. (100 being a perfect match). If the CRD
+        // numbers match, we should expect a confidence of 100.
+
+        // This will leave us with a total confidence sum that
+        // our fuzzy matching should be close to.
         return this.exactMatchCount * 100;
     }
 

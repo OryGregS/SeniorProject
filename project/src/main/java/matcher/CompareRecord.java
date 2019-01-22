@@ -27,12 +27,43 @@ public class CompareRecord {
     private Fuzzy calc;
     private Weights weights;
 
+    private double LastNameWeight;
+    private double MiddleNameWeight;
+    private double FirstNameWeight;
+    private double FirmNameWeight;
+    private double OfficeNameWeight;
+    private double EmailWeight;
+    private double PhoneWeight;
+    private double AddressWeight;
+    private double CityWeight;
+    private double StateWeight;
+    private double ZipWeight;
+    private double CountryWeight;
+
     public CompareRecord(Weights weights, MasterContact masterContact, Contact contact) {
 
         this.masterContact = masterContact;
         this.contact = contact;
         this.calc = new Fuzzy();
         this.weights = weights;
+        loadWeights();
+
+    }
+
+    private void loadWeights() {
+
+        this.LastNameWeight = this.weights.getWeight("LastName");
+        this.MiddleNameWeight = this.weights.getWeight("MiddleName");
+        this.FirstNameWeight = this.weights.getWeight("FirstName");
+        this.FirmNameWeight = this.weights.getWeight("FirmName");
+        this.OfficeNameWeight = this.weights.getWeight("OfficeName");
+        this.EmailWeight = this.weights.getWeight("Email");
+        this.PhoneWeight = this.weights.getWeight("Phone");
+        this.AddressWeight = this.weights.getWeight("Address");
+        this.CityWeight = this.weights.getWeight("City");
+        this.StateWeight = this.weights.getWeight("State");
+        this.ZipWeight = this.weights.getWeight("Zip");
+        this.CountryWeight = this.weights.getWeight("Country");
 
     }
 
@@ -49,27 +80,27 @@ public class CompareRecord {
             case "last":
                 masterData = this.masterContact.getLastName();
                 matchData = this.contact.getLastName();
-                weight = this.weights.getLastNameWeight();
+                weight = this.LastNameWeight;
                 break;
             case "middle":
                 masterData = this.masterContact.getMiddleName();
                 matchData = this.contact.getMiddleName();
-                weight = this.weights.getMiddleNameWeight();
+                weight = this.MiddleNameWeight;
                 break;
             case "first":
                 masterData = this.masterContact.getFirstName();
                 matchData = this.contact.getFirstName();
-                weight = this.weights.getFirstNameWeight();
+                weight = this.FirstNameWeight;
                 break;
             case "firm":
                 masterData = this.masterContact.getFirmName();
                 matchData = this.contact.getFirmName();
-                weight = this.weights.getFirmNameWeight();
+                weight = this.FirmNameWeight;
                 break;
             case "office":
                 masterData = this.masterContact.getOfficeName();
                 matchData = this.contact.getOfficeName();
-                weight = this.weights.getOfficeNameWeight();
+                weight = this.FirmNameWeight;
                 break;
             case "email":
                 // If both emails have the same domain, then
@@ -78,8 +109,8 @@ public class CompareRecord {
                 // we will then compare "john.doe" to "jon.doe".
 
                 // Given john.doe@email.com & jon.doe@domain.com,
-                // then we will compare the "john.doe@email.com"
-                // to "jon.doe@domain.com".
+                // then we will compare "john.doe@email.com" to
+                // "jon.doe@domain.com".
                 String masterEmail = this.masterContact.getEmail();
                 String matchEmail = this.contact.getEmail();
 
@@ -113,37 +144,37 @@ public class CompareRecord {
                     matchData = matchEmail;
                 }
 
-                weight = this.weights.getEmailWeight();
+                weight = this.EmailWeight;
                 break;
             case "phone":
                 masterData = this.masterContact.getBusinessPhone();
                 matchData = this.contact.getBusinessPhone();
-                weight = this.weights.getPhoneWeight();
+                weight = this.PhoneWeight;
                 break;
             case "address":
                 masterData = this.masterContact.getAddress();
                 matchData = this.contact.getAddress();
-                weight = this.weights.getAddressWeight();
+                weight = this.AddressWeight;
                 break;
             case "city":
                 masterData = this.masterContact.getCity();
                 matchData = this.contact.getCity();
-                weight = this.weights.getCityWeight();
+                weight = this.CityWeight;
                 break;
             case "state":
                 masterData = this.masterContact.getStateProvince();
                 matchData = this.contact.getStateProvince();
-                weight = this.weights.getStateWeight();
+                weight = this.StateWeight;
                 break;
             case "zip":
                 masterData = this.masterContact.getZip();
                 matchData = this.contact.getZip();
-                weight = this.weights.getZipWeight();
+                weight = this.ZipWeight;
                 break;
             case "country":
                 masterData = this.masterContact.getCountryID();
                 matchData = this.contact.getCountryID();
-                weight = this.weights.getCountryWeight();
+                weight = this.CountryWeight;
                 break;
         }
 

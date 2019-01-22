@@ -21,299 +21,201 @@ import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Weights {
 
     private class IllegalValuesException extends Exception {
-        private double sumValue;
-        private final double MAX_WEIGHT_SUM = 1.0;
 
-        public IllegalValuesException(double sum) {
-            this.sumValue = sum;
-        }
-
-        public void printMessage() {
-            if (sumValue > MAX_WEIGHT_SUM)
-                System.out.println("Weights less than 1.0!");
-            else if (sumValue < 1.0)
-                System.out.println("Weights greater than 1.0!");
-            System.out.println("Weights must add up to equal 1.0 for proper functionality.");
-            System.out.println("Please re-adjust the weights accordingly.");
+        public IllegalValuesException(String message) {
+            super(message);
         }
     }
 
-    private double LastNameWeight;
-    private double MiddleNameWeight;
-    private double FirstNameWeight;
-    private double FirmNameWeight;
-    private double OfficeNameWeight;
-    private double EmailWeight;
-    private double PhoneWeight;
-    private double AddressWeight;
-    private double CityWeight;
-    private double StateWeight;
-    private double ZipWeight;
-    private double CountryWeight;
+    private Map<String, Double> weights;
+    private String FILENAME;
+    private boolean alternate;
 
-    private double sum;
     public Weights(boolean altWeights) {
 
-        sum = 0.0;
+        weights = new HashMap<>();
+        this.alternate = altWeights;
 
-        if (altWeights) {
+        if (this.alternate)
+            this.FILENAME = "./config/weights/alternateWeights.json";
 
-            initialize("./config/weights/alternateWeights.json");
+        else
+            this.FILENAME = "./config/weights/defaultWeights.json";
 
-        } else {
+        tryJSON();
 
-            initialize("./config/weights/defaultWeights.json");
+    }
+
+    public double getWeight(String key) {
+
+        double weight = 0.0;
+
+        if (keyExists(key)) {
+
+            weight = this.weights.get(key);
 
         }
 
-
+        return weight;
 
     }
 
-    public double getLastNameWeight() {
-        return LastNameWeight;
-    }
-
-    public void setLastNameWeight(double lastNameWeight) {
-        LastNameWeight = lastNameWeight;
-    }
-
-    public double getMiddleNameWeight() {
-        return MiddleNameWeight;
-    }
-
-    public void setMiddleNameWeight(double middleNameWeight) {
-        MiddleNameWeight = middleNameWeight;
-    }
-
-    public double getFirstNameWeight() {
-        return FirstNameWeight;
-    }
-
-    public void setFirstNameWeight(double firstNameWeight) {
-        FirstNameWeight = firstNameWeight;
-    }
-
-    public double getFirmNameWeight() {
-        return FirmNameWeight;
-    }
-
-    public void setFirmNameWeight(double firmNameWeight) {
-        FirmNameWeight = firmNameWeight;
-    }
-
-    public double getOfficeNameWeight() {
-        return OfficeNameWeight;
-    }
-
-    public void setOfficeNameWeight(double officeNameWeight) {
-        OfficeNameWeight = officeNameWeight;
-    }
-
-    public double getEmailWeight() {
-        return EmailWeight;
-    }
-
-    public void setEmailWeight(double emailWeight) {
-        EmailWeight = emailWeight;
-    }
-
-    public double getPhoneWeight() {
-        return PhoneWeight;
-    }
-
-    public void setPhoneWeight(double phoneWeight) {
-        PhoneWeight = phoneWeight;
-    }
-
-    public double getAddressWeight() {
-        return AddressWeight;
-    }
-
-    public void setAddressWeight(double addressWeight) {
-        AddressWeight = addressWeight;
-    }
-
-    public double getCityWeight() {
-        return CityWeight;
-    }
-
-    public void setCityWeight(double cityWeight) {
-        CityWeight = cityWeight;
-    }
-
-    public double getStateWeight() {
-        return StateWeight;
-    }
-
-    public void setStateWeight(double stateWeight) {
-        StateWeight = stateWeight;
-    }
-
-    public double getZipWeight() {
-        return ZipWeight;
-    }
-
-    public void setZip1Weight(double zipWeight) {
-        ZipWeight = zipWeight;
-    }
-
-    public double getCountryWeight() {
-        return CountryWeight;
-    }
-
-    public void setCountryWeight(double countryWeight) {
-        CountryWeight = countryWeight;
+    private boolean keyExists(String key) {
+        return weights.containsKey(key);
     }
 
     private void checkWeightSum() {
         try {
-
-            sumWeights(LastNameWeight);
-            sumWeights(MiddleNameWeight);
-            sumWeights(FirstNameWeight);
-            sumWeights(FirmNameWeight);
-            sumWeights(OfficeNameWeight);
-            sumWeights(EmailWeight);
-            sumWeights(PhoneWeight);
-            sumWeights(AddressWeight);
-            sumWeights(CityWeight);
-            sumWeights(StateWeight);
-            sumWeights(ZipWeight);
-            sumWeights(CountryWeight);
-
-            if (sum != 1.0) {
-                throw new IllegalValuesException(sum);
-            }
+            weightSum();
         } catch (IllegalValuesException e) {
-            e.printMessage();
+            System.out.println(e.getMessage());
             System.exit(-1);
         }
+    }
+
+    private void weightSum() throws IllegalValuesException {
+
+            double sum = 0.0;
+
+            for ( Iterator values = weights.values().iterator(); values.hasNext(); ) {
+
+                sum += (double)values.next();
+
+            }
+
+            if (sum != 1.0) {
+
+                String message = String.format("\nError reading weights from %s.\n" +
+                        "\nExpected 1.0 but got %.16f. " +
+                        "\nWeights must be equal to 1.0 for proper functionality. " +
+                        "\nPlease adjust the weights in the config/weights directory.", this.FILENAME, sum);
+
+                throw new IllegalValuesException(message);
+
+            }
 
     }
 
-    private void sumWeights(double value) {
-        sum += value;
-    }
+    private void tryJSON() {
 
-    private void initialize(String fileName) {
+        if (checkJSONExists()) {
 
-        if (checkJSONExists(fileName)) {
-            readJSON(fileName);
+            readJSON();
+
         } else {
-            setDefaults();
-            writeJSON(fileName);
+
+            loadWeights();
+            writeJSON();
+
         }
 
     }
 
-    private void setDefaults() {
+    private void loadWeights() {
 
-        LastNameWeight = 0.259;
-        MiddleNameWeight = 0.05;
-        FirstNameWeight = 0.15;
-        FirmNameWeight = 0;
-        OfficeNameWeight = 0;
-        EmailWeight = 0.35;
-        PhoneWeight = 0.05;
-        AddressWeight = 0.06;
-        CityWeight = 0.05;
-        StateWeight = 0.02;
-        ZipWeight = 0.011;
-        CountryWeight = 0;
+        if (this.alternate) {
+
+            weights.put("LastName", 0.259);
+            weights.put("MiddleName", 0.05);
+            weights.put("FirstName", 0.15);
+            weights.put("FirmName", 0.00);
+            weights.put("OfficeName", 0.00);
+            weights.put("Email", 0.35);
+            weights.put("Phone", 0.05);
+            weights.put("Address", 0.06);
+            weights.put("City", 0.05);
+            weights.put("State", 0.02);
+            weights.put("Zip", 0.011);
+            weights.put("Country", 0.00);
+
+        } else {
+
+            weights.put("LastName", 0.25);
+            weights.put("MiddleName", 0.075);
+            weights.put("FirstName", 0.25);
+            weights.put("FirmName", 0.00);
+            weights.put("OfficeName", 0.00);
+            weights.put("Email", 0.00);
+            weights.put("Phone", 0.075);
+            weights.put("Address", 0.20);
+            weights.put("City", 0.05);
+            weights.put("State", 0.05);
+            weights.put("Zip", 0.05);
+            weights.put("Country", 0.00);
+
+        }
 
         checkWeightSum();
 
     }
 
-    private void setAlternate() {
-
-        LastNameWeight = 0.25;
-        MiddleNameWeight = 0.1;
-        FirstNameWeight = 0.25;
-        FirmNameWeight = 0;
-        OfficeNameWeight = 0;
-        EmailWeight = 0;
-        PhoneWeight = 0.075;
-        AddressWeight = 0.175;
-        CityWeight = 0.05;
-        StateWeight = 0.05;
-        ZipWeight = 0.05;
-        CountryWeight = 0;
-
-        checkWeightSum();
-
-    }
-
-    private boolean checkJSONExists(String fileName) {
-        File file = new File(fileName);
+    private boolean checkJSONExists() {
+        File file = new File(this.FILENAME);
         return file.exists();
     }
 
-    private void writeJSON(String fileName) {
+    private void writeJSON() {
+
         JSONObject jo = new JSONObject();
-        jo.put("LastNameWeight", LastNameWeight);
-        jo.put("MiddleNameWeight", MiddleNameWeight);
-        jo.put("FirstNameWeight", FirstNameWeight);
-        jo.put("FirmNameWeight", FirmNameWeight);
-        jo.put("OfficeNameWeight", OfficeNameWeight);
-        jo.put("EmailWeight", EmailWeight);
-        jo.put("PhoneWeight", PhoneWeight);
-        jo.put("AddressWeight", AddressWeight);
-        jo.put("CityWeight", CityWeight);
-        jo.put("StateWeight", StateWeight);
-        jo.put("ZipWeight", ZipWeight);
-        jo.put("CountryWeight", CountryWeight);
+
+        Iterator kvPairs = weights.entrySet().iterator();
+
+        while (kvPairs.hasNext()) {
+
+            Map.Entry pair = (Map.Entry)kvPairs.next();
+
+            String key = pair.getKey().toString();
+            Double value = (double)pair.getValue();
+
+            jo.put(key, value);
+
+        }
 
         try {
 
-            PrintWriter pw = new PrintWriter(fileName);
-            pw.write(jo.toString(4));
-            pw.flush();
-            pw.close();
+            FileWriter file = new FileWriter(this.FILENAME);
+            file.write(jo.toString(4));
+            file.flush();
 
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
 
-            System.out.println("Failed to write " + fileName);
+            e.printStackTrace();
 
         }
+
     }
 
-    private void readJSON(String fileName) {
+    private void readJSON() {
 
-        File file = new File(fileName);
+        File file = new File(this.FILENAME);
 
         try {
 
             String content = FileUtils.readFileToString(file, "utf-8");
             JSONObject jo = new JSONObject(content);
 
-            LastNameWeight = jo.getDouble("LastNameWeight");
-            MiddleNameWeight = jo.getDouble("MiddleNameWeight");
-            FirstNameWeight = jo.getDouble("FirstNameWeight");
-            FirmNameWeight = jo.getDouble("FirmNameWeight");
-            OfficeNameWeight = jo.getDouble("OfficeNameWeight");
-            EmailWeight = jo.getDouble("EmailWeight");
-            PhoneWeight = jo.getDouble("PhoneWeight");
-            AddressWeight = jo.getDouble("AddressWeight");
-            CityWeight = jo.getDouble("CityWeight");
-            StateWeight = jo.getDouble("StateWeight");
-            ZipWeight = jo.getDouble("ZipWeight");
-            CountryWeight = jo.getDouble("CountryWeight");
+            for (Iterator keys = jo.keys(); keys.hasNext(); ) {
+
+                String key = keys.next().toString();
+                double value = jo.getDouble(key);
+
+                weights.put(key, value);
+
+            }
+
+            checkWeightSum();
 
         } catch (IOException e) {
 
-            setDefaults();
-            writeJSON(fileName);
+            loadWeights();
 
         }
-
-        //System.out.println("Read JSON file!");
-
     }
-
 }
