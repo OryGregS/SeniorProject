@@ -17,7 +17,6 @@
 
 package data;
 
-import data.DataLoader;
 import indexing.Indexer;
 import org.junit.Test;
 
@@ -27,7 +26,7 @@ public class TestDataLoader {
 
     private final String masterPath = "./data/contact_master.csv";
     private final String matchPath = "./data/contact_match.csv";
-
+    private String indexMethod = "dblmp";
 
     private long startTime, estimatedTime;
     private double seconds;
@@ -37,14 +36,14 @@ public class TestDataLoader {
     @Test
     public void loaderDataTest(){
         Indexer indexer = new Indexer();
-        DataLoader dataLoader = new DataLoader(indexer);
+        DataLoader dataLoader = new DataLoader(indexer, this.indexMethod);
         assertNotNull(dataLoader);
     }
 
     @Test
     public void loadDataFromCSVTest() {
         Indexer indexer = new Indexer();
-        DataLoader loader = new DataLoader(indexer);
+        DataLoader loader = new DataLoader(indexer, this.indexMethod);
         loader.loadDataFromCSV(masterPath, matchPath, false);
         assertNotNull(loader.getMasterSet());
         assertNotNull(loader.getMatchSet());
@@ -54,7 +53,7 @@ public class TestDataLoader {
     @Test
     public void readMasterTime() {
         Indexer indexer = new Indexer();
-        DataLoader loader = new DataLoader(indexer);
+        DataLoader loader = new DataLoader(indexer, this.indexMethod);
         loader.loadDataFromCSV(masterPath, matchPath, false);
         startTime = System.nanoTime();
         loader.readMasterCSV(masterPath);
@@ -66,7 +65,7 @@ public class TestDataLoader {
     @Test
     public void readMatchTime() {
         Indexer indexer = new Indexer();
-        DataLoader loader = new DataLoader(indexer);
+        DataLoader loader = new DataLoader(indexer, this.indexMethod);
         startTime = System.nanoTime();
         loader.readMatchCSV(matchPath, false);
         estimatedTime = System.nanoTime() - startTime;

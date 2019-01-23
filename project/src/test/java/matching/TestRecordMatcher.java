@@ -17,23 +17,23 @@
 
 package matching;
 
-import java.util.ArrayList;
-
 import data.DataLoader;
 import data.MasterSet;
 import data.MatchSet;
 import indexing.Indexer;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import java.util.ArrayList;
 
 public class TestRecordMatcher {
+
+    private String indexMethod = "dblmp";
 
     @Test
     public void TestOrder() {
 
         Indexer indexer = new Indexer();
-        DataLoader loader = new DataLoader(indexer);
+        DataLoader loader = new DataLoader(indexer, this.indexMethod);
         loader.loadDataFromCSV("./data/contact_master.csv",
                 "./data/contact_match.csv", false);
         MasterSet master = loader.getMasterSet();

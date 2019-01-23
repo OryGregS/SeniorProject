@@ -17,7 +17,8 @@
 
 package matching;
 
-import data.*;
+import data.Contact;
+import data.MasterContact;
 import indexing.Group;
 import indexing.Indexer;
 
@@ -34,7 +35,7 @@ public class RecordMatcher {
     private boolean print;
 
 
-    public RecordMatcher(Indexer indexer, boolean masterToMaster) {
+    RecordMatcher(Indexer indexer, boolean masterToMaster) {
 
         this.contactGroups = indexer.getContactGroups();
         this.partnerships = indexer.getPartnerships();
@@ -50,7 +51,7 @@ public class RecordMatcher {
      * master contact after all comparisons
      * @param print
      */
-    public void printRun(boolean print) {
+    void printRun(boolean print) {
         this.print = print;
     }
 
@@ -190,7 +191,7 @@ public class RecordMatcher {
      * Prints the contactID and level of
      * confidence for a MasterContact.
      */
-    public void printTop(MasterContact master, boolean onlyPrintMatches) {
+    private void printTop(MasterContact master, boolean onlyPrintMatches) {
         ArrayList<Double> confidence = master.getTopConfidence();
         ArrayList<Contact> contacts = master.getTopContacts();
 

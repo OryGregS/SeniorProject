@@ -134,6 +134,31 @@ public class Preprocessor {
         newData = newData.replace(".", "").trim();
         newData = newData.replace(",", "").trim();
         newData = newData.replace("!", "").trim();
+
+        if (newData.contains("-")) {
+
+            String[] temp = newData.split("-");
+
+            int i;
+            int sz = temp.length;
+            for (i = 0; i < sz; i++) {
+
+                temp[i] = temp[i].trim();
+
+            }
+
+            newData = String.join(" ", temp);
+
+        }
+
+        String[] temp = newData.split(" ");
+
+        int i;
+        int sz = temp.length;
+        for (i = 0; i < sz; i++) {
+            temp[i] = temp[i].trim();
+        }
+
         return newData;
 
     }

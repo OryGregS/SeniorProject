@@ -30,10 +30,12 @@ import java.nio.file.Paths;
 public class MasterSet {
 
     private Indexer indexer;
+    private String indexMethod;
 
-    public MasterSet(Indexer indexer) {
+    public MasterSet(Indexer indexer, String indexMethod) {
 
         this.indexer = indexer;
+        this.indexMethod = indexMethod;
 
     }
 
@@ -44,6 +46,7 @@ public class MasterSet {
      * @param filePath
      * @return
      */
+    @SuppressWarnings("Duplicates")
     public boolean readCSV(String filePath, boolean skipHeader) {
 
         Preprocessor processor = new Preprocessor();
@@ -69,7 +72,7 @@ public class MasterSet {
                     contact.setFirmName(processor.prep(obs.get(3)));
                     contact.setOfficeName(processor.prep(obs.get(4)));
                     contact.setEmail(processor.checkNULL(obs.get(5)));
-                    contact.setBusinessPhone(processor.prep(obs.get(6)));
+                    contact.setBusinessPhone(processor.checkNULL(obs.get(6)));
 
                     String address1 = processor.prep(obs.get(7));
                     String address2 = processor.prep(obs.get(8));
@@ -92,7 +95,7 @@ public class MasterSet {
                     contact.setContactID(processor.prep(obs.get(15)));
 
                     //ContactList.add(contact);
-                    indexer.index(contact);
+                    indexer.index(contact, this.indexMethod);
 
                 }
 
@@ -106,6 +109,7 @@ public class MasterSet {
         return true;
     }
 
+    @SuppressWarnings("Duplicates")
     public boolean readCSV(String filePath, boolean skipHeader, int scale) {
         Preprocessor processor = new Preprocessor();
 
@@ -131,7 +135,7 @@ public class MasterSet {
                         contact.setFirmName(processor.prep(obs.get(3)));
                         contact.setOfficeName(processor.prep(obs.get(4)));
                         contact.setEmail(processor.checkNULL(obs.get(5)));
-                        contact.setBusinessPhone(processor.prep(obs.get(6)));
+                        contact.setBusinessPhone(processor.checkNULL(obs.get(6)));
 
                         String address1 = processor.prep(obs.get(7));
                         String address2 = processor.prep(obs.get(8));
@@ -154,7 +158,7 @@ public class MasterSet {
                         contact.setContactID(processor.prep(obs.get(15)));
 
                         //ContactList.add(contact);
-                        indexer.index(contact);
+                        indexer.index(contact, this.indexMethod);
                     }
                 }
             }

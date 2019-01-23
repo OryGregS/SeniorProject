@@ -20,7 +20,6 @@ package matching;
 import data.DataLoader;
 import data.PerformanceMeasure;
 import indexing.Indexer;
-
 import java.util.concurrent.TimeUnit;
 
 
@@ -31,11 +30,14 @@ public class MatchMain {
 
     public static void main(String[] args) {
 
-
         DataLoader loader;
         Indexer indexer;
         RecordMatcher matcher;
         long totalStart, parseDataEnd, matchTimeEnd = 0;
+
+
+        String indexMethod = "rsoundex";
+        boolean print = false;
 
         //---------------------------RUN TRAIN SET-----------------------------------
         PerformanceMeasure trainMeasure = new PerformanceMeasure();
@@ -43,14 +45,14 @@ public class MatchMain {
 
         totalStart = System.nanoTime();
 
-        loader = new DataLoader(indexer);
+        loader = new DataLoader(indexer, indexMethod);
         loader.loadDataFromCSV("./data/contact_master.csv",
                 "./data/contact_match.csv", false);
 
         parseDataEnd = System.nanoTime();
 
         matcher = new RecordMatcher(indexer, false);
-        matcher.printRun(false);
+        matcher.printRun(print);
         matcher.run("ratio");
 
         matchTimeEnd = System.nanoTime();
@@ -59,7 +61,8 @@ public class MatchMain {
         trainMeasure.setMatcherTime(parseDataEnd, matchTimeEnd);
         trainMeasure.setTotalRunTime(totalStart, matchTimeEnd);
         trainMeasure.measureAccuracy(indexer);
-        trainMeasure.resultsToFile("contact_match");
+        //trainMeasure.printResults("\t");
+        //trainMeasure.resultsToFile("contact_match");
 
         System.out.println();
         System.out.println("Done matching contact_match.csv.");
@@ -84,7 +87,7 @@ public class MatchMain {
 
         totalStart = System.nanoTime();
 
-        loader = new DataLoader(indexer);
+        loader = new DataLoader(indexer, indexMethod);
 
         loader.loadDataFromCSV("./data/contact_master.csv",
                 "./data/contact_match_alt.csv", true);
@@ -92,7 +95,7 @@ public class MatchMain {
         parseDataEnd = System.nanoTime();
 
         matcher = new RecordMatcher(indexer, false);
-        matcher.printRun(false);
+        matcher.printRun(print);
         matcher.run("ratio");
 
         matchTimeEnd = System.nanoTime();
@@ -104,7 +107,7 @@ public class MatchMain {
         valMeasure.setMatcherTime(parseDataEnd, matchTimeEnd);
         valMeasure.setTotalRunTime(totalStart, matchTimeEnd);
         valMeasure.measureAccuracy(indexer);
-        valMeasure.resultsToFile("contact_match_alt");
+        //valMeasure.resultsToFile("contact_match_alt");
 
         //------------------------------PRINT RESULTS---------------------------------------
         System.out.println("\nMatch Data Results:");

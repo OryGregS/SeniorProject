@@ -17,7 +17,7 @@
 
 package data;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class MasterContact extends Contact {
 

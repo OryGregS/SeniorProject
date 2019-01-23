@@ -23,13 +23,21 @@ public class DataLoader {
 
     private MasterSet masterSet;
     private MatchSet matchSet;
+    private int scaler;
 
     /**
      * Initializes the dataset objects
      */
-    public DataLoader(Indexer indexer) {
-        masterSet = new MasterSet(indexer);
-        matchSet = new MatchSet(indexer);
+    public DataLoader(Indexer indexer, String indexMethod) {
+        masterSet = new MasterSet(indexer, indexMethod);
+        matchSet = new MatchSet(indexer, indexMethod);
+        this.scaler = 1;
+    }
+
+    public DataLoader(Indexer indexer, String indexMethod, int scaler) {
+        masterSet = new MasterSet(indexer, indexMethod);
+        matchSet = new MatchSet(indexer, indexMethod);
+        this.scaler = scaler;
     }
 
     /**
@@ -41,11 +49,11 @@ public class DataLoader {
     }
 
     public void readMasterCSV(String pathToMasterCSV) {
-        masterSet.readCSV(pathToMasterCSV, true);
+        masterSet.readCSV(pathToMasterCSV, true, scaler);
     }
 
     public void readMatchCSV(String pathToMatchCSV, boolean alternate) {
-        matchSet.readCSV(pathToMatchCSV, alternate, true);
+        matchSet.readCSV(pathToMatchCSV, alternate, true, scaler);
     }
 
     /**

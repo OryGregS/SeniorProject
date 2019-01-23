@@ -25,8 +25,9 @@ import static org.junit.Assert.assertTrue;
 
 public class TestMatchSet {
 
+    private String indexMethod = "dblmp";
     private Indexer indexer = new Indexer();
-    private MatchSet match = new MatchSet(indexer);
+    private MatchSet match = new MatchSet(indexer, indexMethod);
     private String matchPath = "./data/contact_match.csv";
     private String altPath = "./data/contact_match_alt.csv";
 

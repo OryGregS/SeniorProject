@@ -26,16 +26,20 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class MatchSet {
 
     private Indexer indexer;
+    String indexMethod;
 
-    public MatchSet(Indexer indexer) {
+    public MatchSet(Indexer indexer, String indexMethod) {
+
         this.indexer = indexer;
+        this.indexMethod = indexMethod;
+
     }
 
+    @SuppressWarnings("Duplicates")
     public boolean readCSV(String filePath, boolean alternate, boolean skipHeader, int scale) {
 
         Preprocessor processor = new Preprocessor();
@@ -63,7 +67,7 @@ public class MatchSet {
                         contact.setFirmName(processor.prep(obs.get(3)));
                         contact.setOfficeName(processor.prep(obs.get(4)));
                         contact.setEmail(processor.checkNULL(obs.get(5)));
-                        contact.setBusinessPhone(processor.prep(obs.get(6)));
+                        contact.setBusinessPhone(processor.checkNULL(obs.get(6)));
 
                         String address1 = processor.prep(obs.get(7));
                         String address2 = processor.prep(obs.get(8));
@@ -90,7 +94,7 @@ public class MatchSet {
 
                         }
 
-                        indexer.index(contact);
+                        indexer.index(contact, this.indexMethod);
                     }
                 }
             }
@@ -110,6 +114,7 @@ public class MatchSet {
      * @param filePath - path to file
      * @return - true on success
      */
+    @SuppressWarnings("Duplicates")
     public boolean readCSV(String filePath, boolean alternate, boolean skipHeader) {
 
         Preprocessor processor = new Preprocessor();
@@ -134,7 +139,7 @@ public class MatchSet {
                     contact.setFirmName(processor.prep(obs.get(3)));
                     contact.setOfficeName(processor.prep(obs.get(4)));
                     contact.setEmail(processor.checkNULL(obs.get(5)));
-                    contact.setBusinessPhone(processor.prep(obs.get(6)));
+                    contact.setBusinessPhone(processor.checkNULL(obs.get(6)));
 
                     String address1 = processor.prep(obs.get(7));
                     String address2 = processor.prep(obs.get(8));
@@ -161,7 +166,7 @@ public class MatchSet {
 
                     }
 
-                    indexer.index(contact);
+                    indexer.index(contact, this.indexMethod);
 
                 }
             }

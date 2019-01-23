@@ -20,7 +20,7 @@ package matching;
 import data.Contact;
 import data.MasterContact;
 
-public class CompareRecord {
+class CompareRecord {
 
     private Contact contact;
     private MasterContact masterContact;
@@ -40,7 +40,7 @@ public class CompareRecord {
     private double ZipWeight;
     private double CountryWeight;
 
-    public CompareRecord(Weights weights, MasterContact masterContact, Contact contact) {
+    CompareRecord(Weights weights, MasterContact masterContact, Contact contact) {
 
         this.masterContact = masterContact;
         this.contact = contact;
@@ -67,9 +67,9 @@ public class CompareRecord {
 
     }
 
-    public double similarity(String name, String compareMethod) {
+    double similarity(String name, String compareMethod) {
 
-        double matchConfidence = 0.0;
+        double matchConfidence;
         double weight = 1.0;
         name = name.toLowerCase();
 
@@ -100,7 +100,7 @@ public class CompareRecord {
             case "office":
                 masterData = this.masterContact.getOfficeName();
                 matchData = this.contact.getOfficeName();
-                weight = this.FirmNameWeight;
+                weight = this.OfficeNameWeight;
                 break;
             case "email":
                 // If both emails have the same domain, then
@@ -183,7 +183,7 @@ public class CompareRecord {
 
     }
 
-    public boolean CRD() {
+    boolean CRD() {
 
         String masterCRD = this.masterContact.getCRDNumber();
         String matchCRD = this.contact.getCRDNumber();
@@ -192,9 +192,7 @@ public class CompareRecord {
 
         if (nonEmptyCRD) {
 
-            if (masterCRD.equalsIgnoreCase(matchCRD)) {
-                return true;
-            }
+            return masterCRD.equalsIgnoreCase(matchCRD);
 
         }
 
@@ -203,10 +201,7 @@ public class CompareRecord {
     }
 
     private boolean checkCRDNotEmpty(String CRDNum) {
-        if (!CRDNum.equals("")) {
-            return true;
-        }
-        return false;
+        return !CRDNum.equals("");
     }
 
 //    public boolean checkGroupedNames(String name, String masterData) {

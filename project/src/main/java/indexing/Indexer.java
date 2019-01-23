@@ -19,7 +19,7 @@ package indexing;
 
 import data.Contact;
 import data.MasterContact;
-import org.apache.commons.codec.language.DoubleMetaphone;
+import org.apache.commons.codec.language.*;
 
 import java.util.ArrayList;
 
@@ -27,14 +27,12 @@ public class Indexer {
 
     private BlockMap contactGroups;
     private BlockMap partnerships;
-    private DoubleMetaphone encoder;
     private ArrayList<MasterContact> allMasterContacts;
     private ArrayList<Contact> allMatchContacts;
 
     public Indexer() {
         contactGroups = new BlockMap();
         partnerships = new BlockMap();
-        encoder = new DoubleMetaphone();
         allMasterContacts = new ArrayList<>();
         allMatchContacts = new ArrayList<>();
     }
@@ -56,37 +54,41 @@ public class Indexer {
     }
 
     @SuppressWarnings("Duplicates")
-    public void index(MasterContact contact) {
+    public void index(MasterContact contact, String method) {
 
         String key;
+        String lastName = contact.getLastName();
 
-        if ( checkPartnership(contact.getLastName()) ) {
+        if ( checkPartnership(lastName) ) {
 
             key = contact.getZip();
             partnerships.put(key, contact);
 
         } else {
 
-            key = encode(contact.getLastName());
+            key = encode(lastName, method);
             contactGroups.put(key, contact);
 
         }
+
         allMasterContacts.add(contact);
+
     }
 
     @SuppressWarnings("Duplicates")
-    public void index(Contact contact) {
+    public void index(Contact contact, String method) {
 
         String key;
+        String lastName = contact.getLastName();
 
-        if ( checkPartnership(contact.getLastName()) ) {
+        if ( checkPartnership(lastName) ) {
 
             key = contact.getZip();
             partnerships.put(key, contact);
 
         } else {
 
-            key = encode(contact.getLastName());
+            key = encode(lastName, method);
             contactGroups.put(key, contact);
 
         }
@@ -99,14 +101,39 @@ public class Indexer {
         return name.contains("/");
     }
 
-    public String encode(String data) {
-        return encoder.doubleMetaphone(data);
+    private String encode(String data, String encodeMethod) {
 
+        encodeMethod = encodeMethod.toLowerCase();
+
+        switch (encodeMethod) {
+
+            case "nysiis":
+                Nysiis nysiis = new Nysiis();
+                return nysiis.nysiis(data);
+
+            case "doublemetaphone":
+                DoubleMetaphone dmp = new DoubleMetaphone();
+                return dmp.doubleMetaphone(data);
+
+            case "metaphone":
+                Metaphone mp = new Metaphone();
+                return mp.metaphone(data);
+
+            case "soundex":
+                Soundex soundex = new Soundex();
+                return soundex.soundex(data);
+
+            case "refinedsoundex":
+                RefinedSoundex rsoundex = new RefinedSoundex();
+                return rsoundex.encode(data);
+
+            case "dmsoundex":
+                DaitchMokotoffSoundex dmsoundex = new DaitchMokotoffSoundex();
+                return dmsoundex.encode(data);
+
+            default:
+                return data;
+
+        }
     }
-
-    public String encodeAlt(String data) {
-        return encoder.doubleMetaphone(data, true);
-    }
-
-
 }

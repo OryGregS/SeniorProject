@@ -17,16 +17,16 @@
 
 package data;
 
-import static org.junit.Assert.assertTrue;
-
-import data.MasterSet;
 import indexing.Indexer;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
 public class TestMasterSet {
 
+    private String indexMethod = "dblmp";
     Indexer indexer = new Indexer();
-    MasterSet master = new MasterSet(indexer);
+    MasterSet master = new MasterSet(indexer, indexMethod);
     String masterPath = "./data/contact_master.csv";
 
     @Test

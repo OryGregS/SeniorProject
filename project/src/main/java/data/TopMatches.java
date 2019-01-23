@@ -31,7 +31,7 @@ public class TopMatches {
      * based on their default values
      */
     public TopMatches() {
-        this.MAX_MATCH_SIZE = 5;
+        this.MAX_MATCH_SIZE = 10;
         this.MAX_LOC = this.MAX_MATCH_SIZE - 1;
         this.topConfidence = new ArrayList<>(MAX_MATCH_SIZE);
         this.topContact = new ArrayList<>(MAX_MATCH_SIZE);
@@ -81,10 +81,7 @@ public class TopMatches {
      */
     private boolean checkMatch(double confidence) {
 
-        if (confidence >= this.topConfidence.get(this.MAX_LOC))
-            return true;
-        else
-            return false;
+        return confidence >= this.topConfidence.get(this.MAX_LOC);
 
     }
 
@@ -126,7 +123,7 @@ public class TopMatches {
     private boolean isEmpty() {
         boolean empty = false;
         if (topConfidence.isEmpty() && topContact.isEmpty())
-            empty =  true;
+            empty = true;
 
         return empty;
     }
@@ -138,14 +135,8 @@ public class TopMatches {
      */
     private boolean atCapacity() {
 
-        boolean atCap;
+        return this.topConfidence.size() == this.MAX_MATCH_SIZE;
 
-        if (this.topConfidence.size() == this.MAX_MATCH_SIZE)
-            atCap = true;
-        else
-            atCap = false;
-
-        return atCap;
     }
 
     /**

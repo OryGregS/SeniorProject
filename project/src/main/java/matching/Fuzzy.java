@@ -23,21 +23,21 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
 /**
  * Class to compute similarity between strings
  */
-public class Fuzzy {
+class Fuzzy {
 
 
     /**
      * Ensures a method is valid.
      *
      * @param compareMethod - Method used for comparison.
-     *
+     *                      <p>
      *                      Legal values (not case-sensitive):
      *                      "ratio", "partialRatio", "tokenSortRatio",
      *                      "tokenSortPartialRatio", "tokenSetRatio",
      *                      "tokenSetPartialRatio", "weightedRatio".
      * @return True if valid; False if not
      */
-    protected boolean checkMethod(String compareMethod) {
+    boolean checkMethod(String compareMethod) {
 
         compareMethod = compareMethod.toLowerCase();
 
@@ -67,14 +67,14 @@ public class Fuzzy {
      * @param record1       - String from first record to be compared
      * @param record2       - String from second record to be compared
      * @param compareMethod - Method used for comparison.
-     *
+     *                      <p>
      *                      Legal values (not case-sensitive):
      *                      "ratio", "partialRatio", "tokenSortRatio",
      *                      "tokenSortPartialRatio", "tokenSetRatio",
      *                      "tokenSetPartialRatio", "weightedRatio".
      * @return -1 if is invalid request of method, -2 if an error occurs, otherwise return the result of FuzzySearch methods
      */
-    protected int fuzzyStrCmp(String record1, String record2, String compareMethod) {
+    int fuzzyStrCmp(String record1, String record2, String compareMethod) {
 
         compareMethod = compareMethod.toLowerCase();
 
