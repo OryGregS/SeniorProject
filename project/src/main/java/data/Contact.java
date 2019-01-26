@@ -36,7 +36,7 @@ public class Contact {
     private String CRDNumber;
     private String ContactID;
 
-    /**
+    /***
      * Default constructor to initialize fields
      */
     public Contact() {

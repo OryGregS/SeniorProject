@@ -37,6 +37,11 @@ public class Preprocessor {
             readJSON("./config/data/abbreviations.json");
         }
 
+        /***
+         * function to trim and uppercase
+         * @param data
+         * @return string data updated
+         */
         public String standardize(String data) {
 
             String newData = data;
@@ -52,6 +57,7 @@ public class Preprocessor {
             return newData;
 
         }
+
 
         private boolean checkKeyExists(String data) {
             return abbrevs.containsKey(data);
@@ -124,9 +130,9 @@ public class Preprocessor {
     }
 
     /**
-     * Removes punctuation from strings such as (. , !)
+     * Removes punctuation from strings such as | . |  ! | , | - |
      * @param data
-     * @return
+     * @return string named data updated
      */
     protected String removePunctuation(String data) {
 

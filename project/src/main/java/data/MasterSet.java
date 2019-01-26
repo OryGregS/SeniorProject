@@ -41,9 +41,10 @@ public class MasterSet {
 
 
     /**
-     * Reads the master
+     * Reads the master set from a CSV file
      *
-     * @param filePath
+     * @param filePath string where is the file
+     * @param skipHeader boolean to check if header to skip or not
      * @return
      */
     @SuppressWarnings("Duplicates")
