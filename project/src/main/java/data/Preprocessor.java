@@ -124,7 +124,7 @@ public class Preprocessor {
     }
 
     /**
-     * Removes punctuation from strings
+     * Removes punctuation from strings such as (. , !)
      * @param data
      * @return
      */
