@@ -38,11 +38,11 @@ public class Indexer {
     }
 
     public ArrayList<Group> getContactGroups() {
-        return new ArrayList<>( contactGroups.getGroups().values() );
+        return new ArrayList<>(contactGroups.getGroups().values());
     }
 
     public ArrayList<Group> getPartnerships() {
-        return new ArrayList<>( partnerships.getGroups().values() );
+        return new ArrayList<>(partnerships.getGroups().values());
     }
 
     public ArrayList<MasterContact> getAllMasterContacts() {
@@ -53,13 +53,21 @@ public class Indexer {
         return this.allMatchContacts;
     }
 
+    public int getMasterSize() {
+        return this.allMasterContacts.size();
+    }
+
+    public int getMatchSize() {
+        return this.allMatchContacts.size();
+    }
+
     @SuppressWarnings("Duplicates")
     public void index(MasterContact contact, String method) {
 
         String key;
         String lastName = contact.getLastName();
 
-        if ( checkPartnership(lastName) ) {
+        if (checkPartnership(lastName)) {
 
             key = contact.getZip();
             partnerships.put(key, contact);
@@ -81,7 +89,7 @@ public class Indexer {
         String key;
         String lastName = contact.getLastName();
 
-        if ( checkPartnership(lastName) ) {
+        if (checkPartnership(lastName)) {
 
             key = contact.getZip();
             partnerships.put(key, contact);
@@ -123,7 +131,7 @@ public class Indexer {
                 Soundex soundex = new Soundex();
                 return soundex.soundex(data);
 
-            case "refinedsoundex":
+            case "rsoundex":
                 RefinedSoundex rsoundex = new RefinedSoundex();
                 return rsoundex.encode(data);
 
@@ -136,4 +144,5 @@ public class Indexer {
 
         }
     }
+
 }

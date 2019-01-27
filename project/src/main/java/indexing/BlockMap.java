@@ -27,7 +27,7 @@ public class BlockMap {
 
     private Map<String, Group> groups;
 
-    public BlockMap () {
+    public BlockMap() {
 
         this.groups = new HashMap<>();
 
@@ -51,7 +51,7 @@ public class BlockMap {
 
     @SuppressWarnings("Duplicates")
     public void put(String key, Contact contact) {
-        
+
         if (checkExists(key)) {
 
             groups.get(key).addContact(contact);

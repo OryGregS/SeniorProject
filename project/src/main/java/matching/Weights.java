@@ -26,30 +26,38 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 
 public class Weights {
-
-    private class IllegalValuesException extends Exception {
-
-        public IllegalValuesException(String message) {
-            super(message);
-        }
-    }
 
     private Map<String, Double> weights;
     private String FILENAME;
     private boolean alternate;
-
     public Weights(boolean altWeights) {
 
         weights = new HashMap<>();
         this.alternate = altWeights;
 
         if (this.alternate)
-            this.FILENAME = "./config/weights/alternateWeights.json";
+            this.FILENAME = "./config/weights/weights2.json";
 
         else
-            this.FILENAME = "./config/weights/defaultWeights.json";
+            this.FILENAME = "./config/weights/weights1.json";
+
+        tryJSON();
+
+    }
+
+    public Weights(boolean testWeights, boolean altWeights) {
+
+        weights = new HashMap<>();
+        this.alternate = altWeights;
+
+        if (this.alternate)
+            this.FILENAME = "./config/weights/test/test_weights2.json";
+
+        else
+            this.FILENAME = "./config/weights/test/test_weights1.json";
 
         tryJSON();
 
@@ -84,29 +92,28 @@ public class Weights {
 
     private void weightSum() throws IllegalValuesException {
 
-            double sum = 0.0;
+        double sum = 0.0;
 
-            for ( Iterator values = weights.values().iterator(); values.hasNext(); ) {
+        for (Iterator values = weights.values().iterator(); values.hasNext(); ) {
 
-                sum += (double)values.next();
+            sum += (double) values.next();
 
-            }
+        }
 
-            double scale = Math.pow(10, 6);
-            sum = Math.round(sum * scale) / scale;
+        double scale = Math.pow(10, 6);
+        sum = Math.round(sum * scale) / scale;
 
 
+        if (sum != 1.0) {
 
-            if (sum != 1.0) {
+            String message = String.format("\nError reading weights from %s.\n" +
+                    "\nExpected 1.0 but got %.16f. " +
+                    "\nWeights must be equal to 1.0 for proper functionality. " +
+                    "\nPlease adjust the weights in the config/weights directory.", this.FILENAME, sum);
 
-                String message = String.format("\nError reading weights from %s.\n" +
-                        "\nExpected 1.0 but got %.16f. " +
-                        "\nWeights must be equal to 1.0 for proper functionality. " +
-                        "\nPlease adjust the weights in the config/weights directory.", this.FILENAME, sum);
+            throw new IllegalValuesException(message);
 
-                throw new IllegalValuesException(message);
-
-            }
+        }
 
     }
 
@@ -133,21 +140,6 @@ public class Weights {
 
         if (this.alternate) {
 
-            weights.put("LastName", 0.259);
-            weights.put("MiddleName", 0.05);
-            weights.put("FirstName", 0.15);
-            weights.put("FirmName", 0.00);
-            weights.put("OfficeName", 0.00);
-            weights.put("Email", 0.35);
-            weights.put("Phone", 0.05);
-            weights.put("Address", 0.06);
-            weights.put("City", 0.05);
-            weights.put("State", 0.02);
-            weights.put("Zip", 0.011);
-            weights.put("Country", 0.00);
-
-        } else {
-
             weights.put("LastName", 0.25);
             weights.put("MiddleName", 0.075);
             weights.put("FirstName", 0.25);
@@ -161,6 +153,22 @@ public class Weights {
             weights.put("Zip", 0.05);
             weights.put("Country", 0.00);
 
+
+        } else {
+
+            weights.put("LastName", 0.259);
+            weights.put("MiddleName", 0.05);
+            weights.put("FirstName", 0.15);
+            weights.put("FirmName", 0.00);
+            weights.put("OfficeName", 0.00);
+            weights.put("Email", 0.35);
+            weights.put("Phone", 0.05);
+            weights.put("Address", 0.06);
+            weights.put("City", 0.05);
+            weights.put("State", 0.02);
+            weights.put("Zip", 0.011);
+            weights.put("Country", 0.00);
+
         }
 
         checkWeightSum();
@@ -172,7 +180,7 @@ public class Weights {
         return file.exists();
     }
 
-    private void writeJSON() {
+    public void writeJSON() {
 
         JSONObject jo = new JSONObject();
 
@@ -180,10 +188,10 @@ public class Weights {
 
         while (kvPairs.hasNext()) {
 
-            Map.Entry pair = (Map.Entry)kvPairs.next();
+            Map.Entry pair = (Map.Entry) kvPairs.next();
 
             String key = pair.getKey().toString();
-            Double value = (double)pair.getValue();
+            Double value = (double) pair.getValue();
 
             jo.put(key, value);
 
@@ -231,4 +239,108 @@ public class Weights {
         }
         return false;
     }
+
+    public Map<String, Double> getMap() {
+        return this.weights;
+    }
+
+    public void printWeights(String formatter) {
+
+        weights.forEach((key, value) -> System.out.println(formatter + "\"" + key + "\": " + value));
+
+    }
+
+    public void sample(double emailWeight) {
+
+        Random random = new Random();
+
+        int sum;
+        int[] intList;
+        double[] randomWeights;
+
+        if (alternate) {
+            intList = new int[8];
+            randomWeights = new double[8];
+        } else {
+            intList = new int[8];
+            randomWeights = new double[8];
+        }
+        int i;
+
+        for (i = 0; i < intList.length; i++) {
+            intList[i] = random.nextInt(100) + 1;
+        }
+
+        sum = sumSample(intList);
+
+        if (alternate) {
+            for (i = 0; i < intList.length; i++) {
+                randomWeights[i] = ((double) intList[i] / (double) sum);
+            }
+        } else {
+            for (i = 0; i < intList.length; i++) {
+                randomWeights[i] = ((double) intList[i] / (double) sum) * (1 - emailWeight);
+            }
+        }
+
+
+        if (this.alternate) {
+
+            weights.replace("LastName", randomWeights[0]);
+            weights.replace("MiddleName", randomWeights[1]);
+            weights.replace("FirstName", randomWeights[2]);
+            weights.put("FirmName", 0.00);
+            weights.put("OfficeName", 0.00);
+            weights.put("Email", 0.00);
+            weights.replace("Phone", randomWeights[3]);
+            weights.replace("Address", randomWeights[4]);
+            weights.replace("City", randomWeights[5]);
+            weights.replace("State", randomWeights[6]);
+            weights.replace("Zip", randomWeights[7]);
+            weights.put("Country", 0.00);
+
+
+        } else {
+
+            weights.replace("LastName", randomWeights[0]);
+            weights.replace("MiddleName", randomWeights[1]);
+            weights.replace("FirstName", randomWeights[2]);
+            weights.put("FirmName", 0.00);
+            weights.put("OfficeName", 0.00);
+            weights.replace("Email", emailWeight);
+            weights.replace("Phone", randomWeights[3]);
+            weights.replace("Address", randomWeights[4]);
+            weights.replace("City", randomWeights[5]);
+            weights.replace("State", randomWeights[6]);
+            weights.replace("Zip", randomWeights[7]);
+            weights.put("Country", 0.00);
+
+        }
+
+        checkWeightSum();
+
+    }
+
+    private int sumSample(int[] intList) {
+
+        int sum = 0;
+
+        int i;
+        for (i = 0; i < intList.length; i++) {
+
+            sum += intList[i];
+
+        }
+
+        return sum;
+
+    }
+
+    private class IllegalValuesException extends Exception {
+
+        public IllegalValuesException(String message) {
+            super(message);
+        }
+    }
+
 }

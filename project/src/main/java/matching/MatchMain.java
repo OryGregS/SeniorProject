@@ -17,10 +17,9 @@
 
 package matching;
 
-import data.DataLoader;
-import data.PerformanceMeasure;
+import data.CSVReader;
 import indexing.Indexer;
-import java.util.concurrent.TimeUnit;
+import utils.Performance;
 
 
 public class MatchMain {
@@ -30,94 +29,108 @@ public class MatchMain {
 
     public static void main(String[] args) {
 
-        DataLoader loader;
+
+        runBoth("metaphone", "ratio", false);
+        //runBothSep("metaphone", "ratio", false);
+
+
+    }
+
+    @SuppressWarnings("Duplicates")
+    public static void runBoth(String idxMethod, String cmpMethod, boolean printMatches) {
+
+
+        Weights weights1 = new Weights(false);
+        Weights weights2 = new Weights(true);
+
+        long totalStart, parseDataEnd, matchTimeEnd;
+
+        CSVReader csv;
         Indexer indexer;
         RecordMatcher matcher;
-        long totalStart, parseDataEnd, matchTimeEnd = 0;
-
-
-        String indexMethod = "rsoundex";
-        boolean print = false;
 
         //---------------------------RUN TRAIN SET-----------------------------------
-        PerformanceMeasure trainMeasure = new PerformanceMeasure();
+        Performance measure = new Performance();
         indexer = new Indexer();
 
         totalStart = System.nanoTime();
 
-        loader = new DataLoader(indexer, indexMethod);
-        loader.loadDataFromCSV("./data/contact_master.csv",
-                "./data/contact_match.csv", false);
+        csv = new CSVReader(indexer, idxMethod);
+
+        csv.readMaster("./data/contact_master.csv");
+        csv.readMatch("./data/contact_match.csv", false);
+        csv.readMatch("./data/contact_match_alt.csv", true);
 
         parseDataEnd = System.nanoTime();
 
-        matcher = new RecordMatcher(indexer, false);
-        matcher.printRun(print);
-        matcher.run("ratio");
+        matcher = new RecordMatcher(indexer, weights1, weights2, false);
+        matcher.setThreshold(70);
+        matcher.run(cmpMethod);
 
         matchTimeEnd = System.nanoTime();
 
-        trainMeasure.setParseDataTime(totalStart, parseDataEnd);
-        trainMeasure.setMatcherTime(parseDataEnd, matchTimeEnd);
-        trainMeasure.setTotalRunTime(totalStart, matchTimeEnd);
-        trainMeasure.measureAccuracy(indexer);
-        //trainMeasure.printResults("\t");
+        measure.setParseDataTime(totalStart, parseDataEnd);
+        measure.setMatcherTime(parseDataEnd, matchTimeEnd);
+        measure.setTotalRunTime(totalStart, matchTimeEnd);
+        measure.measure(indexer, matcher);
+
+        if (printMatches)
+            measure.printMatches();
+
+        measure.printResults();
         //trainMeasure.resultsToFile("contact_match");
 
-        System.out.println();
-        System.out.println("Done matching contact_match.csv.");
 
-        try {
+    }
 
-            TimeUnit.SECONDS.sleep(2);
-            System.out.println();
-            System.out.println("Matching contact_match_alt.csv...");
-            TimeUnit.SECONDS.sleep(2);
+    public static void runBothSep(String idxMethod, String cmpMethod, boolean printMatches) {
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        matchOne("./data/contact_match.csv", idxMethod, cmpMethod, false, printMatches);
+        matchOne("./data/contact_match_alt.csv", idxMethod, cmpMethod, true, printMatches);
 
+    }
 
-        //---------------------------RUN VALIDATION SET----------------------------------
+    @SuppressWarnings("Duplicates")
+    public static void matchOne(String matchFile, String idxMethod,
+                                String cmpMethod, boolean alt, boolean printMatches) {
 
+        Weights weights1 = new Weights(false);
+        Weights weights2 = new Weights(true);
 
-        PerformanceMeasure valMeasure = new PerformanceMeasure();
+        long totalStart, parseDataEnd, matchTimeEnd;
+
+        CSVReader csv;
+        Indexer indexer;
+        RecordMatcher matcher;
+
+        //---------------------------RUN TRAIN SET-----------------------------------
+        Performance measure = new Performance();
         indexer = new Indexer();
 
         totalStart = System.nanoTime();
 
-        loader = new DataLoader(indexer, indexMethod);
+        csv = new CSVReader(indexer, idxMethod);
 
-        loader.loadDataFromCSV("./data/contact_master.csv",
-                "./data/contact_match_alt.csv", true);
+        csv.readMaster("./data/contact_master.csv");
+        csv.readMatch(matchFile, alt);
 
         parseDataEnd = System.nanoTime();
 
-        matcher = new RecordMatcher(indexer, false);
-        matcher.printRun(print);
-        matcher.run("ratio");
+        matcher = new RecordMatcher(indexer, weights1, weights2, false);
+        matcher.setThreshold(70);
+        matcher.run(cmpMethod);
 
         matchTimeEnd = System.nanoTime();
 
-        System.out.println();
-        System.out.println("Done matching contact_match_alt.csv.");
+        measure.setParseDataTime(totalStart, parseDataEnd);
+        measure.setMatcherTime(parseDataEnd, matchTimeEnd);
+        measure.setTotalRunTime(totalStart, matchTimeEnd);
+        measure.measure(indexer, matcher);
 
-        valMeasure.setParseDataTime(totalStart, parseDataEnd);
-        valMeasure.setMatcherTime(parseDataEnd, matchTimeEnd);
-        valMeasure.setTotalRunTime(totalStart, matchTimeEnd);
-        valMeasure.measureAccuracy(indexer);
-        //valMeasure.resultsToFile("contact_match_alt");
+        if (printMatches)
+            measure.printMatches();
 
-        //------------------------------PRINT RESULTS---------------------------------------
-        System.out.println("\nMatch Data Results:");
-        trainMeasure.printResults("\t");
-
-
-        System.out.println("\nAlternate Match Data Results:");
-        valMeasure.printResults("\t");
-
-
+        measure.printResults(matchFile);
 
     }
 

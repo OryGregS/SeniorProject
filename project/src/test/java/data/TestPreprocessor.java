@@ -32,9 +32,11 @@ public class TestPreprocessor {
 
     @Test
     public void testCombineFields() {
-        String address1 = "123 North St. ";
+        String address1 = "123 North St ";
         String address2 = " Ste 123 ";
-        String combined = "123 North St. Ste 123";
+        String combined = "123 NORTH STREET SUITE 123";
+        String results = processor.combineFields(address1, address2);
+        System.out.println(results);
         assertTrue(processor.combineFields(address1, address2).equals(combined));
 
         address1 = "          123     NorthSt.";
@@ -103,6 +105,7 @@ public class TestPreprocessor {
         String address1 = "123 S Walnut St";
         String expected1 = "123 SOUTH WALNUT STREET";
         String result1 = processor.handleAddress(address1);
+        System.out.println(result1);
 
         System.out.println(result1);
 

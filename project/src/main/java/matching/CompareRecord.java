@@ -204,20 +204,4 @@ class CompareRecord {
         return !CRDNum.equals("");
     }
 
-//    public boolean checkGroupedNames(String name, String masterData) {
-//
-//
-//        // here we handle grouped names
-//        if (name.equalsIgnoreCase("last") ||
-//                name.equalsIgnoreCase("middle") ||
-//                name.equalsIgnoreCase("first")) {
-//
-//            // if there are separators in the name, then use token-set ratio
-//            if (masterData.contains("/") || masterData.contains("|") || masterData.contains("\\") ||
-//                    masterData.contains(",") || masterData.contains(";")) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 }

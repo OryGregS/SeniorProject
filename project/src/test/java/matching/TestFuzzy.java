@@ -38,7 +38,7 @@ public class TestFuzzy {
         assertEquals(String.valueOf(calc.fuzzyStrCmp("Greg", "Greg",
                 "ratio")), String.valueOf(100));
         assertEquals(String.valueOf(calc.fuzzyStrCmp("Axel", "AXel",
-                "ratio")), String.valueOf(75));
+                "ratio")), String.valueOf(100));
         assertEquals(String.valueOf(calc.fuzzyStrCmp("Axel", "Axel",
                 "ratio")), String.valueOf(100));
         assertEquals(String.valueOf(calc.fuzzyStrCmp("Axel", "AxelJ",
@@ -73,7 +73,6 @@ public class TestFuzzy {
                 "ratio")), String.valueOf(50));
 
 
-
 //        System.out.println("testFuzzyStrCmp() pass");
 
     }
@@ -96,7 +95,6 @@ public class TestFuzzy {
         assertFalse(calc.checkMethod("weightratio"));
 
     }
-
 
 
 }
