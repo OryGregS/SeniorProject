@@ -88,7 +88,7 @@ public class UpdateWeights {
                 csvReader.readMatch("contact_match_alt.csv", true);
 
                 parseDataEnd = System.nanoTime();
-s
+
                 matcher.run(indexer);
 
                 matchTimeEnd = System.nanoTime();
