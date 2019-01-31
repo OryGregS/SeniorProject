@@ -19,8 +19,9 @@ package utils;
 
 import data.CSVReader;
 import indexing.Indexer;
-import matching.RecordMatcher;
+import matching.Matcher;
 import matching.Weights;
+import setup.Init;
 
 import java.util.Scanner;
 
@@ -31,29 +32,23 @@ public class UpdateWeights {
 
     public static void main(String args[]) {
 
-        new UpdateWeights().testSample(1000);
+        new UpdateWeights().testSample(1200, "metaphone");
 
     }
 
     @SuppressWarnings("Duplicates")
-    public void testSample(int amount) {
+    public void testSample(int amount, String idx) {
 
         int i, j;
-        String idx = "rsoundex";
-        String cmp = "ratio";
         long totalStart, parseDataEnd, matchTimeEnd = 0;
         boolean print = false;
 
         double bestPercentFound = 0;
 
-        CSVReader csv;
-        Indexer indexer;
-        RecordMatcher matcher;
-
-        double[] email_weights = new double[25];
+        double[] email_weights = new double[10];
 
         int emailSz = email_weights.length;
-        double val = .20;
+        double val = .30;
 
         for (i = 0; i < emailSz; i++) {
             val = Math.floor(val * 1000) / 1000;
@@ -68,51 +63,49 @@ public class UpdateWeights {
 
 
                 //---------------------------RUN TRAIN SET-----------------------------------
-                CalcPerformance trainMeasure = new CalcPerformance();
-                Weights weights1 = new Weights(true, false);
-                Weights weights2 = new Weights(true, true);
 
-                weights1.sample(email_weights[j]);
-                weights2.sample(email_weights[j]);
+                Performance measure = new Performance();
 
-                indexer = new Indexer();
+                Init init = new Init();
 
+                Weights weights1 = new Weights("./config/weights/");
+                Weights weights2 = new Weights("./config/weights/");
+
+                weights1.initialize("weights1.json");
+                weights2.initialize("weights2.json");
+
+                weights1.sample(email_weights[i], false);
+                weights2.sample(email_weights[i], true);
+
+                Indexer indexer = init.getIndexer();
+                CSVReader csvReader = init.getCsvReader();
+                Matcher matcher = new Matcher(weights1, weights2);
                 totalStart = System.nanoTime();
 
-                csv = new CSVReader(indexer, idx);
-
-                csv.readMaster("./data/contact_master.csv");
-                csv.readMatch("./data/contact_match.csv", false);
-                csv.readMatch("./data/contact_match_alt.csv", true);
+                // Read data, process it, and index it
+                csvReader.readMaster("contact_master.csv");
+                csvReader.readMatch("contact_match.csv", false);
+                csvReader.readMatch("contact_match_alt.csv", true);
 
                 parseDataEnd = System.nanoTime();
-
-                matcher = new RecordMatcher(indexer, weights1, weights2, false);
-                matcher.run(cmp);
+s
+                matcher.run(indexer);
 
                 matchTimeEnd = System.nanoTime();
 
-                trainMeasure.setParseDataTime(totalStart, parseDataEnd);
-                trainMeasure.setMatcherTime(parseDataEnd, matchTimeEnd);
-                trainMeasure.setTotalRunTime(totalStart, matchTimeEnd);
-                trainMeasure.measure(indexer, matcher);
-                Performance performance = new Performance();
-                double tempPercent = trainMeasure.getPercentFound();
+                measure.setParseDataTime(totalStart, parseDataEnd);
+                measure.setMatcherTime(parseDataEnd, matchTimeEnd);
+                measure.setTotalRunTime(totalStart, matchTimeEnd);
+                measure.measure(indexer, matcher);
 
-                if (tempPercent > bestPercentFound) {
-                    bestPercentFound = tempPercent;
-                    System.out.println();
-                    System.out.println("Run: " + (i + 1) + " - " + bestPercentFound + ":\n");
-                    System.out.println("\tDefault:");
-                    weights1.printWeights("\t\t");
-                    System.out.println();
-                    System.out.println("\tAlt:");
-                    weights2.printWeights("\t\t");
-                    System.out.println();
-                    performance.printResults();
-                    this.best_altWeights = weights2;
-                    this.best_defaultWeights = weights1;
+                double temp = measure.getPercentFound();
+
+                if (temp > bestPercentFound) {
+                    measure.printResults();
+                    bestPercentFound = temp;
                 }
+
+
             }
         }
 
@@ -126,9 +119,6 @@ public class UpdateWeights {
             this.best_defaultWeights.writeJSON();
 
         }
-
     }
-
-
 }
 

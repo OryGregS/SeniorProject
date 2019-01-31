@@ -24,36 +24,24 @@ import indexing.Indexer;
 
 import java.util.ArrayList;
 
-public class RecordMatcher {
+public class Matcher {
 
 
     private ArrayList<Group> contactGroups;
     private ArrayList<Group> partnerships;
     private Weights weights1;
     private Weights weights2;
-    private boolean matchMasterToMaster;
-    private double threshold = 70.0;
-    private int numComparisons = 0;
+    private boolean matchMasterToMaster = false;
+    private double threshold;
+    private int numComparisons;
 
+    public Matcher(Weights weights1, Weights weights2) {
 
-    public RecordMatcher(Indexer indexer, boolean masterToMaster) {
-
-        this.contactGroups = indexer.getContactGroups();
-        this.partnerships = indexer.getPartnerships();
-        this.matchMasterToMaster = masterToMaster;
-        this.weights1 = new Weights(false);
-        this.weights2 = new Weights(true);
-
-    }
-
-    public RecordMatcher(Indexer indexer, Weights weights1,
-                         Weights weights2, boolean masterToMaster) {
-
-        this.contactGroups = indexer.getContactGroups();
-        this.partnerships = indexer.getPartnerships();
-        this.matchMasterToMaster = masterToMaster;
         this.weights1 = weights1;
         this.weights2 = weights2;
+        this.matchMasterToMaster = false;
+        this.threshold = 70.0;
+        this.numComparisons = 0;
 
     }
 
@@ -61,21 +49,26 @@ public class RecordMatcher {
         this.threshold = threshold;
     }
 
+    public void matchMasterToMaster() {
+        this.matchMasterToMaster = true;
+    }
+
     /**
      * Loops through the datasets to calculate
      * the similarity between the contacts in Master
      * and the contacts in the dataset to match
-     *
-     * @param compareMethod - what string comparison metric to use
      */
-    public void run(String compareMethod) {
+    public void run(Indexer indexer) {
 
-        runGroups(this.contactGroups, compareMethod);
-        runGroups(this.partnerships, compareMethod);
+        this.contactGroups = indexer.getContactGroups();
+        this.partnerships = indexer.getPartnerships();
+
+        runGroups(this.contactGroups);
+        runGroups(this.partnerships);
 
     }
 
-    private void runGroups(ArrayList<Group> groups, String compareMethod) {
+    private void runGroups(ArrayList<Group> groups) {
 
         int i;
         int size;
@@ -91,7 +84,7 @@ public class RecordMatcher {
 
 
             masterContacts.parallelStream().forEach(masterContact ->
-                    compare(masterContact, matchContacts, compareMethod));
+                    compare(masterContact, matchContacts));
 
         }
     }
@@ -100,9 +93,8 @@ public class RecordMatcher {
      * Compares a mastercontact against each contant in the matching set
      *
      * @param masterContact - contact data from the master record
-     * @param compareMethod - string comparison metric to use
      */
-    private void compare(MasterContact masterContact, ArrayList<Contact> matchSet, String compareMethod) {
+    private void compare(MasterContact masterContact, ArrayList<Contact> matchSet) {
 
         //String compareMethod = "ratio";
 
@@ -148,39 +140,19 @@ public class RecordMatcher {
                 }
 
 
-                confidence += cmp.similarity("last", compareMethod);
-                confidence += cmp.similarity("middle", compareMethod);
-                confidence += cmp.similarity("first", compareMethod);
-                confidence += cmp.similarity("firm", compareMethod);
-                confidence += cmp.similarity("office", compareMethod);
-                confidence += cmp.similarity("email", compareMethod);
-                confidence += cmp.similarity("phone", compareMethod);
-                confidence += cmp.similarity("address", compareMethod);
-                confidence += cmp.similarity("city", compareMethod);
-                confidence += cmp.similarity("state", compareMethod);
-                confidence += cmp.similarity("zip", compareMethod);
-                confidence += cmp.similarity("country", compareMethod);
+                confidence += cmp.similarity("last");
+                confidence += cmp.similarity("middle");
+                confidence += cmp.similarity("first");
+                confidence += cmp.similarity("firm");
+                confidence += cmp.similarity("office");
+                confidence += cmp.similarity("email");
+                confidence += cmp.similarity("phone");
+                confidence += cmp.similarity("address");
+                confidence += cmp.similarity("city");
+                confidence += cmp.similarity("state");
+                confidence += cmp.similarity("zip");
+                confidence += cmp.similarity("country");
 
-                if (confidence >= 90) {
-
-                    if (masterContact.getCRDNumber().equalsIgnoreCase("") &&
-                            !matchContact.getCRDNumber().equalsIgnoreCase("")) {
-
-                        masterContact.incrementUnknownMatchCount();
-
-                    } else if (!masterContact.getCRDNumber().equalsIgnoreCase("") &&
-                            matchContact.getCRDNumber().equalsIgnoreCase("")) {
-
-                        masterContact.incrementUnknownMatchCount();
-
-                    } else if (masterContact.getCRDNumber().equalsIgnoreCase("") &&
-                            matchContact.getCRDNumber().equalsIgnoreCase("")) {
-
-                        masterContact.incrementUnknownMatchCount();
-
-                    }
-
-                }
 
                 if (confidence >= this.threshold) {
 
@@ -189,6 +161,8 @@ public class RecordMatcher {
 
                     masterContact.setMatch(matchContact, confidence);
 
+                    if (confidence >= 90)
+                        checkUnknown(masterContact, matchContact);
                 }
             }
         }
@@ -196,6 +170,30 @@ public class RecordMatcher {
 
     public int getNumComparisons() {
         return this.numComparisons;
+    }
+
+    private void checkUnknown(MasterContact masterContact, Contact matchContact) {
+
+        String masterCRD = masterContact.getCRDNumber();
+        String matchCRD = matchContact.getCRDNumber();
+
+        if (masterCRD.equalsIgnoreCase("") &&
+                !matchCRD.equalsIgnoreCase("")) {
+
+            masterContact.addUnknownMatch();
+
+        } else if (!masterCRD.equalsIgnoreCase("") &&
+                matchCRD.equalsIgnoreCase("")) {
+
+            masterContact.addUnknownMatch();
+
+        } else if (masterCRD.equalsIgnoreCase("") &&
+                matchCRD.equalsIgnoreCase("")) {
+
+            masterContact.addUnknownMatch();
+
+        }
+
     }
 
 }

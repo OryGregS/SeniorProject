@@ -23,18 +23,18 @@ import data.MasterContact;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BlockMap {
+class BlockMap {
 
     private Map<String, Group> groups;
 
-    public BlockMap() {
+    BlockMap() {
 
         this.groups = new HashMap<>();
 
     }
 
     @SuppressWarnings("Duplicates")
-    public void put(String key, MasterContact contact) {
+   void put(String key, MasterContact contact) {
 
         if (checkExists(key)) {
 
@@ -50,7 +50,7 @@ public class BlockMap {
     }
 
     @SuppressWarnings("Duplicates")
-    public void put(String key, Contact contact) {
+    void put(String key, Contact contact) {
 
         if (checkExists(key)) {
 
@@ -69,7 +69,7 @@ public class BlockMap {
         return groups.containsKey(key);
     }
 
-    public Map<String, Group> getGroups() {
+    Map<String, Group> getGroups() {
         return groups;
     }
 }

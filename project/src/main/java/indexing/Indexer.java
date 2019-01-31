@@ -49,9 +49,9 @@ public class Indexer {
         return this.allMasterContacts;
     }
 
-    public ArrayList<Contact> getAllMatchContacts() {
+    /*public ArrayList<Contact> getAllMatchContacts() {
         return this.allMatchContacts;
-    }
+    }*/
 
     public int getMasterSize() {
         return this.allMasterContacts.size();

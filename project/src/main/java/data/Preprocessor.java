@@ -22,19 +22,47 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
-public class Preprocessor {
+class Preprocessor {
 
     private AddressHandler addressHandler;
 
-    public Preprocessor() {
+    Preprocessor() {
         addressHandler = new AddressHandler();
     }
 
-    public String prep(String data) {
+    String trimData(String data) {
+
+        String[] temp = data.split(" ");
+        ArrayList<String> newTemp = new ArrayList<>();
+
+        int i;
+        int length = temp.length;
+        for (i = 0; i < length; i++) {
+
+            String tempString = temp[i];
+            temp[i] = tempString.trim();
+
+
+            if (tempString.equals("") || tempString.equals(" ") ||
+                    tempString.equals("\n") || tempString.equals("\t")) {
+
+                // do nothing
+
+            } else {
+
+                newTemp.add(temp[i]);
+
+            }
+
+        }
+
+        return String.join(" ", newTemp);
+
+    }
+
+    String prep(String data) {
 
         String newData = checkNULL(data);
 
@@ -44,7 +72,7 @@ public class Preprocessor {
 
         }
 
-        return newData;
+        return trimData(newData);
 
     }
 
@@ -53,7 +81,7 @@ public class Preprocessor {
      * @param data - The string at the row,col of the dataset
      * @return - Empty string if "NULL", otherwise the original string
      */
-    protected String checkNULL(String data) {
+    String checkNULL(String data) {
 
         if (data.equalsIgnoreCase("NULL") ||
                 data.equalsIgnoreCase(" ") ||
@@ -76,7 +104,7 @@ public class Preprocessor {
      * @param data
      * @return string named data updated
      */
-    protected String removePunctuation(String data) {
+    String removePunctuation(String data) {
 
         String newData = data;
         newData = newData.replace(".", "").trim();
@@ -102,35 +130,32 @@ public class Preprocessor {
 
         }
 
-        String[] temp = newData.split(" ");
-
-        int i;
-        int sz = temp.length;
-        for (i = 0; i < sz; i++) {
-            temp[i] = temp[i].trim();
-        }
-
         return newData;
 
     }
 
-    protected String combineFields(String field1, String field2) {
+    String combineFields(String field1, String field2) {
 
-        String combined = field1.trim();
-        combined += " " + field2.trim();
-        combined = combined.trim();
+        String combined = prep(field1);
+        combined += " " + prep(field2);
         combined = combined.trim();
         return combined;
 
     }
 
-    protected String handleAddress(String address) {
+    String handleAddress(String address1, String address2) {
+
+        address1 = prep(address1);
+        address2 = prep(address2);
+        String address = combineFields(address1, address2);
 
         String[] temp = address.split(" ");
+
 
         int i;
         int sz = temp.length;
         for (i = 0; i < sz; i++) {
+            temp[i] = temp[i].trim();
             temp[i] = addressHandler.standardize(temp[i]);
         }
 
@@ -142,7 +167,7 @@ public class Preprocessor {
 
         private Map<String, String> abbrevs;
 
-        public AddressHandler() {
+        AddressHandler() {
             abbrevs = new HashMap<>();
             readJSON("./config/data/abbreviations.json");
         }
@@ -152,7 +177,7 @@ public class Preprocessor {
          * @param data
          * @return string data updated
          */
-        public String standardize(String data) {
+        String standardize(String data) {
 
             String newData = data;
             newData = newData.trim();

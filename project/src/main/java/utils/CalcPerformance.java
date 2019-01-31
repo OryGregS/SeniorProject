@@ -19,7 +19,7 @@ package utils;
 
 import data.MasterContact;
 import indexing.Indexer;
-import matching.RecordMatcher;
+import matching.Matcher;
 
 import java.util.ArrayList;
 
@@ -39,15 +39,16 @@ public class CalcPerformance {
     double percentReduced = 0;
     ArrayList<MasterContact> masterContacts;
 
-    public void measure(Indexer indexer, RecordMatcher matcher) {
+    public void measure(Indexer indexer, Matcher matcher) {
 
         this.masterContacts = indexer.getAllMasterContacts();
 
         this.masterSize = indexer.getMasterSize();
         this.matchSize = indexer.getMatchSize();
 
-        for (MasterContact masterContact : masterContacts) {
-            findMatches(masterContact);
+
+        for (int i = 0; i < masterSize; i++) {
+            findMatches(this.masterContacts.get(i));
         }
 
         this.percentFound = ((double) this.identifiedMatchCount / (double) this.knownMatchCount) * 100;
@@ -62,7 +63,7 @@ public class CalcPerformance {
 
         this.knownMatchCount += contact.getKnownMatches();
         this.identifiedMatchCount += contact.getIdentifiedMatchCount();
-        this.totalUnknownCount += contact.getUnknownMatchCount();
+        this.totalUnknownCount += contact.getUnknownMatches();
 
     }
 

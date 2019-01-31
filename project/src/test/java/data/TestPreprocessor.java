@@ -34,14 +34,33 @@ public class TestPreprocessor {
     public void testCombineFields() {
         String address1 = "123 North St ";
         String address2 = " Ste 123 ";
-        String combined = "123 NORTH STREET SUITE 123";
-        String results = processor.combineFields(address1, address2);
-        System.out.println(results);
-        assertTrue(processor.combineFields(address1, address2).equals(combined));
+        String combined = "123 NORTH ST STE 123";
+        String result = processor.combineFields(address1, address2);
 
-        address1 = "          123     NorthSt.";
+        assertTrue(result.equals(combined));
+
+        address1 = "          123            North St.";
         address2 = "ste 123           ";
-        assertTrue(processor.combineFields(address1, address2).equals(combined));
+        result = processor.combineFields(address1, address2);
+        System.out.println(result);
+
+        assertTrue(result.equals(combined));
+    }
+
+    @Test
+    public void testHandleAddress() {
+
+        String test1 = "123 North st ste";
+        String test2 = "123 ";
+        String combined1 = "123 NORTH STREET SUITE 123";
+
+        String test3 = "15351 sw pkwy ";
+        String test4 = "fl 1";
+        String combined2 = "15351 SOUTHWEST PARKWAY FLOOR 1";
+
+        assertTrue(processor.handleAddress(test1, test2).equals(combined1));
+        assertTrue(processor.handleAddress(test3, test4).equals(combined2));
+
     }
 
     @Test
@@ -103,11 +122,10 @@ public class TestPreprocessor {
     public void testDict() {
 
         String address1 = "123 S Walnut St";
-        String expected1 = "123 SOUTH WALNUT STREET";
-        String result1 = processor.handleAddress(address1);
-        System.out.println(result1);
-
-        System.out.println(result1);
+        String address2 = "fl pkwy 15";
+        String expected1 = "123 SOUTH WALNUT STREET FLOOR PARKWAY 15";
+        String result1 = processor.handleAddress(address1, address2);
+        assertTrue(result1.equals(expected1));
 
     }
 

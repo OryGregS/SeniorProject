@@ -29,25 +29,30 @@ import java.nio.file.Paths;
 
 public class CSVReader {
 
+    private String masterPath;
+    private String matchPath;
     private Indexer indexer;
     private String indexMethod;
     private Preprocessor processor;
 
-    public CSVReader(Indexer indexer, String indexMethod) {
+    public CSVReader(String masterPath, String matchPath,
+                     Indexer indexer, String indexMethod) {
 
+        this.masterPath = masterPath;
+        this.matchPath = matchPath;
         this.indexer = indexer;
         this.indexMethod = indexMethod;
         processor = new Preprocessor();
 
     }
 
-    public boolean readMaster(String filePath) {
+    public boolean readMaster(String fileName) {
 
         boolean skipHeader = true;
 
         try {
 
-            Reader reader = Files.newBufferedReader(Paths.get(filePath));
+            Reader reader = Files.newBufferedReader(Paths.get(this.masterPath + fileName));
             CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withIgnoreSurroundingSpaces());
 
             for (CSVRecord obs : csv) {
@@ -68,8 +73,7 @@ public class CSVReader {
 
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             return false;
         }
 
@@ -77,12 +81,12 @@ public class CSVReader {
 
     }
 
-    public boolean readMatch(String filePath, boolean alt) {
+    public boolean readMatch(String fileName, boolean alt) {
 
         boolean skipHeader = true;
 
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(filePath));
+            Reader reader = Files.newBufferedReader(Paths.get(this.matchPath + fileName));
             CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withIgnoreSurroundingSpaces());
 
             for (CSVRecord obs : csv) {
@@ -102,8 +106,7 @@ public class CSVReader {
                 }
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             return false;
         }
 
@@ -130,13 +133,11 @@ public class CSVReader {
         contact.setEmail(processor.checkNULL(obs.get(5)));
         contact.setBusinessPhone(processor.checkNULL(obs.get(6)));
 
-        String address1 = processor.prep(obs.get(7));
-        String address2 = processor.prep(obs.get(8));
+        String address1 = obs.get(7);
+        String address2 = obs.get(8);
+        String address = processor.handleAddress(address1, address2);
 
-        String combinedAddress = processor.combineFields(address1, address2);
-        String address = processor.handleAddress(combinedAddress);
         contact.setAddress(address);
-
         contact.setCity(processor.prep(obs.get(9)));
         contact.setStateProvince(processor.prep(obs.get(10)));
         contact.setZip(processor.prep(obs.get(11)));
@@ -168,16 +169,13 @@ public class CSVReader {
         contact.setEmail(processor.checkNULL(obs.get(5)));
         contact.setBusinessPhone(processor.checkNULL(obs.get(6)));
 
-        String address1 = processor.prep(obs.get(7));
-        String address2 = processor.prep(obs.get(8));
+        String address1 = obs.get(7);
+        String address2 = obs.get(8);
+        String address = processor.handleAddress(address1, address2);
 
-        String combinedAddress = processor.combineFields(address1, address2);
-        String address = processor.handleAddress(combinedAddress);
         contact.setAddress(address);
-
         contact.setCity(processor.prep(obs.get(9)));
         contact.setStateProvince(processor.prep(obs.get(10)));
-
         contact.setZip(processor.prep(obs.get(11)));
         // skip additional zipcodes
         contact.setCountryID(processor.prep(obs.get(13)));

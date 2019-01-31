@@ -31,36 +31,12 @@ import java.util.Random;
 public class Weights {
 
     private Map<String, Double> weights;
+    private String FILEPATH;
     private String FILENAME;
-    private boolean alternate;
-    public Weights(boolean altWeights) {
 
-        weights = new HashMap<>();
-        this.alternate = altWeights;
-
-        if (this.alternate)
-            this.FILENAME = "./config/weights/weights2.json";
-
-        else
-            this.FILENAME = "./config/weights/weights1.json";
-
-        tryJSON();
-
-    }
-
-    public Weights(boolean testWeights, boolean altWeights) {
-
-        weights = new HashMap<>();
-        this.alternate = altWeights;
-
-        if (this.alternate)
-            this.FILENAME = "./config/weights/test/test_weights2.json";
-
-        else
-            this.FILENAME = "./config/weights/test/test_weights1.json";
-
-        tryJSON();
-
+    public Weights(String filePath) {
+        this.FILEPATH = filePath;
+        this.weights = new HashMap<>();
     }
 
     public double getWeight(String key) {
@@ -74,6 +50,12 @@ public class Weights {
         }
 
         return weight;
+
+    }
+
+    public void initialize(String fileName) {
+
+        readJSON(fileName);
 
     }
 
@@ -117,66 +99,8 @@ public class Weights {
 
     }
 
-    private void tryJSON() {
-
-        boolean readJSON = false;
-
-        if (checkJSONExists()) {
-
-            readJSON = readJSON();
-
-        }
-
-        if (!readJSON) {
-
-            loadWeights();
-            writeJSON();
-
-        }
-
-    }
-
-    private void loadWeights() {
-
-        if (this.alternate) {
-
-            weights.put("LastName", 0.25);
-            weights.put("MiddleName", 0.075);
-            weights.put("FirstName", 0.25);
-            weights.put("FirmName", 0.00);
-            weights.put("OfficeName", 0.00);
-            weights.put("Email", 0.00);
-            weights.put("Phone", 0.075);
-            weights.put("Address", 0.20);
-            weights.put("City", 0.05);
-            weights.put("State", 0.05);
-            weights.put("Zip", 0.05);
-            weights.put("Country", 0.00);
-
-
-        } else {
-
-            weights.put("LastName", 0.259);
-            weights.put("MiddleName", 0.05);
-            weights.put("FirstName", 0.15);
-            weights.put("FirmName", 0.00);
-            weights.put("OfficeName", 0.00);
-            weights.put("Email", 0.35);
-            weights.put("Phone", 0.05);
-            weights.put("Address", 0.06);
-            weights.put("City", 0.05);
-            weights.put("State", 0.02);
-            weights.put("Zip", 0.011);
-            weights.put("Country", 0.00);
-
-        }
-
-        checkWeightSum();
-
-    }
-
     private boolean checkJSONExists() {
-        File file = new File(this.FILENAME);
+        File file = new File(this.FILEPATH + this.FILENAME);
         return file.exists();
     }
 
@@ -211,9 +135,11 @@ public class Weights {
 
     }
 
-    private boolean readJSON() {
+    private boolean readJSON(String fileName) {
 
-        File file = new File(this.FILENAME);
+        this.FILENAME = fileName;
+
+        File file = new File(this.FILEPATH + this.FILENAME);
 
         try {
 
@@ -234,14 +160,12 @@ public class Weights {
 
         } catch (IOException e) {
 
-            loadWeights();
+            e.printStackTrace();
+            System.out.printf("\nFailed to read Weights file: %s%s\n", this.FILEPATH, this.FILEPATH);
+
 
         }
         return false;
-    }
-
-    public Map<String, Double> getMap() {
-        return this.weights;
     }
 
     public void printWeights(String formatter) {
@@ -250,7 +174,7 @@ public class Weights {
 
     }
 
-    public void sample(double emailWeight) {
+    public void sample(double emailWeight, boolean alternate) {
 
         Random random = new Random();
 
@@ -284,7 +208,7 @@ public class Weights {
         }
 
 
-        if (this.alternate) {
+        if (alternate) {
 
             weights.replace("LastName", randomWeights[0]);
             weights.replace("MiddleName", randomWeights[1]);
@@ -338,7 +262,7 @@ public class Weights {
 
     private class IllegalValuesException extends Exception {
 
-        public IllegalValuesException(String message) {
+        IllegalValuesException(String message) {
             super(message);
         }
     }

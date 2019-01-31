@@ -36,6 +36,16 @@ public class MasterContact extends Contact {
         identifiedMatchCount = 0;
     }
 
+    public void addUnknownMatch() {
+        this.unknownMatchCount++;
+    }
+
+    public void addIdentifiedMatch() {
+
+        this.identifiedMatchCount++;
+
+    }
+
     /**
      * Increments our counter for the number of exact matches
      * (unique identifiers are equal).
@@ -53,10 +63,8 @@ public class MasterContact extends Contact {
         return this.knownMatches;
     }
 
-    public void addIdentifiedMatch() {
-
-        this.identifiedMatchCount++;
-
+    public int getUnknownMatches() {
+        return this.unknownMatchCount;
     }
 
     public int getIdentifiedMatchCount() {
@@ -95,13 +103,9 @@ public class MasterContact extends Contact {
         return this.topMatches.getTopConfidence();
     }
 
-    public void incrementUnknownMatchCount() {
-        this.unknownMatchCount++;
-    }
 
-    public int getUnknownMatchCount() {
-        return this.unknownMatchCount;
-    }
+
+
 
 
 }

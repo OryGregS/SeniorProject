@@ -11,7 +11,7 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 1/20/19 11:40 PM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 1/29/19 4:42 PM.
  * Copyright (c) 2019. All rights reserved.
  */
 
@@ -19,7 +19,7 @@ package data;
 
 import java.util.ArrayList;
 
-public class TopMatches {
+class TopMatches {
 
     private int MAX_MATCH_SIZE;
     private int MAX_LOC;
@@ -30,7 +30,7 @@ public class TopMatches {
      * Default constructor to initialize fields
      * based on their default values
      */
-    public TopMatches() {
+    TopMatches() {
         this.MAX_MATCH_SIZE = 25;
         this.MAX_LOC = this.MAX_MATCH_SIZE - 1;
         this.topConfidence = new ArrayList<>(MAX_MATCH_SIZE);
@@ -43,7 +43,7 @@ public class TopMatches {
      *
      * @return - list of most likely match's contactID's
      */
-    public ArrayList<Contact> getTopContacts() {
+    ArrayList<Contact> getTopContacts() {
         return this.topContact;
     }
 
@@ -53,7 +53,7 @@ public class TopMatches {
      *
      * @return - list of most likely match's level of confidence
      */
-    public ArrayList<Double> getTopConfidence() {
+    ArrayList<Double> getTopConfidence() {
         return this.topConfidence;
     }
 
@@ -64,14 +64,14 @@ public class TopMatches {
      * @param contact    - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    public void setMatch(Contact contact, double confidence) {
+    void setMatch(Contact contact, double confidence) {
 
         boolean full = atCapacity();
 
         if (!full)
             addMatchToNotFull(contact, confidence);
 
-        else if (full && checkMatch(confidence))
+        else if (checkMatch(confidence))
             addMatchToFull(contact, confidence);
 
     }
