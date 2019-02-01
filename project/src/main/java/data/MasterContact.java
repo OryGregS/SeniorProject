@@ -78,9 +78,19 @@ public class MasterContact extends Contact {
      * @param contact    - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    public void setMatch(Contact contact, double confidence) {
-        this.topMatches.setMatch(contact, confidence);
+    public boolean setMatch(Contact contact, double confidence) {
+        if (confidence < 0.0 || confidence > 100){
+            return false;
+        }
+        if (contact != null) {
+            this.topMatches.setMatch(contact, confidence);
+
+
+            return true;
+        }
+        return false;
     }
+    //
 
 
     /**

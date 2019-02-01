@@ -30,11 +30,18 @@ class TopMatches {
      * Default constructor to initialize fields
      * based on their default values
      */
-    TopMatches() {
+    public TopMatches() {
         this.MAX_MATCH_SIZE = 25;
         this.MAX_LOC = this.MAX_MATCH_SIZE - 1;
         this.topConfidence = new ArrayList<>(MAX_MATCH_SIZE);
         this.topContact = new ArrayList<>(MAX_MATCH_SIZE);
+    }
+
+    public TopMatches(int newMatchSize) {
+        this.MAX_MATCH_SIZE = newMatchSize;
+        this.MAX_LOC = newMatchSize - 1;
+        this.topConfidence = new ArrayList<>(newMatchSize);
+        this.topContact = new ArrayList<>(newMatchSize);
     }
 
     /**

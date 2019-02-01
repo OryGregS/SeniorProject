@@ -36,17 +36,20 @@ class Preprocessor {
 
         String[] temp = data.split(" ");
         ArrayList<String> newTemp = new ArrayList<>();
+        String tempString;
 
         int i;
         int length = temp.length;
         for (i = 0; i < length; i++) {
 
-            String tempString = temp[i];
+            tempString = temp[i];
             temp[i] = tempString.trim();
 
+//            if (tempString.equals("") || tempString.equals(" ") ||
+//                    tempString.equals("\n") || tempString.equals("\t")) {
 
-            if (tempString.equals("") || tempString.equals(" ") ||
-                    tempString.equals("\n") || tempString.equals("\t")) {
+            if (!tempString.equals("") && !tempString.equals(" ") &&
+                    !tempString.equals("\n") && !tempString.equals("\t")) {
 
                 // do nothing
 

@@ -19,15 +19,18 @@ package data;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 public class TestMasterContact {
 
     private MasterContact master;
+    private Contact contact;
 
     public TestMasterContact() {
         master = new MasterContact();
+        contact = new Contact();
     }
 
     @Test
@@ -68,5 +71,77 @@ public class TestMasterContact {
         assertEquals(1241, master.getKnownMatches());
 
     }
+
+    @Test
+    public void testArrayListCapacity(){
+        ArrayList<Integer> list1 = new ArrayList<>(11);
+        assertEquals(0,list1.size());
+
+        list1.add(7);
+        assertEquals(1,list1.size());
+
+        list1.remove(0);
+        assertEquals(0,list1.size());
+
+
+    }
+
+    public void initContact(){
+        contact = new Contact();
+        String last = "Doe";
+        String middle = "Q";
+        String first = "John";
+        String phone = "(999) 999-9999";
+        String firm = "TestFirm";
+        String office = "TestOffice";
+        String email = "TestEmail@test.com";
+        String address = "TestAddress";
+        String city = "TestCity";
+        String state = "MI";
+        String zip = "TestZip";
+        String country = "US";
+        String CRDnum = "123456";
+        String contactID = "1111111";
+
+        contact.setLastName(last);
+        contact.setMiddleName(middle);
+        contact.setFirstName(first);
+        contact.setBusinessPhone(phone);
+        contact.setFirmName(firm);
+        contact.setOfficeName(office);
+        contact.setEmail(email);
+        contact.setAddress(address);
+        contact.setCity(city);
+        contact.setStateProvince(state);
+        contact.setZip(zip);
+        contact.setCountryID(country);
+        contact.setCRDNumber(CRDnum);
+        contact.setContactID(contactID);
+    }
+
+    @Test
+    public void testSetMatch(){
+        TopMatches topMatches = new TopMatches(3);
+        initContact();
+        assertTrue(master.setMatch(contact, 77));
+        assertFalse(master.setMatch(null, 101));
+        assertFalse(master.setMatch(null, -2));
+
+    }
+
+    @Test
+    public void testGetTopContacts(){
+        TopMatches topMatches = new TopMatches(3);
+        assertNotNull(topMatches.getTopContacts());
+    }
+
+    @Test
+    public void testGetTopConfidence(){
+        TopMatches topMatches = new TopMatches(3);
+        assertNotNull(topMatches.getTopConfidence());
+
+    }
+
+
 
 }
