@@ -56,7 +56,7 @@ class Preprocessor {
 
             } else {
 
-                newTemp.add(temp[i]);
+//                newTemp.add(temp[i]);
 
             }
 
