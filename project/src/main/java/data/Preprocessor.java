@@ -203,11 +203,15 @@ class Preprocessor {
         }
 
         public String standardize() {
+            if (str.isEmpty() || str.equalsIgnoreCase("") || str == null)
+            {
+             return null;
+            }
             return standardize(this.str);
         }
 
         public Map<String, String> getAbbrevs(){
-            return  this.abbrevs;
+            return new HashMap<>(this.abbrevs); // to keep it private
         }
 
         public int getCountOfAbbrevs(){
@@ -215,6 +219,10 @@ class Preprocessor {
         }
 
         public boolean checkKeyExists(){
+            if (str.isEmpty() || str.equalsIgnoreCase("") || str == null)
+            {
+                return false;
+            }
             return this.checkKeyExists(this.str);
         }
 
