@@ -309,6 +309,130 @@ public class TestPreprocessor {
         testStandardize(data,expected);
 
 
+    }
+
+    public void testCheckKeyExists(String data){
+        processor.getAddressHandler().setStr(data);
+        assertTrue(processor.getAddressHandler().checkKeyExists());
+
+    }
+    @Test
+    public void testCheckKeyExists(){
+        String data, expected;
+
+        data =  "AVE";
+        testCheckKeyExists(data);
+
+        data = "BLVD";
+        testCheckKeyExists(data);
+
+        data = "CTR";
+        testCheckKeyExists(data);
+
+        data = "CIR";
+        testCheckKeyExists(data);
+
+        data = "CT";
+        testCheckKeyExists(data);
+
+        data = "DR";
+        testCheckKeyExists(data);
+
+        data = "EXPY";
+        testCheckKeyExists(data);
+
+        data = "HTS";
+        testCheckKeyExists(data);
+
+        data = "HWY";
+        testCheckKeyExists(data);
+
+        data = "IS";
+        testCheckKeyExists(data);
+
+        data = "JCT";
+        testCheckKeyExists(data);
+
+        data = "LK";
+        testCheckKeyExists(data);
+
+        data = "LN";
+        testCheckKeyExists(data);
+
+        data = "MTN";
+        testCheckKeyExists(data);
+
+        data = "PKWY";
+        testCheckKeyExists(data);
+
+        data = "PL";
+        testCheckKeyExists(data);
+
+        data = "PLZ";
+        testCheckKeyExists(data);
+
+        data = "RDG";
+        testCheckKeyExists(data);
+
+        data = "RD";
+        testCheckKeyExists(data);
+
+        data = "SQ";
+        testCheckKeyExists(data);
+
+        data = "ST";
+        testCheckKeyExists(data);
+
+        data = "STA";
+        testCheckKeyExists(data);
+
+        data = "TER";
+        testCheckKeyExists(data);
+
+        data = "TRL";
+        testCheckKeyExists(data);
+
+        data = "TPKE";
+        testCheckKeyExists(data);
+
+        data = "VLY";
+        testCheckKeyExists(data);
+
+        data = "APT";
+        testCheckKeyExists(data);
+
+        data = "RM";
+        testCheckKeyExists(data);
+
+        data = "STE";
+        testCheckKeyExists(data);
+
+        data = "FL";
+        testCheckKeyExists(data);
+
+        data = "N";
+        testCheckKeyExists(data);
+
+        data = "E";
+        testCheckKeyExists(data);
+
+        data = "S";
+        testCheckKeyExists(data);
+
+        data = "W";
+        testCheckKeyExists(data);
+
+        data = "NE";
+        testCheckKeyExists(data);
+
+        data = "NW";
+        testCheckKeyExists(data);
+
+        data = "SE";
+        testCheckKeyExists(data);
+
+        data = "SW";
+        testCheckKeyExists(data);
 
     }
 
@@ -374,13 +498,8 @@ public class TestPreprocessor {
         mapAbbrev.put("SE", "SOUTHEAST");
         mapAbbrev.put( "SW", "SOUTHWEST");
 
-
         assertEquals(mapAbbrev,abbrevs1);
         assertEquals(mapAbbrev,abbrevs2);
-
-
-
-
 
     }
 

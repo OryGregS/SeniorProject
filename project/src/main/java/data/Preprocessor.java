@@ -214,6 +214,10 @@ class Preprocessor {
             return  this.countOfAbbrevs;
         }
 
+        public boolean checkKeyExists(){
+            return this.checkKeyExists(this.str);
+        }
+
         /***
          * function to trim and uppercase
          * @param data
