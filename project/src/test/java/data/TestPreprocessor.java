@@ -21,29 +21,106 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
 public class TestPreprocessor {
 
     private Preprocessor processor = new Preprocessor();
 
+    public void print(String input, String expected){
+        System.out.println("|" + input + "|" +" , "+  "|" + expected + "|");
+    }
+
+    @Test
+    public void testTrimData(){
+        Preprocessor processor = new Preprocessor();
+        String str1 = "123   W   Michigan   Ave";
+        System.out.println(str1);
+        String str2 = "123 W Michigan Ave";
+        System.out.println(processor.trimData(str1));
+        assertEquals(processor.trimData(str1),str2);
+    }
+
+    @Test
+    public void testPrep() {
+        Preprocessor processor = new Preprocessor();
+        String data1 = "Kevin";
+        String data2 = "null";
+        String data3 = "nulll";
+        String data4 = "`null.Kevin.|Axel,-Greg'yo~LMAO!-Pi";
+
+        String expected1 = "Kevin";
+        String expected2 = "";
+        String expected3 = "nulll";
+        String expected4 = "nullKevin|Axel GregyoLMAO Pi";
+
+        String result1 = processor.prep(data1);
+        String result2 = processor.prep(data2);
+        String result3 = processor.prep(data3);
+        String result4 = processor.prep(data4);
+
+        print(data1, result1);
+        assertTrue(result1.equalsIgnoreCase(expected1));
+        print(data2, result2);
+        assertTrue(result2.equalsIgnoreCase(expected2));
+        print(data3, result3);
+        assertTrue(result3.equalsIgnoreCase(expected3));
+        print(data4, result4);
+        assertTrue(result4.equalsIgnoreCase(expected4));
+
+    }
+
     @Test
     public void testCheckNull() {
         assertTrue(processor.checkNULL("NULL").equals(""));
+        assertTrue(processor.checkNULL("null").equals(""));
+    }
+
+    @Test
+    public void testRemovePunctuation() {
+        String expected = "Mr";
+        String expected2 = "Miss Miss";
+
+        String data1 = "Mr.~!";
+        String data2 = ".Mr......'!!~";
+        String data3 = ",Mr`,";
+        String data4 = ",,,,,,,Mr,,,,!,";
+        String data5 = "!!!Miss!!!-!~~Miss~~";
+
+        String result1 = processor.removePunctuation(data1);
+        String result2 = processor.removePunctuation(data2);
+        String result3 = processor.removePunctuation(data3);
+        String result4 = processor.removePunctuation(data4);
+        String result5 = processor.removePunctuation(data5);
+
+        print(data1, result1);
+        assertTrue(result1.equalsIgnoreCase(expected));
+        print(data2, result2);
+        assertTrue(result2.equalsIgnoreCase(expected));
+        print(data3, result3);
+        assertTrue(result3.equalsIgnoreCase(expected));
+        print(data4, result4);
+        assertTrue(result4.equalsIgnoreCase(expected));
+        print(data5, result5);
+        assertTrue(result5.equalsIgnoreCase(expected2));
+
     }
 
     @Test
     public void testCombineFields() {
-        String address1 = "123 North St ";
+        String address1 = "123 North St ! ! ~ ' . ,";
         String address2 = " Ste 123 ";
-        String combined = "123 NORTH ST STE 123";
-        String result = processor.combineFields(address1, address2);
+        String combined = "123 North St Ste 123";
 
+        String result = processor.combineFields(address1, address2);
+        print(address1 + " " + address2, result);
         assertTrue(result.equals(combined));
 
-        address1 = "          123            North St.";
-        address2 = "ste 123           ";
+        address1 = "          123            North - St.";
+        address2 = "Ste 123           ....! ! ~ ' . ,.";
         result = processor.combineFields(address1, address2);
-        System.out.println(result);
-
+        print(address1 + " " + address2, result);
         assertTrue(result.equals(combined));
     }
 
@@ -63,60 +140,9 @@ public class TestPreprocessor {
 
     }
 
-    @Test
-    public void testRemovePunctuation() {
 
-        String data1 = "Mr.";
-        String data2 = ".Mr......";
-        String data3 = ",Mr,";
-        String data4 = ",,,,,,,Mr,,,,,";
-        String data5 = "!!!Mr!!!";
-        String expected = "Mr";
 
-        String result1 = processor.removePunctuation(data1);
-        String result2 = processor.removePunctuation(data2);
-        String result3 = processor.removePunctuation(data3);
-        String result4 = processor.removePunctuation(data4);
-        String result5 = processor.removePunctuation(data5);
 
-        System.out.println(result1);
-        System.out.println(result2);
-        System.out.println(result3);
-        System.out.println(result4);
-        System.out.println(result5);
-
-        assertTrue(result1.equals(expected));
-        assertTrue(result2.equals(expected));
-        assertTrue(result3.equals(expected));
-        assertTrue(result4.equals(expected));
-        assertTrue(result5.equals(expected));
-
-    }
-
-    @Test
-    public void testPrep() {
-
-        String data1 = "Kevin.";
-        String data2 = "null";
-        String data3 = "nulll";
-        String data4 = "null.Kevin.";
-
-        String expected1 = "Kevin";
-        String expected2 = "";
-        String expected3 = "nulll";
-        String expected4 = "nullKevin";
-
-        String result1 = processor.prep(data1);
-        String result2 = processor.prep(data2);
-        String result3 = processor.prep(data3);
-        String result4 = processor.prep(data4);
-
-        assertTrue(result1.equals(expected1));
-        assertTrue(result2.equals(expected2));
-        assertTrue(result3.equals(expected3));
-        assertTrue(result4.equals(expected4));
-
-    }
 
     @Test
     public void testDict() {

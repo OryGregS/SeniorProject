@@ -52,13 +52,18 @@ class Preprocessor {
                     !tempString.equals("\n") && !tempString.equals("\t")) {
 
                 // do nothing
+//                System.out.println(temp[i] + " ok");
                 newTemp.add(temp[i]);
 
-            } else {
-
-//                newTemp.add(temp[i]);
 
             }
+
+//            else {
+
+//                newTemp.add(temp[i]);
+//                System.out.println(temp[i] + " not ok");
+
+//          }
 
         }
 
@@ -93,6 +98,7 @@ class Preprocessor {
     String checkNULL(String data) {
 
         if (data.equalsIgnoreCase("NULL") ||
+                data.equalsIgnoreCase("null") ||
                 data.equalsIgnoreCase(" ") ||
                 data.equalsIgnoreCase("\t") ||
                 data.equalsIgnoreCase("\n")) {
@@ -108,7 +114,7 @@ class Preprocessor {
     }
 
     /**
-     * Removes punctuation from strings such as | . |  ! | , | - |
+     * Removes punctuation from strings such as | . |  ! | , | - | ~ |
      *
      * @param data
      * @return string named data updated
@@ -123,12 +129,14 @@ class Preprocessor {
         newData = newData.replace("`", "").trim();
         newData = newData.replace("~", "").trim();
 
+        int i;
+        int sz;
+        String[] temp;
         if (newData.contains("-")) {
 
-            String[] temp = newData.split("-");
+            temp = newData.split("-");
+            sz = temp.length;
 
-            int i;
-            int sz = temp.length;
             for (i = 0; i < sz; i++) {
 
                 temp[i] = temp[i].trim();
