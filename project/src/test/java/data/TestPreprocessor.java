@@ -324,12 +324,13 @@ public class TestPreprocessor {
         int countOfAbbrevs2 = abbrevs2.size();
         int countOfAbbrevs2Loop = processor2.getAddressHandler().getCountOfAbbrevs();
 
+        int expected = 38;
         assertEquals(countOfAbbrevs1, countOfAbbrevs1Loop);
         assertEquals(countOfAbbrevs2,countOfAbbrevs1Loop);
-        assertEquals(countOfAbbrevs1, 38);
-        assertEquals(countOfAbbrevs2,38);
-        assertEquals(countOfAbbrevs1Loop, 38);
-        assertEquals(countOfAbbrevs2Loop,38);
+        assertEquals(countOfAbbrevs1, expected);
+        assertEquals(countOfAbbrevs2,expected);
+        assertEquals(countOfAbbrevs1Loop, expected);
+        assertEquals(countOfAbbrevs2Loop,expected);
 
         assertEquals(abbrevs1,abbrevs2);
 
