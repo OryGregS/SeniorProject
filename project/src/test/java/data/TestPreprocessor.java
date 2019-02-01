@@ -21,8 +21,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 public class TestPreprocessor {
 
@@ -35,11 +33,13 @@ public class TestPreprocessor {
     @Test
     public void testTrimData(){
         Preprocessor processor = new Preprocessor();
-        String str1 = "123   W   Michigan   Ave";
-        System.out.println(str1);
-        String str2 = "123 W Michigan Ave";
-        System.out.println(processor.trimData(str1));
-        assertEquals(processor.trimData(str1),str2);
+        String data1 = "123   W   Michigan   Ave";
+        String expected = "123 W Michigan Ave";
+
+        String result1 = processor.trimData(data1);
+        print(data1, expected);
+        assertTrue(result1.equalsIgnoreCase(expected));
+
     }
 
     @Test
