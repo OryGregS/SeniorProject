@@ -52,6 +52,7 @@ class Preprocessor {
                     !tempString.equals("\n") && !tempString.equals("\t")) {
 
                 // do nothing
+                newTemp.add(temp[i]);
 
             } else {
 
