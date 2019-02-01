@@ -62,6 +62,11 @@ class Preprocessor {
 
     }
 
+    /***
+     * check if data is null, then check is not empty, and check punctuation
+     * @param data string
+     * @return string
+     */
     String prep(String data) {
 
         String newData = checkNULL(data);

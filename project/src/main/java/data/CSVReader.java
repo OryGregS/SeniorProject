@@ -34,6 +34,8 @@ public class CSVReader {
     private Indexer indexer;
     private String indexMethod;
     private Preprocessor processor;
+    private long masterCount = 0;
+    private long matchCount = 0;
 
     public CSVReader(String masterPath, String matchPath,
                      Indexer indexer, String indexMethod) {
@@ -44,6 +46,14 @@ public class CSVReader {
         this.indexMethod = indexMethod;
         processor = new Preprocessor();
 
+    }
+
+    public long getMatchCount() {
+        return matchCount;
+    }
+
+    public long getMasterCount() {
+        return masterCount;
     }
 
     public boolean readMaster(String fileName) {
@@ -68,6 +78,8 @@ public class CSVReader {
                     setFields(contact, obs);
 
                     findGroup(contact);
+
+                    masterCount++;
 
                 }
 
@@ -102,6 +114,8 @@ public class CSVReader {
                     setFields(contact, obs, alt);
 
                     findGroup(contact);
+
+                    matchCount++;
 
                 }
             }

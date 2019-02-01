@@ -20,16 +20,15 @@ package data;
 import indexing.Indexer;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertTrue;
-import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.*;
 
 public class TestCSVReader {
 
-    private String masterPath = "./data/contact_master.csv";
-    private String matchPath = "./data/contact_match.csv";
-    private String altMatchPath = "./data/contact_match_alt.csv";
+    private String masterPath = "./data/sampledata/";
+    private String matchPath = "./data/sampledata/matches/";
     private Indexer indexer;
     private String idxMethod;
+
 
     public TestCSVReader() {
         this.indexer = new Indexer();
@@ -39,14 +38,14 @@ public class TestCSVReader {
     @Test
     public void testReadFromCSV() {
 
-        CSVReader csv = new CSVReader("./data/sampledata/",
-                "./data/sampledata/matches/", indexer, idxMethod);
-        assertTrue(csv.readMaster(masterPath));
-        assertTrue(csv.readMatch(matchPath, false));
-        assertTrue(csv.readMatch(altMatchPath, true));
-        assertFalse(csv.readMatch(altMatchPath, false));
-        assertFalse(csv.readMatch("asdfdsa.csv", true));
-        assertFalse(csv.readMaster("asdfdsa.csv"));
+        CSVReader csvReader = new CSVReader(this.masterPath,
+                this.matchPath, indexer, idxMethod);
+        assertTrue(csvReader.readMaster("contact_master.csv"));
+        assertTrue(csvReader.readMatch("contact_match.csv", false));
+        assertTrue(csvReader.readMatch("contact_match_alt.csv", true));
+        assertEquals(21450,csvReader.getMasterCount());
+        assertEquals(49625,csvReader.getMatchCount());
+
 
     }
 
