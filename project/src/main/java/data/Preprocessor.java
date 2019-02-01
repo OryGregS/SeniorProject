@@ -29,7 +29,7 @@ class Preprocessor {
     private AddressHandler addressHandler;
 
     Preprocessor() {
-        addressHandler = new AddressHandler();
+        addressHandler = new AddressHandler(); // reading JSON file
     }
 
     String trimData(String data) {
@@ -180,13 +180,38 @@ class Preprocessor {
 
     }
 
-    private class AddressHandler {
+    public AddressHandler getAddressHandler(){
+        return this.addressHandler;
+    }
+
+    /**
+     * change to public so it cab be tested
+     */
+    public class AddressHandler {
 
         private Map<String, String> abbrevs;
+        private String str;
+        private int countOfAbbrevs = 0;
 
-        AddressHandler() {
+        public AddressHandler() {
             abbrevs = new HashMap<>();
             readJSON("./config/data/abbreviations.json");
+        }
+
+        public void setStr(String str){
+            this.str = str;
+        }
+
+        public String standardize() {
+            return standardize(this.str);
+        }
+
+        public Map<String, String> getAbbrevs(){
+            return  this.abbrevs;
+        }
+
+        public int getCountOfAbbrevs(){
+            return  this.countOfAbbrevs;
         }
 
         /***
@@ -194,7 +219,7 @@ class Preprocessor {
          * @param data
          * @return string data updated
          */
-        String standardize(String data) {
+        private String standardize(String data) {
 
             String newData = data;
             newData = newData.trim();
@@ -231,6 +256,7 @@ class Preprocessor {
 
                     //System.out.printf("\nKEY: %s | Value: %s\n", key, value);
                     abbrevs.put(key, value);
+                    countOfAbbrevs++;
 
                 }
 

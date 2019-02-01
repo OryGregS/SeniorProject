@@ -11,14 +11,18 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 6:48 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 6,48 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
 package data;
 
+
 import org.junit.Test;
 
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
@@ -140,19 +144,90 @@ public class TestPreprocessor {
 
     }
 
+    @Test
+    public void testStandardize(){
+        String data1 = "North";
+        String expected1 = "NORTH";
 
+        processor.getAddressHandler().setStr(data1);
+        String result1 = processor.getAddressHandler().standardize();
 
-
+        print(data1,result1);
+    }
 
     @Test
-    public void testDict() {
+    public void testReadJSON(){
+        Preprocessor processor1 = new Preprocessor();
+        Map<String, String> abbrevs1 = processor1.getAddressHandler().getAbbrevs();
+        int countOfAbbrevs1 = abbrevs1.size();
+        int countOfAbbrevs1Loop = processor1.getAddressHandler().getCountOfAbbrevs();
 
-        String address1 = "123 S Walnut St";
-        String address2 = "fl pkwy 15";
-        String expected1 = "123 SOUTH WALNUT STREET FLOOR PARKWAY 15";
-        String result1 = processor.handleAddress(address1, address2);
-        assertTrue(result1.equals(expected1));
+        Preprocessor processor2 = new Preprocessor();
+        Map<String, String> abbrevs2 = processor2.getAddressHandler().getAbbrevs();
+        int countOfAbbrevs2 = abbrevs2.size();
+        int countOfAbbrevs2Loop = processor2.getAddressHandler().getCountOfAbbrevs();
+
+        assertEquals(countOfAbbrevs1, countOfAbbrevs1Loop);
+        assertEquals(countOfAbbrevs2,countOfAbbrevs1Loop);
+        assertEquals(countOfAbbrevs1, 38);
+        assertEquals(countOfAbbrevs2,38);
+        assertEquals(countOfAbbrevs1Loop, 38);
+        assertEquals(countOfAbbrevs2Loop,38);
+
+        assertEquals(abbrevs1,abbrevs2);
+
+        Map<String, String> mapAbbrev = new HashMap<>();
+        mapAbbrev.put("AVE", "AVENUE");
+        mapAbbrev.put("BLVD", "BOULEVARD");
+        mapAbbrev.put("CTR", "CENTER");
+        mapAbbrev.put("CIR", "CIRCLE");
+        mapAbbrev.put("CT", "COURT");
+        mapAbbrev.put("DR", "DRIVE");
+        mapAbbrev.put("EXPY", "EXPRESSWAY");
+        mapAbbrev.put("HTS", "HEIGHTS");
+        mapAbbrev.put("HWY", "HIGHWAY");
+        mapAbbrev.put( "IS", "ISLAND");
+        mapAbbrev.put("JCT", "JUNCTION");
+        mapAbbrev.put("LK", "LAKE");
+        mapAbbrev.put("LN", "LANE");
+        mapAbbrev.put("MTN", "MOUNTAIN");
+        mapAbbrev.put("PKWY", "PARKWAY");
+        mapAbbrev.put("PL", "PLACE");
+        mapAbbrev.put("PLZ", "PLAZA");
+        mapAbbrev.put("RDG", "RIDGE");
+        mapAbbrev.put("RD", "ROAD");
+        mapAbbrev.put("SQ", "SQUARE");
+        mapAbbrev.put("ST", "STREET");
+        mapAbbrev.put("STA", "STATION");
+        mapAbbrev.put("TER", "TERRACE");
+        mapAbbrev.put("TRL", "TRAIL");
+        mapAbbrev.put("TPKE", "TURNPIKE");
+        mapAbbrev.put("VLY", "VALLEY");
+        mapAbbrev.put("APT", "APARTMENT");
+        mapAbbrev.put("RM", "ROOM");
+        mapAbbrev.put("STE", "SUITE");
+        mapAbbrev.put("FL", "FLOOR");
+        mapAbbrev.put("N", "NORTH");
+        mapAbbrev.put("E", "EAST");
+        mapAbbrev.put("S", "SOUTH");
+        mapAbbrev.put("W", "WEST");
+        mapAbbrev.put("NE", "NORTHEAST");
+        mapAbbrev.put("NW", "NORTHWEST");
+        mapAbbrev.put("SE", "SOUTHEAST");
+        mapAbbrev.put( "SW", "SOUTHWEST");
+
+
+        assertEquals(mapAbbrev,abbrevs1);
+        assertEquals(mapAbbrev,abbrevs2);
+
+
+
+
 
     }
+
+
+
+
 
 }
