@@ -144,15 +144,172 @@ public class TestPreprocessor {
 
     }
 
+    public void testStandardize(String data, String expected){
+        processor.getAddressHandler().setStr(data);
+        String result = processor.getAddressHandler().standardize();
+        print(data,result);
+//        print(result, expected);
+        assertEquals(result,expected);
+    }
+
     @Test
     public void testStandardize(){
-        String data1 = "North";
-        String expected1 = "NORTH";
+        String data, expected;
 
-        processor.getAddressHandler().setStr(data1);
-        String result1 = processor.getAddressHandler().standardize();
+        data =  "AVE";
+        expected = "AVENUE";
+        testStandardize(data,expected);
 
-        print(data1,result1);
+        data = "BLVD";
+        expected = "BOULEVARD";
+        testStandardize(data,expected);
+
+        data = "CTR";
+        expected = "CENTER" ;
+        testStandardize(data,expected);
+
+        data = "CIR";
+        expected = "CIRCLE";
+        testStandardize(data,expected);
+
+        data = "CT";
+        expected = "COURT";
+        testStandardize(data,expected);
+
+        data = "DR";
+        expected = "DRIVE";
+        testStandardize(data,expected);
+
+        data = "EXPY";
+        expected = "EXPRESSWAY";
+        testStandardize(data,expected);
+
+        data = "HTS";
+        expected = "HEIGHTS";
+        testStandardize(data,expected);
+
+        data = "HWY";
+        expected = "HIGHWAY";
+        testStandardize(data,expected);
+
+        data = "IS";
+        expected = "ISLAND";
+        testStandardize(data,expected);
+
+        data = "JCT";
+        expected = "JUNCTION";
+        testStandardize(data,expected);
+
+        data = "LK";
+        expected = "LAKE";
+        testStandardize(data,expected);
+
+        data = "LN";
+        expected = "LANE";
+        testStandardize(data,expected);
+
+        data = "MTN";
+        expected = "MOUNTAIN";
+        testStandardize(data,expected);
+
+        data = "PKWY";
+        expected = "PARKWAY";
+        testStandardize(data,expected);
+
+        data = "PL";
+        expected ="PLACE";
+        testStandardize(data,expected);
+
+        data = "PLZ";
+        expected = "PLAZA";
+        testStandardize(data,expected);
+
+        data = "RDG";
+        expected = "RIDGE";
+        testStandardize(data,expected);
+
+        data = "RD";
+        expected = "ROAD";
+        testStandardize(data,expected);
+
+        data = "SQ";
+        expected = "SQUARE";
+        testStandardize(data,expected);
+
+        data = "ST";
+        expected = "STREET";
+        testStandardize(data,expected);
+
+        data = "STA";
+        expected = "STATION";
+        testStandardize(data,expected);
+
+        data = "TER";
+        expected = "TERRACE";
+        testStandardize(data,expected);
+
+        data = "TRL";
+        expected = "TRAIL";
+        testStandardize(data,expected);
+
+        data = "TPKE";
+        expected = "TURNPIKE";
+        testStandardize(data,expected);
+
+        data = "VLY";
+        expected = "VALLEY";
+        testStandardize(data,expected);
+
+        data = "APT";
+        expected = "APARTMENT";
+        testStandardize(data,expected);
+
+        data = "RM";
+        expected = "ROOM";
+        testStandardize(data,expected);
+
+        data = "STE";
+        expected = "SUITE";
+        testStandardize(data,expected);
+
+        data = "FL";
+        expected = "FLOOR";
+        testStandardize(data,expected);
+
+        data = "N";
+        expected = "NORTH";
+        testStandardize(data,expected);
+
+        data = "E";
+        expected = "EAST";
+        testStandardize(data,expected);
+
+        data = "S";
+        expected = "SOUTH";
+        testStandardize(data,expected);
+
+        data = "W";
+        expected = "WEST";
+        testStandardize(data,expected);
+
+        data = "NE";
+        expected = "NORTHEAST";
+        testStandardize(data,expected);
+
+        data = "NW";
+        expected = "NORTHWEST";
+        testStandardize(data,expected);
+
+        data = "SE";
+        expected = "SOUTHEAST";
+        testStandardize(data,expected);
+
+        data = "SW";
+        expected = "SOUTHWEST";
+        testStandardize(data,expected);
+
+
+
     }
 
     @Test
