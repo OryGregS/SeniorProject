@@ -33,8 +33,8 @@ public class TestPreprocessor {
     @Test
     public void testTrimData(){
         Preprocessor processor = new Preprocessor();
-        String data1 = "123   W   Michigan   Ave";
-        String expected = "123 W Michigan Ave";
+        String data1 = "1234   W   Michigan   Ave";
+        String expected = "1234 W Michigan Ave";
 
         String result1 = processor.trimData(data1);
         print(data1, expected);
