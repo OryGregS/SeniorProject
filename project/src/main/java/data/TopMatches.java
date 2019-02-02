@@ -49,9 +49,10 @@ class TopMatches {
      * a master contact
      *
      * @return - list of most likely match's contactID's
+     * as new list so no one has access to update the values
      */
     ArrayList<Contact> getTopContacts() {
-        return this.topContact;
+        return new ArrayList<>(topContact);
     }
 
     /**
@@ -59,9 +60,10 @@ class TopMatches {
      * a master contact
      *
      * @return - list of most likely match's level of confidence
+     * as new list so no one has access to update the values
      */
     ArrayList<Double> getTopConfidence() {
-        return this.topConfidence;
+        return new ArrayList<>(topConfidence);
     }
 
 
@@ -80,7 +82,8 @@ class TopMatches {
 
 
     /**
-     * Adds a match to the lists at the specified location.
+     * Adds a match to the lists at the specified location
+     * and move the rest of the list to the end too
      *
      * @param index      - Location to add match
      * @param contact    - new match's data
@@ -221,6 +224,8 @@ class TopMatches {
      * @param confidence - new match's level of confidence of similarity
      */
     private void addMatchToNotFull(Contact contact, double confidence) {
+        int i;
+        boolean lesserThan;
 
         // if list is empty add match to the lists
         if (isEmpty()) {
@@ -228,8 +233,8 @@ class TopMatches {
         }
         // if list is not empty
         else {
-            boolean lesserThan = true;
-            for (int i = 0; i < topConfidence.size(); i++) {
+            lesserThan = true;
+            for (i = 0; i < topConfidence.size(); i++) {
 
                 // if new match's confidence is greater than the
                 // top match at the current location
@@ -244,7 +249,7 @@ class TopMatches {
             // if new match's confidence is less than those
             // already in the list
             if (lesserThan) {
-                // add match to the end of the list
+                // then add match to the end of the list
                 addMatch(contact, confidence);
             }
         }

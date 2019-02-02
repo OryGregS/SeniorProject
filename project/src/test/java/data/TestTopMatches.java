@@ -23,8 +23,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 public class TestTopMatches {
@@ -33,6 +32,163 @@ public class TestTopMatches {
     public void initTopMatchesClass(){
         TopMatches topMatches = new TopMatches();
     }
+
+    @Test
+    public void testGetTopContacts(){
+        TopMatches topMatches1 = new TopMatches();
+        assertTrue(topMatches1.getTopContacts() != null);
+        TopMatches topMatches2 = new TopMatches(10);
+        assertTrue(topMatches2.getTopContacts() != null);
+    }
+
+    @Test
+    public void testGetTopConfidence(){
+        TopMatches topMatches1 = new TopMatches();
+        assertTrue(topMatches1.getTopConfidence() != null);
+        TopMatches topMatches2 = new TopMatches(10);
+        assertTrue(topMatches2.getTopConfidence() != null);
+    }
+
+    @Test
+    public void testRemoveMatch(){
+        TopMatches topMatches1 = new TopMatches();
+        Contact contact1 = new Contact();
+        Contact contact2 = new Contact();
+        Contact contact3 = new Contact();
+        int index = 1;
+
+        ArrayList<Contact> contacts = topMatches1.getTopContacts();
+        contacts.add(0, contact1);
+        contacts.add(1, contact2);
+        contacts.add(2, contact3);
+
+        assertEquals(3, contacts.size());
+        assertEquals(contact2, contacts.get(index));
+        contacts.remove(index);
+        assertEquals(2, contacts.size());
+        assertNotEquals(contact1,contacts.get(index));// next index check
+        assertEquals(contact3,contacts.get(index));
+
+        double c1  = 71;
+        double c2  = 81;
+        double c3  = 91;
+        ArrayList<Double> confidences = topMatches1.getTopConfidence();
+        confidences.add(0,c1);
+        confidences.add(1,c2);
+        confidences.add(2,c3);
+
+        assertEquals(3, confidences.size());
+        assertEquals(c2,confidences.get(index),0.0000001);
+        confidences.remove(index);
+        assertEquals(2, confidences.size());
+        assertNotEquals(c2,confidences.get(index));
+        assertEquals(c3,confidences.get(index),0.0000001);
+
+    }
+
+    @Test
+    public void testAddMatch(){
+        TopMatches topMatches1 = new TopMatches();
+        Contact contact1 = new Contact();
+        Contact contact2 = new Contact();
+        Contact contact3 = new Contact();
+
+        ArrayList<Contact> contacts = topMatches1.getTopContacts();
+        contacts.add(0, contact1);
+        contacts.add(1, contact2);
+        contacts.add(2, contact3);
+
+        assertEquals(contact1, contacts.get(0));
+        assertEquals(contact2, contacts.get(1));
+        assertEquals(contact3,contacts.get(2));
+
+        double c1  = 77;
+        double c2  = 87;
+        double c3  = 97;
+        ArrayList<Double> confidences = topMatches1.getTopConfidence();
+        confidences.add(0,c1);
+        confidences.add(1,c2);
+        confidences.add(2,c3);
+
+        assertEquals(c1,confidences.get(0),0.0000001);
+        assertEquals(c2,confidences.get(1),0.0000001);
+        assertEquals(c3,confidences.get(2),0.0000001);
+
+    }
+
+    @Test
+    public void testIsEmpty(){
+        TopMatches topMatches1 = new TopMatches();
+        ArrayList<Contact> contacts = topMatches1.getTopContacts();
+        ArrayList<Double> confidences = topMatches1.getTopConfidence();
+
+        assertTrue(contacts.isEmpty() && contacts.isEmpty());
+
+        contacts.add(new Contact());
+        confidences.add(77.0);
+        assertTrue(!contacts.isEmpty() || !confidences.isEmpty());
+
+        contacts.remove(0);
+        assertTrue(!contacts.isEmpty() || !confidences.isEmpty());
+
+        confidences.remove(0);
+        assertTrue(contacts.isEmpty() && confidences.isEmpty());
+
+    }
+
+//    private void replaceMatch(int index, Contact contact, double confidence) {
+//        removeMatch(this.MAX_LOC);
+//        addMatch(index, contact, confidence);
+//    }
+    @Test
+    public void testReplaceMatch(){
+        TopMatches topMatches1 = new TopMatches(3);
+        Contact contact1 = new Contact();
+        Contact contact2 = new Contact();
+        Contact contact3 = new Contact();
+
+
+        ArrayList<Contact> contacts = topMatches1.getTopContacts();
+        contacts.add(0, contact1);
+        contacts.add(1, contact2);
+        contacts.add(2, contact3);
+
+        double c1  = 91;
+        double c2  = 87;
+        double c3  = 72;
+        ArrayList<Double> confidences = topMatches1.getTopConfidence();
+        confidences.add(0,c1);
+        confidences.add(1,c2);
+        confidences.add(2,c3);
+
+//        System.out.println(confidences.get(0));
+//        System.out.println(confidences.get(1));
+//        System.out.println(confidences.get(2));
+//        System.out.println();
+
+        int maxLoc = 3 - 1;
+        contacts.remove(maxLoc);
+        confidences.remove(maxLoc);
+
+        assertEquals(2, contacts.size());
+        assertEquals(2, confidences.size());
+
+        Contact contactNew1 = new Contact();
+        double cNew1 = 95;
+        contacts.add(0,contactNew1);
+        confidences.add(0, cNew1);
+
+        assertEquals(3, contacts.size());
+        assertEquals(3, confidences.size());
+
+//        System.out.println(confidences.get(0));
+//        System.out.println(confidences.get(1));
+//        System.out.println(confidences.get(2));
+
+
+    }
+
+
 
     @Test
     public void testSetMatch(){
@@ -132,6 +288,22 @@ public class TestTopMatches {
         contact5.setCRDNumber("1234123");
         contact5.setContactID("5");
 
+        Contact contact6 = new Contact();
+        contact6.setLastName("Robert");
+        contact6.setMiddleName("");
+        contact6.setFirstName("Downey Jr.");
+        contact6.setBusinessPhone("2678 667 7777");
+        contact6.setFirmName("Firm 4");
+        contact6.setOfficeName("Office 4");
+        contact6.setEmail("robert.downey.jr@gmail.com");
+        contact6.setAddress("767 Spring Ave");
+        contact6.setCity("Jackson");
+        contact6.setStateProvince("Michigan");
+        contact6.setZip("78789");
+        contact6.setCountryID("USA");
+        contact6.setCRDNumber("1234581");
+        contact6.setContactID("6");
+
 
         ArrayList<Contact> listOfContacts = new ArrayList<>();
         listOfContacts.add(contact1);
@@ -155,10 +327,6 @@ public class TestTopMatches {
 
     }
 
-    @Test
-    public void testAddMatch(){
-
-    }
 
 
 //    void setMatch(Contact contact, double confidence) {
