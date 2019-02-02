@@ -188,11 +188,23 @@ public class TestTopMatches {
 
     }
 
+    //    void setMatch(Contact contact, double confidence) {
+//
+//        boolean full = atCapacity();
+//
+//        if (!full)
+//            addMatchToNotFull(contact, confidence);
+//
+//        else if (checkMatch(confidence))
+//            addMatchToFull(contact, confidence);
+//
+//    }
+
 
 
     @Test
     public void testSetMatch(){
-
+        testAddMatchToNotFull();
     }
 
     @Test
@@ -203,9 +215,45 @@ public class TestTopMatches {
         for ( i = 0; i < num; i++) {
             topMatches.getTopConfidence().add(77.0);
         }
-        assertEquals(topMatches.getTopConfidence().size(), num);
+        assertEquals(num, topMatches.getTopConfidence().size());
 
     }
+
+    @Test
+    public void testAddMatchToNotFull(){
+        TopMatches topMatches1 = new TopMatches(3);
+        Contact contact1 = new Contact();
+        Contact contact2 = new Contact();
+        Contact contact3 = new Contact();
+        double c1  = 77;
+        double c2  = 91;
+        double c3  = 87;
+        topMatches1.setMatch(contact1,c1);
+        topMatches1.setMatch(contact2,c2);
+        topMatches1.setMatch(contact3,c3);
+
+
+        ArrayList<Double> expectedConfidences = new ArrayList<>();
+        expectedConfidences.add(91.0);
+        expectedConfidences.add(87.0);
+        expectedConfidences.add(77.0);
+
+        assertEquals(topMatches1.getTopConfidence(),expectedConfidences);
+
+        ArrayList<Contact> expectedContacts = new ArrayList<>();;
+        expectedContacts.add(contact2);
+        expectedContacts.add(contact3);
+        expectedContacts.add(contact1);
+
+        assertEquals(topMatches1.getTopContacts(),expectedContacts);
+
+    }
+
+    @Test
+    public void testAddMatchToFull(){
+        // case 1
+    }
+
 
     public ArrayList<Contact> newContact(){
         Contact contact1 = new Contact();
@@ -315,39 +363,13 @@ public class TestTopMatches {
         return listOfContacts;
     }
 
-    @Test
-    public void testAddMatchToNotFull(){
-        Contact contact = newContact().get(0);
-        TopMatches topMatches = new TopMatches();
-        // Check if list is empty and being added first
-        topMatches.setMatch(contact,77);
-        assertEquals(topMatches.getTopContacts().size(),1);
-        assertEquals(topMatches.getTopConfidence().size(),1);
-
-
-    }
 
 
 
-//    void setMatch(Contact contact, double confidence) {
-//
-//        boolean full = atCapacity();
-//
-//        if (!full)
-//            addMatchToNotFull(contact, confidence);
-//
-//        else if (checkMatch(confidence))
-//            addMatchToFull(contact, confidence);
-//
-//    }
 
-    @Test
-    public void isEmpty(){
-        int num = 25;
-        TopMatches topMatches = new TopMatches(num);
-        assertTrue(topMatches.getTopConfidence().isEmpty());
-        assertTrue(topMatches.getTopContacts().isEmpty());
-    }
+
+
+
 
 
 

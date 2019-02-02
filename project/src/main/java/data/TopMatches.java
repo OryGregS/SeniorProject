@@ -122,58 +122,14 @@ class TopMatches {
     }
 
     /**
-     * Logic to add a potential match to the lists when they're
-     * at capacity.
+     * Adds a match to the end of the lists.
      *
      * @param contact    - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatchToFull(Contact contact, double confidence) {
-
-        // loop through the matches with lowest confidence first
-        int i;
-        for (i = this.MAX_LOC; i >= 0; i--) {
-
-            // if potential match's confidence is greater than
-            // the current location
-            if (confidence > topConfidence.get(i)) {
-
-                // if potential match's confidence is greater than
-                // the match with highest confidence (at location 0)
-                if (i == 0) {
-                    // remove least likely match and add
-                    // new match to location 0
-                    replaceMatch(i, contact, confidence);
-                    break;
-                }
-            }
-            // if potential match's confidence is equal to
-            // a top match's confidence
-            else if (confidence == topConfidence.get(i)) {
-
-                // if last observation
-                if (i == this.MAX_LOC) {
-                    // replace last match
-                    replaceMatch(i, contact, confidence);
-                    break;
-                    // if NOT last observation
-                } else {
-                    // remove last observation and
-                    // add new match to location behind
-                    // top match with equal confidence
-                    replaceMatch(i + 1, contact, confidence);
-                    break;
-                }
-            }
-            // if potential match's confidence is less
-            // than the current top match's location
-            else if (confidence < topConfidence.get(i)) {
-                // remove least likely top match and add
-                // new match behind current match
-                replaceMatch(i + 1, contact, confidence);
-                break;
-            }
-        }
+    private void addMatch(Contact contact, double confidence) {
+        this.topContact.add(contact);
+        this.topConfidence.add(confidence);
     }
 
 
@@ -256,14 +212,60 @@ class TopMatches {
     }
 
     /**
-     * Adds a match to the end of the lists.
+     * Logic to add a potential match to the lists when they're
+     * at capacity.
      *
      * @param contact    - new match's data
      * @param confidence - new match's level of confidence of similarity
      */
-    private void addMatch(Contact contact, double confidence) {
-        this.topContact.add(contact);
-        this.topConfidence.add(confidence);
+    private void addMatchToFull(Contact contact, double confidence) {
+
+        // loop through the matches with lowest confidence first
+        int i;
+        for (i = this.MAX_LOC; i >= 0; i--) {
+
+            // if potential match's confidence is greater than
+            // the current location
+            if (confidence > topConfidence.get(i)) {
+
+                // if potential match's confidence is greater than
+                // the match with highest confidence (at location 0)
+                if (i == 0) {
+                    // remove least likely match and add
+                    // new match to location 0
+                    replaceMatch(i, contact, confidence);
+                    break;
+                }
+            }
+            // if potential match's confidence is equal to
+            // a top match's confidence
+            else if (confidence == topConfidence.get(i)) {
+
+                // if last observation
+                if (i == this.MAX_LOC) {
+                    // replace last match
+                    replaceMatch(i, contact, confidence);
+                    break;
+                    // if NOT last observation
+                } else {
+                    // remove last observation and
+                    // add new match to location behind
+                    // top match with equal confidence
+                    replaceMatch(i + 1, contact, confidence);
+                    break;
+                }
+            }
+            // if potential match's confidence is less
+            // than the current top match's location
+            else if (confidence < topConfidence.get(i)) {
+                // remove least likely top match and add
+                // new match behind current match
+                replaceMatch(i + 1, contact, confidence);
+                break;
+            }
+        }
     }
+
+
 
 }
