@@ -16,6 +16,73 @@
  */
 
 package indexing;
+import data.Contact;
+import data.MasterContact;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class TestBlockMap {
+
+    @Test
+    public void testPutForMasterContact(){
+        BlockMap blockMap = new BlockMap();
+        MasterContact masterContact1 = new MasterContact();
+        MasterContact masterContact2 = new MasterContact();
+        String key1 = "one";
+        String key2 = "one";
+
+        blockMap.putForMasterContact(key1, masterContact1);
+        assertTrue(blockMap.getGroups().containsKey(key1));
+
+        blockMap.putForMasterContact(key2, masterContact2);
+        assertTrue(blockMap.getGroups().containsKey(key2));
+
+        assertEquals(2, blockMap.getGroups().get(key1).getMasterContacts().size());
+        assertEquals(2, blockMap.getGroups().get(key2).getMasterContacts().size());
+
+    }
+
+    @Test
+    public void testPutForContacts(){
+        BlockMap blockMap = new BlockMap();
+        Contact contact1 = new Contact();
+        Contact contact2 = new Contact();
+        String key1 = "1";
+        String key2 = "1";
+
+        blockMap.putForContacts(key1, contact1);
+        assertTrue(blockMap.getGroups().containsKey(key1));
+
+        blockMap.putForContacts(key2, contact2);
+        assertTrue(blockMap.getGroups().containsKey(key2));
+
+        assertEquals(2, blockMap.getGroups().get(key1).getMatchContacts().size());
+        assertEquals(2, blockMap.getGroups().get(key2).getMatchContacts().size());
+
+    }
+
+    @Test
+    public void testCheckExists(){
+        BlockMap blockMap = new BlockMap();
+        Contact contact1 = new Contact();
+        Contact contact2 = new Contact();
+        MasterContact masterContact1 = new MasterContact();
+        MasterContact masterContact2 = new MasterContact();
+        blockMap.putForContacts("1", contact1);
+        blockMap.putForContacts("2", contact2);
+        blockMap.putForContacts("2", masterContact2);
+        blockMap.putForContacts("1", masterContact1);
+
+        assertTrue(blockMap.getGroups().containsKey("1"));
+        assertTrue(blockMap.getGroups().containsKey("2"));
+        assertTrue(!blockMap.getGroups().containsKey("7"));
+
+    }
+
+    @Test
+    public void testGetGroups(){
+        BlockMap blockMap = new BlockMap();
+        assertNotNull(blockMap.getGroups());
+
+    }
 }

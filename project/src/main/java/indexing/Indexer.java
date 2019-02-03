@@ -61,7 +61,7 @@ public class Indexer {
         return this.allMatchContacts.size();
     }
 
-    @SuppressWarnings("Duplicates")
+
     public void index(MasterContact contact, String method) {
 
         String key;
@@ -70,12 +70,12 @@ public class Indexer {
         if (checkPartnership(lastName)) {
 
             key = contact.getZip();
-            partnerships.put(key, contact);
+            partnerships.putForMasterContact(key, contact);
 
         } else {
 
             key = encode(lastName, method);
-            contactGroups.put(key, contact);
+            contactGroups.putForMasterContact(key, contact);
 
         }
 
@@ -83,7 +83,7 @@ public class Indexer {
 
     }
 
-    @SuppressWarnings("Duplicates")
+
     public void index(Contact contact, String method) {
 
         String key;
@@ -92,12 +92,12 @@ public class Indexer {
         if (checkPartnership(lastName)) {
 
             key = contact.getZip();
-            partnerships.put(key, contact);
+            partnerships.putForContacts(key, contact);
 
         } else {
 
             key = encode(lastName, method);
-            contactGroups.put(key, contact);
+            contactGroups.putForContacts(key, contact);
 
         }
 

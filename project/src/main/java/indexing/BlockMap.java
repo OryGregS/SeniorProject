@@ -34,7 +34,7 @@ class BlockMap {
     }
 
 
-   void put(String key, MasterContact contact) {
+   void putForMasterContact(String key, MasterContact contact) {
 
         if (checkExists(key)) {
 
@@ -49,7 +49,7 @@ class BlockMap {
         }
     }
 
-    void put(String key, Contact contact) {
+    void putForContacts(String key, Contact contact) {
 
         if (checkExists(key)) {
 
