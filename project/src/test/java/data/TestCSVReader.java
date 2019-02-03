@@ -26,18 +26,11 @@ public class TestCSVReader {
 
     private String masterPath = "./data/sampledata/";
     private String matchPath = "./data/sampledata/matches/";
-    private Indexer indexer;
-    private String idxMethod;
-
-
-    public TestCSVReader() {
-        this.indexer = new Indexer();
-        this.idxMethod = "metaphone";
-    }
 
     @Test
     public void testReadFromCSV() {
-
+        Indexer indexer = new Indexer();
+        String idxMethod = "metaphone";
         CSVReader csvReader = new CSVReader(this.masterPath,
                 this.matchPath, indexer, idxMethod);
         assertTrue(csvReader.readMaster("contact_master.csv"));

@@ -41,7 +41,7 @@ public class TestPreprocessor {
         String expected = "1234 W Michigan Ave";
 
         String result1 = processor.trimData(data1);
-        print(data1, expected);
+//        print(data1, expected);
         assertTrue(result1.equalsIgnoreCase(expected));
 
     }
@@ -64,13 +64,13 @@ public class TestPreprocessor {
         String result3 = processor.prep(data3);
         String result4 = processor.prep(data4);
 
-        print(data1, result1);
+//        print(data1, result1);
         assertTrue(result1.equalsIgnoreCase(expected1));
-        print(data2, result2);
+//        print(data2, result2);
         assertTrue(result2.equalsIgnoreCase(expected2));
-        print(data3, result3);
+//        print(data3, result3);
         assertTrue(result3.equalsIgnoreCase(expected3));
-        print(data4, result4);
+//        print(data4, result4);
         assertTrue(result4.equalsIgnoreCase(expected4));
 
     }
@@ -98,15 +98,15 @@ public class TestPreprocessor {
         String result4 = processor.removePunctuation(data4);
         String result5 = processor.removePunctuation(data5);
 
-        print(data1, result1);
+//        print(data1, result1);
         assertTrue(result1.equalsIgnoreCase(expected));
-        print(data2, result2);
+//        print(data2, result2);
         assertTrue(result2.equalsIgnoreCase(expected));
-        print(data3, result3);
+//        print(data3, result3);
         assertTrue(result3.equalsIgnoreCase(expected));
-        print(data4, result4);
+//        print(data4, result4);
         assertTrue(result4.equalsIgnoreCase(expected));
-        print(data5, result5);
+//        print(data5, result5);
         assertTrue(result5.equalsIgnoreCase(expected2));
 
     }
@@ -118,13 +118,13 @@ public class TestPreprocessor {
         String combined = "123 North St Ste 123";
 
         String result = processor.combineFields(address1, address2);
-        print(address1 + " " + address2, result);
+//        print(address1 + " " + address2, result);
         assertTrue(result.equals(combined));
 
         address1 = "          123            North - St.";
         address2 = "Ste 123           ....! ! ~ ' . ,.";
         result = processor.combineFields(address1, address2);
-        print(address1 + " " + address2, result);
+//        print(address1 + " " + address2, result);
         assertTrue(result.equals(combined));
     }
 
@@ -147,7 +147,7 @@ public class TestPreprocessor {
     public void testStandardize(String data, String expected){
         processor.getAddressHandler().setStr(data);
         String result = processor.getAddressHandler().standardize();
-        print(data,result);
+//        print(data,result);
 //        print(result, expected);
         assertEquals(result,expected);
     }
