@@ -266,6 +266,7 @@ class TopMatches {
                 // new match behind current match
 
                 // This part should not be used because the list is already full
+                // and to keep top matches always
                 //replaceMatch(i + 1, contact, confidence);
                 //System.out.println(confidence + " " + topConfidence.get(i));
 
