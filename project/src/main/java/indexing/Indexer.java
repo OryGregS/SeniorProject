@@ -49,9 +49,9 @@ public class Indexer {
         return this.allMasterContacts;
     }
 
-    /*public ArrayList<Contact> getAllMatchContacts() {
+    public ArrayList<Contact> getAllMatchContacts() {
         return this.allMatchContacts;
-    }*/
+    }
 
     public int getMasterSize() {
         return this.allMasterContacts.size();
@@ -62,7 +62,7 @@ public class Indexer {
     }
 
 
-    public void index(MasterContact contact, String method) {
+    public void indexForMasterContact(MasterContact contact, String method) {
 
         String key;
         String lastName = contact.getLastName();
@@ -84,7 +84,7 @@ public class Indexer {
     }
 
 
-    public void index(Contact contact, String method) {
+    public void indexForContact(Contact contact, String method) {
 
         String key;
         String lastName = contact.getLastName();
@@ -113,6 +113,9 @@ public class Indexer {
 
         encodeMethod = encodeMethod.toLowerCase();
 
+        // setMaxCodeLen( number ); so output is longer and obtain more information
+        // to be test later
+
         switch (encodeMethod) {
 
             case "nysiis":
@@ -130,14 +133,17 @@ public class Indexer {
             case "soundex":
                 Soundex soundex = new Soundex();
                 return soundex.soundex(data);
+                // the output is letters at the beginning and numbers
 
             case "rsoundex":
                 RefinedSoundex rsoundex = new RefinedSoundex();
                 return rsoundex.encode(data);
+                // the output is letters at the beginning and numbers
 
             case "dmsoundex":
                 DaitchMokotoffSoundex dmsoundex = new DaitchMokotoffSoundex();
                 return dmsoundex.encode(data);
+                // the output is numbers
 
             default:
                 return data;

@@ -75,7 +75,7 @@ public class CSVReader {
 
                     MasterContact contact = new MasterContact();
 
-                    setFields(contact, obs);
+                    setFieldsForMasterContact(contact, obs);
 
                     findGroup(contact);
 
@@ -111,7 +111,7 @@ public class CSVReader {
 
                     Contact contact = new Contact();
 
-                    setFields(contact, obs, alt);
+                    setFieldsForContact(contact, obs, alt);
 
                     findGroup(contact);
 
@@ -129,15 +129,15 @@ public class CSVReader {
     }
 
     private void findGroup(Contact contact) {
-        this.indexer.index(contact, this.indexMethod);
+        this.indexer.indexForContact(contact, this.indexMethod);
     }
 
     private void findGroup(MasterContact contact) {
-        this.indexer.index(contact, this.indexMethod);
+        this.indexer.indexForMasterContact(contact, this.indexMethod);
     }
 
     @SuppressWarnings("Duplicates")
-    private void setFields(Contact contact, CSVRecord obs, boolean alt) {
+    private void setFieldsForContact(Contact contact, CSVRecord obs, boolean alt) {
 
         contact.setLastName(processor.prep(obs.get(0)));
         contact.setMiddleName(processor.prep(obs.get(1)));
@@ -173,28 +173,28 @@ public class CSVReader {
     }
 
     @SuppressWarnings("Duplicates")
-    private void setFields(MasterContact contact, CSVRecord obs) {
+    private void setFieldsForMasterContact(MasterContact masterContact, CSVRecord obs) {
 
-        contact.setLastName(processor.prep(obs.get(0)));
-        contact.setMiddleName(processor.prep(obs.get(1)));
-        contact.setFirstName(processor.prep(obs.get(2)));
-        contact.setFirmName(processor.prep(obs.get(3)));
-        contact.setOfficeName(processor.prep(obs.get(4)));
-        contact.setEmail(processor.checkNULL(obs.get(5)));
-        contact.setBusinessPhone(processor.checkNULL(obs.get(6)));
+        masterContact.setLastName(processor.prep(obs.get(0)));
+        masterContact.setMiddleName(processor.prep(obs.get(1)));
+        masterContact.setFirstName(processor.prep(obs.get(2)));
+        masterContact.setFirmName(processor.prep(obs.get(3)));
+        masterContact.setOfficeName(processor.prep(obs.get(4)));
+        masterContact.setEmail(processor.checkNULL(obs.get(5)));
+        masterContact.setBusinessPhone(processor.checkNULL(obs.get(6)));
 
         String address1 = obs.get(7);
         String address2 = obs.get(8);
         String address = processor.handleAddress(address1, address2);
 
-        contact.setAddress(address);
-        contact.setCity(processor.prep(obs.get(9)));
-        contact.setStateProvince(processor.prep(obs.get(10)));
-        contact.setZip(processor.prep(obs.get(11)));
+        masterContact.setAddress(address);
+        masterContact.setCity(processor.prep(obs.get(9)));
+        masterContact.setStateProvince(processor.prep(obs.get(10)));
+        masterContact.setZip(processor.prep(obs.get(11)));
         // skip additional zipcodes
-        contact.setCountryID(processor.prep(obs.get(13)));
-        contact.setCRDNumber(processor.prep(obs.get(14)));
-        contact.setContactID(processor.prep(obs.get(15)));
+        masterContact.setCountryID(processor.prep(obs.get(13)));
+        masterContact.setCRDNumber(processor.prep(obs.get(14)));
+        masterContact.setContactID(processor.prep(obs.get(15)));
     }
 
 }
