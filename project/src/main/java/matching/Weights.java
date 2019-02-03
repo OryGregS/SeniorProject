@@ -33,10 +33,15 @@ public class Weights {
     private Map<String, Double> weights;
     private String FILEPATH;
     private String FILENAME;
+    private int countWeights;
 
     public Weights(String filePath) {
         this.FILEPATH = filePath;
         this.weights = new HashMap<>();
+    }
+
+    Map<String, Double> getWeights(){
+        return new HashMap<>(this.weights);
     }
 
     public double getWeight(String key) {
@@ -53,57 +58,61 @@ public class Weights {
 
     }
 
-    public void initialize(String fileName) {
-
-        readJSON(fileName);
-
-    }
-
     private boolean keyExists(String key) {
         return weights.containsKey(key);
     }
 
-    private void checkWeightSum() {
-        try {
-            weightSum();
-        } catch (IllegalValuesException e) {
-            System.out.println(e.getMessage());
-            System.exit(-1);
-        }
+    public void initialize(String fileName) {
+        readJSON(fileName);
     }
 
-    private void weightSum() throws IllegalValuesException {
+
+
+    boolean checkWeightSum() {
+//        try {
+//            weightSum();
+//        } catch (IllegalValuesException e) {
+//            System.out.println(e.getMessage());
+//            System.exit(-1);
+//        }
+        return weightSum();
+    }
+
+//    throws IllegalValuesException
+    private boolean weightSum()  {
 
         double sum = 0.0;
-
+        boolean ok = true;
         for (Iterator values = weights.values().iterator(); values.hasNext(); ) {
-
             sum += (double) values.next();
-
         }
 
         double scale = Math.pow(10, 6);
         sum = Math.round(sum * scale) / scale;
 
-
         if (sum != 1.0) {
-
+            ok = false;
             String message = String.format("\nError reading weights from %s.\n" +
                     "\nExpected 1.0 but got %.16f. " +
                     "\nWeights must be equal to 1.0 for proper functionality. " +
                     "\nPlease adjust the weights in the config/weights directory.", this.FILENAME, sum);
-
-            throw new IllegalValuesException(message);
+            System.out.println(message);
+//            throw new IllegalValuesException(message);
 
         }
 
+        return ok;
+
     }
 
-    private boolean checkJSONExists() {
-        File file = new File(this.FILEPATH + this.FILENAME);
-        return file.exists();
-    }
+//    private boolean checkJSONExists() {
+//        File file = new File(this.FILEPATH + this.FILENAME);
+//        return file.exists();
+//    }
 
+    /**
+     * over write to same file
+     */
     public void writeJSON() {
 
         JSONObject jo = new JSONObject();
@@ -135,9 +144,16 @@ public class Weights {
 
     }
 
+    public int getCountWeights(){
+        return this.countWeights;
+    }
+
     private boolean readJSON(String fileName) {
 
         this.FILENAME = fileName;
+        double value;
+        String key;
+        countWeights = 0;
 
         File file = new File(this.FILEPATH + this.FILENAME);
 
@@ -148,15 +164,16 @@ public class Weights {
 
             for (Iterator keys = jo.keys(); keys.hasNext(); ) {
 
-                String key = keys.next().toString();
-                double value = jo.getDouble(key);
+                key = keys.next().toString();
+                value = jo.getDouble(key);
 
                 weights.put(key, value);
+                countWeights++;
 
             }
 
-            checkWeightSum();
-            return true;
+//            checkWeightSum();
+            return checkWeightSum();
 
         } catch (IOException e) {
 
@@ -245,7 +262,7 @@ public class Weights {
 
     }
 
-    private int sumSample(int[] intList) {
+    int sumSample(int[] intList) {
 
         int sum = 0;
 
