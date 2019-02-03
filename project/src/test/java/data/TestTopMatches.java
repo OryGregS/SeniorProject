@@ -251,7 +251,101 @@ public class TestTopMatches {
 
     @Test
     public void testAddMatchToFull(){
-        // case 1
+        TopMatches topMatches = new TopMatches(3);
+        Contact contact1 = new Contact();
+        Contact contact2 = new Contact();
+        Contact contact3 = new Contact();
+        double c1  = 77;
+        double c2  = 91;
+        double c3  = 87;
+        ArrayList<Double> expectedConfidences;
+        ArrayList<Contact> expectedContacts;
+
+        //Case #1 : new match to location 0
+        topMatches.setMatch(contact1,c1);
+        topMatches.setMatch(contact2,c2);
+        topMatches.setMatch(contact3,c3);
+        System.out.println(topMatches.getTopConfidence());
+
+        Contact contactNew1 = new Contact();
+        double cNew1  = 95;
+        topMatches.setMatch(contactNew1, cNew1);
+
+        expectedConfidences = new ArrayList<>();
+        expectedConfidences.add(95.0);
+        expectedConfidences.add(91.0);
+        expectedConfidences.add(87.0);
+
+        assertEquals(topMatches.getTopConfidence(),expectedConfidences);
+        System.out.println(expectedConfidences);
+
+        expectedContacts = new ArrayList<>();;
+        expectedContacts.add(contactNew1);
+        expectedContacts.add(contact2);
+        expectedContacts.add(contact3);
+
+        assertEquals(topMatches.getTopContacts(),expectedContacts);
+
+
+        // Case #2: new match equal to top match
+        topMatches = new TopMatches(3);
+        topMatches.setMatch(contact1,c1);
+        topMatches.setMatch(contact2,c2);
+        topMatches.setMatch(contact3,c3);
+        System.out.println(topMatches.getTopConfidence());
+
+        // Case #2.1: replace last index
+//        Contact contact5 = new Contact();
+//        double c5 = 77;
+//        topMatches.setMatch(contact5, c5);
+//        expectedConfidences = new ArrayList<>();
+//        expectedConfidences.add(91.0);
+//        expectedConfidences.add(87.0);
+//        expectedConfidences.add(77.0);
+//
+//        assertEquals(topMatches.getTopConfidence(),expectedConfidences);
+//        System.out.println(expectedConfidences);
+//
+//        expectedContacts = new ArrayList<>();;
+//        expectedContacts.add(contact2);
+//        expectedContacts.add(contact3);
+//        expectedContacts.add(contact5);
+//
+//        assertEquals(topMatches.getTopContacts(),expectedContacts);
+
+        // still in research if is useful, so no tested
+
+        // Case #2.2: replace in between the indexes
+        Contact contact4 = new Contact();
+        double c4  = 91;
+        topMatches.setMatch(contact4, c4);
+
+        expectedConfidences = new ArrayList<>();
+        expectedConfidences.add(91.0);
+        expectedConfidences.add(91.0);
+        expectedConfidences.add(87.0);
+
+        assertEquals(topMatches.getTopConfidence(),expectedConfidences);
+        System.out.println(expectedConfidences);
+
+        expectedContacts = new ArrayList<>();;
+        expectedContacts.add(contact2);
+        expectedContacts.add(contact4);
+        expectedContacts.add(contact3);
+
+        assertEquals(topMatches.getTopContacts(),expectedContacts);
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 

@@ -244,7 +244,11 @@ class TopMatches {
                 // if last observation
                 if (i == this.MAX_LOC) {
                     // replace last match
-                    replaceMatch(i, contact, confidence);
+
+                    // still in research if is useful
+//                    replaceMatch(i, contact, confidence);
+                    // still in research if is useful
+
                     break;
                     // if NOT last observation
                 } else {
@@ -260,7 +264,11 @@ class TopMatches {
             else if (confidence < topConfidence.get(i)) {
                 // remove least likely top match and add
                 // new match behind current match
-                replaceMatch(i + 1, contact, confidence);
+
+                // This part should not be used because the list is already full
+                //replaceMatch(i + 1, contact, confidence);
+                //System.out.println(confidence + " " + topConfidence.get(i));
+
                 break;
             }
         }
