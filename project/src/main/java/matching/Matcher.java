@@ -99,6 +99,7 @@ public class Matcher {
         //String compareMethod = "ratio";
 
         int j;
+        double confidence;
         long matchSetSize = matchSet.size();
         // for each contact in the dataset to match
         for (j = 0; j < matchSetSize; j++) {
@@ -115,7 +116,7 @@ public class Matcher {
 
             } else {
 
-                double confidence = 0.0;
+                confidence = 0.0;
 
                 CompareRecord cmp;
 

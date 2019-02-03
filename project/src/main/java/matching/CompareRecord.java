@@ -66,16 +66,16 @@ class CompareRecord {
 
     }
 
-    double similarity(String name) {
+    double similarity(String field) {
 
         double matchConfidence;
         double weight = 1.0;
-        name = name.toLowerCase();
+        field = field.toLowerCase();
 
         String masterData = "";
         String matchData = "";
 
-        switch (name) {
+        switch (field) {
             case "last":
                 masterData = this.masterContact.getLastName();
                 matchData = this.matchContact.getLastName();
