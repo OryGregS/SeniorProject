@@ -78,4 +78,35 @@ public class TestWeights {
 
     }
 
+    @Test
+    public void testWriteJSON(){
+        Weights weights = new Weights("");
+        weights.initialize("./config/weights/weights1.json");
+        weights.writeJSON();
+        Map<String, Double> weightsMap = weights.getWeights();
+        double dt = 0.0000001;
+        assertEquals(0.110625, weightsMap.get("Zip"),dt );
+        assertEquals(0.41, weightsMap.get("Email"),dt );
+        assertEquals(0.0553125, weightsMap.get("Address"),dt );
+        assertEquals(0.0, weightsMap.get("FirmName"),dt );
+        assertEquals(0.0184375, weightsMap.get("Phone"),dt );
+        assertEquals(0.036875, weightsMap.get("State"),dt );
+        assertEquals(0.1475, weightsMap.get("FirstName"),dt );
+        assertEquals(0.0, weightsMap.get("Country"),dt );
+        assertEquals(0.0553125, weightsMap.get("City"),dt );
+        assertEquals(0.1475, weightsMap.get("LastName"),dt );
+        assertEquals(0.0184375, weightsMap.get("MiddleName"),dt );
+        assertEquals(0.0, weightsMap.get("OfficeName"),dt );
+
+    }
+
+    @Test
+    public void testGetRandomWeights(){
+        Weights weights1 = new Weights("");
+        weights1.initialize("./config/weights/weights1.json");
+        weights1.getRandomWeights(0.39, true);
+        assertEquals(12, weights1.getWeights().size());
+
+    }
+
 }

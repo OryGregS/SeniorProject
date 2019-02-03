@@ -74,8 +74,8 @@ public class UpdateWeights {
                 weights1.initialize("weights1.json");
                 weights2.initialize("weights2.json");
 
-                weights1.sample(email_weights[i], false);
-                weights2.sample(email_weights[i], true);
+                weights1.getRandomWeights(email_weights[i], false);
+                weights2.getRandomWeights(email_weights[i], true);
 
                 Indexer indexer = init.getIndexer();
                 CSVReader csvReader = init.getCsvReader();

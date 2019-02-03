@@ -67,15 +67,18 @@ public class Weights {
     }
 
 
-
-    boolean checkWeightSum() {
-//        try {
+    //        try {
 //            weightSum();
 //        } catch (IllegalValuesException e) {
 //            System.out.println(e.getMessage());
 //            System.exit(-1);
 //        }
-        return weightSum();
+    boolean checkWeightSum() {
+        if (weightSum() == false){
+            System.exit(-1);
+        }
+
+        return true;
     }
 
 //    throws IllegalValuesException
@@ -191,8 +194,9 @@ public class Weights {
 
     }
 
+    // has to use initialize() before be used
     @SuppressWarnings("Duplicates")
-    public void sample(double emailWeight, boolean alternate) {
+    public void getRandomWeights(double emailWeight, boolean alternate) {
 
         Random random = new Random();
 
@@ -210,6 +214,7 @@ public class Weights {
         int i;
 
         for (i = 0; i < intList.length; i++) {
+            // uniformly distributed numbers generated
             intList[i] = random.nextInt(100) + 1;
         }
 
@@ -259,10 +264,9 @@ public class Weights {
         }
 
         checkWeightSum();
-
     }
 
-    int sumSample(int[] intList) {
+    private int sumSample(int[] intList) {
 
         int sum = 0;
 
