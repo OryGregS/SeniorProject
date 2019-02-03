@@ -38,7 +38,7 @@ public class Group {
         this.matchContacts.add(contact);
     }
 
-    public void addContact(MasterContact contact) {
+    public void addMasterContact(MasterContact contact) {
         this.masterContacts.add(contact);
     }
 

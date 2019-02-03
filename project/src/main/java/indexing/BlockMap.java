@@ -33,23 +33,22 @@ class BlockMap {
 
     }
 
-    @SuppressWarnings("Duplicates")
+
    void put(String key, MasterContact contact) {
 
         if (checkExists(key)) {
 
-            groups.get(key).addContact(contact);
+            groups.get(key).addMasterContact(contact);
 
         } else {
 
             Group newGroup = new Group();
-            newGroup.addContact(contact);
+            newGroup.addMasterContact(contact);
             groups.put(key, newGroup);
 
         }
     }
 
-    @SuppressWarnings("Duplicates")
     void put(String key, Contact contact) {
 
         if (checkExists(key)) {
