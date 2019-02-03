@@ -45,7 +45,7 @@ public class Group {
     public ArrayList<MasterContact> getMasterContacts() {
         return masterContacts;
     }
-// make it private
+// make it private later
     public ArrayList<Contact> getMatchContacts() {
         return matchContacts;
     }
