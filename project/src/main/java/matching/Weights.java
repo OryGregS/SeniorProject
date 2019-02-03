@@ -174,6 +174,7 @@ public class Weights {
 
     }
 
+    @SuppressWarnings("Duplicates")
     public void sample(double emailWeight, boolean alternate) {
 
         Random random = new Random();
@@ -206,7 +207,6 @@ public class Weights {
                 randomWeights[i] = ((double) intList[i] / (double) sum) * (1 - emailWeight);
             }
         }
-
 
         if (alternate) {
 
