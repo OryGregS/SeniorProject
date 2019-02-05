@@ -82,6 +82,8 @@ public class Matcher {
             ArrayList<MasterContact> masterContacts = group.getMasterContacts();
             ArrayList<Contact> matchContacts = group.getMatchContacts();
 
+            numComparisons += masterContacts.size() * matchContacts.size();
+
 
             masterContacts.parallelStream().forEach(masterContact ->
                     compare(masterContact, matchContacts));
@@ -134,7 +136,7 @@ public class Matcher {
 
                 }
 
-                numComparisons++;
+                //numComparisons++;
 
 
                 boolean exactMatch = cmp.CRD();

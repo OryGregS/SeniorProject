@@ -31,8 +31,9 @@ public class MatchMain {
     public static void main(String[] args) {
 
 
-        runBoth(false);
-        //runBothSep("metaphone", false);
+        for (int i = 0; i < 50; i++)
+            //runBoth(false);
+            runBothSep(false);
         //System.out.println(System.getProperty("os.name"));
 
 
