@@ -27,7 +27,7 @@ public class TestIndexer {
     @Test
     public void testGetContactGroups(){
         Indexer indexer = new Indexer();
-        assertNotNull(indexer.getContactGroups());
+        assertNotNull(indexer.getIndividuals());
     }
 
     @Test
@@ -64,8 +64,8 @@ public class TestIndexer {
         masterContact1.setLastName("Illesca");
 
         Indexer indexer1 = new Indexer();
-        indexer1.indexForMasterContact(masterContact1, "metaphone");
-        String resultForContactGroups = indexer1.getContactGroups().get(0).getMasterContacts().get(0).getLastName();
+        indexer1.indexMaster(masterContact1, "metaphone");
+        String resultForContactGroups = indexer1.getIndividuals().get(0).getMasterContacts().get(0).getLastName();
         assertEquals("Illesca", resultForContactGroups );
         assertEquals(masterContact1, indexer1.getAllMasterContacts().get(0));
 
@@ -75,7 +75,7 @@ public class TestIndexer {
         masterContact2.setZip("123");
 
         Indexer indexer2 = new Indexer();
-        indexer2.indexForMasterContact(masterContact2, "metaphone");
+        indexer2.indexMaster(masterContact2, "metaphone");
         String resultForPartnerships = indexer2.getPartnerships().get(0).getMasterContacts().get(0).getZip();
         assertEquals("123", resultForPartnerships );
         assertEquals(masterContact2, indexer2.getAllMasterContacts().get(0));
@@ -88,8 +88,8 @@ public class TestIndexer {
         contact1.setLastName("Illesca");
 
         Indexer indexer1 = new Indexer();
-        indexer1.indexForContact(contact1, "metaphone");
-        String resultForContactGroups = indexer1.getContactGroups().get(0).getMatchContacts().get(0).getLastName();
+        indexer1.indexContact(contact1, "metaphone");
+        String resultForContactGroups = indexer1.getIndividuals().get(0).getMatchContacts().get(0).getLastName();
         assertEquals("Illesca", resultForContactGroups );
         assertEquals(contact1, indexer1.getAllMatchContacts().get(0));
 
@@ -99,7 +99,7 @@ public class TestIndexer {
         contact2.setZip("123");
 
         Indexer indexer2 = new Indexer();
-        indexer2.indexForContact(contact2, "metaphone");
+        indexer2.indexContact(contact2, "metaphone");
         String resultForPartnerships = indexer2.getPartnerships().get(0).getMatchContacts().get(0).getZip();
         assertEquals("123", resultForPartnerships );
         assertEquals(contact2, indexer2.getAllMatchContacts().get(0));

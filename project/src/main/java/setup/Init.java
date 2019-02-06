@@ -68,9 +68,9 @@ public class Init {
         double threshold = Double.valueOf(props.getProperty("threshold"));
 
         // Initialize Indexer's state
-        this.indexer = new Indexer();
+        this.indexer = new Indexer(indexMethod);
         // Initialize CSVReader's state
-        this.csvReader = new CSVReader(masterPath, matchPath, indexer, indexMethod);
+        this.csvReader = new CSVReader(masterPath, matchPath, indexer);
 
         // Initialize weights for Matcher
         this.weights1 = new Weights(weightsPath);

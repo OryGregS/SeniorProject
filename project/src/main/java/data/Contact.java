@@ -17,6 +17,9 @@
 
 package data;
 
+/**
+ * Generic data holder for Contact data. Extended by MasterContact.
+ */
 public class Contact {
 
     String LastName;
