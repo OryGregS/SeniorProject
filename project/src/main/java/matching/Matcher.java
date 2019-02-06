@@ -60,7 +60,7 @@ public class Matcher {
      */
     public void run(Indexer indexer) {
 
-        this.contactGroups = indexer.getContactGroups();
+        this.contactGroups = indexer.getIndividuals();
         this.partnerships = indexer.getPartnerships();
 
         runGroups(this.contactGroups);

@@ -27,35 +27,65 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * CSVReader reads in data from CSV files and stores the records in groups.
+ */
 public class CSVReader {
 
     private String masterPath;
     private String matchPath;
     private Indexer indexer;
-    private String indexMethod;
     private Preprocessor processor;
     private long masterCount = 0;
     private long matchCount = 0;
 
-    public CSVReader(String masterPath, String matchPath,
-                     Indexer indexer, String indexMethod) {
+    /**
+     * Initialize CSV reader with path to files and indexer object
+     *
+     * @param masterPath
+     *          Path where master record (CSV) lives.
+     * @param matchPath
+     *          Path where matching records (CSV) live.
+     * @param indexer
+     *          Indexer object to separate records into groups
+     */
+    public CSVReader(String masterPath, String matchPath, Indexer indexer) {
 
         this.masterPath = masterPath;
         this.matchPath = matchPath;
         this.indexer = indexer;
-        this.indexMethod = indexMethod;
         processor = new Preprocessor();
 
     }
 
+    /**
+     * Gets the number of rows in matching CSV's.
+     *
+     * @return
+     *          Number of rows being matched.
+     */
     public long getMatchCount() {
         return matchCount;
     }
 
+    /**
+     * Gets the number of rows in master CSV.
+     *
+     * @return
+     *          Number of rows in master CSV.
+     */
     public long getMasterCount() {
         return masterCount;
     }
 
+    /**
+     * Reads the master CSV file.
+     *
+     * @param fileName
+     *          Name of file
+     * @return
+     *          True upon reading file successfully, false if not.
+     */
     public boolean readMaster(String fileName) {
 
         boolean skipHeader = true;
@@ -93,6 +123,16 @@ public class CSVReader {
 
     }
 
+    /**
+     * Reads a CSV file to be matched to master.
+     *
+     * @param fileName
+     *          Name of file.
+     * @param alt
+     *          True if missing 2nd zipcode, false if not.
+     * @return
+     *          True upon reading file successfully, false if not.
+     */
     public boolean readMatch(String fileName, boolean alt) {
 
         boolean skipHeader = true;
@@ -128,14 +168,36 @@ public class CSVReader {
 
     }
 
+    /**
+     * Indexes and stores a matching record in a group.
+     *
+     * @param contact
+     *          Matching contact data from matching CSV(s).
+     */
     private void findGroup(Contact contact) {
-        this.indexer.indexForContact(contact, this.indexMethod);
+        this.indexer.indexContact(contact);
     }
 
-    private void findGroup(MasterContact contact) {
-        this.indexer.indexForMasterContact(contact, this.indexMethod);
+    /**
+     * Indexes and stores a master record in a group.
+     *
+     * @param masterContact
+     *          Master contact data from master CSV.
+     */
+    private void findGroup(MasterContact masterContact) {
+        this.indexer.indexMaster(masterContact);
     }
 
+    /**
+     * Stores a row of matching data into Contact object.
+     *
+     * @param contact
+     *          Data holder for matching contacts.
+     * @param obs
+     *          CSVRecord object. (Each CSVRecord object is a row).
+     * @param alt
+     *          True if missing 2nd zipcode, false if not.
+     */
     @SuppressWarnings("Duplicates")
     private void setFieldsForContact(Contact contact, CSVRecord obs, boolean alt) {
 
@@ -172,6 +234,14 @@ public class CSVReader {
 
     }
 
+    /**
+     * Stores a row of master data into MasterContact object
+     *
+     * @param masterContact
+     *          Data holder for master records.
+     * @param obs
+     *          CSVRecord object. (Each CSVRecord object is a row).
+     */
     @SuppressWarnings("Duplicates")
     private void setFieldsForMasterContact(MasterContact masterContact, CSVRecord obs) {
 
