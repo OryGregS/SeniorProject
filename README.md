@@ -1,6 +1,6 @@
 # Senior Project
 
-##### Probabilistic data-matching &amp; de-duplication
+##### Fuzzy Record Linkage
 ##### Gregory Smith | Axel Solano
 
 ## Summary
