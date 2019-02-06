@@ -19,6 +19,10 @@ package data;
 
 import java.util.ArrayList;
 
+/**
+ * MasterContact extends Contact's data storage and adds functionality to store top matches.
+ * Additionally, some calculations are done here.
+ */
 public class MasterContact extends Contact {
 
     private int knownMatches;
@@ -36,37 +40,57 @@ public class MasterContact extends Contact {
         identifiedMatchCount = 0;
     }
 
+    /**
+     * Increments our counter for finding unknown matches.
+     */
     public void addUnknownMatch() {
         this.unknownMatchCount++;
-    }
-
-    public void addIdentifiedMatch() {
-
-        this.identifiedMatchCount++;
-
     }
 
     /**
      * Increments our counter for the number of exact matches
      * (unique identifiers are equal).
      */
+    public void addIdentifiedMatch() {
+
+        this.identifiedMatchCount++;
+
+    }
+
+
+    /**
+     * Increments our counter for counting total number of KNOWN matches.
+     */
     public void addKnownMatch() {
         this.knownMatches++;
     }
 
     /**
-     * Gets the list of matches where the unique identifier matches.
+     * Gets the number of
      *
-     * @return - ArrayList of contact data
+     * @return
+     *          ArrayList of contact data
      */
     public int getKnownMatches() {
         return this.knownMatches;
     }
 
+    /**
+     * Gets number of found unknown matches.
+     *
+     * @return
+     *        Number of unknown matches that were identified.
+     */
     public int getUnknownMatches() {
         return this.unknownMatchCount;
     }
 
+    /**
+     * Gets number of identified KNOWN matches found.
+     *
+     * @return
+     *          Number of known matches that were identified.
+     */
     public int getIdentifiedMatchCount() {
         return this.identifiedMatchCount;
     }
@@ -75,8 +99,10 @@ public class MasterContact extends Contact {
      * This method attempts to add the potential contact in the
      * lists of the TopMatches object.
      *
-     * @param contact    - new match's data
-     * @param confidence - new match's level of confidence of similarity
+     * @param contact
+     *          New match's data.
+     * @param confidence
+     *          New match's level of confidence (how similar it is).
      */
     public boolean setMatch(Contact contact, double confidence) {
         if (confidence < 0.0 || confidence > 100){
@@ -90,14 +116,13 @@ public class MasterContact extends Contact {
         }
         return false;
     }
-    //
-
 
     /**
      * Gets the list contact data of the master-contact's most likely matches
      * in the TopMatches object.
      *
-     * @return - ArrayList of contact data
+     * @return
+     *          ArrayList of contact data
      */
     public ArrayList<Contact> getTopContacts() {
         return this.topMatches.getTopContacts();
@@ -107,7 +132,8 @@ public class MasterContact extends Contact {
      * Gets the list of confidences for each contact in the top contacts
      * list in the TopMatches object.
      *
-     * @return - ArrayList of double values
+     * @return
+     *          ArrayList of double values
      */
     public ArrayList<Double> getTopConfidence() {
         return this.topMatches.getTopConfidence();

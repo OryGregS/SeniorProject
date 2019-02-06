@@ -31,10 +31,10 @@ public class TestBlockMap {
         String key1 = "one";
         String key2 = "one";
 
-        blockMap.putForMasterContact(key1, masterContact1);
+        blockMap.putMaster(key1, masterContact1);
         assertTrue(blockMap.getGroups().containsKey(key1));
 
-        blockMap.putForMasterContact(key2, masterContact2);
+        blockMap.putMaster(key2, masterContact2);
         assertTrue(blockMap.getGroups().containsKey(key2));
 
         assertEquals(2, blockMap.getGroups().get(key1).getMasterContacts().size());
@@ -50,10 +50,10 @@ public class TestBlockMap {
         String key1 = "1";
         String key2 = "1";
 
-        blockMap.putForContacts(key1, contact1);
+        blockMap.putContact(key1, contact1);
         assertTrue(blockMap.getGroups().containsKey(key1));
 
-        blockMap.putForContacts(key2, contact2);
+        blockMap.putContact(key2, contact2);
         assertTrue(blockMap.getGroups().containsKey(key2));
 
         assertEquals(2, blockMap.getGroups().get(key1).getMatchContacts().size());
@@ -68,10 +68,10 @@ public class TestBlockMap {
         Contact contact2 = new Contact();
         MasterContact masterContact1 = new MasterContact();
         MasterContact masterContact2 = new MasterContact();
-        blockMap.putForContacts("1", contact1);
-        blockMap.putForContacts("2", contact2);
-        blockMap.putForContacts("2", masterContact2);
-        blockMap.putForContacts("1", masterContact1);
+        blockMap.putContact("1", contact1);
+        blockMap.putContact("2", contact2);
+        blockMap.putContact("2", masterContact2);
+        blockMap.putContact("1", masterContact1);
 
         assertTrue(blockMap.getGroups().containsKey("1"));
         assertTrue(blockMap.getGroups().containsKey("2"));

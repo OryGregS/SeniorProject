@@ -24,14 +24,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Preprocessor cleans and standardizes data as it's being read in by CSVReader.
+ */
 class Preprocessor {
 
     private AddressHandler addressHandler;
 
+    /**
+     * Default constructor to initialize AddressHandler.
+     */
     Preprocessor() {
         addressHandler = new AddressHandler(); // reading JSON file
     }
 
+    /**
+     * Removes ALL whitespace from data. If given multiple words, then joins the string separated by 1 whitespace.
+     *
+     * @param data
+     *          String data from Contact or MasterContact CSV.
+     * @return
+     *          New string with standardized whitespace.
+     */
     String trimData(String data) {
 
         String[] temp = data.split(" ");
@@ -45,25 +59,14 @@ class Preprocessor {
             tempString = temp[i];
             temp[i] = tempString.trim();
 
-//            if (tempString.equals("") || tempString.equals(" ") ||
-//                    tempString.equals("\n") || tempString.equals("\t")) {
-
             if (!tempString.equals("") && !tempString.equals(" ") &&
                     !tempString.equals("\n") && !tempString.equals("\t")) {
 
                 // do nothing
-//                System.out.println(temp[i] + " ok");
                 newTemp.add(temp[i]);
 
 
             }
-
-//            else {
-
-//                newTemp.add(temp[i]);
-//                System.out.println(temp[i] + " not ok");
-
-//          }
 
         }
 
@@ -71,10 +74,15 @@ class Preprocessor {
 
     }
 
-    /***
-     * check if data is null, then check is not empty, and check punctuation
-     * @param data string
-     * @return string
+    /**
+     * Checks if data is null and checks if data is data is empty.
+     * If data isn't empty, then removes unnecessary punctuation.
+     * Finally, we return a String that has had all unnecessary whitespace removed.
+     *
+     * @param data
+     *          String data from Contact or MasterContact CSV.
+     * @return
+     *          New standardized string.
      */
     String prep(String data) {
 
@@ -90,15 +98,17 @@ class Preprocessor {
 
     }
 
-    /***
+    /**
+     * Checks if data is an invalid character.
      *
-     * @param data - The string at the row,col of the dataset
-     * @return - Empty string if "NULL", otherwise the original string
+     * @param data
+     *          The string at the row,col of the dataset.
+     * @return
+     *          Empty string if "NULL", otherwise the original string
      */
     String checkNULL(String data) {
 
         if (data.equalsIgnoreCase("NULL") ||
-                data.equalsIgnoreCase("null") ||
                 data.equalsIgnoreCase(" ") ||
                 data.equalsIgnoreCase("\t") ||
                 data.equalsIgnoreCase("\n")) {
@@ -151,6 +161,16 @@ class Preprocessor {
 
     }
 
+    /**
+     * Combines related data from two fields.
+     *
+     * @param field1
+     *          First related field data.
+     * @param field2
+     *          Second related field data.
+     * @return
+     *          One string with combined data. Separated by 1 whitespace.
+     */
     String combineFields(String field1, String field2) {
 
         String combined = prep(field1);
@@ -160,6 +180,16 @@ class Preprocessor {
 
     }
 
+    /**
+     * Standardizes address fields.
+     *
+     * @param address1
+     *          Data from first Address field.
+     * @param address2
+     *          Data from second Address field.
+     * @return
+     *          String consisting of one combined and standardized address.
+     */
     String handleAddress(String address1, String address2) {
 
         address1 = prep(address1);
@@ -180,105 +210,14 @@ class Preprocessor {
 
     }
 
+    /**
+     * Returns the AddressHandler object.
+     *
+     * @return
+     *          AddressHandler object.
+     */
     public AddressHandler getAddressHandler(){
         return this.addressHandler;
     }
-
-    /**
-     * change to public so it cab be tested
-     */
-    public class AddressHandler {
-
-        private Map<String, String> abbrevs;
-        private String str;
-        private int countOfAbbrevs = 0;
-
-        public AddressHandler() {
-            abbrevs = new HashMap<>();
-            readJSON("./config/data/abbreviations.json");
-        }
-
-        public void setStr(String str){
-            this.str = str;
-        }
-
-        public String standardize() {
-            if (str.isEmpty() || str.equalsIgnoreCase("") || str == null)
-            {
-             return null;
-            }
-            return standardize(this.str);
-        }
-
-        public Map<String, String> getAbbrevs(){
-            return new HashMap<>(this.abbrevs); // to keep it private
-        }
-
-        public int getCountOfAbbrevs(){
-            return  this.countOfAbbrevs;
-        }
-
-        public boolean checkKeyExists(){
-            if (str.isEmpty() || str.equalsIgnoreCase("") || str == null)
-            {
-                return false;
-            }
-            return this.checkKeyExists(this.str);
-        }
-
-        /***
-         * function to trim and uppercase
-         * @param data
-         * @return string data updated
-         */
-        private String standardize(String data) {
-
-            String newData = data;
-            newData = newData.trim();
-            newData = newData.toUpperCase();
-
-            if (checkKeyExists(newData)) {
-
-                newData = abbrevs.get(newData);
-
-            }
-
-            return newData;
-
-        }
-
-
-        private boolean checkKeyExists(String data) {
-            return abbrevs.containsKey(data);
-        }
-
-        private void readJSON(String filename) {
-
-            File file = new File(filename);
-
-            try {
-
-                String content = FileUtils.readFileToString(file, "utf-8");
-                JSONObject jo = new JSONObject(content);
-
-                for (Iterator keys = jo.keys(); keys.hasNext(); ) {
-
-                    String key = keys.next().toString();
-                    String value = jo.getString(key);
-
-                    //System.out.printf("\nKEY: %s | Value: %s\n", key, value);
-                    abbrevs.put(key, value);
-                    countOfAbbrevs++;
-
-                }
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-
-            }
-        }
-    }
-
 
 }

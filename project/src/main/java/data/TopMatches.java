@@ -19,6 +19,9 @@ package data;
 
 import java.util.ArrayList;
 
+/**
+ * Data storage for each MasterContact's top contacts.
+ */
 class TopMatches {
 
     private int MAX_MATCH_SIZE;
@@ -37,6 +40,12 @@ class TopMatches {
         this.topContact = new ArrayList<>(MAX_MATCH_SIZE);
     }
 
+    /**
+     * Constructor to set a specific list size.
+     *
+     * @param newMatchSize
+     *          Number of potential matches to hold.
+     */
     public TopMatches(int newMatchSize) {
         this.MAX_MATCH_SIZE = newMatchSize;
         this.MAX_LOC = newMatchSize - 1;
@@ -45,49 +54,46 @@ class TopMatches {
     }
 
     /**
-     * Gets the contact list for
-     * a master contact
+     * Gets the contact list for a master contact.
      *
-     * @return - list of most likely match's contactID's
-     * as new list so no one has access to update the values
+     * @return
+     *          Copy of a MasterContact's most likely matches.
      */
     ArrayList<Contact> getTopContacts() {
         return new ArrayList<>(topContact);
     }
 
     /**
-     * Gets the confidence list for
-     * a master contact
+     * Gets the confidence list for a master contact.
      *
-     * @return - list of most likely match's level of confidence
-     * as new list so no one has access to update the values
+     * @return
+     *          Copy of most likely match's level of confidence.
      */
     ArrayList<Double> getTopConfidence() {
         return new ArrayList<>(topConfidence);
     }
 
-
-
     /**
-     * Removes a match from the lists at
-     * the specified location
+     * Removes a match from the lists at the specified location
      *
-     * @param index - location in lists to remove
+     * @param index
+     *          Location in lists to remove
      */
     private void removeMatch(int index) {
         this.topContact.remove(index);
         this.topConfidence.remove(index);
     }
 
-
-
     /**
      * Adds a match to the lists at the specified location
      * and move the rest of the list to the end too
      *
-     * @param index      - Location to add match
-     * @param contact    - new match's data
-     * @param confidence - new match's level of confidence of similarity
+     * @param index
+     *          Location to add match.
+     * @param contact
+     *          New match's data.
+     * @param confidence
+     *          New match's level of confidence of similarity.
      */
     private void addMatch(int index, Contact contact, double confidence) {
         this.topContact.add(index, contact);
@@ -97,7 +103,8 @@ class TopMatches {
     /**
      * Tests if the lists are empty.
      *
-     * @return - True if lists are empty | False if not
+     * @return
+     *          True if lists are empty. False if not.
      */
     private boolean isEmpty() {
         boolean empty = false;
@@ -112,9 +119,12 @@ class TopMatches {
      * Removes the last (least likely) match in the lists, then adds
      * the new match to the lists at the specified index.
      *
-     * @param index      - location to add new match to
-     * @param contact    - new match's data
-     * @param confidence - new match's level of confidence of similarity
+     * @param index
+     *          Location to add new match.
+     * @param contact
+     *          New match's data.
+     * @param confidence
+     *          New match's level of confidence of similarity.
      */
     private void replaceMatch(int index, Contact contact, double confidence) {
         removeMatch(this.MAX_LOC);
@@ -124,22 +134,24 @@ class TopMatches {
     /**
      * Adds a match to the end of the lists.
      *
-     * @param contact    - new match's data
-     * @param confidence - new match's level of confidence of similarity
+     * @param contact
+     *          New match's data.
+     * @param confidence
+     *          New match's level of confidence of similarity.
      */
     private void addMatch(Contact contact, double confidence) {
         this.topContact.add(contact);
         this.topConfidence.add(confidence);
     }
 
-
-
     /**
-     * This method compares new matches with those already in
+     * Compares new matches with those already in
      * the list and checks if the new match should be added.
      *
-     * @param contact    - new match's data
-     * @param confidence - new match's level of confidence of similarity
+     * @param contact
+     *          New match's data.
+     * @param confidence
+     *          New match's level of confidence of similarity.
      */
     void setMatch(Contact contact, double confidence) {
 
@@ -155,7 +167,8 @@ class TopMatches {
 
     /**
      * Tests if the lists are at their max size.
-     * @return - True if at capacity | False if not
+     *
+     * @return - True if at capacity. False if not.
      */
     private boolean atCapacity() {
         return this.topConfidence.size() == this.MAX_MATCH_SIZE;
@@ -176,8 +189,10 @@ class TopMatches {
     /**
      * Adds a match when the top matches list is not full.
      *
-     * @param contact    - new match's data
-     * @param confidence - new match's level of confidence of similarity
+     * @param contact
+     *          New match's data.
+     * @param confidence
+     *          New match's level of confidence of similarity.
      */
     private void addMatchToNotFull(Contact contact, double confidence) {
         int i;
@@ -212,11 +227,12 @@ class TopMatches {
     }
 
     /**
-     * Logic to add a potential match to the lists when they're
-     * at capacity.
+     * Logic to add a potential match to the lists when they're at capacity.
      *
-     * @param contact    - new match's data
-     * @param confidence - new match's level of confidence of similarity
+     * @param contact
+     *          New match's data.
+     * @param confidence
+     *          New match's level of confidence of similarity.
      */
     private void addMatchToFull(Contact contact, double confidence) {
 
@@ -280,7 +296,4 @@ class TopMatches {
             //block end
         }
     }
-
-
-
 }
