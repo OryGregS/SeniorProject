@@ -28,10 +28,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * Weights reads in the values stored in json files in ./config/weights/.
- * These values are critical to our confidence of a match.
- */
 public class Weights {
 
     private Map<String, Double> weights;
@@ -39,36 +35,15 @@ public class Weights {
     private String FILENAME;
     private int countWeights;
 
-    /**
-     * Gets the filePath where the weights are located and
-     * initializes a HashMap to store the key-value pairs.
-     *
-     * @param filePath
-     *          Folder to locate the weights files (default is ./config/weights/).
-     */
     public Weights(String filePath) {
         this.FILEPATH = filePath;
         this.weights = new HashMap<>();
     }
 
-    /**
-     * Gets the HashMap of weights.
-     *
-     * @return
-     *          A copy of the HashMap containing the weight key-value pairs.
-     */
     Map<String, Double> getWeights(){
         return new HashMap<>(this.weights);
     }
 
-    /**
-     * Gets a weight value for a specific key.
-     *
-     * @param key
-     *          Key to lookup for its weight value.
-     * @return
-     *          Weight value (double).
-     */
     public double getWeight(String key) {
 
         double weight = 0.0;
@@ -83,14 +58,6 @@ public class Weights {
 
     }
 
-    /**
-     * Checks if the key exists in the HashMap.
-     *
-     * @param key
-     *          Key to lookup.
-     * @return
-     *          True if HashMap contains the key. False if not.
-     */
     private boolean keyExists(String key) {
         return weights.containsKey(key);
     }
@@ -99,30 +66,26 @@ public class Weights {
         readJSON(fileName);
     }
 
-    /**
-     * Checks if the weights sum up to 1.
-     *
-     * @return
-     *          True if sum of weights is 1. Exits program if not.
-     */
+
+    //        try {
+//            weightSum();
+//        } catch (IllegalValuesException e) {
+//            System.out.println(e.getMessage());
+//            System.exit(-1);
+//        }
     boolean checkWeightSum() {
-        if (!weightSum()){
+        if (weightSum() == false){
             System.exit(-1);
         }
 
         return true;
     }
 
-    /**
-     * Calculation for checkWeightSum().
-     *
-     * @return
-     *          True if sum of weights is 1. False if not.
-     */
+//    throws IllegalValuesException
     private boolean weightSum()  {
 
         double sum = 0.0;
-        boolean weightsEqualToOne = true;
+        boolean ok = true;
         for (Iterator values = weights.values().iterator(); values.hasNext(); ) {
             sum += (double) values.next();
         }
@@ -131,16 +94,17 @@ public class Weights {
         sum = Math.round(sum * scale) / scale;
 
         if (sum != 1.0) {
-            weightsEqualToOne = false;
+            ok = false;
             String message = String.format("\nError reading weights from %s.\n" +
                     "\nExpected 1.0 but got %.16f. " +
                     "\nWeights must be equal to 1.0 for proper functionality. " +
                     "\nPlease adjust the weights in the config/weights directory.", this.FILENAME, sum);
             System.out.println(message);
+//            throw new IllegalValuesException(message);
 
         }
 
-        return weightsEqualToOne;
+        return ok;
 
     }
 
@@ -150,16 +114,20 @@ public class Weights {
 //    }
 
     /**
-     * Writes the current value of weights to a JSON file.
+     * over write to same file
      */
     public void writeJSON() {
 
         JSONObject jo = new JSONObject();
 
-        for (Map.Entry<String, Double> stringDoubleEntry : weights.entrySet()) {
+        Iterator kvPairs = weights.entrySet().iterator();
 
-            String key = ((Map.Entry) stringDoubleEntry).getKey().toString();
-            Double value = (double) ((Map.Entry) stringDoubleEntry).getValue();
+        while (kvPairs.hasNext()) {
+
+            Map.Entry pair = (Map.Entry) kvPairs.next();
+
+            String key = pair.getKey().toString();
+            Double value = (double) pair.getValue();
 
             jo.put(key, value);
 
@@ -179,24 +147,10 @@ public class Weights {
 
     }
 
-    /**
-     * Gets number of weights.
-     *
-     * @return
-     *          Number of weights.
-     */
     public int getCountWeights(){
         return this.countWeights;
     }
 
-    /**
-     * Reads a JSON file and stores the key-value pairs into the HashMap field.
-     *
-     * @param fileName
-     *          Name of the weights JSON file.
-     * @return
-     *          True if successfully read and weights are equal to 1. False if not.
-     */
     private boolean readJSON(String fileName) {
 
         this.FILENAME = fileName;
@@ -221,6 +175,7 @@ public class Weights {
 
             }
 
+//            checkWeightSum();
             return checkWeightSum();
 
         } catch (IOException e) {
@@ -233,12 +188,6 @@ public class Weights {
         return false;
     }
 
-    /**
-     * Prints out the key-value pairs for the weights.
-     *
-     * @param formatter
-     *          Characters to add before printing (i.e \t or \n).
-     */
     public void printWeights(String formatter) {
 
         weights.forEach((key, value) -> System.out.println(formatter + "\"" + key + "\": " + value));
@@ -246,15 +195,6 @@ public class Weights {
     }
 
     // has to use initialize() before be used
-
-    /**
-     * Generates random sets of weights. Used in development for the purpose of identifying better weights.
-     *
-     * @param emailWeight
-     *          Weight to give the email field (for weights1).
-     * @param alternate
-     *          If the set of weights is default (with email), or alternate (without email).
-     */
     @SuppressWarnings("Duplicates")
     public void getRandomWeights(double emailWeight, boolean alternate) {
 
@@ -326,14 +266,6 @@ public class Weights {
         checkWeightSum();
     }
 
-    /**
-     * Sums an array of integers. Used in getRandomWeights() only.
-     *
-     * @param intList
-     *          Array of integers.
-     * @return
-     *          Sum of all integers in the array.
-     */
     private int sumSample(int[] intList) {
 
         int sum = 0;
@@ -349,9 +281,6 @@ public class Weights {
 
     }
 
-    /**
-     * Custom exception. Thrown when weights don't sum to 1.
-     */
     private class IllegalValuesException extends Exception {
 
         IllegalValuesException(String message) {

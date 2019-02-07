@@ -11,94 +11,90 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 2/4/19 12:12 PM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 6:04 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package utils;
-/*
+package matching;
+
 import data.Contact;
-import matching.KeyMatch;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-*/
 
 public class EDA {
-/*
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!! START COMMENT BLOCK FOR MAIN !!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+    @Test
     public void main() {
-        DataLoader loaderData = new DataLoader();
-        loaderData.loadMasterSet();
-        loaderData.loadMatchSet();
+//        DataLoader loaderData = new DataLoader();
+//        loaderData.loadMasterSet();
+//        loaderData.loadMatchSet();
+//
+//        MasterSet master = loaderData.getMasterSet();
+//        MatchSet match = loaderData.getMatchSet();
+//
+////        master.head(7);
+////        match.head(7);
+//
+//        ArrayList <Contact> matchList = match.getContactList();
+//        ArrayList <Contact> masterList = master.getContactList();
+//        System.out.println("\nMatch\nMatch List Details: ");
+//        checkEqualCountryID(matchList);
+//        checkEqualFirmName(matchList);
+//        checkEqualOfficeName(matchList);
+//        checkEqualContactID(matchList);
+//        checkEqualCRD(matchList);
+//        System.out.printf("Match -> Number of columns: %d\n", match.getNumCols());
+//        System.out.printf("Match -> Number of rows: %d\n", match.getNumRows());
+//
+//        System.out.println("\nMaster\nMaster List Details: ");
+//        checkEqualCountryID(masterList);
+//        checkEqualFirmName(masterList);
+//        checkEqualOfficeName(masterList);
+//        checkEqualContactID(masterList);
+//        checkEqualCRD(masterList);
+//        System.out.printf("Master -> Number of columns: %d\n", master.getNumCols());
+//        System.out.printf("Master -> Number of rows: %d\n", master.getNumRows());
+//
+//        System.out.println();
+//        System.out.println();
+//
+////        HashMap<KeyMatch,Integer> matchMap = findMatch(masterList,matchList);
+//////        showMatch(masterList,matchList,matchMap);
+//
+//        ArrayList<KeyMatch> matchMapList = findMatchV2(masterList,matchList);
+//        showMatchV2(masterList,matchList,matchMapList);
 
-        MasterSet master = loaderData.getMasterSet();
-        MatchSet match = loaderData.getMatchSet();
 
-        master.head(7);
-        match.head(7);
-
-        ArrayList <Contact> matchList = match.getContactList();
-        ArrayList <Contact> masterList = master.getContactList();
-        System.out.println("\nMatch\nMatch List Details: ");
-        checkEqualCountryID(matchList);
-        checkEqualFirmName(matchList);
-        checkEqualOfficeName(matchList);
-        checkEqualContactID(matchList);
-        checkEqualCRD(matchList);
-        System.out.printf("Match -> Number of columns: %d\n", match.getNumCols());
-        System.out.printf("Match -> Number of rows: %d\n", match.getNumRows());
-
-        System.out.println("\nMaster\nMaster List Details: ");
-        checkEqualCountryID(masterList);
-        checkEqualFirmName(masterList);
-        checkEqualOfficeName(masterList);
-        checkEqualContactID(masterList);
-        checkEqualCRD(masterList);
-        System.out.printf("Master -> Number of columns: %d\n", master.getNumCols());
-        System.out.printf("Master -> Number of rows: %d\n", master.getNumRows());
-
-        System.out.println();
-        System.out.println();
-
-//        HashMap<KeyMatch,Integer> matchMap = findMatch(masterList,matchList);
-////        showMatch(masterList,matchList,matchMap);
-
-        ArrayList<KeyMatch> matchMapList = findMatchV2(masterList,matchList);
-        showMatchV2(masterList,matchList,matchMapList);
-
-
-        System.out.println();
-        System.out.println();
-        checkEqualCRD(match.getContactList());
-        System.out.println();
-        System.out.println();
-        checkEqualCRD(master.getContactList());
-        System.out.println();
-        System.out.println();
-
-        checkEqualCRDNotEmpty(match.getContactList(), countEmptyCRDsReturnWithCRDs(match.getContactList(), "Match"));
-
-        checkEqualCRDNotEmpty(master.getContactList(), countEmptyCRDsReturnWithCRDs(master.getContactList(), "Master") );
-
-        System.out.println();
-        System.out.println();
-        countEmptyCRDsReturnWithNoCRDs(match.getContactList(), "Match");
-        countEmptyCRDsReturnWithNoCRDs(master.getContactList(), "Master");
-
-        System.out.println();
-        System.out.println();
-        ListEmptyCRDs(master.getContactList(), "Master");
-
-        System.out.println();
-        System.out.println();
-        ListEmptyCRDs(match.getContactList(), "Match");
-        System.out.println();
-        System.out.println();
+//        System.out.println();
+//        System.out.println();
+//        checkEqualCRD(match.getContactList());
+//        System.out.println();
+//        System.out.println();
+//        checkEqualCRD(master.getContactList());
+//        System.out.println();
+//        System.out.println();
+//
+//        checkEqualCRDNotEmpty(match.getContactList(), countEmptyCRDsReturnWithCRDs(match.getContactList(), "Match"));
+//
+//        checkEqualCRDNotEmpty(master.getContactList(), countEmptyCRDsReturnWithCRDs(master.getContactList(), "Master") );
+//
+//        System.out.println();
+//        System.out.println();
+//        countEmptyCRDsReturnWithNoCRDs(match.getContactList(), "Match");
+//        countEmptyCRDsReturnWithNoCRDs(master.getContactList(), "Master");
+//
+//        System.out.println();
+//        System.out.println();
+//        ListEmptyCRDs(master.getContactList(), "Master");
+//
+//        System.out.println();
+//        System.out.println();
+//        ListEmptyCRDs(match.getContactList(), "Match");
+//        System.out.println();
+//        System.out.println();
 
         //checkOnlyByCRD(master.getContactList(), ListEmptyCRDs(match.getContactList()(), "Match"));
         //checkOnlyByCRDv2(master.getContactList(), ListEmptyCRDs(match.getContactList()(), "Match"));
@@ -498,10 +494,6 @@ public class EDA {
         return matchMap;
     }
 
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!!!!!!!!!!!!!! END COMMENT BLOCK FOR MAIN !!!!!!!!!!!!!!!!!!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-
 
     /***
      *
@@ -509,12 +501,6 @@ public class EDA {
      * @param match it can be full match, but right now for testing is a list with no empty CRDs
      * @return
      */
-
-    /*
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    !!!!!!!!!!!!!!! START COMMENT BLOCK FOR METHODS !!!!!!!!!!!!!!!!!!
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     public HashMap<String, ArrayList<Integer>> checkOnlyByCRD(ArrayList<Contact> master, ArrayList<Contact> match) {
         ArrayList<Integer> sumOfRatios = new ArrayList<Integer>();
         int i;
@@ -632,7 +618,5 @@ public class EDA {
 
     }
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!! END COMMENT BLOCK FOR METHODS !!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
 }

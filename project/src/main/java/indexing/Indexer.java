@@ -40,7 +40,7 @@ public class Indexer {
      * @param encodeMethod
      *          Method to use for phonetic encoding. Acceptable values
      *          are (case-insensitive): nysiis, soundex, rsoundex, dmsoundex,
-     *          metaphone, and doublemetaphone. This value is set in ./config/DataMatching.properties
+     *          metaphone, & doublemetaphone. This value is set in ./config/DataMatching.properties
      */
     public Indexer(String encodeMethod) {
 

@@ -21,9 +21,6 @@ import data.Contact;
 import data.MasterContact;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
-/**
- * CompareRecord performs our calculation of similarity (confidence).
- */
 class CompareRecord {
 
     private Contact matchContact;
@@ -43,16 +40,6 @@ class CompareRecord {
     private double ZipWeight;
     private double CountryWeight;
 
-    /**
-     * Constructor to get necessary info for matching.
-     *
-     * @param weights
-     *          Weights object.
-     * @param masterContact
-     *          MasterContact object.
-     * @param matchContact
-     *          Contact object.
-     */
     CompareRecord(Weights weights, MasterContact masterContact, Contact matchContact) {
 
         this.masterContact = masterContact;
@@ -62,9 +49,6 @@ class CompareRecord {
 
     }
 
-    /**
-     * Loads the weights from Weights object (passed in constructor).
-     */
     private void loadWeights() {
 
         this.LastNameWeight = this.weights.getWeight("LastName");
@@ -82,17 +66,6 @@ class CompareRecord {
 
     }
 
-    /**
-     * Gets a field's data from the MasterContact and Contact object,
-     * and the field's weight. Then calls levenRatio to get our ratio
-     * of similarity between the two strings. This then multiplies that
-     * ratio by the field's weight.
-     *
-     * @param field
-     *          Data in a column for a record.
-     * @return
-     *          Weighted level of similarity between the MasterContact & Contact's data.
-     */
     double similarity(String field) {
 
         double matchConfidence;
@@ -166,17 +139,11 @@ class CompareRecord {
                 break;
         }
 
-        matchConfidence = levenRatio(masterData, matchData);
+        matchConfidence = cmpSimilarity(masterData, matchData);
         return matchConfidence * weight;
 
     }
 
-    /**
-     * Checks if the MasterContact and Contact are a known match.
-     *
-     * @return
-     *          True if CRDNumber matches. False if not (or empty).
-     */
     boolean CRD() {
 
         String masterCRD = this.masterContact.getCRDNumber();
@@ -194,48 +161,16 @@ class CompareRecord {
 
     }
 
-    /**
-     * Calls FuzzyWuzzy's 'ratio' function. This returns us with
-     * a simple ratio of similarity between the two Strings.
-     *
-     * @param masterData
-     *          Data-field from MasterContact object.
-     * @param matchData
-     *          Data-field from Contact object.
-     * @return
-     *          Ratio of similarity (casted to double).
-     */
-    double levenRatio(String masterData, String matchData) {
-        // FuzzySearch Ratio returns an integer.
-        // We cast it to double for more accuracy & for calculations.
-        return (double) FuzzySearch.ratio(masterData.toUpperCase(), matchData.toUpperCase());
+    double cmpSimilarity(String record1, String record2) {
+        // FuzzySearch Ratio returns us an int
+        // We cast it to double for calculations & more accuracy
+        return (double) FuzzySearch.ratio(record1.toUpperCase(), record2.toUpperCase());
     }
 
-    /**
-     * Checks if CRDNumber is an empty string.
-     *
-     * @param CRDNum
-     *          Unique data-field per contact.
-     * @return
-     *          True if not empty. False if empty.
-     */
     private boolean checkCRDNotEmpty(String CRDNum) {
         return !CRDNum.equals("");
     }
 
-    /**
-     * Attempts to split email addresses at the @ symbol. If
-     * the two emails have the same domain (i.e gmail.com), then
-     * it we only compare the similarity between the handle (i.e john.doe).
-     *
-     * @param masterEmail
-     *          MasterContact's email.
-     * @param matchEmail
-     *          Contact's email.
-     * @return
-     *          Array of strings. This is used in the switch-case in this
-     *          class's similarity function.
-     */
     private String[] handleEmail(String masterEmail, String matchEmail) {
 
         String[] emails = new String[2];

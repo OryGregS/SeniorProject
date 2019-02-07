@@ -103,9 +103,6 @@ public class MasterContact extends Contact {
      *          New match's data.
      * @param confidence
      *          New match's level of confidence (how similar it is).
-     * @return
-     *          True if Contact and Confidence were added to the top list.
-     *          False if there was an error.
      */
     public boolean setMatch(Contact contact, double confidence) {
         if (confidence < 0.0 || confidence > 100){
