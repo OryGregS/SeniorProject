@@ -26,9 +26,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * Init reads a .properties file for the project and initializes objects with the values.
- */
 public class Init {
 
     private final String FILE = "./config/DataMatching.properties";
@@ -40,19 +37,11 @@ public class Init {
     private Weights weights1;
     private Weights weights2;
 
-    /**
-     * Reads the properties file and initializes objects
-     * with the values when this class is instantiated.
-     */
     public Init() {
         getProperties();
         initialize();
     }
 
-    /**
-     * Reads the key-value pairs for default values for objects.
-     * This file is located at ./config/DataMatching.properties
-     */
     private void getProperties() {
 
         this.props = new Properties();
@@ -70,10 +59,6 @@ public class Init {
 
     }
 
-    /**
-     * Uses the key-value pairs from the properties
-     * file to instantiate and initialize objects.
-     */
     private void initialize() {
 
         String masterPath = props.getProperty("masterPath");
@@ -100,32 +85,14 @@ public class Init {
 
     }
 
-    /**
-     * Gets the Indexer object.
-     *
-     * @return
-     *          Initialized Indexer object.
-     */
     public Indexer getIndexer() {
         return this.indexer;
     }
 
-    /**
-     * Gets the CSVReader object.
-     *
-     * @return
-     *          Initialized CSVReader object.
-     */
     public CSVReader getCsvReader() {
         return this.csvReader;
     }
 
-    /**
-     * Gets the Matcher object.
-     *
-     * @return
-     *          Initialized Matcher object.
-     */
     public Matcher getMatcher() {
         return this.matcher;
     }
