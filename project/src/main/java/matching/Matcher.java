@@ -24,6 +24,9 @@ import indexing.Indexer;
 
 import java.util.ArrayList;
 
+/**
+ * Matcher is where everything comes together. Data from MasterContacts and Contacts are compared.
+ */
 public class Matcher {
 
 
@@ -31,10 +34,18 @@ public class Matcher {
     private ArrayList<Group> partnerships;
     private Weights weights1;
     private Weights weights2;
-    private boolean matchMasterToMaster = false;
+    private boolean matchMasterToMaster;
     private double threshold;
     private int numComparisons;
 
+    /**
+     * Initializes Matcher with the set of weights to use for measuring our confidence of a match.
+     *
+     * @param weights1
+     *          Default weights (with email).
+     * @param weights2
+     *          Alternate weights (without email).
+     */
     public Matcher(Weights weights1, Weights weights2) {
 
         this.weights1 = weights1;
@@ -45,20 +56,33 @@ public class Matcher {
 
     }
 
+    /**
+     * Sets the level of confidence of storing a match.
+     * Default value is 70.
+     *
+     * @param threshold
+     *          Double value between 0 - 100.
+     */
     public void setThreshold(double threshold) {
         this.threshold = threshold;
     }
 
+    /**
+     * Flag for de-duplicating master to master.
+     * Default value is false.
+     */
     public void matchMasterToMaster() {
         this.matchMasterToMaster = true;
     }
 
     /**
-     * Loops through the datasets to calculate
-     * the similarity between the contacts in Master
-     * and the contacts in the dataset to match
+     * Loops through the datasets to calculate the similarity between
+     * the contacts in Master and the contacts in the dataset to match
+     *
+     * @param indexer
+     *          Indexer object (to get Groups of similar records).
      */
-    public void run(Indexer indexer) {
+    public void runMatcher(Indexer indexer) {
 
         this.contactGroups = indexer.getIndividuals();
         this.partnerships = indexer.getPartnerships();
@@ -68,6 +92,14 @@ public class Matcher {
 
     }
 
+    /**
+     * Gets the ArrayLists for MasterContacts and Contacts, calculates the
+     * number of comparisons it will make, and compares each MasterContact
+     * to each Contact utilizing a parallel stream.
+     *
+     * @param groups
+     *          ArrayList of Group objects.
+     */
     private void runGroups(ArrayList<Group> groups) {
 
         int i;
@@ -92,13 +124,14 @@ public class Matcher {
     }
 
     /**
-     * Compares a mastercontact against each contant in the matching set
+     * Compares a MasterContact to each Contact in its Group.
      *
-     * @param masterContact - contact data from the master record
+     * @param masterContact
+     *          MasterContact object.
+     * @param matchSet
+     *          ArrayList of Contact objects from the MasterContact's group.
      */
     private void compare(MasterContact masterContact, ArrayList<Contact> matchSet) {
-
-        //String compareMethod = "ratio";
 
         int j;
         double confidence;
@@ -174,10 +207,25 @@ public class Matcher {
         }
     }
 
+    /**
+     * Gets the number of comparisons made.
+     *
+     * @return
+     *          Total number of comparisons made.
+     */
     public int getNumComparisons() {
         return this.numComparisons;
     }
 
+    /**
+     * Checks if a match with a high confidence was unknown
+     * (CRD number missing for the MasterContact or the matching Contact.
+     *
+     * @param masterContact
+     *          MasterContact object.
+     * @param matchContact
+     *          Contact object.
+     */
     private void checkUnknown(MasterContact masterContact, Contact matchContact) {
 
         String masterCRD = masterContact.getCRDNumber();

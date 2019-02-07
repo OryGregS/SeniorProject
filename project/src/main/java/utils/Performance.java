@@ -29,8 +29,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Performance is where information gets printed to stdout. Subclass of CalcPerformance.
+ */
 public class Performance extends CalcPerformance {
 
+    /**
+     * Writes performance output to a file.
+     *
+     * @param fileName
+     *          Name of file for outputting results.
+     *          (The current time is appended to the file name).
+     */
     public void resultsToFile(String fileName) {
 
 
@@ -93,6 +103,9 @@ public class Performance extends CalcPerformance {
         }
     }
 
+    /**
+     * Public method to print performance results (with dividers).
+     */
     public void printResults() {
 
         resultDiv();
@@ -101,15 +114,9 @@ public class Performance extends CalcPerformance {
 
     }
 
-    public void printResults(String name) {
-
-        resultDiv();
-        System.out.println("\n" + name);
-        printInfo();
-        resultDiv();
-
-    }
-
+    /**
+     * Prints performance results.
+     */
     private void printInfo() {
         System.out.println();
         System.out.println("Results: ");
@@ -133,6 +140,15 @@ public class Performance extends CalcPerformance {
         System.out.printf("\tTotal time taken: %45s", timeToStr(this.totalRunTime));
     }
 
+    /**
+     * Formats time values for easier understanding. A time over 120 seconds
+     * is converted to minutes, while a time under 120 seconds is kept in seconds.
+     *
+     * @param time
+     *          Time value to format (double).
+     * @return
+     *          String value of the time.
+     */
     private String timeToStr(double time) {
 
         String timeString;
@@ -152,20 +168,39 @@ public class Performance extends CalcPerformance {
 
     }
 
+    /**
+     * Loops through each MasterContact for printing.
+     */
     public void printMatches() {
 
         this.masterContacts.forEach(this::printMasterContact);
 
     }
 
-    private void printMasterContact(MasterContact master) {
+    /**
+     * Gets the top matching Contacts and their confidence for printing.
+     *
+     * @param masterContact
+     *          MasterContact object.
+     */
+    private void printMasterContact(MasterContact masterContact) {
 
-        ArrayList<Double> confidence = master.getTopConfidence();
-        ArrayList<Contact> contacts = master.getTopContacts();
-        printMatches(master, confidence, contacts);
+        ArrayList<Double> confidence = masterContact.getTopConfidence();
+        ArrayList<Contact> contacts = masterContact.getTopContacts();
+        printMatches(masterContact, confidence, contacts);
 
     }
 
+    /**
+     * Prints the MasterContact data and top matching Contacts and their confidence.
+     *
+     * @param master
+     *          MasterContact object.
+     * @param confidence
+     *          ArrayList of confidence values (Double).
+     * @param contacts
+     *          ArrayList of matching Contacts.
+     */
     private void printMatches(MasterContact master, ArrayList<Double> confidence, ArrayList<Contact> contacts) {
 
         matchDiv();
@@ -185,10 +220,16 @@ public class Performance extends CalcPerformance {
 
     }
 
+    /**
+     * Divider for printing results.
+     */
     private void resultDiv() {
         System.out.println("\n-------------------------------------------------------------------");
     }
 
+    /**
+     * Divider for printing top matches.
+     */
     private void matchDiv() {
         System.out.print("-----------------------------------" +
                 "----------------------------------------------" +
