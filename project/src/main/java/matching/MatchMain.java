@@ -61,7 +61,7 @@ public class MatchMain {
 
         parseDataEnd = System.nanoTime();
 
-        matcher.run(indexer);
+        matcher.runMatcher(indexer);
 
         matchTimeEnd = System.nanoTime();
 
@@ -108,7 +108,7 @@ public class MatchMain {
 //
 //        matcher = new Matcher(indexer, weights1, weights2, false);
 //        matcher.setThreshold(70);
-//        matcher.run();
+//        matcher.runMatcher();
 //
 //        matchTimeEnd = System.nanoTime();
 //
@@ -154,7 +154,7 @@ public class MatchMain {
 
         parseDataEnd = System.nanoTime();
 
-        matcher.run(indexer);
+        matcher.runMatcher(indexer);
 
         matchTimeEnd = System.nanoTime();
 
