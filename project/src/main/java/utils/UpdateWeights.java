@@ -89,7 +89,7 @@ public class UpdateWeights {
 
                 parseDataEnd = System.nanoTime();
 
-                matcher.run(indexer);
+                matcher.runMatcher(indexer);
 
                 matchTimeEnd = System.nanoTime();
 
