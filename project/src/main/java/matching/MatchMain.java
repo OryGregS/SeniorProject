@@ -32,8 +32,8 @@ public class MatchMain {
 
 
         for (int i = 0; i < 50; i++)
-            //runBoth(false);
-            runBothSep(false);
+            runBoth(false);
+            //runBothSep(false);
         //System.out.println(System.getProperty("os.name"));
 
 

@@ -29,10 +29,9 @@ public class TestCSVReader {
 
     @Test
     public void testReadFromCSV() {
-        Indexer indexer = new Indexer();
-        String idxMethod = "metaphone";
+        Indexer indexer = new Indexer("metaphone");
         CSVReader csvReader = new CSVReader(this.masterPath,
-                this.matchPath, indexer, idxMethod);
+                this.matchPath, indexer);
         assertTrue(csvReader.readMaster("contact_master.csv"));
         assertTrue(csvReader.readMatch("contact_match.csv", false));
         assertTrue(csvReader.readMatch("contact_match_alt.csv", true));

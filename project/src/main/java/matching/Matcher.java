@@ -32,6 +32,7 @@ public class Matcher {
 
     private ArrayList<Group> contactGroups;
     private ArrayList<Group> partnerships;
+    private ArrayList<Group> houseAccounts;
     private Weights weights1;
     private Weights weights2;
     private boolean matchMasterToMaster;
@@ -86,9 +87,11 @@ public class Matcher {
 
         this.contactGroups = indexer.getIndividuals();
         this.partnerships = indexer.getPartnerships();
+        this.houseAccounts = indexer.getHouseAccounts();
 
         runGroups(this.contactGroups);
         runGroups(this.partnerships);
+        runGroups(this.houseAccounts);
 
     }
 

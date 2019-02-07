@@ -31,6 +31,7 @@ public class Indexer {
     private String encodeMethod;
     private BlockMap individuals;
     private BlockMap partnerships;
+    private BlockMap houseAccounts;
     private ArrayList<MasterContact> allMasterContacts;
     private ArrayList<Contact> allMatchContacts;
 
@@ -47,6 +48,7 @@ public class Indexer {
         this.encodeMethod = encodeMethod;
         this.individuals = new BlockMap();
         this.partnerships = new BlockMap();
+        this.houseAccounts = new BlockMap();
         this.allMasterContacts = new ArrayList<>();
         this.allMatchContacts = new ArrayList<>();
 
@@ -70,6 +72,18 @@ public class Indexer {
      */
     public ArrayList<Group> getPartnerships() {
         return new ArrayList<>(partnerships.getGroups().values());
+    }
+
+    /**
+     * Gets all groups of House accounts.
+     *
+     * @return
+     *          ArrayList of Group objects containing House Account contact data.
+     */
+    public ArrayList<Group> getHouseAccounts() {
+
+        return new ArrayList<>(houseAccounts.getGroups().values());
+
     }
 
     /**
@@ -121,12 +135,18 @@ public class Indexer {
     public void indexMaster(MasterContact masterContact) {
 
         String key;
+        String zipCode = masterContact.getZip();
         String lastName = masterContact.getLastName();
 
         if (checkPartnership(lastName)) {
 
-            key = masterContact.getZip();
+            key = zipCode;
             partnerships.putMaster(key, masterContact);
+
+        } else if (checkHouse(masterContact.getFirstName())) {
+
+            key = zipCode;
+            houseAccounts.putMaster(key, masterContact);
 
         } else {
 
@@ -148,12 +168,18 @@ public class Indexer {
     public void indexContact(Contact contact) {
 
         String key;
+        String zipCode = contact.getZip();
         String lastName = contact.getLastName();
 
         if (checkPartnership(lastName)) {
 
             key = contact.getZip();
             partnerships.putContact(key, contact);
+
+        } else if (checkHouse(contact.getFirstName())) {
+
+            key = zipCode;
+            houseAccounts.putContact(key, contact);
 
         } else {
 
@@ -174,8 +200,22 @@ public class Indexer {
      * @return
      *          True if partnership. False if not.
      */
-    private boolean checkPartnership(String name) {
+    boolean checkPartnership(String name) {
         return name.contains("/");
+    }
+
+    /**
+     * Checks if a MasterContact or Contact is a House account.
+     *
+     * @param firstName
+     *          First name of contact.
+     * @return
+     *          True if first name equals "House" (ignoring case). False if not.
+     */
+    boolean checkHouse(String firstName) {
+
+        return firstName.equalsIgnoreCase("House");
+
     }
 
     /**
