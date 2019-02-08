@@ -91,7 +91,7 @@ class CompareRecord {
      * @param field
      *          Data in a column for a record.
      * @return
-     *          Weighted level of similarity between the MasterContact & Contact's data.
+     *          Weighted level of similarity between the MasterContact and Contact's data.
      */
     double similarity(String field) {
 

@@ -75,7 +75,7 @@ public class Performance extends CalcPerformance {
                 writer.println();
                 writer.printf("Total # of comparisons: %,38d\n", this.numComparisons);
                 writer.printf("Max # of comparisons: %,40d\n", this.maxComparisons);
-                writer.printf("Reduced comparisons by: %37.2f%%\n", this.percentReduced);
+                writer.printf("Reduced comparisons by: %38.1f%%\n", this.percentReduced);
                 writer.println();
                 writer.printf("Identified Known Matches: %,36d\n", this.identifiedMatchCount);
                 writer.printf("Total Known Matches: %,41d\n", this.knownMatchCount);
@@ -141,8 +141,8 @@ public class Performance extends CalcPerformance {
     }
 
     /**
-     * Formats time values for easier understanding. A time over 120 seconds
-     * is converted to minutes, while a time under 120 seconds is kept in seconds.
+     * Formats time values for easier understanding. A time over 60 seconds
+     * is converted to minutes, while a time under 60 seconds is kept in seconds.
      *
      * @param time
      *          Time value to format (double).
@@ -153,7 +153,7 @@ public class Performance extends CalcPerformance {
 
         String timeString;
 
-        if (time > 120) {
+        if (time > 60) {
 
             time = time / 60;
             timeString = String.format("%.2f m\n", time);

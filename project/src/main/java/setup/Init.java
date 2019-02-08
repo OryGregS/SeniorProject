@@ -31,14 +31,22 @@ import java.util.Properties;
  */
 public class Init {
 
-    private final String FILE = "./config/DataMatching.properties";
-    private Properties props;
+    final String FILE = "./config/DataMatching.properties";
 
-    private Indexer indexer;
-    private CSVReader csvReader;
-    private Matcher matcher;
-    private Weights weights1;
-    private Weights weights2;
+    String masterPath;
+    String matchPath;
+    String weightsPath;
+    String indexMethod;
+    double threshold;
+    int topMatchesListSize;
+    boolean printTopMatches;
+
+    Properties props;
+    Indexer indexer;
+    CSVReader csvReader;
+    Matcher matcher;
+    Weights weights1;
+    Weights weights2;
 
     /**
      * Reads the properties file and initializes objects
@@ -61,13 +69,20 @@ public class Init {
 
             props.load(new FileInputStream(this.FILE));
 
+            this.masterPath = props.getProperty("masterPath", "./data/sampledata/");
+            this.matchPath = props.getProperty("matchPath", "./data/sampledata/matches/");
+            this.weightsPath = props.getProperty("weightsPath", "./config/weights/");
+            this.indexMethod = props.getProperty("indexMethod", "metaphone");
+            this.threshold = Double.valueOf(props.getProperty("threshold", "70"));
+            this.topMatchesListSize = Integer.valueOf(props.getProperty("topMatchesListSize", "10"));
+            this.printTopMatches = Boolean.valueOf(props.getProperty("printTopMatches", "true"));
+
         } catch (IOException e) {
 
             e.printStackTrace();
             System.out.printf("\nFailed to read initial properties from %s", this.FILE);
 
         }
-
     }
 
     /**
@@ -76,11 +91,8 @@ public class Init {
      */
     private void initialize() {
 
-        String masterPath = props.getProperty("masterPath");
-        String matchPath = props.getProperty("matchPath");
-        String weightsPath = props.getProperty("weightsPath");
-        String indexMethod = props.getProperty("indexMethod");
-        double threshold = Double.valueOf(props.getProperty("threshold"));
+
+
 
         // Initialize Indexer's state
         this.indexer = new Indexer(indexMethod);
@@ -128,6 +140,34 @@ public class Init {
      */
     public Matcher getMatcher() {
         return this.matcher;
+    }
+
+    public String getMasterPath() {
+        return masterPath;
+    }
+
+    public String getMatchPath() {
+        return matchPath;
+    }
+
+    public String getWeightsPath() {
+        return weightsPath;
+    }
+
+    public String getIndexMethod() {
+        return indexMethod;
+    }
+
+    public double getThreshold() {
+        return threshold;
+    }
+
+    public int getTopMatchesListSize() {
+        return topMatchesListSize;
+    }
+
+    public boolean isPrintTopMatches() {
+        return printTopMatches;
     }
 
 }

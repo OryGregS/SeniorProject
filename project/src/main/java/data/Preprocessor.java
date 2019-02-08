@@ -127,7 +127,9 @@ class Preprocessor {
      * Removes punctuation from strings such as | . |  ! | , | - | ~ |
      *
      * @param data
-     * @return string named data updated
+     *          String from a record.
+     * @return
+     *          String without punctuation.
      */
     String removePunctuation(String data) {
 

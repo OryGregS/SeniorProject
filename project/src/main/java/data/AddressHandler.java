@@ -69,11 +69,7 @@ class AddressHandler {
         return this.checkKeyExists(this.str);
     }
 
-    /***
-     * function to trim and uppercase
-     * @param data
-     * @return string data updated
-     */
+
     String standardize(String data) {
 
         String newData = data;

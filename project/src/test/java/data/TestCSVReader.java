@@ -33,8 +33,8 @@ public class TestCSVReader {
         CSVReader csvReader = new CSVReader(this.masterPath,
                 this.matchPath, indexer);
         assertTrue(csvReader.readMaster("contact_master.csv"));
-        assertTrue(csvReader.readMatch("contact_match.csv", false));
-        assertTrue(csvReader.readMatch("contact_match_alt.csv", true));
+        assertTrue(csvReader.readMatch("contact_match.csv"));
+        assertTrue(csvReader.readMatch("contact_match_alt.csv"));
         assertEquals(21450,csvReader.getMasterCount());
         assertEquals(49625,csvReader.getMatchCount());
 

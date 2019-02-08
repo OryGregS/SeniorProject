@@ -36,6 +36,14 @@ public class MasterContact extends Contact {
      */
     public MasterContact() {
         this.topMatches = new TopMatches();
+        knownMatches = 0;
+        unknownMatchCount = 0;
+        identifiedMatchCount = 0;
+    }
+
+    public MasterContact(int topMatchesListSize) {
+        this.topMatches = new TopMatches(topMatchesListSize);
+        knownMatches = 0;
         unknownMatchCount = 0;
         identifiedMatchCount = 0;
     }

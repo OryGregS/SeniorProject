@@ -22,10 +22,15 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * CSVReader reads in data from CSV files and stores the records in groups.
@@ -38,6 +43,12 @@ public class CSVReader {
     private Preprocessor processor;
     private long masterCount = 0;
     private long matchCount = 0;
+
+    private enum Headers {
+        LAST_NAME, MIDDLE_NAME, FIRST_NAME, FIRM_NAME, OFFICE_NAME, EMAIL_ADDRESS,
+        BUSINESS_PHONE, ADDRESS_LINE_1, ADDRESS_LINE_2, CITY, STATE_PROVINCE,
+        POSTAL_CODE_1, POSTAL_CODE_2, COUNTRY_ID, CRD_NUMBER, CONTACT_ID
+    }
 
     /**
      * Initialize CSV reader with path to files and indexer object
@@ -86,26 +97,71 @@ public class CSVReader {
      * @return
      *          True upon reading file successfully, false if not.
      */
+    @SuppressWarnings("Duplicates")
     public boolean readMaster(String fileName) {
+
+        try {
+
+            Reader reader = new FileReader(this.masterPath + fileName);
+            CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT
+                    .withIgnoreSurroundingSpaces()
+                    .withFirstRecordAsHeader()
+                    .withHeader(Headers.class));
+
+            for (CSVRecord obs : csv) {
+
+                if (csv.getCurrentLineNumber() != 0) {
+
+                    MasterContact contact = new MasterContact();
+
+                    setFields(contact, obs);
+
+                    findGroup(contact);
+
+                    masterCount++;
+
+                }
+
+            }
+
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+            return false;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Reads the master CSV file.
+     *
+     * @param fileName
+     *          Name of file
+     * @param topMatchesListSize
+     *          Specifier for amount of top matches to hold.
+     * @return
+     *          True upon reading file successfully, false if not.
+     */
+    @SuppressWarnings("Duplicates")
+    public boolean readMaster(String fileName, int topMatchesListSize) {
 
         boolean skipHeader = true;
 
         try {
 
             Reader reader = Files.newBufferedReader(Paths.get(this.masterPath + fileName));
-            CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withIgnoreSurroundingSpaces());
+            CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT
+                    .withIgnoreSurroundingSpaces()
+                    .withFirstRecordAsHeader()
+                    .withHeader(Headers.class));
 
             for (CSVRecord obs : csv) {
 
-                if (skipHeader) {
+                if (csv.getCurrentLineNumber() != 0) {
 
-                    skipHeader = false;
+                    MasterContact contact = new MasterContact(topMatchesListSize);
 
-                } else {
-
-                    MasterContact contact = new MasterContact();
-
-                    setFieldsForMasterContact(contact, obs);
+                    setFields(contact, obs);
 
                     findGroup(contact);
 
@@ -128,30 +184,28 @@ public class CSVReader {
      *
      * @param fileName
      *          Name of file.
-     * @param alt
-     *          True if missing 2nd zipcode, false if not.
      * @return
      *          True upon reading file successfully, false if not.
      */
-    public boolean readMatch(String fileName, boolean alt) {
+    public boolean readMatch(String fileName) {
 
         boolean skipHeader = true;
 
         try {
+
             Reader reader = Files.newBufferedReader(Paths.get(this.matchPath + fileName));
-            CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT.withIgnoreSurroundingSpaces());
+            CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT
+                    .withIgnoreSurroundingSpaces()
+                    .withFirstRecordAsHeader()
+                    .withHeader(Headers.class));
 
             for (CSVRecord obs : csv) {
 
-                if (skipHeader) {
-
-                    skipHeader = false;
-
-                } else {
+                if (csv.getCurrentLineNumber() != 0) {
 
                     Contact contact = new Contact();
 
-                    setFieldsForContact(contact, obs, alt);
+                    setFields(contact, obs);
 
                     findGroup(contact);
 
@@ -188,51 +242,6 @@ public class CSVReader {
         this.indexer.indexMaster(masterContact);
     }
 
-    /**
-     * Stores a row of matching data into Contact object.
-     *
-     * @param contact
-     *          Data holder for matching contacts.
-     * @param obs
-     *          CSVRecord object. (Each CSVRecord object is a row).
-     * @param alt
-     *          True if missing 2nd zipcode, false if not.
-     */
-    @SuppressWarnings("Duplicates")
-    private void setFieldsForContact(Contact contact, CSVRecord obs, boolean alt) {
-
-        contact.setLastName(processor.prep(obs.get(0)));
-        contact.setMiddleName(processor.prep(obs.get(1)));
-        contact.setFirstName(processor.prep(obs.get(2)));
-        contact.setFirmName(processor.prep(obs.get(3)));
-        contact.setOfficeName(processor.prep(obs.get(4)));
-        contact.setEmail(processor.checkNULL(obs.get(5)));
-        contact.setBusinessPhone(processor.checkNULL(obs.get(6)));
-
-        String address1 = obs.get(7);
-        String address2 = obs.get(8);
-        String address = processor.handleAddress(address1, address2);
-
-        contact.setAddress(address);
-        contact.setCity(processor.prep(obs.get(9)));
-        contact.setStateProvince(processor.prep(obs.get(10)));
-        contact.setZip(processor.prep(obs.get(11)));
-
-        if (alt) {
-
-            contact.setCountryID(processor.prep(obs.get(12)));
-            contact.setCRDNumber(processor.prep(obs.get(13)));
-            contact.setContactID(processor.prep(obs.get(14)));
-
-        } else {
-
-            contact.setCountryID(processor.prep(obs.get(13)));
-            contact.setCRDNumber(processor.prep(obs.get(14)));
-            contact.setContactID(processor.prep(obs.get(15)));
-
-        }
-
-    }
 
     /**
      * Stores a row of master data into MasterContact object
@@ -243,28 +252,63 @@ public class CSVReader {
      *          CSVRecord object. (Each CSVRecord object is a row).
      */
     @SuppressWarnings("Duplicates")
-    private void setFieldsForMasterContact(MasterContact masterContact, CSVRecord obs) {
+    private void setFields(MasterContact masterContact, CSVRecord obs) {
 
-        masterContact.setLastName(processor.prep(obs.get(0)));
-        masterContact.setMiddleName(processor.prep(obs.get(1)));
-        masterContact.setFirstName(processor.prep(obs.get(2)));
-        masterContact.setFirmName(processor.prep(obs.get(3)));
-        masterContact.setOfficeName(processor.prep(obs.get(4)));
-        masterContact.setEmail(processor.checkNULL(obs.get(5)));
-        masterContact.setBusinessPhone(processor.checkNULL(obs.get(6)));
+        masterContact.setLastName(processor.prep(obs.get(Headers.LAST_NAME)));
+        masterContact.setMiddleName(processor.prep(obs.get(Headers.MIDDLE_NAME)));
+        masterContact.setFirstName(processor.prep(obs.get(Headers.FIRST_NAME)));
+        masterContact.setFirmName(processor.prep(obs.get(Headers.FIRM_NAME)));
+        masterContact.setOfficeName(processor.prep(obs.get(Headers.OFFICE_NAME)));
+        masterContact.setEmail(processor.checkNULL(obs.get(Headers.EMAIL_ADDRESS)));
+        masterContact.setBusinessPhone(processor.checkNULL(obs.get(Headers.BUSINESS_PHONE)));
 
-        String address1 = obs.get(7);
-        String address2 = obs.get(8);
+        String address1 = obs.get(Headers.ADDRESS_LINE_1);
+        String address2 = obs.get(Headers.ADDRESS_LINE_2);
         String address = processor.handleAddress(address1, address2);
 
         masterContact.setAddress(address);
-        masterContact.setCity(processor.prep(obs.get(9)));
-        masterContact.setStateProvince(processor.prep(obs.get(10)));
-        masterContact.setZip(processor.prep(obs.get(11)));
+        masterContact.setCity(processor.prep(obs.get(Headers.CITY)));
+        masterContact.setStateProvince(processor.prep(obs.get(Headers.STATE_PROVINCE)));
+        masterContact.setZip(processor.prep(obs.get(Headers.POSTAL_CODE_1)));
+        obs.get(Headers.POSTAL_CODE_2);
         // skip additional zipcodes
-        masterContact.setCountryID(processor.prep(obs.get(13)));
-        masterContact.setCRDNumber(processor.prep(obs.get(14)));
-        masterContact.setContactID(processor.prep(obs.get(15)));
+        masterContact.setCountryID(processor.prep(obs.get(Headers.COUNTRY_ID)));
+        masterContact.setCRDNumber(processor.prep(obs.get(Headers.CRD_NUMBER)));
+        masterContact.setContactID(processor.prep(obs.get(Headers.CONTACT_ID)));
+    }
+
+    /**
+     * Stores a row of master data into MasterContact object
+     *
+     * @param contact
+     *          Data holder for master records.
+     * @param obs
+     *          CSVRecord object. (Each CSVRecord object is a row).
+     */
+    @SuppressWarnings("Duplicates")
+    private void setFields(Contact contact, CSVRecord obs) {
+
+        contact.setLastName(processor.prep(obs.get(Headers.LAST_NAME)));
+        contact.setMiddleName(processor.prep(obs.get(Headers.MIDDLE_NAME)));
+        contact.setFirstName(processor.prep(obs.get(Headers.FIRST_NAME)));
+        contact.setFirmName(processor.prep(obs.get(Headers.FIRM_NAME)));
+        contact.setOfficeName(processor.prep(obs.get(Headers.OFFICE_NAME)));
+        contact.setEmail(processor.checkNULL(obs.get(Headers.EMAIL_ADDRESS)));
+        contact.setBusinessPhone(processor.checkNULL(obs.get(Headers.BUSINESS_PHONE)));
+
+        String address1 = obs.get(Headers.ADDRESS_LINE_1);
+        String address2 = obs.get(Headers.ADDRESS_LINE_2);
+        String address = processor.handleAddress(address1, address2);
+
+        contact.setAddress(address);
+        contact.setCity(processor.prep(obs.get(Headers.CITY)));
+        contact.setStateProvince(processor.prep(obs.get(Headers.STATE_PROVINCE)));
+        contact.setZip(processor.prep(obs.get(Headers.POSTAL_CODE_1)));
+        obs.get(Headers.POSTAL_CODE_2);
+        // skip additional zipcodes
+        contact.setCountryID(processor.prep(obs.get(Headers.COUNTRY_ID)));
+        contact.setCRDNumber(processor.prep(obs.get(Headers.CRD_NUMBER)));
+        contact.setContactID(processor.prep(obs.get(Headers.CONTACT_ID)));
     }
 
 }

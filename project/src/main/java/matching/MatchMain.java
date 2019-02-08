@@ -20,6 +20,7 @@ package matching;
 import data.CSVReader;
 import indexing.Indexer;
 import setup.Init;
+import setup.MatchRunner;
 import utils.Performance;
 
 
@@ -30,94 +31,13 @@ public class MatchMain {
 
     public static void main(String[] args) {
 
+        MatchRunner runner = new MatchRunner();
+        for (int i = 0; i < 50; i++) {
 
-        //for (int i = 0; i < 50; i++)
-            runBoth(true);
-            //runBothSep(false);
-
-
+            //runner.masterToMaster("contact_master.csv");
+            //runner.masterToMatch("contact_master.csv", "contact_match.csv");
+            runner.masterToMatches("contact_master.csv");
+            runner = new MatchRunner();
+        }
     }
-
-    @SuppressWarnings("Duplicates")
-    public static void runBoth(boolean printMatches) {
-
-        long totalStart, parseDataEnd, matchTimeEnd;
-
-        Performance measure = new Performance();
-
-        Init init = new Init();
-
-        Indexer indexer = init.getIndexer();
-        CSVReader csvReader = init.getCsvReader();
-        Matcher matcher = init.getMatcher();
-
-        totalStart = System.nanoTime();
-
-        // Read data, process it, and index it
-        csvReader.readMaster("contact_master.csv");
-        csvReader.readMatch("contact_match.csv", false);
-        csvReader.readMatch("contact_match_alt.csv", true);
-
-        parseDataEnd = System.nanoTime();
-
-        matcher.runMatcher(indexer);
-
-        matchTimeEnd = System.nanoTime();
-
-        measure.setParseDataTime(totalStart, parseDataEnd);
-        measure.setMatcherTime(parseDataEnd, matchTimeEnd);
-        measure.setTotalRunTime(totalStart, matchTimeEnd);
-        measure.measure(indexer, matcher);
-
-        if (printMatches)
-            measure.printMatches();
-
-        measure.printResults();
-
-    }
-
-    public static void runBothSep(boolean printMatches) {
-
-        matchOne("contact_match.csv",false, printMatches);
-        matchOne("contact_match_alt.csv",true, printMatches);
-
-    }
-
-    @SuppressWarnings("Duplicates")
-    public static void matchOne(String matchFile, boolean alt, boolean printMatches) {
-
-        long totalStart, parseDataEnd, matchTimeEnd;
-
-        Performance measure = new Performance();
-
-        Init init = new Init();
-
-        Indexer indexer = init.getIndexer();
-        CSVReader csvReader = init.getCsvReader();
-        Matcher matcher = init.getMatcher();
-
-        totalStart = System.nanoTime();
-
-        // Read data, process it, and index it
-        csvReader.readMaster("contact_master.csv");
-        csvReader.readMatch(matchFile, alt);
-
-        parseDataEnd = System.nanoTime();
-
-        matcher.runMatcher(indexer);
-
-        matchTimeEnd = System.nanoTime();
-
-        measure.setParseDataTime(totalStart, parseDataEnd);
-        measure.setMatcherTime(parseDataEnd, matchTimeEnd);
-        measure.setTotalRunTime(totalStart, matchTimeEnd);
-        measure.measure(indexer, matcher);
-
-        if (printMatches)
-            measure.printMatches();
-
-        measure.printResults();
-
-    }
-
 }

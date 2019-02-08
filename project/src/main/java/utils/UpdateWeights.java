@@ -84,8 +84,8 @@ public class UpdateWeights {
 
                 // Read data, process it, and index it
                 csvReader.readMaster("contact_master.csv");
-                csvReader.readMatch("contact_match.csv", false);
-                csvReader.readMatch("contact_match_alt.csv", true);
+                csvReader.readMatch("contact_match.csv");
+                csvReader.readMatch("contact_match_alt.csv");
 
                 parseDataEnd = System.nanoTime();
 

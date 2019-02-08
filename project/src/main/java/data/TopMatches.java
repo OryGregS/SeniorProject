@@ -34,7 +34,7 @@ class TopMatches {
      * based on their default values
      */
     public TopMatches() {
-        this.MAX_MATCH_SIZE = 25;
+        this.MAX_MATCH_SIZE = 10;
         this.MAX_LOC = this.MAX_MATCH_SIZE - 1;
         this.topConfidence = new ArrayList<>(MAX_MATCH_SIZE);
         this.topContact = new ArrayList<>(MAX_MATCH_SIZE);
@@ -43,14 +43,14 @@ class TopMatches {
     /**
      * Constructor to set a specific list size.
      *
-     * @param newMatchSize
+     * @param listSize
      *          Number of potential matches to hold.
      */
-    public TopMatches(int newMatchSize) {
-        this.MAX_MATCH_SIZE = newMatchSize;
-        this.MAX_LOC = newMatchSize - 1;
-        this.topConfidence = new ArrayList<>(newMatchSize);
-        this.topContact = new ArrayList<>(newMatchSize);
+    public TopMatches(int listSize) {
+        this.MAX_MATCH_SIZE = listSize;
+        this.MAX_LOC = listSize - 1;
+        this.topConfidence = new ArrayList<>(listSize);
+        this.topContact = new ArrayList<>(listSize);
     }
 
     /**
@@ -179,8 +179,11 @@ class TopMatches {
      * Checks if a match is greater than or equal to
      * the last (least likely) match in the lists.
      *
-     * @param confidence - new match's level of confidence of similarity
+     * @param confidence
+     *          New match's level of confidence of similarity
      * @return
+     *          True if new match's confidence greater than or equal
+     *          to the last match in the list. False if not.
      */
     private boolean checkMatch(double confidence) {
         return confidence >= this.topConfidence.get(this.MAX_LOC);

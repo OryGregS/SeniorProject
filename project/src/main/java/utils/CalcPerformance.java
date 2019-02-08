@@ -17,6 +17,7 @@
 
 package utils;
 
+import data.Contact;
 import data.MasterContact;
 import indexing.Indexer;
 import matching.Matcher;
@@ -41,6 +42,7 @@ public class CalcPerformance {
     long maxComparisons = 0;
     double percentReduced = 0;
     ArrayList<MasterContact> masterContacts;
+    ArrayList<Contact> matchContacts;
 
     /**
      * Uses Indexer and Matcher objects (after matching is completed) to
@@ -54,13 +56,22 @@ public class CalcPerformance {
     public void measure(Indexer indexer, Matcher matcher) {
 
         this.masterContacts = indexer.getAllMasterContacts();
+        this.matchContacts = indexer.getAllMatchContacts();
+
 
         this.masterSize = indexer.getMasterSize();
         this.matchSize = indexer.getMatchSize();
 
-
         for (int i = 0; i < masterSize; i++) {
-            findMatches(this.masterContacts.get(i));
+
+            //MasterContact masterContact = masterContacts.get(i);
+            findMatches(masterContacts.get(i));
+            /*
+            this.knownMatchCount += matchContacts
+                    .parallelStream()
+                    .filter(contact -> trueMatch(masterContact, contact))
+                    .count(); */
+
         }
 
         this.percentFound = ((double) this.identifiedMatchCount / (double) this.knownMatchCount) * 100;
@@ -70,6 +81,17 @@ public class CalcPerformance {
         this.percentReduced = (1.0 - ((double) this.numComparisons / (double) maxComparisons)) * 100;
 
     }
+
+    /*
+    private boolean trueMatch(MasterContact masterContact, Contact matchContact) {
+
+        String masterCRD = masterContact.getCRDNumber();
+        String matchCRD = matchContact.getCRDNumber();
+
+        return ( (!masterCRD.equals("") && !matchCRD.equals("") ) && masterCRD.equalsIgnoreCase(matchCRD));
+
+    }
+    */
 
     /**
      * Counts the number of known matches a MasterContact has (CRD number match),
