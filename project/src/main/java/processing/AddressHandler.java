@@ -11,11 +11,11 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 2/6/19 5:11 PM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 2/8/19 10:12 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package data;
+package processing;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
@@ -35,7 +35,7 @@ class AddressHandler {
     public AddressHandler() {
 
         abbrevs = new HashMap<>();
-        readJSON("./config/data/abbreviations.json");
+        readJSON("./config/processing/abbreviations.json");
 
     }
 

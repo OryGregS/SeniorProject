@@ -17,8 +17,8 @@
 
 package utils;
 
-import data.Contact;
-import data.MasterContact;
+import dataholder.Contact;
+import dataholder.MasterContact;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -82,8 +82,8 @@ public class Performance extends CalcPerformance {
                 writer.println();
                 writer.printf("Known matches correctly identified %,26.2f%%\n", percentFound);
                 writer.println();
-                writer.printf("Time taken to parse data: %37s", timeToStr(this.parseDataTime));
-                writer.printf("Time taken to match data: %37s", timeToStr(this.matcherTime));
+                writer.printf("Time taken to parse dataholder: %37s", timeToStr(this.parseDataTime));
+                writer.printf("Time taken to match dataholder: %37s", timeToStr(this.matcherTime));
                 writer.println();
                 writer.printf("Total time taken: %45s", timeToStr(this.totalRunTime));
 
@@ -133,8 +133,8 @@ public class Performance extends CalcPerformance {
         System.out.println();
         System.out.printf("\tKnown matches correctly identified %,26.2f%%\n", percentFound);
         System.out.println();
-        System.out.printf("\tTime taken to parse data: %37s", timeToStr(this.parseDataTime));
-        System.out.printf("\tTime taken to match data: %37s", timeToStr(this.matcherTime));
+        System.out.printf("\tTime taken to parse dataholder: %37s", timeToStr(this.parseDataTime));
+        System.out.printf("\tTime taken to match dataholder: %37s", timeToStr(this.matcherTime));
         System.out.println();
         System.out.printf("\tTotal time taken: %45s", timeToStr(this.totalRunTime));
     }
@@ -188,7 +188,7 @@ public class Performance extends CalcPerformance {
     }
 
     /**
-     * Prints the MasterContact data and top matching Contacts and their confidence.
+     * Prints the MasterContact dataholder and top matching Contacts and their confidence.
      *
      * @param master     MasterContact object.
      * @param confidence ArrayList of confidence values (Double).

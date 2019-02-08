@@ -11,11 +11,11 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 1/28/19 1:27 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 2/8/19 10:12 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package data;
+package processing;
 
 import indexing.Indexer;
 import org.junit.Test;

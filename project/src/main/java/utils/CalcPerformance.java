@@ -17,15 +17,15 @@
 
 package utils;
 
-import data.Contact;
-import data.MasterContact;
+import dataholder.Contact;
+import dataholder.MasterContact;
 import indexing.Indexer;
 import matching.Matcher;
 
 import java.util.ArrayList;
 
 /**
- * CalcPerformance contains holds data related to accuracy and number of matches.
+ * CalcPerformance contains holds dataholder related to accuracy and number of matches.
  */
 public class CalcPerformance {
 
@@ -108,7 +108,7 @@ public class CalcPerformance {
     }
 
     /**
-     * Total time the program ran (reading data, preprocessing it, and matching).
+     * Total time the program ran (reading dataholder, preprocessing it, and matching).
      *
      * @param startTime Time the program started.
      * @param endTime   Time the program ended.
@@ -118,17 +118,17 @@ public class CalcPerformance {
     }
 
     /**
-     * Time taken to read and preprocess data.
+     * Time taken to read and preprocess dataholder.
      *
-     * @param startTime Time reading and preprocessing data started.
-     * @param endTime   Time reading and preprocessing data ended.
+     * @param startTime Time reading and preprocessing dataholder started.
+     * @param endTime   Time reading and preprocessing dataholder ended.
      */
     public void setParseDataTime(long startTime, long endTime) {
         this.parseDataTime = calcTime(startTime, endTime);
     }
 
     /**
-     * Time taken to match the matching data sets to the master.
+     * Time taken to match the matching dataholder sets to the master.
      *
      * @param startTime Time matching started.
      * @param endTime   Time matching ended.

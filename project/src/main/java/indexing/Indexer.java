@@ -17,14 +17,14 @@
 
 package indexing;
 
-import data.Contact;
-import data.MasterContact;
+import dataholder.Contact;
+import dataholder.MasterContact;
 import org.apache.commons.codec.language.*;
 
 import java.util.ArrayList;
 
 /**
- * Indexer phonetically encodes data, and pass the encoded data as a key to BlockMap.
+ * Indexer phonetically encodes dataholder, and pass the encoded dataholder as a key to BlockMap.
  */
 public class Indexer {
 
@@ -54,9 +54,9 @@ public class Indexer {
     }
 
     /**
-     * Gets all groups of contacts (individual data).
+     * Gets all groups of contacts (individual dataholder).
      *
-     * @return ArrayList of Group objects containing individual contact data.
+     * @return ArrayList of Group objects containing individual contact dataholder.
      */
     public ArrayList<Group> getIndividuals() {
         return new ArrayList<>(individuals.getGroups().values());
@@ -65,7 +65,7 @@ public class Indexer {
     /**
      * Gets all groups of partnerships (grouped contacts).
      *
-     * @return ArrayList of Group objects containing partnership contact data.
+     * @return ArrayList of Group objects containing partnership contact dataholder.
      */
     public ArrayList<Group> getPartnerships() {
         return new ArrayList<>(partnerships.getGroups().values());
@@ -74,7 +74,7 @@ public class Indexer {
     /**
      * Gets all groups of House accounts.
      *
-     * @return ArrayList of Group objects containing House Account contact data.
+     * @return ArrayList of Group objects containing House Account contact dataholder.
      */
     public ArrayList<Group> getHouseAccounts() {
 
@@ -119,7 +119,7 @@ public class Indexer {
     }
 
     /**
-     * Phonetically encodes MasterContact data and adds it to a Group object.
+     * Phonetically encodes MasterContact dataholder and adds it to a Group object.
      *
      * @param masterContact MasterContact object.
      */
@@ -151,7 +151,7 @@ public class Indexer {
     }
 
     /**
-     * Phonetically encodes Contact data and adds it to a Group object.
+     * Phonetically encodes Contact dataholder and adds it to a Group object.
      *
      * @param contact Contact object.
      */

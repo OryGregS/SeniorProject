@@ -11,11 +11,11 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 08/01/19 6,48 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 2/8/19 10:12 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package data;
+package processing;
 
 
 import org.junit.Test;
@@ -148,7 +148,7 @@ public class TestPreprocessor {
     public void testStandardize(String data, String expected) {
         processor.getAddressHandler().setStr(data);
         String result = processor.getAddressHandler().standardize();
-//        print(data,result);
+//        print(dataholder,result);
 //        print(result, expected);
         assertEquals(result, expected);
     }

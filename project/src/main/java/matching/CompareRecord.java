@@ -17,9 +17,10 @@
 
 package matching;
 
-import data.Contact;
-import data.MasterContact;
+import dataholder.Contact;
+import dataholder.MasterContact;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
+import utils.Weights;
 
 /**
  * CompareRecord performs our calculation of similarity (confidence).
@@ -80,13 +81,13 @@ class CompareRecord {
     }
 
     /**
-     * Gets a field's data from the MasterContact and Contact object,
+     * Gets a field's dataholder from the MasterContact and Contact object,
      * and the field's weight. Then calls levenRatio to get our ratio
      * of similarity between the two strings. This then multiplies that
      * ratio by the field's weight.
      *
      * @param field Data in a column for a record.
-     * @return Weighted level of similarity between the MasterContact and Contact's data.
+     * @return Weighted level of similarity between the MasterContact and Contact's dataholder.
      */
     double similarity(String field) {
 
@@ -205,7 +206,7 @@ class CompareRecord {
     /**
      * Checks if CRDNumber is an empty string.
      *
-     * @param CRDNum Unique data-field per contact.
+     * @param CRDNum Unique dataholder-field per contact.
      * @return True if not empty. False if empty.
      */
     private boolean checkCRDNotEmpty(String CRDNum) {

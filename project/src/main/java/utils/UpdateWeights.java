@@ -17,10 +17,9 @@
 
 package utils;
 
-import data.CSVReader;
 import indexing.Indexer;
 import matching.Matcher;
-import matching.Weights;
+import processing.CSVReader;
 import setup.Init;
 
 import java.util.Scanner;
@@ -82,7 +81,7 @@ public class UpdateWeights {
                 Matcher matcher = new Matcher(weights1, weights2);
                 totalStart = System.nanoTime();
 
-                // Read data, process it, and index it
+                // Read dataholder, process it, and index it
                 csvReader.readMaster("contact_master.csv");
                 csvReader.readMatch("contact_match.csv");
                 csvReader.readMatch("contact_match_alt.csv");

@@ -15,10 +15,10 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package data;
+package dataholder;
 
 /**
- * Generic data holder for Contact data. Extended by MasterContact.
+ * Generic dataholder holder for Contact dataholder. Extended by MasterContact.
  */
 public class Contact {
 

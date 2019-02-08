@@ -15,12 +15,12 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package data;
+package dataholder;
 
 import java.util.ArrayList;
 
 /**
- * MasterContact extends Contact's data storage and adds functionality to store top matches.
+ * MasterContact extends Contact's dataholder storage and adds functionality to store top matches.
  * Additionally, some calculations are done here.
  */
 public class MasterContact extends Contact {
@@ -76,7 +76,7 @@ public class MasterContact extends Contact {
     /**
      * Gets the number of
      *
-     * @return ArrayList of contact data
+     * @return ArrayList of contact dataholder
      */
     public int getKnownMatches() {
         return this.knownMatches;
@@ -104,7 +104,7 @@ public class MasterContact extends Contact {
      * This method attempts to add the potential contact in the
      * lists of the TopMatches object.
      *
-     * @param contact    New match's data.
+     * @param contact    New match's dataholder.
      * @param confidence New match's level of confidence (how similar it is).
      * @return True if Contact and Confidence were added to the top list.
      * False if there was an error.
@@ -123,10 +123,10 @@ public class MasterContact extends Contact {
     }
 
     /**
-     * Gets the list contact data of the master-contact's most likely matches
+     * Gets the list contact dataholder of the master-contact's most likely matches
      * in the TopMatches object.
      *
-     * @return ArrayList of contact data
+     * @return ArrayList of contact dataholder
      */
     public ArrayList<Contact> getTopContacts() {
         return this.topMatches.getTopContacts();

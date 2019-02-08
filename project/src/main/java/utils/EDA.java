@@ -17,7 +17,7 @@
 
 package utils;
 /*
-import data.Contact;
+import dataholder.Contact;
 import matching.KeyMatch;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import java.util.ArrayList;

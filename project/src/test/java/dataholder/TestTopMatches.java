@@ -17,7 +17,7 @@
  * Copyright (c) 2019. All rights reserved.
  */
 
-package data;
+package dataholder;
 
 import org.junit.Test;
 

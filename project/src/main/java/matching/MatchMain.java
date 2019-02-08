@@ -22,8 +22,8 @@ import setup.MatchRunner;
 
 public class MatchMain {
 
-    // MASTERPATH - "./data/contact_master.csv"
-    // MATCHPATH - "./data/contact_match.csv"
+    // MASTERPATH - "./dataholder/contact_master.csv"
+    // MATCHPATH - "./dataholder/contact_match.csv"
 
     public static void main(String[] args) {
 

@@ -17,10 +17,11 @@
 
 package matching;
 
-import data.Contact;
-import data.MasterContact;
+import dataholder.Contact;
+import dataholder.MasterContact;
 import indexing.Group;
 import indexing.Indexer;
+import utils.Weights;
 
 import java.util.ArrayList;
 
@@ -29,10 +30,6 @@ import java.util.ArrayList;
  */
 public class Matcher {
 
-
-    private ArrayList<Group> contactGroups;
-    private ArrayList<Group> partnerships;
-    private ArrayList<Group> houseAccounts;
     private Weights weights1;
     private Weights weights2;
     private boolean matchMasterToMaster;
@@ -81,13 +78,13 @@ public class Matcher {
      */
     public void runMatcher(Indexer indexer) {
 
-        this.contactGroups = indexer.getIndividuals();
-        this.partnerships = indexer.getPartnerships();
-        this.houseAccounts = indexer.getHouseAccounts();
+        ArrayList<Group> contactGroups = indexer.getIndividuals();
+        ArrayList<Group> partnerships = indexer.getPartnerships();
+        ArrayList<Group> houseAccounts = indexer.getHouseAccounts();
 
-        runGroups(this.contactGroups);
-        runGroups(this.partnerships);
-        runGroups(this.houseAccounts);
+        runGroups(contactGroups);
+        runGroups(partnerships);
+        runGroups(houseAccounts);
 
     }
 

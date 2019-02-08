@@ -1,14 +1,14 @@
 {
-  "Zip": 0.110625,
-  "Email": 0.41,
-  "Address": 0.0553125,
-  "FirmName": 0,
-  "Phone": 0.0184375,
-  "State": 0.036875,
-  "FirstName": 0.1475,
-  "Country": 0,
-  "City": 0.0553125,
-  "LastName": 0.1475,
-  "MiddleName": 0.0184375,
-  "OfficeName": 0
+    "Zip": 0.110625,
+    "Email": 0.41,
+    "Address": 0.0553125,
+    "FirmName": 0,
+    "Phone": 0.0184375,
+    "State": 0.036875,
+    "FirstName": 0.1475,
+    "Country": 0,
+    "City": 0.0553125,
+    "LastName": 0.1475,
+    "MiddleName": 0.0184375,
+    "OfficeName": 0
 }

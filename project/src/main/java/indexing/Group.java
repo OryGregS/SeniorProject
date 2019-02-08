@@ -17,8 +17,8 @@
 
 package indexing;
 
-import data.Contact;
-import data.MasterContact;
+import dataholder.Contact;
+import dataholder.MasterContact;
 
 import java.util.ArrayList;
 

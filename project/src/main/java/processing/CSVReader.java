@@ -11,12 +11,14 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 1/26/19 3:06 PM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 2/8/19 10:12 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package data;
+package processing;
 
+import dataholder.Contact;
+import dataholder.MasterContact;
 import indexing.Indexer;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -29,7 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * CSVReader reads in data from CSV files and stores the records in groups.
+ * CSVReader reads in dataholder from CSV files and stores the records in groups.
  */
 public class CSVReader {
 
@@ -209,7 +211,7 @@ public class CSVReader {
     /**
      * Indexes and stores a matching record in a group.
      *
-     * @param contact Matching contact data from matching CSV(s).
+     * @param contact Matching contact dataholder from matching CSV(s).
      */
     private void findGroup(Contact contact) {
         this.indexer.indexContact(contact);
@@ -218,7 +220,7 @@ public class CSVReader {
     /**
      * Indexes and stores a master record in a group.
      *
-     * @param masterContact Master contact data from master CSV.
+     * @param masterContact Master contact dataholder from master CSV.
      */
     private void findGroup(MasterContact masterContact) {
         this.indexer.indexMaster(masterContact);
@@ -226,7 +228,7 @@ public class CSVReader {
 
 
     /**
-     * Stores a row of master data into MasterContact object
+     * Stores a row of master dataholder into MasterContact object
      *
      * @param masterContact Data holder for master records.
      * @param obs           CSVRecord object. (Each CSVRecord object is a row).
@@ -258,7 +260,7 @@ public class CSVReader {
     }
 
     /**
-     * Stores a row of master data into MasterContact object
+     * Stores a row of master dataholder into MasterContact object
      *
      * @param contact Data holder for master records.
      * @param obs     CSVRecord object. (Each CSVRecord object is a row).

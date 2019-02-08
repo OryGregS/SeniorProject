@@ -17,10 +17,10 @@
 
 package setup;
 
-import data.CSVReader;
 import indexing.Indexer;
 import matching.Matcher;
-import matching.Weights;
+import processing.CSVReader;
+import utils.Weights;
 
 import java.io.FileInputStream;
 import java.io.IOException;
