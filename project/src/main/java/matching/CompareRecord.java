@@ -21,6 +21,7 @@ import dataholder.Contact;
 import dataholder.MasterContact;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import utils.Weights;
+import utils.weightNames;
 
 /**
  * CompareRecord performs our calculation of similarity (confidence).
@@ -65,18 +66,18 @@ class CompareRecord {
      */
     private void loadWeights() {
 
-        this.LastNameWeight = this.weights.getWeight("LastName");
-        this.MiddleNameWeight = this.weights.getWeight("MiddleName");
-        this.FirstNameWeight = this.weights.getWeight("FirstName");
-        this.FirmNameWeight = this.weights.getWeight("FirmName");
-        this.OfficeNameWeight = this.weights.getWeight("OfficeName");
-        this.EmailWeight = this.weights.getWeight("Email");
-        this.PhoneWeight = this.weights.getWeight("Phone");
-        this.AddressWeight = this.weights.getWeight("Address");
-        this.CityWeight = this.weights.getWeight("City");
-        this.StateWeight = this.weights.getWeight("State");
-        this.ZipWeight = this.weights.getWeight("Zip");
-        this.CountryWeight = this.weights.getWeight("Country");
+        this.LastNameWeight = this.weights.getWeight(weightNames.LAST_NAME.name());
+        this.MiddleNameWeight = this.weights.getWeight(weightNames.MIDDLE_NAME.name());
+        this.FirstNameWeight = this.weights.getWeight(weightNames.FIRST_NAME.name());
+        this.FirmNameWeight = this.weights.getWeight(weightNames.FIRM_NAME.name());
+        this.OfficeNameWeight = this.weights.getWeight(weightNames.OFFICE_NAME.name());
+        this.EmailWeight = this.weights.getWeight(weightNames.EMAIL.name());
+        this.PhoneWeight = this.weights.getWeight(weightNames.PHONE.name());
+        this.AddressWeight = this.weights.getWeight(weightNames.ADDRESS.name());
+        this.CityWeight = this.weights.getWeight(weightNames.CITY.name());
+        this.StateWeight = this.weights.getWeight(weightNames.STATE.name());
+        this.ZipWeight = this.weights.getWeight(weightNames.ZIP.name());
+        this.CountryWeight = this.weights.getWeight(weightNames.COUNTRY.name());
 
     }
 

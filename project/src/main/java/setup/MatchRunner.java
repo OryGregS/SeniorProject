@@ -21,14 +21,26 @@ import utils.Performance;
 
 import java.io.File;
 
+/**
+ * MatchRunner is the main "driver" of the program. We extend Init to
+ * access DataMatching.properties and also access the initialized objects.
+ */
 public class MatchRunner extends Init {
 
     private Performance performance;
 
+    /**
+     * Call our parent class's constructor to get properties and initialize object's states.
+     */
     public MatchRunner() {
         super();
     }
 
+    /**
+     * Match a master record to itself. This calls an extra flag in
+     *
+     * @param masterFileName File name of master record (CSV) in masterPath.
+     */
     @SuppressWarnings("Duplicates")
     public void masterToMaster(String masterFileName) {
 
@@ -56,6 +68,12 @@ public class MatchRunner extends Init {
 
     }
 
+    /**
+     * Match the master record against a single matching record.
+     *
+     * @param masterFileName File name of master record (CSV) in masterPath.
+     * @param matchFileName  File name of matching record (CSV) in matchPath.
+     */
     @SuppressWarnings("Duplicates")
     public void masterToMatch(String masterFileName, String matchFileName) {
 
@@ -81,6 +99,13 @@ public class MatchRunner extends Init {
 
     }
 
+    /**
+     * Match the master record against multiple matching records.
+     * This function grabs all CSV files that are in the matchPath
+     * and matches them all as a single large record.
+     *
+     * @param masterFileName File name of master record (CSV) in masterPath.
+     */
     @SuppressWarnings("Duplicates")
     public void masterToMatches(String masterFileName) {
 
@@ -106,6 +131,13 @@ public class MatchRunner extends Init {
 
     }
 
+    /**
+     * Function to set performance measurement times.
+     *
+     * @param parseDataTimeStart Time reading and processing data started.
+     * @param parseDataTimeEnd   Time reading and processing data ended and matching began.
+     * @param matchDataTimeEnd   Time matching ended.
+     */
     private void measure(long parseDataTimeStart, long parseDataTimeEnd, long matchDataTimeEnd) {
         this.performance.setParseDataTime(parseDataTimeStart, parseDataTimeEnd);
         this.performance.setMatcherTime(parseDataTimeEnd, matchDataTimeEnd);
@@ -113,6 +145,9 @@ public class MatchRunner extends Init {
         this.performance.measure(this.indexer, this.matcher);
     }
 
+    /**
+     * Grabs all CSV files in the matchPath (set in DataMatching.properties).
+     */
     void readAllMatchFiles() {
 
         File matchFolder = new File(this.matchPath);

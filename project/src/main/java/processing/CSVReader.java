@@ -42,12 +42,6 @@ public class CSVReader {
     private long masterCount = 0;
     private long matchCount = 0;
 
-    private enum Headers {
-        LAST_NAME, MIDDLE_NAME, FIRST_NAME, FIRM_NAME, OFFICE_NAME, EMAIL_ADDRESS,
-        BUSINESS_PHONE, ADDRESS_LINE_1, ADDRESS_LINE_2, CITY, STATE_PROVINCE,
-        POSTAL_CODE_1, POSTAL_CODE_2, COUNTRY_ID, CRD_NUMBER, CONTACT_ID
-    }
-
     /**
      * Initialize CSV reader with path to files and indexer object
      *
@@ -226,7 +220,6 @@ public class CSVReader {
         this.indexer.indexMaster(masterContact);
     }
 
-
     /**
      * Stores a row of master dataholder into MasterContact object
      *
@@ -289,6 +282,15 @@ public class CSVReader {
         contact.setCountryID(processor.prep(obs.get(Headers.COUNTRY_ID)));
         contact.setCRDNumber(processor.prep(obs.get(Headers.CRD_NUMBER)));
         contact.setContactID(processor.prep(obs.get(Headers.CONTACT_ID)));
+    }
+
+    /**
+     * Defines the fields in our CSV files.
+     */
+    private enum Headers {
+        LAST_NAME, MIDDLE_NAME, FIRST_NAME, FIRM_NAME, OFFICE_NAME, EMAIL_ADDRESS,
+        BUSINESS_PHONE, ADDRESS_LINE_1, ADDRESS_LINE_2, CITY, STATE_PROVINCE,
+        POSTAL_CODE_1, POSTAL_CODE_2, COUNTRY_ID, CRD_NUMBER, CONTACT_ID
     }
 
 }

@@ -26,20 +26,26 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * AddressHandler is used by Preprocessor to standardize address fields.
+ */
 class AddressHandler {
 
     private Map<String, String> abbrevs;
     private String str;
     private int countOfAbbrevs = 0;
 
-    public AddressHandler() {
+    /**
+     * Initializes HashMap field and reads the JSON file into the HashMap.
+     */
+    AddressHandler() {
 
         abbrevs = new HashMap<>();
         readJSON("./config/processing/abbreviations.json");
 
     }
 
-    public void setStr(String str) {
+    void setStr(String str) {
         this.str = str;
     }
 
@@ -54,15 +60,15 @@ class AddressHandler {
         return standardize(this.str);
     }
 
-    public Map<String, String> getAbbrevs() {
+    Map<String, String> getAbbrevs() {
         return new HashMap<>(this.abbrevs); // to keep it private
     }
 
-    public int getCountOfAbbrevs() {
+    int getCountOfAbbrevs() {
         return this.countOfAbbrevs;
     }
 
-    public boolean checkKeyExists() {
+    boolean checkKeyExists() {
         if (str.isEmpty() || str.equalsIgnoreCase("") || str == null) {
             return false;
         }
@@ -86,14 +92,13 @@ class AddressHandler {
 
     }
 
-
     private boolean checkKeyExists(String data) {
         return abbrevs.containsKey(data);
     }
 
-    private void readJSON(String filename) {
+    private void readJSON(String fileName) {
 
-        File file = new File(filename);
+        File file = new File(fileName);
 
         try {
 

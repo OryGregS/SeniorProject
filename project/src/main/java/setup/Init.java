@@ -137,31 +137,67 @@ public class Init {
         return this.matcher;
     }
 
+    /**
+     * Gets the masterPath String.
+     *
+     * @return Location to find master CSV file.
+     */
     public String getMasterPath() {
         return masterPath;
     }
 
+    /**
+     * Gets the matchPath String.
+     *
+     * @return Location to find the matching CSV files.
+     */
     public String getMatchPath() {
         return matchPath;
     }
 
+    /**
+     * Gets the weightsPath String.
+     *
+     * @return Location to find field weights.
+     */
     public String getWeightsPath() {
         return weightsPath;
     }
 
+    /**
+     * Get the indexMethod String.
+     *
+     * @return The method to use for indexing.
+     */
     public String getIndexMethod() {
         return indexMethod;
     }
 
+    /**
+     * Get the threshold double value.
+     *
+     * @return The double to use for matching threshold.
+     */
     public double getThreshold() {
         return threshold;
     }
 
+    /**
+     * Get the amount of top matches to hold for each MasterContact.
+     *
+     * @return Integer amount of top matches to hold for each MasterContact.
+     */
     public int getTopMatchesListSize() {
         return topMatchesListSize;
     }
 
-    public boolean isPrintTopMatches() {
+    /**
+     * Gets the boolean value of whether or not to print each MasterContact's
+     * top matches.
+     *
+     * @return True or false.
+     */
+    public boolean getPrintTopMatches() {
         return printTopMatches;
     }
 

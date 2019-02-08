@@ -76,25 +76,4 @@ public class Group {
         return matchContacts;
     }
 
-//    public void printGroup() {
-//
-//        int i;
-//        int size;
-//
-//        size = masterContacts.size();
-//
-//        for (i = 0; i < size; i++) {
-//            masterContacts.get(i).printAll();
-//        }
-//
-//        size = matchContacts.size();
-//
-//        for (i = 0; i < size; i++) {
-//            matchContacts.get(i).printAll();
-//        }
-//
-//
-//    }
-
-
 }

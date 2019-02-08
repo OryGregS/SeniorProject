@@ -20,7 +20,7 @@ package dataholder;
 import java.util.ArrayList;
 
 /**
- * MasterContact extends Contact's dataholder storage and adds functionality to store top matches.
+ * MasterContact extends Contact's data storage and adds functionality to store top matches.
  * Additionally, some calculations are done here.
  */
 public class MasterContact extends Contact {
@@ -41,6 +41,11 @@ public class MasterContact extends Contact {
         identifiedMatchCount = 0;
     }
 
+    /**
+     * Constructor to set the amount of top matches to store.
+     *
+     * @param topMatchesListSize Number of top matches to store per MasterContact.
+     */
     public MasterContact(int topMatchesListSize) {
         this.topMatches = new TopMatches(topMatchesListSize);
         knownMatches = 0;
@@ -64,7 +69,6 @@ public class MasterContact extends Contact {
         this.identifiedMatchCount++;
 
     }
-
 
     /**
      * Increments our counter for counting total number of KNOWN matches.
