@@ -20,7 +20,8 @@ package data;
 
 import org.junit.Test;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -30,12 +31,12 @@ public class TestPreprocessor {
 
     private Preprocessor processor = new Preprocessor();
 
-    public void print(String input, String expected){
-        System.out.println("|" + input + "|" +" , "+  "|" + expected + "|");
+    public void print(String input, String expected) {
+        System.out.println("|" + input + "|" + " , " + "|" + expected + "|");
     }
 
     @Test
-    public void testTrimData(){
+    public void testTrimData() {
         Preprocessor processor = new Preprocessor();
         String data1 = "1234   W   Michigan   Ave";
         String expected = "1234 W Michigan Ave";
@@ -144,183 +145,184 @@ public class TestPreprocessor {
 
     }
 
-    public void testStandardize(String data, String expected){
+    public void testStandardize(String data, String expected) {
         processor.getAddressHandler().setStr(data);
         String result = processor.getAddressHandler().standardize();
 //        print(data,result);
 //        print(result, expected);
-        assertEquals(result,expected);
+        assertEquals(result, expected);
     }
 
     @Test
-    public void testStandardize(){
+    public void testStandardize() {
         String data, expected;
 
-        data =  "AVE";
+        data = "AVE";
         expected = "AVENUE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "BLVD";
         expected = "BOULEVARD";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "CTR";
-        expected = "CENTER" ;
-        testStandardize(data,expected);
+        expected = "CENTER";
+        testStandardize(data, expected);
 
         data = "CIR";
         expected = "CIRCLE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "CT";
         expected = "COURT";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "DR";
         expected = "DRIVE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "EXPY";
         expected = "EXPRESSWAY";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "HTS";
         expected = "HEIGHTS";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "HWY";
         expected = "HIGHWAY";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "IS";
         expected = "ISLAND";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "JCT";
         expected = "JUNCTION";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "LK";
         expected = "LAKE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "LN";
         expected = "LANE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "MTN";
         expected = "MOUNTAIN";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "PKWY";
         expected = "PARKWAY";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "PL";
-        expected ="PLACE";
-        testStandardize(data,expected);
+        expected = "PLACE";
+        testStandardize(data, expected);
 
         data = "PLZ";
         expected = "PLAZA";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "RDG";
         expected = "RIDGE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "RD";
         expected = "ROAD";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "SQ";
         expected = "SQUARE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "ST";
         expected = "STREET";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "STA";
         expected = "STATION";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "TER";
         expected = "TERRACE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "TRL";
         expected = "TRAIL";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "TPKE";
         expected = "TURNPIKE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "VLY";
         expected = "VALLEY";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "APT";
         expected = "APARTMENT";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "RM";
         expected = "ROOM";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "STE";
         expected = "SUITE";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "FL";
         expected = "FLOOR";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "N";
         expected = "NORTH";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "E";
         expected = "EAST";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "S";
         expected = "SOUTH";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "W";
         expected = "WEST";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "NE";
         expected = "NORTHEAST";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "NW";
         expected = "NORTHWEST";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "SE";
         expected = "SOUTHEAST";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
         data = "SW";
         expected = "SOUTHWEST";
-        testStandardize(data,expected);
+        testStandardize(data, expected);
 
 
     }
 
-    public void testCheckKeyExists(String data){
+    public void testCheckKeyExists(String data) {
         processor.getAddressHandler().setStr(data);
         assertTrue(processor.getAddressHandler().checkKeyExists());
 
     }
+
     @Test
-    public void testCheckKeyExists(){
+    public void testCheckKeyExists() {
         String data, expected;
 
-        data =  "AVE";
+        data = "AVE";
         testCheckKeyExists(data);
 
         data = "BLVD";
@@ -437,7 +439,7 @@ public class TestPreprocessor {
     }
 
     @Test
-    public void testReadJSON(){
+    public void testReadJSON() {
         Preprocessor processor1 = new Preprocessor();
         Map<String, String> abbrevs1 = processor1.getAddressHandler().getAbbrevs();
         int countOfAbbrevs1 = abbrevs1.size();
@@ -450,13 +452,13 @@ public class TestPreprocessor {
 
         int expected = 38;
         assertEquals(countOfAbbrevs1, countOfAbbrevs1Loop);
-        assertEquals(countOfAbbrevs2,countOfAbbrevs1Loop);
+        assertEquals(countOfAbbrevs2, countOfAbbrevs1Loop);
         assertEquals(countOfAbbrevs1, expected);
-        assertEquals(countOfAbbrevs2,expected);
+        assertEquals(countOfAbbrevs2, expected);
         assertEquals(countOfAbbrevs1Loop, expected);
-        assertEquals(countOfAbbrevs2Loop,expected);
+        assertEquals(countOfAbbrevs2Loop, expected);
 
-        assertEquals(abbrevs1,abbrevs2);
+        assertEquals(abbrevs1, abbrevs2);
 
         Map<String, String> mapAbbrev = new HashMap<>();
         mapAbbrev.put("AVE", "AVENUE");
@@ -468,7 +470,7 @@ public class TestPreprocessor {
         mapAbbrev.put("EXPY", "EXPRESSWAY");
         mapAbbrev.put("HTS", "HEIGHTS");
         mapAbbrev.put("HWY", "HIGHWAY");
-        mapAbbrev.put( "IS", "ISLAND");
+        mapAbbrev.put("IS", "ISLAND");
         mapAbbrev.put("JCT", "JUNCTION");
         mapAbbrev.put("LK", "LAKE");
         mapAbbrev.put("LN", "LANE");
@@ -496,15 +498,12 @@ public class TestPreprocessor {
         mapAbbrev.put("NE", "NORTHEAST");
         mapAbbrev.put("NW", "NORTHWEST");
         mapAbbrev.put("SE", "SOUTHEAST");
-        mapAbbrev.put( "SW", "SOUTHWEST");
+        mapAbbrev.put("SW", "SOUTHWEST");
 
-        assertEquals(mapAbbrev,abbrevs1);
-        assertEquals(mapAbbrev,abbrevs2);
+        assertEquals(mapAbbrev, abbrevs1);
+        assertEquals(mapAbbrev, abbrevs2);
 
     }
-
-
-
 
 
 }

@@ -20,7 +20,8 @@ package data;
 import indexing.Indexer;
 import org.junit.Test;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 public class TestCSVReader {
 
@@ -35,8 +36,8 @@ public class TestCSVReader {
         assertTrue(csvReader.readMaster("contact_master.csv"));
         assertTrue(csvReader.readMatch("contact_match.csv"));
         assertTrue(csvReader.readMatch("contact_match_alt.csv"));
-        assertEquals(21450,csvReader.getMasterCount());
-        assertEquals(49625,csvReader.getMatchCount());
+        assertEquals(21450, csvReader.getMasterCount());
+        assertEquals(49625, csvReader.getMatchCount());
 
 
     }

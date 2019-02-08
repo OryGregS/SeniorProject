@@ -17,12 +17,7 @@
 
 package data;
 
-import org.apache.commons.io.FileUtils;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Preprocessor cleans and standardizes data as it's being read in by CSVReader.
@@ -41,10 +36,8 @@ class Preprocessor {
     /**
      * Removes ALL whitespace from data. If given multiple words, then joins the string separated by 1 whitespace.
      *
-     * @param data
-     *          String data from Contact or MasterContact CSV.
-     * @return
-     *          New string with standardized whitespace.
+     * @param data String data from Contact or MasterContact CSV.
+     * @return New string with standardized whitespace.
      */
     String trimData(String data) {
 
@@ -79,10 +72,8 @@ class Preprocessor {
      * If data isn't empty, then removes unnecessary punctuation.
      * Finally, we return a String that has had all unnecessary whitespace removed.
      *
-     * @param data
-     *          String data from Contact or MasterContact CSV.
-     * @return
-     *          New standardized string.
+     * @param data String data from Contact or MasterContact CSV.
+     * @return New standardized string.
      */
     String prep(String data) {
 
@@ -101,10 +92,8 @@ class Preprocessor {
     /**
      * Checks if data is an invalid character.
      *
-     * @param data
-     *          The string at the row,col of the dataset.
-     * @return
-     *          Empty string if "NULL", otherwise the original string
+     * @param data The string at the row,col of the dataset.
+     * @return Empty string if "NULL", otherwise the original string
      */
     String checkNULL(String data) {
 
@@ -126,10 +115,8 @@ class Preprocessor {
     /**
      * Removes punctuation from strings such as | . |  ! | , | - | ~ |
      *
-     * @param data
-     *          String from a record.
-     * @return
-     *          String without punctuation.
+     * @param data String from a record.
+     * @return String without punctuation.
      */
     String removePunctuation(String data) {
 
@@ -166,12 +153,9 @@ class Preprocessor {
     /**
      * Combines related data from two fields.
      *
-     * @param field1
-     *          First related field data.
-     * @param field2
-     *          Second related field data.
-     * @return
-     *          One string with combined data. Separated by 1 whitespace.
+     * @param field1 First related field data.
+     * @param field2 Second related field data.
+     * @return One string with combined data. Separated by 1 whitespace.
      */
     String combineFields(String field1, String field2) {
 
@@ -185,12 +169,9 @@ class Preprocessor {
     /**
      * Standardizes address fields.
      *
-     * @param address1
-     *          Data from first Address field.
-     * @param address2
-     *          Data from second Address field.
-     * @return
-     *          String consisting of one combined and standardized address.
+     * @param address1 Data from first Address field.
+     * @param address2 Data from second Address field.
+     * @return String consisting of one combined and standardized address.
      */
     String handleAddress(String address1, String address2) {
 
@@ -215,10 +196,9 @@ class Preprocessor {
     /**
      * Returns the AddressHandler object.
      *
-     * @return
-     *          AddressHandler object.
+     * @return AddressHandler object.
      */
-    public AddressHandler getAddressHandler(){
+    public AddressHandler getAddressHandler() {
         return this.addressHandler;
     }
 

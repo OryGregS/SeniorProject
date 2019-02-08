@@ -16,15 +16,17 @@
  */
 
 package indexing;
+
 import data.Contact;
 import data.MasterContact;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class TestBlockMap {
 
     @Test
-    public void testPutForMasterContact(){
+    public void testPutForMasterContact() {
         BlockMap blockMap = new BlockMap();
         MasterContact masterContact1 = new MasterContact();
         MasterContact masterContact2 = new MasterContact();
@@ -43,7 +45,7 @@ public class TestBlockMap {
     }
 
     @Test
-    public void testPutForContacts(){
+    public void testPutForContacts() {
         BlockMap blockMap = new BlockMap();
         Contact contact1 = new Contact();
         Contact contact2 = new Contact();
@@ -62,7 +64,7 @@ public class TestBlockMap {
     }
 
     @Test
-    public void testCheckExists(){
+    public void testCheckExists() {
         BlockMap blockMap = new BlockMap();
         Contact contact1 = new Contact();
         Contact contact2 = new Contact();
@@ -80,7 +82,7 @@ public class TestBlockMap {
     }
 
     @Test
-    public void testGetGroups(){
+    public void testGetGroups() {
         BlockMap blockMap = new BlockMap();
         assertNotNull(blockMap.getGroups());
 

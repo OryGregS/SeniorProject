@@ -48,10 +48,8 @@ public class CalcPerformance {
      * Uses Indexer and Matcher objects (after matching is completed) to
      * calculate the program's performance and accuracy.
      *
-     * @param indexer
-     *          Indexer object (after matching).
-     * @param matcher
-     *          Matcher object (after matching).
+     * @param indexer Indexer object (after matching).
+     * @param matcher Matcher object (after matching).
      */
     public void measure(Indexer indexer, Matcher matcher) {
 
@@ -99,8 +97,7 @@ public class CalcPerformance {
      * top list, and the number of unknown matches that were identified
      * (one of or both CRD numbers missing).
      *
-     * @param masterContact
-     *          MasterContact object.
+     * @param masterContact MasterContact object.
      */
     private void findMatches(MasterContact masterContact) {
 
@@ -113,10 +110,8 @@ public class CalcPerformance {
     /**
      * Total time the program ran (reading data, preprocessing it, and matching).
      *
-     * @param startTime
-     *          Time the program started.
-     * @param endTime
-     *          Time the program ended.
+     * @param startTime Time the program started.
+     * @param endTime   Time the program ended.
      */
     public void setTotalRunTime(long startTime, long endTime) {
         this.totalRunTime = calcTime(startTime, endTime);
@@ -125,10 +120,8 @@ public class CalcPerformance {
     /**
      * Time taken to read and preprocess data.
      *
-     * @param startTime
-     *          Time reading and preprocessing data started.
-     * @param endTime
-     *          Time reading and preprocessing data ended.
+     * @param startTime Time reading and preprocessing data started.
+     * @param endTime   Time reading and preprocessing data ended.
      */
     public void setParseDataTime(long startTime, long endTime) {
         this.parseDataTime = calcTime(startTime, endTime);
@@ -137,10 +130,8 @@ public class CalcPerformance {
     /**
      * Time taken to match the matching data sets to the master.
      *
-     * @param startTime
-     *          Time matching started.
-     * @param endTime
-     *          Time matching ended.
+     * @param startTime Time matching started.
+     * @param endTime   Time matching ended.
      */
     public void setMatcherTime(long startTime, long endTime) {
         this.matcherTime = calcTime(startTime, endTime);
@@ -150,12 +141,9 @@ public class CalcPerformance {
      * Calculates time by subtracting the starting time from the ending time.
      * Then divides by 1,000,000 to turn nanoseconds (long) into seconds (double).
      *
-     * @param startTime
-     *          Starting time.
-     * @param endTime
-     *          Ending time.
-     * @return
-     *          Time spent in seconds.
+     * @param startTime Starting time.
+     * @param endTime   Ending time.
+     * @return Time spent in seconds.
      */
     private double calcTime(long startTime, long endTime) {
         return ((endTime - startTime) / 1000000000.0);
@@ -165,8 +153,7 @@ public class CalcPerformance {
      * Gets the percentage of identified known contacts in
      * relation to total known contacts. (IdentifiedKnown / TotalKnown).
      *
-     * @return
-     *          Ratio of known matches identified (between 0-100).
+     * @return Ratio of known matches identified (between 0-100).
      */
     public double getPercentFound() {
         return this.percentFound;

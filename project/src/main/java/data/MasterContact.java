@@ -76,8 +76,7 @@ public class MasterContact extends Contact {
     /**
      * Gets the number of
      *
-     * @return
-     *          ArrayList of contact data
+     * @return ArrayList of contact data
      */
     public int getKnownMatches() {
         return this.knownMatches;
@@ -86,8 +85,7 @@ public class MasterContact extends Contact {
     /**
      * Gets number of found unknown matches.
      *
-     * @return
-     *        Number of unknown matches that were identified.
+     * @return Number of unknown matches that were identified.
      */
     public int getUnknownMatches() {
         return this.unknownMatchCount;
@@ -96,8 +94,7 @@ public class MasterContact extends Contact {
     /**
      * Gets number of identified KNOWN matches found.
      *
-     * @return
-     *          Number of known matches that were identified.
+     * @return Number of known matches that were identified.
      */
     public int getIdentifiedMatchCount() {
         return this.identifiedMatchCount;
@@ -107,16 +104,13 @@ public class MasterContact extends Contact {
      * This method attempts to add the potential contact in the
      * lists of the TopMatches object.
      *
-     * @param contact
-     *          New match's data.
-     * @param confidence
-     *          New match's level of confidence (how similar it is).
-     * @return
-     *          True if Contact and Confidence were added to the top list.
-     *          False if there was an error.
+     * @param contact    New match's data.
+     * @param confidence New match's level of confidence (how similar it is).
+     * @return True if Contact and Confidence were added to the top list.
+     * False if there was an error.
      */
     public boolean setMatch(Contact contact, double confidence) {
-        if (confidence < 0.0 || confidence > 100){
+        if (confidence < 0.0 || confidence > 100) {
             return false;
         }
         if (contact != null) {
@@ -132,8 +126,7 @@ public class MasterContact extends Contact {
      * Gets the list contact data of the master-contact's most likely matches
      * in the TopMatches object.
      *
-     * @return
-     *          ArrayList of contact data
+     * @return ArrayList of contact data
      */
     public ArrayList<Contact> getTopContacts() {
         return this.topMatches.getTopContacts();
@@ -143,16 +136,11 @@ public class MasterContact extends Contact {
      * Gets the list of confidences for each contact in the top contacts
      * list in the TopMatches object.
      *
-     * @return
-     *          ArrayList of double values
+     * @return ArrayList of double values
      */
     public ArrayList<Double> getTopConfidence() {
         return this.topMatches.getTopConfidence();
     }
-
-
-
-
 
 
 }

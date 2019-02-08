@@ -25,12 +25,8 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * CSVReader reads in data from CSV files and stores the records in groups.
@@ -53,12 +49,9 @@ public class CSVReader {
     /**
      * Initialize CSV reader with path to files and indexer object
      *
-     * @param masterPath
-     *          Path where master record (CSV) lives.
-     * @param matchPath
-     *          Path where matching records (CSV) live.
-     * @param indexer
-     *          Indexer object to separate records into groups
+     * @param masterPath Path where master record (CSV) lives.
+     * @param matchPath  Path where matching records (CSV) live.
+     * @param indexer    Indexer object to separate records into groups
      */
     public CSVReader(String masterPath, String matchPath, Indexer indexer) {
 
@@ -72,8 +65,7 @@ public class CSVReader {
     /**
      * Gets the number of rows in matching CSV's.
      *
-     * @return
-     *          Number of rows being matched.
+     * @return Number of rows being matched.
      */
     public long getMatchCount() {
         return matchCount;
@@ -82,8 +74,7 @@ public class CSVReader {
     /**
      * Gets the number of rows in master CSV.
      *
-     * @return
-     *          Number of rows in master CSV.
+     * @return Number of rows in master CSV.
      */
     public long getMasterCount() {
         return masterCount;
@@ -92,10 +83,8 @@ public class CSVReader {
     /**
      * Reads the master CSV file.
      *
-     * @param fileName
-     *          Name of file
-     * @return
-     *          True upon reading file successfully, false if not.
+     * @param fileName Name of file
+     * @return True upon reading file successfully, false if not.
      */
     @SuppressWarnings("Duplicates")
     public boolean readMaster(String fileName) {
@@ -135,12 +124,9 @@ public class CSVReader {
     /**
      * Reads the master CSV file.
      *
-     * @param fileName
-     *          Name of file
-     * @param topMatchesListSize
-     *          Specifier for amount of top matches to hold.
-     * @return
-     *          True upon reading file successfully, false if not.
+     * @param fileName           Name of file
+     * @param topMatchesListSize Specifier for amount of top matches to hold.
+     * @return True upon reading file successfully, false if not.
      */
     @SuppressWarnings("Duplicates")
     public boolean readMaster(String fileName, int topMatchesListSize) {
@@ -182,10 +168,8 @@ public class CSVReader {
     /**
      * Reads a CSV file to be matched to master.
      *
-     * @param fileName
-     *          Name of file.
-     * @return
-     *          True upon reading file successfully, false if not.
+     * @param fileName Name of file.
+     * @return True upon reading file successfully, false if not.
      */
     public boolean readMatch(String fileName) {
 
@@ -225,8 +209,7 @@ public class CSVReader {
     /**
      * Indexes and stores a matching record in a group.
      *
-     * @param contact
-     *          Matching contact data from matching CSV(s).
+     * @param contact Matching contact data from matching CSV(s).
      */
     private void findGroup(Contact contact) {
         this.indexer.indexContact(contact);
@@ -235,8 +218,7 @@ public class CSVReader {
     /**
      * Indexes and stores a master record in a group.
      *
-     * @param masterContact
-     *          Master contact data from master CSV.
+     * @param masterContact Master contact data from master CSV.
      */
     private void findGroup(MasterContact masterContact) {
         this.indexer.indexMaster(masterContact);
@@ -246,10 +228,8 @@ public class CSVReader {
     /**
      * Stores a row of master data into MasterContact object
      *
-     * @param masterContact
-     *          Data holder for master records.
-     * @param obs
-     *          CSVRecord object. (Each CSVRecord object is a row).
+     * @param masterContact Data holder for master records.
+     * @param obs           CSVRecord object. (Each CSVRecord object is a row).
      */
     @SuppressWarnings("Duplicates")
     private void setFields(MasterContact masterContact, CSVRecord obs) {
@@ -280,10 +260,8 @@ public class CSVReader {
     /**
      * Stores a row of master data into MasterContact object
      *
-     * @param contact
-     *          Data holder for master records.
-     * @param obs
-     *          CSVRecord object. (Each CSVRecord object is a row).
+     * @param contact Data holder for master records.
+     * @param obs     CSVRecord object. (Each CSVRecord object is a row).
      */
     @SuppressWarnings("Duplicates")
     private void setFields(Contact contact, CSVRecord obs) {

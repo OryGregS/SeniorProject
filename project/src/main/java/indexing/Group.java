@@ -43,8 +43,7 @@ public class Group {
     /**
      * Adds a matching contact to its respective list.
      *
-     * @param contact
-     *          Contact object.
+     * @param contact Contact object.
      */
     public void addContact(Contact contact) {
         this.matchContacts.add(contact);
@@ -53,8 +52,7 @@ public class Group {
     /**
      * Adds a master contact to its respective list.
      *
-     * @param contact
-     *          MasterContact object.
+     * @param contact MasterContact object.
      */
     public void addMasterContact(MasterContact contact) {
         this.masterContacts.add(contact);
@@ -63,8 +61,7 @@ public class Group {
     /**
      * Gets the list of MasterContacts in the group.
      *
-     * @return
-     *          ArrayList of MasterContact objects.
+     * @return ArrayList of MasterContact objects.
      */
     public ArrayList<MasterContact> getMasterContacts() {
         return masterContacts;
@@ -73,8 +70,7 @@ public class Group {
     /**
      * Gets the list of Contacts in the group.
      *
-     * @return
-     *          ArrayList of Contact objects.
+     * @return ArrayList of Contact objects.
      */
     public ArrayList<Contact> getMatchContacts() {
         return matchContacts;

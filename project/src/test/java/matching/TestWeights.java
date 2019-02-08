@@ -21,12 +21,13 @@ import org.junit.Test;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestWeights {
 
     @Test
-    public void testKeyExists(){
+    public void testKeyExists() {
         Weights weights = new Weights("");
         Map<String, Double> weightsMap = weights.getWeights();
         weightsMap.put("1", 0.12);
@@ -35,14 +36,14 @@ public class TestWeights {
     }
 
     @Test
-    public void getWeight(){
+    public void getWeight() {
         Weights weights = new Weights("");
         weights.initialize("./config/weights/weights1.json");
         assertEquals(0.41, weights.getWeight("Email"), 0.0000001);
     }
 
     @Test
-    public void testInitialize(){
+    public void testInitialize() {
         Weights weights1 = new Weights("");
         weights1.initialize("./config/weights/weights1.json");
         assertEquals(12, weights1.getCountWeights());
@@ -55,23 +56,23 @@ public class TestWeights {
         weights.initialize("./config/weights/weights1.json");
         Map<String, Double> weightsMap = weights.getWeights();
         double dt = 0.0000001;
-        assertEquals(0.110625, weightsMap.get("Zip"),dt );
-        assertEquals(0.41, weightsMap.get("Email"),dt );
-        assertEquals(0.0553125, weightsMap.get("Address"),dt );
-        assertEquals(0.0, weightsMap.get("FirmName"),dt );
-        assertEquals(0.0184375, weightsMap.get("Phone"),dt );
-        assertEquals(0.036875, weightsMap.get("State"),dt );
-        assertEquals(0.1475, weightsMap.get("FirstName"),dt );
-        assertEquals(0.0, weightsMap.get("Country"),dt );
-        assertEquals(0.0553125, weightsMap.get("City"),dt );
-        assertEquals(0.1475, weightsMap.get("LastName"),dt );
-        assertEquals(0.0184375, weightsMap.get("MiddleName"),dt );
-        assertEquals(0.0, weightsMap.get("OfficeName"),dt );
+        assertEquals(0.110625, weightsMap.get("Zip"), dt);
+        assertEquals(0.41, weightsMap.get("Email"), dt);
+        assertEquals(0.0553125, weightsMap.get("Address"), dt);
+        assertEquals(0.0, weightsMap.get("FirmName"), dt);
+        assertEquals(0.0184375, weightsMap.get("Phone"), dt);
+        assertEquals(0.036875, weightsMap.get("State"), dt);
+        assertEquals(0.1475, weightsMap.get("FirstName"), dt);
+        assertEquals(0.0, weightsMap.get("Country"), dt);
+        assertEquals(0.0553125, weightsMap.get("City"), dt);
+        assertEquals(0.1475, weightsMap.get("LastName"), dt);
+        assertEquals(0.0184375, weightsMap.get("MiddleName"), dt);
+        assertEquals(0.0, weightsMap.get("OfficeName"), dt);
 
     }
 
     @Test
-    public void testCheckWeightSum(){
+    public void testCheckWeightSum() {
         Weights weights = new Weights("");
         weights.initialize("./config/weights/weights1.json");
         assertTrue(weights.checkWeightSum());
@@ -79,29 +80,29 @@ public class TestWeights {
     }
 
     @Test
-    public void testWriteJSON(){
+    public void testWriteJSON() {
         Weights weights = new Weights("");
         weights.initialize("./config/weights/weights1.json");
         weights.writeJSON();
         Map<String, Double> weightsMap = weights.getWeights();
         double dt = 0.0000001;
-        assertEquals(0.110625, weightsMap.get("Zip"),dt );
-        assertEquals(0.41, weightsMap.get("Email"),dt );
-        assertEquals(0.0553125, weightsMap.get("Address"),dt );
-        assertEquals(0.0, weightsMap.get("FirmName"),dt );
-        assertEquals(0.0184375, weightsMap.get("Phone"),dt );
-        assertEquals(0.036875, weightsMap.get("State"),dt );
-        assertEquals(0.1475, weightsMap.get("FirstName"),dt );
-        assertEquals(0.0, weightsMap.get("Country"),dt );
-        assertEquals(0.0553125, weightsMap.get("City"),dt );
-        assertEquals(0.1475, weightsMap.get("LastName"),dt );
-        assertEquals(0.0184375, weightsMap.get("MiddleName"),dt );
-        assertEquals(0.0, weightsMap.get("OfficeName"),dt );
+        assertEquals(0.110625, weightsMap.get("Zip"), dt);
+        assertEquals(0.41, weightsMap.get("Email"), dt);
+        assertEquals(0.0553125, weightsMap.get("Address"), dt);
+        assertEquals(0.0, weightsMap.get("FirmName"), dt);
+        assertEquals(0.0184375, weightsMap.get("Phone"), dt);
+        assertEquals(0.036875, weightsMap.get("State"), dt);
+        assertEquals(0.1475, weightsMap.get("FirstName"), dt);
+        assertEquals(0.0, weightsMap.get("Country"), dt);
+        assertEquals(0.0553125, weightsMap.get("City"), dt);
+        assertEquals(0.1475, weightsMap.get("LastName"), dt);
+        assertEquals(0.0184375, weightsMap.get("MiddleName"), dt);
+        assertEquals(0.0, weightsMap.get("OfficeName"), dt);
 
     }
 
     @Test
-    public void testGetRandomWeights(){
+    public void testGetRandomWeights() {
         Weights weights1 = new Weights("");
         weights1.initialize("./config/weights/weights1.json");
         weights1.getRandomWeights(0.39, true);

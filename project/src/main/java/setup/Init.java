@@ -92,8 +92,6 @@ public class Init {
     private void initialize() {
 
 
-
-
         // Initialize Indexer's state
         this.indexer = new Indexer(indexMethod);
         // Initialize CSVReader's state
@@ -115,8 +113,7 @@ public class Init {
     /**
      * Gets the Indexer object.
      *
-     * @return
-     *          Initialized Indexer object.
+     * @return Initialized Indexer object.
      */
     public Indexer getIndexer() {
         return this.indexer;
@@ -125,8 +122,7 @@ public class Init {
     /**
      * Gets the CSVReader object.
      *
-     * @return
-     *          Initialized CSVReader object.
+     * @return Initialized CSVReader object.
      */
     public CSVReader getCsvReader() {
         return this.csvReader;
@@ -135,8 +131,7 @@ public class Init {
     /**
      * Gets the Matcher object.
      *
-     * @return
-     *          Initialized Matcher object.
+     * @return Initialized Matcher object.
      */
     public Matcher getMatcher() {
         return this.matcher;

@@ -42,10 +42,8 @@ public class Matcher {
     /**
      * Initializes Matcher with the set of weights to use for measuring our confidence of a match.
      *
-     * @param weights1
-     *          Default weights (with email).
-     * @param weights2
-     *          Alternate weights (without email).
+     * @param weights1 Default weights (with email).
+     * @param weights2 Alternate weights (without email).
      */
     public Matcher(Weights weights1, Weights weights2) {
 
@@ -61,8 +59,7 @@ public class Matcher {
      * Sets the level of confidence of storing a match.
      * Default value is 70.
      *
-     * @param threshold
-     *          Double value between 0 - 100.
+     * @param threshold Double value between 0 - 100.
      */
     public void setThreshold(double threshold) {
         this.threshold = threshold;
@@ -80,8 +77,7 @@ public class Matcher {
      * Loops through the datasets to calculate the similarity between
      * the contacts in Master and the contacts in the dataset to match
      *
-     * @param indexer
-     *          Indexer object (to get Groups of similar records).
+     * @param indexer Indexer object (to get Groups of similar records).
      */
     public void runMatcher(Indexer indexer) {
 
@@ -100,8 +96,7 @@ public class Matcher {
      * number of comparisons it will make, and compares each MasterContact
      * to each Contact utilizing a parallel stream.
      *
-     * @param groups
-     *          ArrayList of Group objects.
+     * @param groups ArrayList of Group objects.
      */
     private void runGroups(ArrayList<Group> groups) {
 
@@ -129,10 +124,8 @@ public class Matcher {
     /**
      * Compares a MasterContact to each Contact in its Group.
      *
-     * @param masterContact
-     *          MasterContact object.
-     * @param matchSet
-     *          ArrayList of Contact objects from the MasterContact's group.
+     * @param masterContact MasterContact object.
+     * @param matchSet      ArrayList of Contact objects from the MasterContact's group.
      */
     private void compare(MasterContact masterContact, ArrayList<Contact> matchSet) {
 
@@ -213,8 +206,7 @@ public class Matcher {
     /**
      * Gets the number of comparisons made.
      *
-     * @return
-     *          Total number of comparisons made.
+     * @return Total number of comparisons made.
      */
     public int getNumComparisons() {
         return this.numComparisons;
@@ -224,10 +216,8 @@ public class Matcher {
      * Checks if a match with a high confidence was unknown
      * (CRD number missing for the MasterContact or the matching Contact.
      *
-     * @param masterContact
-     *          MasterContact object.
-     * @param matchContact
-     *          Contact object.
+     * @param masterContact MasterContact object.
+     * @param matchContact  Contact object.
      */
     private void checkUnknown(MasterContact masterContact, Contact matchContact) {
 

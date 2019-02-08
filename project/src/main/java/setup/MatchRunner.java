@@ -16,10 +16,12 @@
  */
 
 package setup;
+
 import utils.Performance;
+
 import java.io.File;
 
-public class MatchRunner extends Init{
+public class MatchRunner extends Init {
 
     private Performance performance;
 

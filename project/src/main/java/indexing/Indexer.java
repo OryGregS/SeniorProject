@@ -38,10 +38,9 @@ public class Indexer {
     /**
      * Constructor to get our method of indexing and initialize variables.
      *
-     * @param encodeMethod
-     *          Method to use for phonetic encoding. Acceptable values
-     *          are (case-insensitive): nysiis, soundex, rsoundex, dmsoundex,
-     *          metaphone, and doublemetaphone. This value is set in ./config/DataMatching.properties
+     * @param encodeMethod Method to use for phonetic encoding. Acceptable values
+     *                     are (case-insensitive): nysiis, soundex, rsoundex, dmsoundex,
+     *                     metaphone, and doublemetaphone. This value is set in ./config/DataMatching.properties
      */
     public Indexer(String encodeMethod) {
 
@@ -57,8 +56,7 @@ public class Indexer {
     /**
      * Gets all groups of contacts (individual data).
      *
-     * @return
-     *          ArrayList of Group objects containing individual contact data.
+     * @return ArrayList of Group objects containing individual contact data.
      */
     public ArrayList<Group> getIndividuals() {
         return new ArrayList<>(individuals.getGroups().values());
@@ -67,8 +65,7 @@ public class Indexer {
     /**
      * Gets all groups of partnerships (grouped contacts).
      *
-     * @return
-     *          ArrayList of Group objects containing partnership contact data.
+     * @return ArrayList of Group objects containing partnership contact data.
      */
     public ArrayList<Group> getPartnerships() {
         return new ArrayList<>(partnerships.getGroups().values());
@@ -77,8 +74,7 @@ public class Indexer {
     /**
      * Gets all groups of House accounts.
      *
-     * @return
-     *          ArrayList of Group objects containing House Account contact data.
+     * @return ArrayList of Group objects containing House Account contact data.
      */
     public ArrayList<Group> getHouseAccounts() {
 
@@ -89,8 +85,7 @@ public class Indexer {
     /**
      * Gets all master contacts.
      *
-     * @return
-     *          ArrayList of MasterContact objects.
+     * @return ArrayList of MasterContact objects.
      */
     public ArrayList<MasterContact> getAllMasterContacts() {
         return this.allMasterContacts;
@@ -99,8 +94,7 @@ public class Indexer {
     /**
      * Gets all matching contacts.
      *
-     * @return
-     *          ArrayList of Contact objects.
+     * @return ArrayList of Contact objects.
      */
     public ArrayList<Contact> getAllMatchContacts() {
         return this.allMatchContacts;
@@ -109,8 +103,7 @@ public class Indexer {
     /**
      * Gets size of allMasterContacts list.
      *
-     * @return
-     *          Number of MasterContacts in the list.
+     * @return Number of MasterContacts in the list.
      */
     public int getMasterSize() {
         return this.allMasterContacts.size();
@@ -119,8 +112,7 @@ public class Indexer {
     /**
      * Gets size of allMatchContacts list.
      *
-     * @return
-     *          Number of Contacts in the list.
+     * @return Number of Contacts in the list.
      */
     public int getMatchSize() {
         return this.allMatchContacts.size();
@@ -129,8 +121,7 @@ public class Indexer {
     /**
      * Phonetically encodes MasterContact data and adds it to a Group object.
      *
-     * @param masterContact
-     *          MasterContact object.
+     * @param masterContact MasterContact object.
      */
     public void indexMaster(MasterContact masterContact) {
 
@@ -162,8 +153,7 @@ public class Indexer {
     /**
      * Phonetically encodes Contact data and adds it to a Group object.
      *
-     * @param contact
-     *          Contact object.
+     * @param contact Contact object.
      */
     public void indexContact(Contact contact) {
 
@@ -195,10 +185,8 @@ public class Indexer {
     /**
      * Checks if a MasterContact or Contact is a partnership.
      *
-     * @param name
-     *          LastName of contact.
-     * @return
-     *          True if partnership. False if not.
+     * @param name LastName of contact.
+     * @return True if partnership. False if not.
      */
     boolean checkPartnership(String name) {
         return name.contains("/");
@@ -207,10 +195,8 @@ public class Indexer {
     /**
      * Checks if a MasterContact or Contact is a House account.
      *
-     * @param firstName
-     *          First name of contact.
-     * @return
-     *          True if first name equals "House" (ignoring case). False if not.
+     * @param firstName First name of contact.
+     * @return True if first name equals "House" (ignoring case). False if not.
      */
     boolean checkHouse(String firstName) {
 
@@ -221,10 +207,8 @@ public class Indexer {
     /**
      * Ensures encoding method is valid. Invalid entries default to Metaphone.
      *
-     * @param data
-     *          Data to encode as key for Groups.
-     * @return
-     *          Phonetically encoded string.
+     * @param data Data to encode as key for Groups.
+     * @return Phonetically encoded string.
      */
     private String encode(String data) {
 
@@ -250,17 +234,17 @@ public class Indexer {
             case "soundex":
                 Soundex soundex = new Soundex();
                 return soundex.soundex(data);
-                // the output is letters at the beginning and numbers
+            // the output is letters at the beginning and numbers
 
             case "rsoundex":
                 RefinedSoundex rsoundex = new RefinedSoundex();
                 return rsoundex.encode(data);
-                // the output is letters at the beginning and numbers
+            // the output is letters at the beginning and numbers
 
             case "dmsoundex":
                 DaitchMokotoffSoundex dmsoundex = new DaitchMokotoffSoundex();
                 return dmsoundex.encode(data);
-                // the output is numbers
+            // the output is numbers
 
             default:
                 System.out.println("\nEncoding method not recognized. Defaulting to Metaphone.\n");

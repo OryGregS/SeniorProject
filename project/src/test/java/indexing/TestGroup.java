@@ -20,42 +20,43 @@ package indexing;
 import data.Contact;
 import data.MasterContact;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class TestGroup {
 
     @Test
-    public void testAddContact(){
+    public void testAddContact() {
         Group group = new Group();
         Contact contact = new Contact();
         group.addContact(contact);
-        assertEquals(contact,group.getMatchContacts().get(0));
+        assertEquals(contact, group.getMatchContacts().get(0));
 
     }
 
     @Test
-    public void testAddMasterContact(){
+    public void testAddMasterContact() {
         Group group = new Group();
         MasterContact masterContact = new MasterContact();
         group.addMasterContact(masterContact);
-        assertEquals(masterContact,group.getMasterContacts().get(0));
+        assertEquals(masterContact, group.getMasterContacts().get(0));
 
     }
 
     @Test
-    public void testGetMasterContacts(){
+    public void testGetMasterContacts() {
         Group group = new Group();
         assertNotNull(group.getMasterContacts());
 
     }
 
     @Test
-    public void testGetMatchContactss(){
+    public void testGetMatchContactss() {
         Group group = new Group();
         assertNotNull(group.getMatchContacts());
 
     }
-
 
 
 }

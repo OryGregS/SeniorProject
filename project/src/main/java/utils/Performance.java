@@ -37,9 +37,8 @@ public class Performance extends CalcPerformance {
     /**
      * Writes performance output to a file.
      *
-     * @param fileName
-     *          Name of file for outputting results.
-     *          (The current time is appended to the file name).
+     * @param fileName Name of file for outputting results.
+     *                 (The current time is appended to the file name).
      */
     public void resultsToFile(String fileName) {
 
@@ -144,10 +143,8 @@ public class Performance extends CalcPerformance {
      * Formats time values for easier understanding. A time over 60 seconds
      * is converted to minutes, while a time under 60 seconds is kept in seconds.
      *
-     * @param time
-     *          Time value to format (double).
-     * @return
-     *          String value of the time.
+     * @param time Time value to format (double).
+     * @return String value of the time.
      */
     private String timeToStr(double time) {
 
@@ -180,8 +177,7 @@ public class Performance extends CalcPerformance {
     /**
      * Gets the top matching Contacts and their confidence for printing.
      *
-     * @param masterContact
-     *          MasterContact object.
+     * @param masterContact MasterContact object.
      */
     private void printMasterContact(MasterContact masterContact) {
 
@@ -194,12 +190,9 @@ public class Performance extends CalcPerformance {
     /**
      * Prints the MasterContact data and top matching Contacts and their confidence.
      *
-     * @param master
-     *          MasterContact object.
-     * @param confidence
-     *          ArrayList of confidence values (Double).
-     * @param contacts
-     *          ArrayList of matching Contacts.
+     * @param master     MasterContact object.
+     * @param confidence ArrayList of confidence values (Double).
+     * @param contacts   ArrayList of matching Contacts.
      */
     private void printMatches(MasterContact master, ArrayList<Double> confidence, ArrayList<Contact> contacts) {
 

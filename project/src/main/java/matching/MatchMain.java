@@ -17,11 +17,7 @@
 
 package matching;
 
-import data.CSVReader;
-import indexing.Indexer;
-import setup.Init;
 import setup.MatchRunner;
-import utils.Performance;
 
 
 public class MatchMain {

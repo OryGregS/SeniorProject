@@ -43,8 +43,7 @@ public class Weights {
      * Gets the filePath where the weights are located and
      * initializes a HashMap to store the key-value pairs.
      *
-     * @param filePath
-     *          Folder to locate the weights files (default is ./config/weights/).
+     * @param filePath Folder to locate the weights files (default is ./config/weights/).
      */
     public Weights(String filePath) {
         this.FILEPATH = filePath;
@@ -54,20 +53,17 @@ public class Weights {
     /**
      * Gets the HashMap of weights.
      *
-     * @return
-     *          A copy of the HashMap containing the weight key-value pairs.
+     * @return A copy of the HashMap containing the weight key-value pairs.
      */
-    Map<String, Double> getWeights(){
+    Map<String, Double> getWeights() {
         return new HashMap<>(this.weights);
     }
 
     /**
      * Gets a weight value for a specific key.
      *
-     * @param key
-     *          Key to lookup for its weight value.
-     * @return
-     *          Weight value (double).
+     * @param key Key to lookup for its weight value.
+     * @return Weight value (double).
      */
     public double getWeight(String key) {
 
@@ -86,10 +82,8 @@ public class Weights {
     /**
      * Checks if the key exists in the HashMap.
      *
-     * @param key
-     *          Key to lookup.
-     * @return
-     *          True if HashMap contains the key. False if not.
+     * @param key Key to lookup.
+     * @return True if HashMap contains the key. False if not.
      */
     private boolean keyExists(String key) {
         return weights.containsKey(key);
@@ -102,11 +96,10 @@ public class Weights {
     /**
      * Checks if the weights sum up to 1.
      *
-     * @return
-     *          True if sum of weights is 1. Exits program if not.
+     * @return True if sum of weights is 1. Exits program if not.
      */
     boolean checkWeightSum() {
-        if (!weightSum()){
+        if (!weightSum()) {
             System.exit(-1);
         }
 
@@ -116,10 +109,9 @@ public class Weights {
     /**
      * Calculation for checkWeightSum().
      *
-     * @return
-     *          True if sum of weights is 1. False if not.
+     * @return True if sum of weights is 1. False if not.
      */
-    private boolean weightSum()  {
+    private boolean weightSum() {
 
         double sum = 0.0;
         boolean weightsEqualToOne = true;
@@ -182,20 +174,17 @@ public class Weights {
     /**
      * Gets number of weights.
      *
-     * @return
-     *          Number of weights.
+     * @return Number of weights.
      */
-    public int getCountWeights(){
+    public int getCountWeights() {
         return this.countWeights;
     }
 
     /**
      * Reads a JSON file and stores the key-value pairs into the HashMap field.
      *
-     * @param fileName
-     *          Name of the weights JSON file.
-     * @return
-     *          True if successfully read and weights are equal to 1. False if not.
+     * @param fileName Name of the weights JSON file.
+     * @return True if successfully read and weights are equal to 1. False if not.
      */
     private boolean readJSON(String fileName) {
 
@@ -236,8 +225,7 @@ public class Weights {
     /**
      * Prints out the key-value pairs for the weights.
      *
-     * @param formatter
-     *          Characters to add before printing (i.e \t or \n).
+     * @param formatter Characters to add before printing (i.e \t or \n).
      */
     public void printWeights(String formatter) {
 
@@ -250,10 +238,8 @@ public class Weights {
     /**
      * Generates random sets of weights. Used in development for the purpose of identifying better weights.
      *
-     * @param emailWeight
-     *          Weight to give the email field (for weights1).
-     * @param alternate
-     *          If the set of weights is default (with email), or alternate (without email).
+     * @param emailWeight Weight to give the email field (for weights1).
+     * @param alternate   If the set of weights is default (with email), or alternate (without email).
      */
     @SuppressWarnings("Duplicates")
     public void getRandomWeights(double emailWeight, boolean alternate) {
@@ -329,10 +315,8 @@ public class Weights {
     /**
      * Sums an array of integers. Used in getRandomWeights() only.
      *
-     * @param intList
-     *          Array of integers.
-     * @return
-     *          Sum of all integers in the array.
+     * @param intList Array of integers.
+     * @return Sum of all integers in the array.
      */
     private int sumSample(int[] intList) {
 

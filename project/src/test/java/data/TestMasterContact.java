@@ -73,20 +73,20 @@ public class TestMasterContact {
     }
 
     @Test
-    public void testArrayListCapacity(){
+    public void testArrayListCapacity() {
         ArrayList<Integer> list1 = new ArrayList<>(11);
-        assertEquals(0,list1.size());
+        assertEquals(0, list1.size());
 
         list1.add(7);
-        assertEquals(1,list1.size());
+        assertEquals(1, list1.size());
 
         list1.remove(0);
-        assertEquals(0,list1.size());
+        assertEquals(0, list1.size());
 
 
     }
 
-    public void initContact(){
+    public void initContact() {
         contact = new Contact();
         String last = "Doe";
         String middle = "Q";
@@ -120,7 +120,7 @@ public class TestMasterContact {
     }
 
     @Test
-    public void testSetMatch(){
+    public void testSetMatch() {
         TopMatches topMatches = new TopMatches(3);
         initContact();
         assertTrue(master.setMatch(contact, 77));
@@ -130,18 +130,17 @@ public class TestMasterContact {
     }
 
     @Test
-    public void testGetTopContacts(){
+    public void testGetTopContacts() {
         TopMatches topMatches = new TopMatches(3);
         assertNotNull(topMatches.getTopContacts());
     }
 
     @Test
-    public void testGetTopConfidence(){
+    public void testGetTopConfidence() {
         TopMatches topMatches = new TopMatches(3);
         assertNotNull(topMatches.getTopConfidence());
 
     }
-
 
 
 }
