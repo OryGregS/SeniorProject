@@ -23,18 +23,31 @@ import data.MasterContact;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * BlockMap holds our map for Indexing the data.
+ */
 class BlockMap {
 
     private Map<String, Group> groups;
 
+    /**
+     * Initializes Map field to a new HashMap.
+     */
     BlockMap() {
 
         this.groups = new HashMap<>();
 
     }
 
-
-   void putForMasterContact(String key, MasterContact contact) {
+    /**
+     * Adds a MasterContact to a Group object.
+     *
+     * @param key
+     *          Phonetically encoded data.
+     * @param contact
+     *          MasterContact object.
+     */
+    void putMaster(String key, MasterContact contact) {
 
         if (checkExists(key)) {
 
@@ -49,7 +62,15 @@ class BlockMap {
         }
     }
 
-    void putForContacts(String key, Contact contact) {
+    /**
+     * Adds a matching Contact to a Group object.
+     *
+     * @param key
+     *          Phonetically encoded data.
+     * @param contact
+     *          Contact object.
+     */
+    void putContact(String key, Contact contact) {
 
         if (checkExists(key)) {
 
@@ -64,10 +85,24 @@ class BlockMap {
         }
     }
 
+    /**
+     * Checks if a key exists in the Map.
+     *
+     * @param key
+     *          Phonetically encoded data.
+     * @return
+     *          True or false.
+     */
     private boolean checkExists(String key) {
         return groups.containsKey(key);
     }
 
+    /**
+     * Returns the Map field.
+     *
+     * @return
+     *          Map containing phonetically encoded data as keys and Group objects as values.
+     */
     Map<String, Group> getGroups() {
         return groups;
     }

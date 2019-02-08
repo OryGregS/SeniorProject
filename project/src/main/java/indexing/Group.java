@@ -22,11 +22,17 @@ import data.MasterContact;
 
 import java.util.ArrayList;
 
+/**
+ * Data holder for similar records.
+ */
 public class Group {
 
     private ArrayList<MasterContact> masterContacts;
     private ArrayList<Contact> matchContacts;
 
+    /**
+     * Default constructor to initialize our ArrayList fields.
+     */
     public Group() {
 
         masterContacts = new ArrayList<>();
@@ -34,41 +40,65 @@ public class Group {
 
     }
 
+    /**
+     * Adds a matching contact to its respective list.
+     *
+     * @param contact
+     *          Contact object.
+     */
     public void addContact(Contact contact) {
         this.matchContacts.add(contact);
     }
 
+    /**
+     * Adds a master contact to its respective list.
+     *
+     * @param contact
+     *          MasterContact object.
+     */
     public void addMasterContact(MasterContact contact) {
         this.masterContacts.add(contact);
     }
 
+    /**
+     * Gets the list of MasterContacts in the group.
+     *
+     * @return
+     *          ArrayList of MasterContact objects.
+     */
     public ArrayList<MasterContact> getMasterContacts() {
         return masterContacts;
     }
-// make it private later
+
+    /**
+     * Gets the list of Contacts in the group.
+     *
+     * @return
+     *          ArrayList of Contact objects.
+     */
     public ArrayList<Contact> getMatchContacts() {
         return matchContacts;
     }
 
-    public void printGroup() {
-
-        int i;
-        int size;
-
-        size = masterContacts.size();
-
-        for (i = 0; i < size; i++) {
-            masterContacts.get(i).printAll();
-        }
-
-        size = matchContacts.size();
-
-        for (i = 0; i < size; i++) {
-            matchContacts.get(i).printAll();
-        }
-
-
-    }
+//    public void printGroup() {
+//
+//        int i;
+//        int size;
+//
+//        size = masterContacts.size();
+//
+//        for (i = 0; i < size; i++) {
+//            masterContacts.get(i).printAll();
+//        }
+//
+//        size = matchContacts.size();
+//
+//        for (i = 0; i < size; i++) {
+//            matchContacts.get(i).printAll();
+//        }
+//
+//
+//    }
 
 
 }
