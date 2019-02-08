@@ -73,6 +73,8 @@ public class TestIndexer {
     public void testIndexForMasterContact() {
         MasterContact masterContact1 = new MasterContact();
         masterContact1.setLastName("Illesca");
+        masterContact1.setFirstName("asdf");
+        masterContact1.setZip("12345");
 
         Indexer indexer1 = new Indexer(encodeMethod);
         indexer1.indexMaster(masterContact1);
@@ -83,12 +85,13 @@ public class TestIndexer {
 
         MasterContact masterContact2 = new MasterContact();
         masterContact2.setLastName("Illesca/Messi");
-        masterContact2.setZip("123");
+        masterContact2.setFirstName("asdf");
+        masterContact2.setZip("12345");
 
         Indexer indexer2 = new Indexer(encodeMethod);
         indexer2.indexMaster(masterContact2);
         String resultForPartnerships = indexer2.getPartnerships().get(0).getMasterContacts().get(0).getZip();
-        assertEquals("123", resultForPartnerships);
+        assertEquals("12345", resultForPartnerships);
         assertEquals(masterContact2, indexer2.getAllMasterContacts().get(0));
 
     }
@@ -97,6 +100,8 @@ public class TestIndexer {
     public void testIndexForContact() {
         Contact contact1 = new Contact();
         contact1.setLastName("Illesca");
+        contact1.setFirstName("asdf");
+        contact1.setZip("12345");
 
         Indexer indexer1 = new Indexer(encodeMethod);
         indexer1.indexContact(contact1);
@@ -107,12 +112,13 @@ public class TestIndexer {
 
         Contact contact2 = new MasterContact();
         contact2.setLastName("Illesca/Messi");
-        contact2.setZip("123");
+        contact2.setFirstName("asdf");
+        contact2.setZip("12345");
 
         Indexer indexer2 = new Indexer(encodeMethod);
         indexer2.indexContact(contact2);
         String resultForPartnerships = indexer2.getPartnerships().get(0).getMatchContacts().get(0).getZip();
-        assertEquals("123", resultForPartnerships);
+        assertEquals("12345", resultForPartnerships);
         assertEquals(contact2, indexer2.getAllMatchContacts().get(0));
 
 

@@ -31,10 +31,9 @@ public class MatchMain {
     public static void main(String[] args) {
 
 
-        for (int i = 0; i < 50; i++)
-            runBoth(false);
+        //for (int i = 0; i < 50; i++)
+            runBoth(true);
             //runBothSep(false);
-        //System.out.println(System.getProperty("os.name"));
 
 
     }
@@ -74,55 +73,6 @@ public class MatchMain {
             measure.printMatches();
 
         measure.printResults();
-
-
-
-
-
-
-//        Weights weights1 = new Weights("./config/weights/");
-//        Weights weights2 = new Weights("./config/weights/");
-//
-//        weights1.initialize("weights1.json");
-//        weights2.initialize("weights2.json");
-//
-//        long totalStart, parseDataEnd, matchTimeEnd;
-//
-//        CSVReader csv;
-//        Indexer indexer;
-//        Matcher matcher;
-//
-//        //---------------------------RUN TRAIN SET-----------------------------------
-//        Performance measure = new Performance();
-//        indexer = new Indexer();
-//
-//        totalStart = System.nanoTime();
-//
-//        csv = new CSVReader(indexer, idxMethod);
-//
-//        csv.readMaster("./data/sampledata/contact_master.csv");
-//        csv.readMatch("./data/sampledata/matches/contact_match.csv", false);
-//        csv.readMatch("./data/sampledata/matches/contact_match_alt.csv", true);
-//
-//        parseDataEnd = System.nanoTime();
-//
-//        matcher = new Matcher(indexer, weights1, weights2, false);
-//        matcher.setThreshold(70);
-//        matcher.runMatcher();
-//
-//        matchTimeEnd = System.nanoTime();
-//
-//        measure.setParseDataTime(totalStart, parseDataEnd);
-//        measure.setMatcherTime(parseDataEnd, matchTimeEnd);
-//        measure.setTotalRunTime(totalStart, matchTimeEnd);
-//        measure.measure(indexer, matcher);
-//
-//        if (printMatches)
-//            measure.printMatches();
-//
-//        measure.printResults();
-        //trainMeasure.resultsToFile("contact_match");
-
 
     }
 
