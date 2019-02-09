@@ -18,4 +18,8 @@
 package matching;
 
 public class TestCompareRecord {
+
+    public void testLoadWeights(){
+
+    }
 }

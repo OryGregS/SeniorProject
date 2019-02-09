@@ -81,6 +81,10 @@ class CompareRecord {
 
     }
 
+    public Weights getWeights() {
+        return weights;
+    }
+
     /**
      * Gets a field's data from the MasterContact and Contact object,
      * and the field's weight. Then calls levenRatio to get our ratio
