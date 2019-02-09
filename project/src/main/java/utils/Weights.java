@@ -55,7 +55,7 @@ public class Weights {
      *
      * @return A copy of the HashMap containing the weight key-value pairs.
      */
-    Map<String, Double> getWeights() {
+    public Map<String, Double> getWeights() {
         return new HashMap<>(this.weights);
     }
 

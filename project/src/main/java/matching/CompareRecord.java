@@ -81,7 +81,7 @@ class CompareRecord {
 
     }
 
-    public Weights getWeights() {
+    Weights getWeightObject() {
         return weights;
     }
 
