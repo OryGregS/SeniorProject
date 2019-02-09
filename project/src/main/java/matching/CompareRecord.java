@@ -278,4 +278,8 @@ class CompareRecord {
 
     }
 
+    public String[] getHandleEmail(String masterEmail, String matchEmail){
+        return this.handleEmail(masterEmail,matchEmail);
+    }
+
 }
