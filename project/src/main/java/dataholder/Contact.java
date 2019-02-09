@@ -18,7 +18,7 @@
 package dataholder;
 
 /**
- * Generic dataholder holder for Contact dataholder. Extended by MasterContact.
+ * Generic data holder for Contact data. Extended by MasterContact.
  */
 public class Contact {
 

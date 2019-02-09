@@ -19,7 +19,7 @@ package matching;
 
 import dataholder.Contact;
 import dataholder.MasterContact;
-import indexing.Group;
+import dataholder.Group;
 import indexing.Indexer;
 import utils.Weights;
 

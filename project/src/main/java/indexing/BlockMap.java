@@ -18,13 +18,14 @@
 package indexing;
 
 import dataholder.Contact;
+import dataholder.Group;
 import dataholder.MasterContact;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * BlockMap holds our map for Indexing the dataholder.
+ * BlockMap holds our map for Indexing the data.
  */
 class BlockMap {
 
@@ -42,7 +43,7 @@ class BlockMap {
     /**
      * Adds a MasterContact to a Group object.
      *
-     * @param key     Phonetically encoded dataholder.
+     * @param key     Phonetically encoded data.
      * @param contact MasterContact object.
      */
     void putMaster(String key, MasterContact contact) {
@@ -63,7 +64,7 @@ class BlockMap {
     /**
      * Adds a matching Contact to a Group object.
      *
-     * @param key     Phonetically encoded dataholder.
+     * @param key     Phonetically encoded data.
      * @param contact Contact object.
      */
     void putContact(String key, Contact contact) {
@@ -84,7 +85,7 @@ class BlockMap {
     /**
      * Checks if a key exists in the Map.
      *
-     * @param key Phonetically encoded dataholder.
+     * @param key Phonetically encoded data.
      * @return True or false.
      */
     private boolean checkExists(String key) {
@@ -94,7 +95,7 @@ class BlockMap {
     /**
      * Returns the Map field.
      *
-     * @return Map containing phonetically encoded dataholder as keys and Group objects as values.
+     * @return Map containing phonetically encoded data as keys and Group objects as values.
      */
     Map<String, Group> getGroups() {
         return groups;

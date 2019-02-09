@@ -80,7 +80,7 @@ public class MasterContact extends Contact {
     /**
      * Gets the number of
      *
-     * @return ArrayList of contact dataholder
+     * @return ArrayList of contact data
      */
     public int getKnownMatches() {
         return this.knownMatches;
@@ -108,7 +108,7 @@ public class MasterContact extends Contact {
      * This method attempts to add the potential contact in the
      * lists of the TopMatches object.
      *
-     * @param contact    New match's dataholder.
+     * @param contact    New match's data.
      * @param confidence New match's level of confidence (how similar it is).
      * @return True if Contact and Confidence were added to the top list.
      * False if there was an error.
@@ -127,10 +127,10 @@ public class MasterContact extends Contact {
     }
 
     /**
-     * Gets the list contact dataholder of the master-contact's most likely matches
+     * Gets the list contact data of the master-contact's most likely matches
      * in the TopMatches object.
      *
-     * @return ArrayList of contact dataholder
+     * @return ArrayList of contact data
      */
     public ArrayList<Contact> getTopContacts() {
         return this.topMatches.getTopContacts();

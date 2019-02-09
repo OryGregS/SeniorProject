@@ -85,7 +85,7 @@ class TopMatches {
      * and move the rest of the list to the end too
      *
      * @param index      Location to add match.
-     * @param contact    New match's dataholder.
+     * @param contact    New match's data.
      * @param confidence New match's level of confidence of similarity.
      */
     private void addMatch(int index, Contact contact, double confidence) {
@@ -112,7 +112,7 @@ class TopMatches {
      * the new match to the lists at the specified index.
      *
      * @param index      Location to add new match.
-     * @param contact    New match's dataholder.
+     * @param contact    New match's data.
      * @param confidence New match's level of confidence of similarity.
      */
     private void replaceMatch(int index, Contact contact, double confidence) {
@@ -123,7 +123,7 @@ class TopMatches {
     /**
      * Adds a match to the end of the lists.
      *
-     * @param contact    New match's dataholder.
+     * @param contact    New match's data.
      * @param confidence New match's level of confidence of similarity.
      */
     private void addMatch(Contact contact, double confidence) {
@@ -135,7 +135,7 @@ class TopMatches {
      * Compares new matches with those already in
      * the list and checks if the new match should be added.
      *
-     * @param contact    New match's dataholder.
+     * @param contact    New match's data.
      * @param confidence New match's level of confidence of similarity.
      */
     void setMatch(Contact contact, double confidence) {
@@ -175,7 +175,7 @@ class TopMatches {
     /**
      * Adds a match when the top matches list is not full.
      *
-     * @param contact    New match's dataholder.
+     * @param contact    New match's data.
      * @param confidence New match's level of confidence of similarity.
      */
     private void addMatchToNotFull(Contact contact, double confidence) {
@@ -213,7 +213,7 @@ class TopMatches {
     /**
      * Logic to add a potential match to the lists when they're at capacity.
      *
-     * @param contact    New match's dataholder.
+     * @param contact    New match's data.
      * @param confidence New match's level of confidence of similarity.
      */
     private void addMatchToFull(Contact contact, double confidence) {

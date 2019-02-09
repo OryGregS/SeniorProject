@@ -19,9 +19,11 @@ package utils;
 
 import indexing.Indexer;
 import matching.Matcher;
+import processing.CSVInputException;
 import processing.CSVReader;
 import setup.Init;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class UpdateWeights {
@@ -81,10 +83,17 @@ public class UpdateWeights {
                 Matcher matcher = new Matcher(weights1, weights2);
                 totalStart = System.nanoTime();
 
-                // Read dataholder, process it, and index it
-                csvReader.readMaster("contact_master.csv");
-                csvReader.readMatch("contact_match.csv");
-                csvReader.readMatch("contact_match_alt.csv");
+                // Read data, process it, and index it
+                try {
+
+                    csvReader.readMaster("contact_master.csv");
+                    csvReader.readMatch("contact_match.csv");
+                    csvReader.readMatch("contact_match_alt.csv");
+
+                } catch (CSVInputException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
 
                 parseDataEnd = System.nanoTime();
 

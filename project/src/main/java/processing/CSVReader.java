@@ -24,14 +24,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
 
 /**
- * CSVReader reads in dataholder from CSV files and stores the records in groups.
+ * CSVReader reads in data from CSV files and stores the records in groups.
  */
 public class CSVReader {
 
@@ -58,6 +54,10 @@ public class CSVReader {
 
     }
 
+    public void setMatchPath(String matchPath) {
+        this.matchPath = matchPath;
+    }
+
     /**
      * Gets the number of rows in matching CSV's.
      *
@@ -79,11 +79,11 @@ public class CSVReader {
     /**
      * Reads the master CSV file.
      *
-     * @param fileName Name of file
-     * @return True upon reading file successfully, false if not.
+     * @param fileName Name of file.
+     * @throws CSVInputException Error finding or reading a CSV file.
      */
     @SuppressWarnings("Duplicates")
-    public boolean readMaster(String fileName) {
+    public void readMaster(String fileName) throws CSVInputException {
 
         try {
 
@@ -95,43 +95,29 @@ public class CSVReader {
 
             for (CSVRecord obs : csv) {
 
-                if (csv.getCurrentLineNumber() != 0) {
-
-                    MasterContact contact = new MasterContact();
-
-                    setFields(contact, obs);
-
-                    findGroup(contact);
-
-                    masterCount++;
-
-                }
+                MasterContact contact = new MasterContact();
+                setFields(contact, obs);
+                findGroup(contact);
+                masterCount++;
 
             }
-
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            return false;
+        } catch (IOException e) {
+            throw new CSVInputException(this.masterPath, fileName);
         }
-
-        return true;
-
     }
 
     /**
-     * Reads the master CSV file.
+     * Reads the master CSV file. Throws CSVInputException.
      *
      * @param fileName           Name of file
      * @param topMatchesListSize Specifier for amount of top matches to hold.
-     * @return True upon reading file successfully, false if not.
+     * @throws CSVInputException Error finding or reading a CSV file.
      */
     @SuppressWarnings("Duplicates")
-    public boolean readMaster(String fileName, int topMatchesListSize) {
-
-        boolean skipHeader = true;
+    public void readMaster(String fileName, int topMatchesListSize) throws CSVInputException {
 
         try {
-
-            Reader reader = Files.newBufferedReader(Paths.get(this.masterPath + fileName));
+            Reader reader = new FileReader(this.masterPath + fileName);
             CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT
                     .withIgnoreSurroundingSpaces()
                     .withFirstRecordAsHeader()
@@ -139,41 +125,28 @@ public class CSVReader {
 
             for (CSVRecord obs : csv) {
 
-                if (csv.getCurrentLineNumber() != 0) {
-
-                    MasterContact contact = new MasterContact(topMatchesListSize);
-
-                    setFields(contact, obs);
-
-                    findGroup(contact);
-
-                    masterCount++;
-
-                }
+                MasterContact contact = new MasterContact(topMatchesListSize);
+                setFields(contact, obs);
+                findGroup(contact);
+                masterCount++;
 
             }
-
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            return false;
+        } catch (IOException e) {
+            throw new CSVInputException(this.masterPath, fileName);
         }
-
-        return true;
 
     }
 
     /**
-     * Reads a CSV file to be matched to master.
+     * Reads a CSV file to be matched to master. Throws CSVInputException.
      *
      * @param fileName Name of file.
-     * @return True upon reading file successfully, false if not.
+     * @throws CSVInputException Error finding or reading a CSV file.
      */
-    public boolean readMatch(String fileName) {
-
-        boolean skipHeader = true;
+    public void readMatch(String fileName) throws CSVInputException {
 
         try {
-
-            Reader reader = Files.newBufferedReader(Paths.get(this.matchPath + fileName));
+            Reader reader = new FileReader(this.matchPath + fileName);
             CSVParser csv = new CSVParser(reader, CSVFormat.DEFAULT
                     .withIgnoreSurroundingSpaces()
                     .withFirstRecordAsHeader()
@@ -181,31 +154,21 @@ public class CSVReader {
 
             for (CSVRecord obs : csv) {
 
-                if (csv.getCurrentLineNumber() != 0) {
+                Contact contact = new Contact();
+                setFields(contact, obs);
+                findGroup(contact);
+                matchCount++;
 
-                    Contact contact = new Contact();
-
-                    setFields(contact, obs);
-
-                    findGroup(contact);
-
-                    matchCount++;
-
-                }
             }
-
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            return false;
+        } catch (IOException e) {
+            throw new CSVInputException(this.matchPath, fileName);
         }
-
-        return true;
-
     }
 
     /**
      * Indexes and stores a matching record in a group.
      *
-     * @param contact Matching contact dataholder from matching CSV(s).
+     * @param contact Matching contact datafrom matching CSV(s).
      */
     private void findGroup(Contact contact) {
         this.indexer.indexContact(contact);
@@ -214,14 +177,14 @@ public class CSVReader {
     /**
      * Indexes and stores a master record in a group.
      *
-     * @param masterContact Master contact dataholder from master CSV.
+     * @param masterContact Master contact data from master CSV.
      */
     private void findGroup(MasterContact masterContact) {
         this.indexer.indexMaster(masterContact);
     }
 
     /**
-     * Stores a row of master dataholder into MasterContact object
+     * Stores a row of master data into MasterContact object
      *
      * @param masterContact Data holder for master records.
      * @param obs           CSVRecord object. (Each CSVRecord object is a row).
@@ -253,7 +216,7 @@ public class CSVReader {
     }
 
     /**
-     * Stores a row of master dataholder into MasterContact object
+     * Stores a row of master data into MasterContact object
      *
      * @param contact Data holder for master records.
      * @param obs     CSVRecord object. (Each CSVRecord object is a row).

@@ -21,7 +21,6 @@ import indexing.Indexer;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 
 public class TestCSVReader {
 
@@ -29,13 +28,19 @@ public class TestCSVReader {
     private String matchPath = "./data/sampledata/matches/";
 
     @Test
+    @SuppressWarnings("Duplicates")
     public void testReadFromCSV() {
         Indexer indexer = new Indexer("metaphone");
         CSVReader csvReader = new CSVReader(this.masterPath,
                 this.matchPath, indexer);
-        assertTrue(csvReader.readMaster("contact_master.csv"));
-        assertTrue(csvReader.readMatch("contact_match.csv"));
-        assertTrue(csvReader.readMatch("contact_match_alt.csv"));
+        try {
+            csvReader.readMaster("contact_master.csv");
+            csvReader.readMatch("contact_match.csv");
+            csvReader.readMatch("contact_match_alt.csv");
+        } catch (CSVInputException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
         assertEquals(21450, csvReader.getMasterCount());
         assertEquals(49625, csvReader.getMatchCount());
 

@@ -22,17 +22,17 @@ import setup.MatchRunner;
 
 public class MatchMain {
 
-    // MASTERPATH - "./dataholder/contact_master.csv"
-    // MATCHPATH - "./dataholder/contact_match.csv"
+    // MASTERPATH - "./data/contact_master.csv"
+    // MATCHPATH - "./data/contact_match.csv"
 
     public static void main(String[] args) {
 
         MatchRunner runner = new MatchRunner();
         for (int i = 0; i < 50; i++) {
 
-            //runner.masterToMaster("contact_master.csv");
+            runner.masterToMaster("contact_master.csv");
             //runner.masterToMatch("contact_master.csv", "contact_match.csv");
-            runner.masterToMatches("contact_master.csv");
+            //runner.masterToMatches("contact_master.csv");
             runner = new MatchRunner();
         }
     }

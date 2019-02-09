@@ -20,7 +20,7 @@ package processing;
 import java.util.ArrayList;
 
 /**
- * Preprocessor cleans and standardizes dataholder as it's being read in by CSVReader.
+ * Preprocessor cleans and standardizes data as it's being read in by CSVReader.
  */
 class Preprocessor {
 
@@ -34,9 +34,9 @@ class Preprocessor {
     }
 
     /**
-     * Removes ALL whitespace from dataholder. If given multiple words, then joins the string separated by 1 whitespace.
+     * Removes ALL whitespace from data. If given multiple words, then joins the string separated by 1 whitespace.
      *
-     * @param data String dataholder from Contact or MasterContact CSV.
+     * @param data String data from Contact or MasterContact CSV.
      * @return New string with standardized whitespace.
      */
     String trimData(String data) {
@@ -68,11 +68,11 @@ class Preprocessor {
     }
 
     /**
-     * Checks if dataholder is null and checks if dataholder is dataholder is empty.
-     * If dataholder isn't empty, then removes unnecessary punctuation.
+     * Checks if data is null and checks if data is data is empty.
+     * If data isn't empty, then removes unnecessary punctuation.
      * Finally, we return a String that has had all unnecessary whitespace removed.
      *
-     * @param data String dataholder from Contact or MasterContact CSV.
+     * @param data String data from Contact or MasterContact CSV.
      * @return New standardized string.
      */
     String prep(String data) {
@@ -90,7 +90,7 @@ class Preprocessor {
     }
 
     /**
-     * Checks if dataholder is an invalid character.
+     * Checks if data is an invalid character.
      *
      * @param data The string at the row,col of the dataset.
      * @return Empty string if "NULL", otherwise the original string
@@ -151,11 +151,11 @@ class Preprocessor {
     }
 
     /**
-     * Combines related dataholder from two fields.
+     * Combines related data from two fields.
      *
-     * @param field1 First related field dataholder.
-     * @param field2 Second related field dataholder.
-     * @return One string with combined dataholder. Separated by 1 whitespace.
+     * @param field1 First related field data.
+     * @param field2 Second related field data.
+     * @return One string with combined data. Separated by 1 whitespace.
      */
     String combineFields(String field1, String field2) {
 

@@ -11,11 +11,11 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 1/22/19 10:29 AM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 2/8/19 3:28 PM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package indexing;
+package dataholder;
 
 import dataholder.Contact;
 import dataholder.MasterContact;

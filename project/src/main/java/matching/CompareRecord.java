@@ -82,13 +82,13 @@ class CompareRecord {
     }
 
     /**
-     * Gets a field's dataholder from the MasterContact and Contact object,
+     * Gets a field's data from the MasterContact and Contact object,
      * and the field's weight. Then calls levenRatio to get our ratio
      * of similarity between the two strings. This then multiplies that
      * ratio by the field's weight.
      *
      * @param field Data in a column for a record.
-     * @return Weighted level of similarity between the MasterContact and Contact's dataholder.
+     * @return Weighted level of similarity between the MasterContact and Contact's data.
      */
     double similarity(String field) {
 
@@ -207,7 +207,7 @@ class CompareRecord {
     /**
      * Checks if CRDNumber is an empty string.
      *
-     * @param CRDNum Unique dataholder-field per contact.
+     * @param CRDNum Unique data-field per contact.
      * @return True if not empty. False if empty.
      */
     private boolean checkCRDNotEmpty(String CRDNum) {

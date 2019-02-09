@@ -18,6 +18,7 @@
 package indexing;
 
 import dataholder.Contact;
+import dataholder.Group;
 import dataholder.MasterContact;
 import org.junit.Test;
 

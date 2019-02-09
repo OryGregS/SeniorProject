@@ -127,14 +127,23 @@ public class Performance extends CalcPerformance {
         System.out.printf("\tMax # of comparisons: %,40d\n", this.maxComparisons);
         System.out.printf("\tReduced comparisons by: %37.2f%%\n", this.percentReduced);
         System.out.println();
-        System.out.printf("\tIdentified Known Matches: %,36d\n", this.identifiedMatchCount);
-        System.out.printf("\tTotal Known Matches: %,41d\n", this.knownMatchCount);
+
+        // Known matches is 0 for matching a master data set against itself.
+        // This is because CRD numbers don't repeat in the Master record.
+        // Thus, we omit this information as it doesn't make sense in this case.
+        if (this.knownMatchCount != 0) {
+
+            System.out.printf("\tIdentified Known Matches: %,36d\n", this.identifiedMatchCount);
+            System.out.printf("\tTotal Known Matches: %,41d\n", this.knownMatchCount);
+            System.out.printf("\tKnown matches correctly identified %,26.2f%%\n", percentFound);
+            System.out.println();
+
+        }
+
         System.out.printf("\tUnknown matches found (confidence >= 90): %,20d\n", this.totalUnknownCount);
         System.out.println();
-        System.out.printf("\tKnown matches correctly identified %,26.2f%%\n", percentFound);
-        System.out.println();
-        System.out.printf("\tTime taken to parse dataholder: %37s", timeToStr(this.parseDataTime));
-        System.out.printf("\tTime taken to match dataholder: %37s", timeToStr(this.matcherTime));
+        System.out.printf("\tTime taken to parse data: %37s", timeToStr(this.parseDataTime));
+        System.out.printf("\tTime taken to match data: %37s", timeToStr(this.matcherTime));
         System.out.println();
         System.out.printf("\tTotal time taken: %45s", timeToStr(this.totalRunTime));
     }
@@ -188,7 +197,7 @@ public class Performance extends CalcPerformance {
     }
 
     /**
-     * Prints the MasterContact dataholder and top matching Contacts and their confidence.
+     * Prints the MasterContact data and top matching Contacts and their confidence.
      *
      * @param master     MasterContact object.
      * @param confidence ArrayList of confidence values (Double).

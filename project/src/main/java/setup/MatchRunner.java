@@ -17,6 +17,7 @@
 
 package setup;
 
+import processing.CSVInputException;
 import utils.Performance;
 
 import java.io.File;
@@ -48,8 +49,16 @@ public class MatchRunner extends Init {
 
         long parseDataTimeStart = System.nanoTime();
 
-        this.csvReader.readMaster(masterFileName, this.topMatchesListSize);
-        this.csvReader.readMatch(masterFileName);
+        try {
+
+            this.csvReader.readMaster(masterFileName, this.topMatchesListSize);
+            this.csvReader.setMatchPath(this.masterPath);
+            this.csvReader.readMatch(masterFileName);
+
+        } catch (CSVInputException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
 
         long parseDataTimeEnd = System.nanoTime();
 
@@ -81,8 +90,15 @@ public class MatchRunner extends Init {
 
         long parseDataTimeStart = System.nanoTime();
 
-        this.csvReader.readMaster(masterFileName, this.topMatchesListSize);
-        this.csvReader.readMatch(matchFileName);
+        try {
+
+            this.csvReader.readMaster(masterFileName, this.topMatchesListSize);
+            this.csvReader.readMatch(matchFileName);
+
+        } catch (CSVInputException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
 
         long parseDataTimeEnd = System.nanoTime();
 
@@ -113,8 +129,15 @@ public class MatchRunner extends Init {
 
         long parseDataTimeStart = System.nanoTime();
 
-        this.csvReader.readMaster(masterFileName, this.topMatchesListSize);
-        readAllMatchFiles();
+        try {
+
+            this.csvReader.readMaster(masterFileName, this.topMatchesListSize);
+            readAllMatchFiles();
+
+        } catch (CSVInputException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
 
         long parseDataTimeEnd = System.nanoTime();
 
@@ -147,8 +170,10 @@ public class MatchRunner extends Init {
 
     /**
      * Grabs all CSV files in the matchPath (set in DataMatching.properties).
+     *
+     * @throws CSVInputException Error finding or reading a CSV file.
      */
-    void readAllMatchFiles() {
+    void readAllMatchFiles() throws CSVInputException {
 
         File matchFolder = new File(this.matchPath);
 
@@ -162,10 +187,20 @@ public class MatchRunner extends Init {
 
                 if (matchFiles[i].isFile()) {
                     // load all files in matches directory
-                    this.csvReader.readMatch(matchFiles[i].getName());
+                    try {
+                        this.csvReader.readMatch(matchFiles[i].getName());
+                    } catch (CSVInputException e) {
+                        e.printStackTrace();
+                        System.exit(1);
+                    }
 
                 }
             }
+        } else {
+
+            throw new CSVInputException("Error reading CSV files in path: " + this.matchPath);
+
         }
+
     }
 }

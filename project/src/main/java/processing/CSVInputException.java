@@ -11,17 +11,20 @@
  *
  * ~~~ Copyright ~~~
  *
- * Developed by Gregory Smith & Axel Solano. Last modified 2/8/19 12:16 PM.
+ * Developed by Gregory Smith & Axel Solano. Last modified 2/9/19 10:33 AM.
  * Copyright (c) 2019. All rights reserved.
  */
 
-package utils;
+package processing;
 
-/**
- * weightNames is used to define the names of weights that we expect from the
- * weight JSON files.
- */
-public enum weightNames {
-    LAST_NAME, MIDDLE_NAME, FIRST_NAME, FIRM_NAME, OFFICE_NAME, EMAIL,
-    PHONE, ADDRESS, CITY, STATE, ZIP, COUNTRY
+public class CSVInputException extends Throwable {
+
+    public CSVInputException(String path, String fileName) {
+        this(String.format("\nError reading CSV file: %s%s\n", path, fileName));
+    }
+
+    public CSVInputException(String message) {
+        super(message);
+    }
+
 }
