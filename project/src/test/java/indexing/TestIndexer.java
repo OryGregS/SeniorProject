@@ -26,36 +26,37 @@ import static org.junit.Assert.*;
 
 public class TestIndexer {
 
-    private String encodeMethod = "metaphone";
+    private String indexMethod = "lastname";
+    private String encoder = "metaphone";
 
     @Test
     public void testGetContactGroups() {
-        Indexer indexer = new Indexer(encodeMethod);
+        Indexer indexer = new Indexer(indexMethod, encoder);
         assertNotNull(indexer.getIndividuals());
     }
 
     @Test
     public void testGetPartnerships() {
-        Indexer indexer = new Indexer(encodeMethod);
+        Indexer indexer = new Indexer(indexMethod, encoder);
         assertNotNull(indexer.getPartnerships());
     }
 
     @Test
     public void testGetHouseAccounts() {
-        Indexer indexer = new Indexer(encodeMethod);
+        Indexer indexer = new Indexer(indexMethod, encoder);
         assertNotNull(indexer.getHouseAccounts());
 
     }
 
     @Test
     public void testGetAllMasterContacts() {
-        Indexer indexer = new Indexer(encodeMethod);
+        Indexer indexer = new Indexer(indexMethod, encoder);
         assertNotNull(indexer.getAllMasterContacts());
     }
 
     @Test
     public void testGetMasterSize() {
-        Indexer indexer = new Indexer(encodeMethod);
+        Indexer indexer = new Indexer(indexMethod, encoder);
         assertEquals(0, indexer.getMasterSize());
         indexer.getAllMasterContacts().add(0, new MasterContact());
         assertEquals(1, indexer.getMasterSize());
@@ -63,7 +64,7 @@ public class TestIndexer {
 
     @Test
     public void testGetMatchSize() {
-        Indexer indexer = new Indexer(encodeMethod);
+        Indexer indexer = new Indexer(indexMethod, encoder);
         assertEquals(0, indexer.getMatchSize());
         indexer.getAllMatchContacts().add(0, new Contact());
         assertEquals(1, indexer.getMatchSize());
@@ -76,7 +77,7 @@ public class TestIndexer {
         masterContact1.setFirstName("asdf");
         masterContact1.setZip("12345");
 
-        Indexer indexer1 = new Indexer(encodeMethod);
+        Indexer indexer1 = new Indexer(indexMethod, encoder);
         indexer1.indexMaster(masterContact1);
         String resultForContactGroups = indexer1.getIndividuals().get(0).getMasterContacts().get(0).getLastName();
         assertEquals("Illesca", resultForContactGroups);
@@ -88,7 +89,7 @@ public class TestIndexer {
         masterContact2.setFirstName("asdf");
         masterContact2.setZip("12345");
 
-        Indexer indexer2 = new Indexer(encodeMethod);
+        Indexer indexer2 = new Indexer(indexMethod, encoder);
         indexer2.indexMaster(masterContact2);
         String resultForPartnerships = indexer2.getPartnerships().get(0).getMasterContacts().get(0).getZip();
         assertEquals("12345", resultForPartnerships);
@@ -103,7 +104,7 @@ public class TestIndexer {
         contact1.setFirstName("asdf");
         contact1.setZip("12345");
 
-        Indexer indexer1 = new Indexer(encodeMethod);
+        Indexer indexer1 = new Indexer(indexMethod, encoder);
         indexer1.indexContact(contact1);
         String resultForContactGroups = indexer1.getIndividuals().get(0).getMatchContacts().get(0).getLastName();
         assertEquals("Illesca", resultForContactGroups);
@@ -115,7 +116,7 @@ public class TestIndexer {
         contact2.setFirstName("asdf");
         contact2.setZip("12345");
 
-        Indexer indexer2 = new Indexer(encodeMethod);
+        Indexer indexer2 = new Indexer(indexMethod, encoder);
         indexer2.indexContact(contact2);
         String resultForPartnerships = indexer2.getPartnerships().get(0).getMatchContacts().get(0).getZip();
         assertEquals("12345", resultForPartnerships);
@@ -126,7 +127,7 @@ public class TestIndexer {
 
     @Test
     public void testCheckPartnership() {
-        Indexer indexer = new Indexer(encodeMethod);
+        Indexer indexer = new Indexer(indexMethod, encoder);
         String name = "Alex/Grant/Jack";
         assertTrue(indexer.checkPartnership(name));
 
@@ -134,7 +135,7 @@ public class TestIndexer {
 
     @Test
     public void testCheckHouse() {
-        Indexer indexer = new Indexer(encodeMethod);
+        Indexer indexer = new Indexer(indexMethod, encoder);
         String firstName = "house";
         assertTrue(indexer.checkHouse(firstName));
     }

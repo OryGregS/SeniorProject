@@ -29,7 +29,8 @@ import java.util.ArrayList;
  */
 public class Indexer {
 
-    private String encodeMethod;
+    private String encoder;
+    private String indexMethod;
     private BlockMap individuals;
     private BlockMap partnerships;
     private BlockMap houseAccounts;
@@ -39,13 +40,14 @@ public class Indexer {
     /**
      * Constructor to get our method of indexing and initialize variables.
      *
-     * @param encodeMethod Method to use for phonetic encoding. Acceptable values
+     * @param encoder Method to use for phonetic encoding. Acceptable values
      *                     are (case-insensitive): nysiis, soundex, rsoundex, dmsoundex,
      *                     metaphone, and doublemetaphone. This value is set in ./config/DataMatching.properties
      */
-    public Indexer(String encodeMethod) {
+    public Indexer(String indexMethod, String encoder) {
 
-        this.encodeMethod = encodeMethod;
+        this.encoder= encoder;
+        this.indexMethod = indexMethod.toLowerCase();
         this.individuals = new BlockMap();
         this.partnerships = new BlockMap();
         this.houseAccounts = new BlockMap();
@@ -128,9 +130,9 @@ public class Indexer {
 
         String key;
         String zipCode = masterContact.getZip();
-        String lastName = masterContact.getLastName();
+        String keyField = keyField(masterContact);
 
-        if (checkPartnership(lastName)) {
+        if (checkPartnership(masterContact.getLastName())) {
 
             key = zipCode;
             partnerships.putMaster(key, masterContact);
@@ -142,7 +144,7 @@ public class Indexer {
 
         } else {
 
-            key = encode(lastName);
+            key = encode(keyField);
             individuals.putMaster(key, masterContact);
 
         }
@@ -160,9 +162,9 @@ public class Indexer {
 
         String key;
         String zipCode = contact.getZip();
-        String lastName = contact.getLastName();
+        String keyField = keyField(contact);
 
-        if (checkPartnership(lastName)) {
+        if (checkPartnership(contact.getLastName())) {
 
             key = contact.getZip();
             partnerships.putContact(key, contact);
@@ -174,7 +176,7 @@ public class Indexer {
 
         } else {
 
-            key = encode(lastName);
+            key = encode(keyField);
             individuals.putContact(key, contact);
 
         }
@@ -213,7 +215,7 @@ public class Indexer {
      */
     private String encode(String data) {
 
-        String encodeMethod = this.encodeMethod.toLowerCase();
+        String encodeMethod = this.encoder.toLowerCase();
 
         // setMaxCodeLen( number ); so output is longer and obtain more information
         // to be test later
@@ -253,6 +255,58 @@ public class Indexer {
                 return mpn.metaphone(data);
 
         }
+    }
+
+    @SuppressWarnings("Duplicates")
+    private String keyField(Contact contact) {
+
+        switch (this.indexMethod) {
+            case "lastname":
+                return contact.getLastName();
+            case "firstname":
+                return contact.getFirstName();
+            case "firmname":
+                return contact.getFirmName();
+            case "officename":
+                return contact.getOfficeName();
+            case "city":
+                return contact.getCity();
+            case "state":
+                return contact.getStateProvince();
+            case "zipcode":
+                return contact.getZip();
+            case "country":
+                return contact.getCountryID();
+            default:
+                return contact.getLastName();
+        }
+
+    }
+
+    @SuppressWarnings("Duplicates")
+    private String keyField(MasterContact masterContact) {
+
+        switch (this.indexMethod) {
+            case "lastname":
+                return masterContact.getLastName();
+            case "firstname":
+                return masterContact.getFirstName();
+            case "firmname":
+                return masterContact.getFirmName();
+            case "officename":
+                return masterContact.getOfficeName();
+            case "city":
+                return masterContact.getCity();
+            case "state":
+                return masterContact.getStateProvince();
+            case "zipcode":
+                return masterContact.getZip();
+            case "country":
+                return masterContact.getCountryID();
+            default:
+                return masterContact.getLastName();
+        }
+
     }
 
 }

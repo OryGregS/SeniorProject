@@ -111,6 +111,8 @@ public class Matcher {
 
             numComparisons += masterContacts.size() * matchContacts.size();
 
+            //group.printGroup();
+
 
             masterContacts.parallelStream().forEach(masterContact ->
                     compare(masterContact, matchContacts));

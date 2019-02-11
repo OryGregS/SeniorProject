@@ -76,4 +76,14 @@ public class Group {
         return matchContacts;
     }
 
+    public void printGroup() {
+        for (MasterContact master : this.masterContacts) {
+            master.printAll();
+        }
+        for (Contact contact : this.matchContacts) {
+            contact.printAll();
+        }
+        System.out.println();
+    }
+
 }

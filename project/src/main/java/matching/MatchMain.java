@@ -28,11 +28,11 @@ public class MatchMain {
     public static void main(String[] args) {
 
         MatchRunner runner = new MatchRunner();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
 
             //runner.masterToMaster("contact_master.csv");
-            runner.masterToMatch("contact_master.csv", "contact_match.csv");
-            //runner.masterToMatches("contact_master.csv");
+            //runner.masterToMatch("contact_master.csv", "contact_match.csv");
+            runner.masterToMatches("contact_master.csv");
             runner = new MatchRunner();
         }
     }

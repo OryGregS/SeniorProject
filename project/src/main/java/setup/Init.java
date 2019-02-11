@@ -37,6 +37,7 @@ public class Init {
     String matchPath;
     String weightsPath;
     String indexMethod;
+    String encoder;
     double threshold;
     int topMatchesListSize;
     boolean printTopMatches;
@@ -72,6 +73,7 @@ public class Init {
             this.masterPath = props.getProperty("masterPath", "./data/sampledata/");
             this.matchPath = props.getProperty("matchPath", "./data/sampledata/matches/");
             this.weightsPath = props.getProperty("weightsPath", "./config/weights/");
+            this.encoder = props.getProperty("encoder", "lastname");
             this.indexMethod = props.getProperty("indexMethod", "metaphone");
             this.threshold = Double.valueOf(props.getProperty("threshold", "70"));
             this.topMatchesListSize = Integer.valueOf(props.getProperty("topMatchesListSize", "10"));
@@ -93,7 +95,7 @@ public class Init {
 
 
         // Initialize Indexer's state
-        this.indexer = new Indexer(indexMethod);
+        this.indexer = new Indexer(indexMethod, encoder);
         // Initialize CSVReader's state
         this.csvReader = new CSVReader(masterPath, matchPath, indexer);
 

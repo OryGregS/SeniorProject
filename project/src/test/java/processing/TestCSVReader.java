@@ -28,7 +28,7 @@ import static junit.framework.TestCase.assertEquals;
 
 public class TestCSVReader {
 
-    private Indexer testIndex = new Indexer("metaphone");
+    private Indexer testIndex = new Indexer("lastname", "metaphone");
 
     @Test
     @SuppressWarnings("Duplicates")

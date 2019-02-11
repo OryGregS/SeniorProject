@@ -168,7 +168,7 @@ public class CSVReader {
     /**
      * Indexes and stores a matching record in a group.
      *
-     * @param contact Matching contact datafrom matching CSV(s).
+     * @param contact Matching contact data from matching CSV(s).
      */
     private void findGroup(Contact contact) {
         this.indexer.indexContact(contact);
