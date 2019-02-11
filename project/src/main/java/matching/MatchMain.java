@@ -30,8 +30,8 @@ public class MatchMain {
         MatchRunner runner = new MatchRunner();
         for (int i = 0; i < 50; i++) {
 
-            runner.masterToMaster("contact_master.csv");
-            //runner.masterToMatch("contact_master.csv", "contact_match.csv");
+            //runner.masterToMaster("contact_master.csv");
+            runner.masterToMatch("contact_master.csv", "contact_match.csv");
             //runner.masterToMatches("contact_master.csv");
             runner = new MatchRunner();
         }

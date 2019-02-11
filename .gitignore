@@ -42,3 +42,7 @@ project/out/
 project/\.classpath
 
 project/\.project
+
+project/src/test/\.testFiles/test_master\.csv
+
+project/src/test/\.testFiles/test_match\.csv

@@ -17,34 +17,47 @@
 
 package processing;
 
+import dataholder.Contact;
+import dataholder.MasterContact;
 import indexing.Indexer;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
 
 public class TestCSVReader {
 
-    private String masterPath = "./data/sampledata/";
-    private String matchPath = "./data/sampledata/matches/";
+    private Indexer testIndex = new Indexer("metaphone");
 
     @Test
     @SuppressWarnings("Duplicates")
     public void testReadFromCSV() {
-        Indexer indexer = new Indexer("metaphone");
-        CSVReader csvReader = new CSVReader(this.masterPath,
-                this.matchPath, indexer);
+        String testDataPath = "./src/test/.testFiles/";
+        CSVReader csvReader = new CSVReader(testDataPath,
+                testDataPath, testIndex);
         try {
-            csvReader.readMaster("contact_master.csv");
-            csvReader.readMatch("contact_match.csv");
-            csvReader.readMatch("contact_match_alt.csv");
+            csvReader.readMaster("test_master.csv");
+            csvReader.readMatch("test_match.csv");
         } catch (CSVInputException e) {
             e.printStackTrace();
             System.exit(1);
         }
-        assertEquals(21450, csvReader.getMasterCount());
-        assertEquals(49625, csvReader.getMatchCount());
+        assertEquals(10, csvReader.getMasterCount());
+        assertEquals(29585, csvReader.getMatchCount());
 
+    }
 
+    public Indexer getTestIndex() {
+        return this.testIndex;
+    }
+
+    public ArrayList<MasterContact> getTestMasterList() {
+        return this.testIndex.getAllMasterContacts();
+    }
+
+    public ArrayList<Contact> getTestMatchList() {
+        return this.testIndex.getAllMatchContacts();
     }
 
 }
