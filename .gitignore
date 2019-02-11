@@ -46,3 +46,4 @@ project/\.project
 project/src/test/\.testFiles/test_master\.csv
 
 project/src/test/\.testFiles/test_match\.csv
+project/.idea/dictionaries/gsmith.xml

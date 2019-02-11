@@ -176,6 +176,17 @@ public class Init {
     }
 
     /**
+     * Gets the encoder used.
+     *
+     * @return Encoder to use for indexing.
+     */
+    public String getEncoder() {
+
+        return encoder;
+
+    }
+
+    /**
      * Get the threshold double value.
      *
      * @return The double to use for matching threshold.

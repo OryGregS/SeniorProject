@@ -73,7 +73,7 @@ public class MatchRunner extends Init {
         if (this.printTopMatches)
             performance.printMatches();
 
-        performance.printResults();
+        performance.printResults(this.indexMethod, this.encoder);
 
     }
 
@@ -111,7 +111,7 @@ public class MatchRunner extends Init {
         if (this.printTopMatches)
             performance.printMatches();
 
-        performance.printResults();
+        performance.printResults(this.indexMethod, this.encoder);
 
     }
 
@@ -150,7 +150,7 @@ public class MatchRunner extends Init {
         if (this.printTopMatches)
             performance.printMatches();
 
-        performance.printResults();
+        performance.printResults(this.indexMethod, this.encoder);
 
     }
 

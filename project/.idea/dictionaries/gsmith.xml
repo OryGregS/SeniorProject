@@ -1,7 +1,17 @@
 <component name="ProjectDictionaryState">
   <dictionary name="gsmith">
     <words>
+      <w>dmsoundex</w>
+      <w>doublemetaphone</w>
+      <w>firmname</w>
+      <w>firstname</w>
+      <w>lastname</w>
       <w>metaphone</w>
+      <w>nysiis</w>
+      <w>officename</w>
+      <w>rsoundex</w>
+      <w>soundex</w>
+      <w>zipcode</w>
     </words>
   </dictionary>
 </component>

@@ -104,24 +104,33 @@ public class Performance extends CalcPerformance {
 
     /**
      * Public method to print performance results (with dividers).
+     *
+     * @param indexMethod Field to use for determining record similarity.
+     * @param encoder     Phonetic encoding method used.
      */
-    public void printResults() {
+    public void printResults(String indexMethod, String encoder) {
 
         resultDiv();
-        printInfo();
+        printInfo(indexMethod, encoder);
         resultDiv();
 
     }
 
     /**
      * Prints performance results.
+     *
+     * @param indexMethod Field to use for determining record similarity.
+     * @param encoder     Phonetic encoding method used.
      */
-    private void printInfo() {
+    private void printInfo(String indexMethod, String encoder) {
         System.out.println();
         System.out.println("Results: ");
         System.out.println();
         System.out.printf("\tMaster Size: %,49d\n", this.masterSize);
         System.out.printf("\tMatch Size: %,50d\n", this.matchSize);
+        System.out.println();
+        System.out.printf("\tIndex Method: %48s\n", indexMethod);
+        System.out.printf("\tEncode Method: %47s\n", encoder);
         System.out.println();
         System.out.printf("\tTotal # of comparisons: %,38d\n", this.numComparisons);
         System.out.printf("\tMax # of comparisons: %,40d\n", this.maxComparisons);

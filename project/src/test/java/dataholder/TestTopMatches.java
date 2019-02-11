@@ -240,7 +240,6 @@ public class TestTopMatches {
         assertEquals(topMatches1.getTopConfidence(), expectedConfidences);
 
         ArrayList<Contact> expectedContacts = new ArrayList<>();
-        ;
         expectedContacts.add(contact2);
         expectedContacts.add(contact3);
         expectedContacts.add(contact1);
@@ -280,7 +279,6 @@ public class TestTopMatches {
 //        System.out.println(expectedConfidences);
 
         expectedContacts = new ArrayList<>();
-        ;
         expectedContacts.add(contactNew1);
         expectedContacts.add(contact2);
         expectedContacts.add(contact3);
@@ -330,7 +328,6 @@ public class TestTopMatches {
 //        System.out.println(expectedConfidences);
 
         expectedContacts = new ArrayList<>();
-        ;
         expectedContacts.add(contact2);
         expectedContacts.add(contact4);
         expectedContacts.add(contact3);

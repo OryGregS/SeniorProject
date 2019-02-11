@@ -17,9 +17,6 @@
 
 package dataholder;
 
-import dataholder.Contact;
-import dataholder.MasterContact;
-
 import java.util.ArrayList;
 
 /**
@@ -74,16 +71,6 @@ public class Group {
      */
     public ArrayList<Contact> getMatchContacts() {
         return matchContacts;
-    }
-
-    public void printGroup() {
-        for (MasterContact master : this.masterContacts) {
-            master.printAll();
-        }
-        for (Contact contact : this.matchContacts) {
-            contact.printAll();
-        }
-        System.out.println();
     }
 
 }

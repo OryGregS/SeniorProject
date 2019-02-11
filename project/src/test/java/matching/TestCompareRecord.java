@@ -19,7 +19,6 @@ package matching;
 
 import dataholder.Contact;
 import dataholder.MasterContact;
-import me.xdrop.fuzzywuzzy.FuzzySearch;
 import org.junit.Test;
 import utils.Weights;
 import utils.weightNames;
@@ -33,7 +32,7 @@ import static org.junit.Assert.assertEquals;
 public class TestCompareRecord {
 
     @Test
-    public void testLoadWeights(){
+    public void testLoadWeights() {
         Weights weights = new Weights("");
         weights.initialize("./src/test/.testFiles/testing_weights.json");
         Map<String, Double> weightsMap = weights.getWeights();
@@ -94,16 +93,16 @@ public class TestCompareRecord {
         contact.setCRDNumber("1234568");
         contact.setContactID("2");
 
-        CompareRecord compareRecord = new CompareRecord(weights,master, contact);
+        CompareRecord compareRecord = new CompareRecord(weights, master, contact);
         double confidence;
         double confidenceSum = 0.0;
-        String [] fields = {"last", "middle", "first", "firm", "office", "email", "phone", "address", "city", "state", "zip", "country"};
-        double [] confidences = {14.75, 1.3459375, 14.75, 0.0, 0.0, 41.0, 1.6962499999999998, 5.53125, 5.53125, 3.6875, 11.0625, 0.0};
+        String[] fields = {"last", "middle", "first", "firm", "office", "email", "phone", "address", "city", "state", "zip", "country"};
+        double[] confidences = {14.75, 1.3459375, 14.75, 0.0, 0.0, 41.0, 1.6962499999999998, 5.53125, 5.53125, 3.6875, 11.0625, 0.0};
         int len = fields.length;
         int i;
         double dt = 0.0000001;
 
-        for ( i = 0; i < len; i++) {
+        for (i = 0; i < len; i++) {
             confidence = compareRecord.similarity(fields[i]);
             assertEquals(confidence, confidences[i], dt);
 
@@ -116,7 +115,7 @@ public class TestCompareRecord {
     }
 
     @Test
-    public void testLevenRatio(){
+    public void testLevenRatio() {
         Weights weights = new Weights("");
         weights.initialize("./src/test/.testFiles/testing_weights.json");
         Map<String, Double> weightsMap = weights.getWeights();
@@ -134,7 +133,7 @@ public class TestCompareRecord {
     }
 
     @Test
-    public void testHandleEmail(){
+    public void testHandleEmail() {
         Weights weights = new Weights("");
         weights.initialize("./src/test/.testFiles/testing_weights.json");
         Map<String, Double> weightsMap = weights.getWeights();
@@ -142,9 +141,9 @@ public class TestCompareRecord {
         double lr;
 
         CompareRecord compareRecord = new CompareRecord(weights, new MasterContact(), new Contact());
-        String [] emails = {"troy.hilkens@gmail.com", "troy.hilkens@gmail.com"};
+        String[] emails = {"troy.hilkens@gmail.com", "troy.hilkens@gmail.com"};
         System.out.println(Arrays.toString(compareRecord.getHandleEmail(emails[0], emails[1])));
-        String [] emailsExpected = {"troy.hilkens", "troy.hilkens"};
+        String[] emailsExpected = {"troy.hilkens", "troy.hilkens"};
         assertArrayEquals(emailsExpected, compareRecord.getHandleEmail(emails[0], emails[1]));
 
     }

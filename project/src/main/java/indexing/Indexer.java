@@ -40,13 +40,18 @@ public class Indexer {
     /**
      * Constructor to get our method of indexing and initialize variables.
      *
-     * @param encoder Method to use for phonetic encoding. Acceptable values
-     *                     are (case-insensitive): nysiis, soundex, rsoundex, dmsoundex,
-     *                     metaphone, and doublemetaphone. This value is set in ./config/DataMatching.properties
+     * @param indexMethod Field to use for determining record similarity. Acceptable values
+     *                    are (case-insensitive): lastname, firstname, firmname, officename,
+     *                    city, state, zipcode, and country. This value is set in
+     *                    "./config/DataMatching.properties".
+     * @param encoder     Method to use for phonetic encoding. Acceptable values
+     *                    are (case-insensitive): nysiis, soundex, rsoundex, dmsoundex,
+     *                    metaphone, and doublemetaphone. This value is set in
+     *                    "./config/DataMatching.properties".
      */
     public Indexer(String indexMethod, String encoder) {
 
-        this.encoder= encoder;
+        this.encoder = encoder;
         this.indexMethod = indexMethod.toLowerCase();
         this.individuals = new BlockMap();
         this.partnerships = new BlockMap();
@@ -257,6 +262,12 @@ public class Indexer {
         }
     }
 
+    /**
+     * Get the data from the field being indexed on.
+     *
+     * @param contact Contact object.
+     * @return Contact's data from specified field.
+     */
     @SuppressWarnings("Duplicates")
     private String keyField(Contact contact) {
 
@@ -283,6 +294,12 @@ public class Indexer {
 
     }
 
+    /**
+     * Get the data from the field being indexed on.
+     *
+     * @param masterContact MasterContact object.
+     * @return MasterContact's data from specified field.
+     */
     @SuppressWarnings("Duplicates")
     private String keyField(MasterContact masterContact) {
 

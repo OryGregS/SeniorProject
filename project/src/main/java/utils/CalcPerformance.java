@@ -41,6 +41,8 @@ public class CalcPerformance {
     int numComparisons = 0;
     long maxComparisons = 0;
     double percentReduced = 0;
+    String encoder;
+    String indexMethod;
     ArrayList<MasterContact> masterContacts;
     ArrayList<Contact> matchContacts;
 
@@ -120,8 +122,8 @@ public class CalcPerformance {
     /**
      * Time taken to read and preprocess data.
      *
-     * @param startTime Time reading and preprocessing data started.
-     * @param endTime   Time reading and preprocessing data ended.
+     * @param startTime Time reading and pre-processing data started.
+     * @param endTime   Time reading and pre-processing data ended.
      */
     public void setParseDataTime(long startTime, long endTime) {
         this.parseDataTime = calcTime(startTime, endTime);

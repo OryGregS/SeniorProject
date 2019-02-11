@@ -18,8 +18,8 @@
 package matching;
 
 import dataholder.Contact;
-import dataholder.MasterContact;
 import dataholder.Group;
+import dataholder.MasterContact;
 import indexing.Indexer;
 import utils.Weights;
 
@@ -110,9 +110,6 @@ public class Matcher {
             ArrayList<Contact> matchContacts = group.getMatchContacts();
 
             numComparisons += masterContacts.size() * matchContacts.size();
-
-            //group.printGroup();
-
 
             masterContacts.parallelStream().forEach(masterContact ->
                     compare(masterContact, matchContacts));

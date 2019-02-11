@@ -23,7 +23,6 @@ import processing.CSVInputException;
 import processing.CSVReader;
 import setup.Init;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class UpdateWeights {
@@ -31,7 +30,7 @@ public class UpdateWeights {
     private Weights best_altWeights;
     private Weights best_defaultWeights;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         new UpdateWeights().testSample(1200, "metaphone");
 
@@ -109,7 +108,9 @@ public class UpdateWeights {
                 double temp = measure.getPercentFound();
 
                 if (temp > bestPercentFound) {
-                    measure.printResults();
+                    String indexMethod = init.getIndexMethod();
+                    String encoder = init.getEncoder();
+                    measure.printResults(indexMethod, encoder);
                     bestPercentFound = temp;
                 }
 
