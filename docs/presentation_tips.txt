@@ -1,7 +1,0 @@
-testing page small font
-simplify objective
-change green on white color scheme
-highlight instead of pointing at screen
-breakup talking instead of half & half
-explain time complexity and how we reduced it
-slow down for harder concepts
