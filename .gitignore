@@ -49,3 +49,4 @@ project/src/test/\.testFiles/test_match\.csv
 project/.idea/dictionaries/gsmith.xml
 
 project/src/test/\.testFiles/testing_weights\.json
+project/target (2)/*
