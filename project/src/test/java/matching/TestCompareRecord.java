@@ -132,6 +132,7 @@ public class TestCompareRecord {
 
     }
 
+    // test email handler
     @Test
     public void testHandleEmail() {
         Weights weights = new Weights("");
