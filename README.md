@@ -8,3 +8,6 @@ Our goal is to devise a probabilistic (*fuzzy*) data-matching algorithm to be us
 
 ## Note
 This program is not suitable for general data matching purposes. This was designed for a use-case specific to our client. However, the underlying methods of matching (similarity calculation & indexing method) are useful for general purposes.
+
+## To use in a project
+Download the JAR file above (DataMatching_v1.jar) and add it as a dependency in your project. Then simply call the classes and methods as needed.
