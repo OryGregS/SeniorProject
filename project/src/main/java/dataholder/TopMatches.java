@@ -257,25 +257,6 @@ class TopMatches {
                     break;
                 }
             }
-
-            // block start
-            // if potential match's confidence is less
-            // than the current top match's location
-
-//            else if (confidence < topConfidence.get(i)) {
-
-            // remove least likely top match and add
-            // new match behind current match
-
-            // This part should not be used because the list is already full
-            // and to keep top matches always
-            //replaceMatch(i + 1, contact, confidence);
-            //System.out.println(confidence + " " + topConfidence.get(i));
-
-//                break;
-//            }
-
-            //block end
         }
     }
 }

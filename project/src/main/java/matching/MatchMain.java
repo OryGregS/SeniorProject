@@ -22,12 +22,12 @@ import setup.MatchRunner;
 
 public class MatchMain {
 
-    // MASTERPATH - "./data/contact_master.csv"
-    // MATCHPATH - "./data/contact_match.csv"
-
     public static void main(String[] args) {
 
         MatchRunner runner = new MatchRunner();
+
+        // Loop for recording run-times.
+        // First run is always much slower.
         for (int i = 0; i < 10; i++) {
 
             //runner.masterToMaster("contact_master.csv");

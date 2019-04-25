@@ -23,7 +23,6 @@ import org.junit.Test;
 import utils.Weights;
 import utils.weightNames;
 
-import java.util.Arrays;
 import java.util.Map;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -143,7 +142,6 @@ public class TestCompareRecord {
 
         CompareRecord compareRecord = new CompareRecord(weights, new MasterContact(), new Contact());
         String[] emails = {"troy.hilkens@gmail.com", "troy.hilkens@gmail.com"};
-        System.out.println(Arrays.toString(compareRecord.getHandleEmail(emails[0], emails[1])));
         String[] emailsExpected = {"troy.hilkens", "troy.hilkens"};
         assertArrayEquals(emailsExpected, compareRecord.getHandleEmail(emails[0], emails[1]));
 

@@ -222,9 +222,6 @@ public class Indexer {
 
         String encodeMethod = this.encoder.toLowerCase();
 
-        // setMaxCodeLen( number ); so output is longer and obtain more information
-        // to be test later
-
         switch (encodeMethod) {
 
             case "nysiis":

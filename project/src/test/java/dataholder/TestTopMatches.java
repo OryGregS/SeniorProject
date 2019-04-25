@@ -136,10 +136,6 @@ public class TestTopMatches {
 
     }
 
-    //    private void replaceMatch(int index, Contact contact, double confidence) {
-//        removeMatch(this.MAX_LOC);
-//        addMatch(index, contact, confidence);
-//    }
     @Test
     public void testReplaceMatch() {
         TopMatches topMatches1 = new TopMatches(3);
@@ -161,11 +157,6 @@ public class TestTopMatches {
         confidences.add(1, c2);
         confidences.add(2, c3);
 
-//        System.out.println(confidences.get(0));
-//        System.out.println(confidences.get(1));
-//        System.out.println(confidences.get(2));
-//        System.out.println();
-
         int maxLoc = 3 - 1;
         contacts.remove(maxLoc);
         confidences.remove(maxLoc);
@@ -181,25 +172,7 @@ public class TestTopMatches {
         assertEquals(3, contacts.size());
         assertEquals(3, confidences.size());
 
-//        System.out.println(confidences.get(0));
-//        System.out.println(confidences.get(1));
-//        System.out.println(confidences.get(2));
-
-
     }
-
-    //    void setMatch(Contact contact, double confidence) {
-//
-//        boolean full = atCapacity();
-//
-//        if (!full)
-//            addMatchToNotFull(contact, confidence);
-//
-//        else if (checkMatch(confidence))
-//            addMatchToFull(contact, confidence);
-//
-//    }
-
 
     @Test
     public void testSetMatch() {
@@ -214,7 +187,6 @@ public class TestTopMatches {
         for (i = 0; i < num; i++) {
             topMatches.getTopConfidence().add(77.0);
         }
-//        assertEquals(num, topMatches.getTopConfidence().size());
 
     }
 
@@ -264,7 +236,6 @@ public class TestTopMatches {
         topMatches.setMatch(contact1, c1);
         topMatches.setMatch(contact2, c2);
         topMatches.setMatch(contact3, c3);
-//        System.out.println(topMatches.getTopConfidence());
 
         Contact contactNew1 = new Contact();
         double cNew1 = 95;
@@ -276,7 +247,6 @@ public class TestTopMatches {
         expectedConfidences.add(87.0);
 
         assertEquals(topMatches.getTopConfidence(), expectedConfidences);
-//        System.out.println(expectedConfidences);
 
         expectedContacts = new ArrayList<>();
         expectedContacts.add(contactNew1);
@@ -286,33 +256,10 @@ public class TestTopMatches {
         assertEquals(topMatches.getTopContacts(), expectedContacts);
 
 
-        // Case #2: new match equal to top match
         topMatches = new TopMatches(3);
         topMatches.setMatch(contact1, c1);
         topMatches.setMatch(contact2, c2);
         topMatches.setMatch(contact3, c3);
-//        System.out.println(topMatches.getTopConfidence());
-
-        // Case #2.1: replace last index
-//        Contact contact5 = new Contact();
-//        double c5 = 77;
-//        topMatches.setMatch(contact5, c5);
-//        expectedConfidences = new ArrayList<>();
-//        expectedConfidences.add(91.0);
-//        expectedConfidences.add(87.0);
-//        expectedConfidences.add(77.0);
-//
-//        assertEquals(topMatches.getTopConfidence(),expectedConfidences);
-//        System.out.println(expectedConfidences);
-//
-//        expectedContacts = new ArrayList<>();;
-//        expectedContacts.add(contact2);
-//        expectedContacts.add(contact3);
-//        expectedContacts.add(contact5);
-//
-//        assertEquals(topMatches.getTopContacts(),expectedContacts);
-
-        // still in research if is useful, so no tested
 
         // Case #2.2: replace in between the indexes
         Contact contact4 = new Contact();
@@ -325,7 +272,6 @@ public class TestTopMatches {
         expectedConfidences.add(87.0);
 
         assertEquals(topMatches.getTopConfidence(), expectedConfidences);
-//        System.out.println(expectedConfidences);
 
         expectedContacts = new ArrayList<>();
         expectedContacts.add(contact2);
@@ -334,9 +280,7 @@ public class TestTopMatches {
 
         assertEquals(topMatches.getTopContacts(), expectedContacts);
 
-
     }
-
 
     public ArrayList<Contact> newContact() {
         Contact contact1 = new Contact();

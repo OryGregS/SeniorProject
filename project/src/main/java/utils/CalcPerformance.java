@@ -63,15 +63,7 @@ public class CalcPerformance {
         this.matchSize = indexer.getMatchSize();
 
         for (int i = 0; i < masterSize; i++) {
-
-            //MasterContact masterContact = masterContacts.get(i);
             findMatches(masterContacts.get(i));
-            /*
-            this.knownMatchCount += matchContacts
-                    .parallelStream()
-                    .filter(contact -> trueMatch(masterContact, contact))
-                    .count(); */
-
         }
 
         this.percentFound = ((double) this.identifiedMatchCount / (double) this.knownMatchCount) * 100;
@@ -81,17 +73,6 @@ public class CalcPerformance {
         this.percentReduced = (1.0 - ((double) this.numComparisons / (double) maxComparisons)) * 100;
 
     }
-
-    /*
-    private boolean trueMatch(MasterContact masterContact, Contact matchContact) {
-
-        String masterCRD = masterContact.getCRDNumber();
-        String matchCRD = matchContact.getCRDNumber();
-
-        return ( (!masterCRD.equals("") && !matchCRD.equals("") ) && masterCRD.equalsIgnoreCase(matchCRD));
-
-    }
-    */
 
     /**
      * Counts the number of known matches a MasterContact has (CRD number match),

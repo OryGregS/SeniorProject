@@ -137,7 +137,6 @@ public class Matcher {
             String masterContactID = masterContact.getContactID();
             String matchContactID = matchContact.getContactID();
 
-            // why?
             if (matchMasterToMaster && masterContactID.equalsIgnoreCase(matchContactID)) {
 
                 // skip comparing the same contact
@@ -147,8 +146,6 @@ public class Matcher {
                 confidence = 0.0;
 
                 CompareRecord cmp;
-
-                // why?
 
                 if (masterContact.getEmail().equalsIgnoreCase("") ||
                         matchContact.getEmail().equalsIgnoreCase("")) {
@@ -160,9 +157,6 @@ public class Matcher {
                     cmp = new CompareRecord(weights1, masterContact, matchContact);
 
                 }
-
-                //numComparisons++;
-
 
                 boolean exactMatch = cmp.CRD();
 

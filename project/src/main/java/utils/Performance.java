@@ -61,7 +61,7 @@ public class Performance extends CalcPerformance {
         if (createdDir || dirExists) {
 
             PATH += "/";
-            // ./out/performance/19-01-01/fileName_10:00.txt
+
             String FILENAME = PATH + fileName + "_" + currentTime + extension;
 
             try {
