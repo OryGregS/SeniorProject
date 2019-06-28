@@ -109,6 +109,8 @@ class AddressHandler {
 
                 String key = keys.next().toString();
                 String value = jo.getString(key);
+
+                //System.out.printf("\nKEY: %s | Value: %s\n", key, value);
                 abbrevs.put(key, value);
                 countOfAbbrevs++;
 

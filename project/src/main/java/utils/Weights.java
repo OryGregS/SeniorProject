@@ -136,6 +136,10 @@ public class Weights {
 
     }
 
+//    private boolean checkJSONExists() {
+//        File file = new File(this.FILEPATH + this.FILENAME);
+//        return file.exists();
+//    }
 
     /**
      * Writes the current value of weights to a JSON file.

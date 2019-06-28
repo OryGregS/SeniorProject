@@ -211,7 +211,6 @@ public class CSVReader {
         masterContact.setStateProvince(processor.prep(obs.get(Headers.STATE_PROVINCE)));
         masterContact.setZip(processor.prep(obs.get(Headers.POSTAL_CODE_1)));
         obs.get(Headers.POSTAL_CODE_2);
-
         // skip additional zipcodes
         masterContact.setCountryID(processor.prep(obs.get(Headers.COUNTRY_ID)));
         masterContact.setCRDNumber(processor.prep(obs.get(Headers.CRD_NUMBER)));
@@ -244,7 +243,6 @@ public class CSVReader {
         contact.setStateProvince(processor.prep(obs.get(Headers.STATE_PROVINCE)));
         contact.setZip(processor.prep(obs.get(Headers.POSTAL_CODE_1)));
         obs.get(Headers.POSTAL_CODE_2);
-
         // skip additional zipcodes
         contact.setCountryID(processor.prep(obs.get(Headers.COUNTRY_ID)));
         contact.setCRDNumber(processor.prep(obs.get(Headers.CRD_NUMBER)));

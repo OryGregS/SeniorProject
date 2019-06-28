@@ -30,7 +30,7 @@ class Preprocessor {
      * Default constructor to initialize AddressHandler.
      */
     Preprocessor() {
-        addressHandler = new AddressHandler();
+        addressHandler = new AddressHandler(); // reading JSON file
     }
 
     /**
@@ -55,9 +55,12 @@ class Preprocessor {
             if (!tempString.equals("") && !tempString.equals(" ") &&
                     !tempString.equals("\n") && !tempString.equals("\t")) {
 
+                // do nothing
                 newTemp.add(temp[i]);
 
+
             }
+
         }
 
         return String.join(" ", newTemp);
